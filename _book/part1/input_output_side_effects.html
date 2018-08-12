@@ -1,0 +1,1099 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Same Input, Same Output, No Side Effects · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="var_and_let.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Part 1: Pure Functions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="input_output_side_effects.html">
+            
+                <a href="input_output_side_effects.html">
+            
+                    
+                    Same Input, Same Output, No Side Effects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="var_and_let.html">
+            
+                <a href="var_and_let.html">
+            
+                    
+                    The Case for var and let
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="spot_the_impurities.html">
+            
+                <a href="spot_the_impurities.html">
+            
+                    
+                    Spot The Impurities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="error_quest.html">
+            
+                <a href="error_quest.html">
+            
+                    
+                    Error Quest!
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="not_allowed.html">
+            
+                <a href="not_allowed.html">
+            
+                    
+                    What's Not Allowed
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="practice_purity.html">
+            
+                <a href="practice_purity.html">
+            
+                    
+                    Practice Purity with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="practice_stubs.html">
+            
+                <a href="practice_stubs.html">
+            
+                    
+                    Practice Purity with Test Stubs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../part2/">
+            
+                <a href="../part2/">
+            
+                    
+                    Part 2: Getting and Setting Data
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../part2/storing_data.md">
+            
+                <span>
+            
+                    
+                    Storing Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../part2/get.md">
+            
+                <span>
+            
+                    
+                    Get
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../part2/set.md">
+            
+                <span>
+            
+                    
+                    Set
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../part2/lenses.md">
+            
+                <span>
+            
+                    
+                    Lenses
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../part2/practice_big_json.md">
+            
+                <span>
+            
+                    
+                    Practice get with Big JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../part2/practice_big_json.md">
+            
+                <span>
+            
+                    
+                    Practice get with SOAP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../part3/README.md">
+            
+                <span>
+            
+                    
+                    Part 3: List Comprehensions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../part3/map.md">
+            
+                <span>
+            
+                    
+                    map
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../part3/filter.md">
+            
+                <span>
+            
+                    
+                    filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../part3/reduce.md">
+            
+                <span>
+            
+                    
+                    reduce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../part3/every.md">
+            
+                <span>
+            
+                    
+                    every
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../part3/some.md">
+            
+                <span>
+            
+                    
+                    some
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../part3/zip.md">
+            
+                <span>
+            
+                    
+                    zip
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../part3/practice_every.md">
+            
+                <span>
+            
+                    
+                    Practice every with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../part3/practice_map.md">
+            
+                <span>
+            
+                    
+                    Practice map with JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../part4/README.md">
+            
+                <span>
+            
+                    
+                    Part 4: Curry and Partial Application
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../part4/curry.md">
+            
+                <span>
+            
+                    
+                    All Functions Take 1 Argument
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../part4/tacit_programming.md">
+            
+                <span>
+            
+                    
+                    Tacit Programming
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../part4/practice_curry_predicates.md">
+            
+                <span>
+            
+                    
+                    Practice with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../part4/practice_">
+            
+                <span>
+            
+                    
+                    Practice with Express
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../part5/README.md">
+            
+                <span>
+            
+                    
+                    Part 5: Algebriac Data Types
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../part5/maybe.md">
+            
+                <span>
+            
+                    
+                    Maybe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../part5/validator.md">
+            
+                <span>
+            
+                    
+                    Validator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../part5/result.md">
+            
+                <span>
+            
+                    
+                    Result
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../part5/custom_union_types.md">
+            
+                <span>
+            
+                    
+                    Custom Union Type
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../part5/practice_maybe_config.md">
+            
+                <span>
+            
+                    
+                    Practice Maybe with config
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../part5/practice_validator_predicates.md">
+            
+                <span>
+            
+                    
+                    Practice Validator with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../part5/practice_result_json.md">
+            
+                <span>
+            
+                    
+                    Practice Result with JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../part5/practice_union_files.md">
+            
+                <span>
+            
+                    
+                    Practice Union with reading files
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../part6/README.md">
+            
+                <span>
+            
+                    
+                    Part 6: Debugging
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../part6/logging_vs_purity.md">
+            
+                <span>
+            
+                    
+                    Debbuging Strategies
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../part6/logging_vs_purity.md">
+            
+                <span>
+            
+                    
+                    Logging vs Purity
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../part7/README.md">
+            
+                <span>
+            
+                    
+                    Part 7: Composing and Testing Programs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/composing_functions.md">
+            
+                <span>
+            
+                    
+                    Composing Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../part7/composing_programs.md">
+            
+                <span>
+            
+                    
+                    Composing Programs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../part7/testing.md">
+            
+                <span>
+            
+                    
+                    Testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../part8/README.md">
+            
+                <span>
+            
+                    
+                    Part 8: Working With Others
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../part8/heed_the_warnings.md">
+            
+                <span>
+            
+                    
+                    Heed the Warnings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../part8/imperatives.md">
+            
+                <span>
+            
+                    
+                    Dealing with Imperatives
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../part8/oop.md">
+            
+                <span>
+            
+                    
+                    Dealing with OOP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../part8/safe_advice.md">
+            
+                <span>
+            
+                    
+                    Safe Advice
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../conclusions/README.md">
+            
+                <span>
+            
+                    
+                    Conclusions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Same Input, Same Output, No Side Effects</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="pure-functions-same-input-same-output-no-side-effects">Pure Functions: Same Input, Same Output, No Side Effects</h1>
+<p>A pure function is a function that will always give the same output with the same input and has no side effects. A function that takes some arguments will always return the same value and no be affected by variables outside the function, nor will it change variables outside of it.</p>
+<h2 id="same-input-same-output">Same Input, Same Output</h2>
+<p>Below we&apos;ll show an impure and a pure version of an addition function. Learning the rules is one thing, seeing how they are broken, and how you fix code to not break the rules is key. I promise this is the only math function, heh!</p>
+<h3 id="impure-add">Impure Add</h3>
+<p>This function that will add 2 numbers plus whatever <code>data</code> equals.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> data = <span class="hljs-number">0</span>
+<span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b + data
+</code></pre>
+<p>If we call it three times, it may look like it&apos;s same input, same output:</p>
+<pre><code class="lang-javascript">add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+</code></pre>
+<p>However, if we change the value of the <code>data</code> variable and call the function again:</p>
+<pre><code class="lang-javascript">add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+data = <span class="hljs-number">1</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 4</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 4</span>
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 4</span>
+</code></pre>
+<p>Now it&apos;s <code>4</code>. Same input, <strong>not the same output</strong>. It&apos;s affected by things outside of the function.</p>
+<h3 id="pure-add">Pure Add</h3>
+<p><strong>Solution</strong>: Ignore the outside world.</p>
+<p>To make it pure, it needs to ignore the outside world. We can only add things that are passed into the function via the arguments. Here is the pure version of <code>add</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> addPure = (a, b) =&gt; a + b
+</code></pre>
+<p>If we call <code>addPure(1, 2)</code>, it will always return <code>3</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> data = <span class="hljs-number">0</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+</code></pre>
+<p>If we set the <code>data</code> variable to <code>5</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> data = <span class="hljs-number">0</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+data = <span class="hljs-number">5</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+addPure(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+</code></pre>
+<p>We&apos;ll still follow the first rule of same input, same output.</p>
+<h2 id="outside-effects">Outside Effects</h2>
+<p>Side effects can be both outside and inside. Below is a function with NO inputs can still be affected by things happening outside of the function.</p>
+<h3 id="impure-iscow">Impure isCow</h3>
+<p>Here we have a variable that&apos;s a cow emoji:</p>
+<pre><code class="lang-javascript">friend = <span class="hljs-string">&apos;&#x1F42E;&apos;</span>
+</code></pre>
+<p>And here we have a function that detects if it&apos;s a cow or not:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isCow = () =&gt; {
+    <span class="hljs-keyword">if</span>(friend === <span class="hljs-string">&apos;&#x1F42E;&apos;</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    }
+}
+</code></pre>
+<p>If we call it three times, it&apos;ll follow the first rule of same input, same output. In this case, no input will equal <code>true</code>:</p>
+<pre><code class="lang-javascript">isCow() <span class="hljs-comment">// true</span>
+isCow() <span class="hljs-comment">// true</span>
+isCow() <span class="hljs-comment">// true</span>
+</code></pre>
+<p>However, if we change person to a chicken and then call it, we get a <code>false</code> back:</p>
+<pre><code class="lang-javascript">friend = <span class="hljs-string">&apos;&#x1F42E;&apos;</span>
+isCow() <span class="hljs-comment">// true</span>
+isCow() <span class="hljs-comment">// true</span>
+isCow() <span class="hljs-comment">// true</span>
+friend = <span class="hljs-string">&apos;&#x1F414;&apos;</span>
+isCow() <span class="hljs-comment">// false</span>
+isCow() <span class="hljs-comment">// false</span>
+isCow() <span class="hljs-comment">// false</span>
+</code></pre>
+<p>Even with no inputs, this function still fails to follow the rules of same input, same output. Even no input, it still returns a different value because it&apos;s affected by &quot;effects&quot;, or a variable changing, outside of itself.</p>
+<h3 id="pure-iscow">Pure isCow</h3>
+<p><strong>Solution</strong>: Pass in the outside world through function arguments.</p>
+<p>The <code>add</code> function was made by pure by ignoring the outside world. However, <code>isCow</code> needs to <em>know</em> about the outside world so it can report if the <code>friend</code> is a cow or not. The only way inside a pure function is through its arguments. We&apos;ll pass the <code>friend</code> in:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isCowPure = friendObject =&gt; {
+    <span class="hljs-keyword">if</span>(friendObject === <span class="hljs-string">&apos;&#x1F42E;&apos;</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    }
+}
+</code></pre>
+<p>Now when we call it and pass in the outside world:</p>
+<pre><code class="lang-javascript">friend = <span class="hljs-string">&apos;&#x1F42E;&apos;</span>
+isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-comment">// true</span>
+isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-comment">// true</span>
+isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-comment">// true</span>
+friend = <span class="hljs-string">&apos;&#x1F414;&apos;</span>
+isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-comment">// true</span>
+isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-comment">// true</span>
+isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Since we pass the outside world in, the function can still report on it, and still not by affected what happens outside. It follows the rules of same input, same output, no side effects.</p>
+<h2 id="inside-effects">Inside Effects</h2>
+<p>The 2nd rule of no side effects applies not just to the outside world affecting the function, but also the function affecting the outside world. If &quot;the world&quot; changes after a function ran, it probably has side effects.</p>
+<h2 id="impure-havebirthday">Impure haveBirthday</h2>
+<p>Here is an example of how the function can affect the outside world after it has run.</p>
+<p>This <code>person</code> Object starts at the age of <code>18</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> person = {
+    age: <span class="hljs-number">18</span>
+}
+</code></pre>
+<p>For the <code>person</code> to have a birthday, we have to increment the age. We&apos;re trying to be pure, so we follow the example above and pass in the outside world into the function via its arguments:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> haveBirthday = person =&gt; {
+    person.age += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> person
+}
+</code></pre>
+<p>While the <code>person</code> <em>does</em> have its <code>age</code> incremented:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 18 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthday(person)) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthday(person)) <span class="hljs-comment">// { age: 20 }</span>
+<span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 20 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthday(person)) <span class="hljs-comment">// { age: 20 }</span>
+<span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 21 }</span>
+</code></pre>
+<p>The world was affected by the function running. The <code>person</code>&apos;s age was changed after the function run. Notice it keeps changing the world each time it is run. This function appears to follow the same input, same output rule, though:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(haveBirthday( { age: <span class="hljs-number">18</span> } )) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthday( { age: <span class="hljs-number">18</span> } )) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthday( { age: <span class="hljs-number">18</span> } )) <span class="hljs-comment">// { age: 19 }</span>
+</code></pre>
+<h2 id="pure-havebirthday">Pure haveBirthday:</h2>
+<p><strong>Solution</strong>: Do not mutate data, use immutable data instead.</p>
+<p>The <code>haveBirthday</code> function mutates the <code>person</code> Object. Although it was passed in, most Objects are dynamic languages are by reference. You affect one reference, you affect the Object and all the references that point to that Object will update to show the changes. Think of it like a global variable.</p>
+<p>The way you fix it is <strong>not</strong> to mutate data. The easiest way to do that is to clone Objects and only change 1 property on the clone.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> haveBirthdayPure = personObject =&gt; {
+    <span class="hljs-keyword">const</span> clone = {...person, age: personObject + <span class="hljs-number">1</span>}
+    <span class="hljs-keyword">return</span> clone
+}
+</code></pre>
+<p>Now when you run it, it follows both the same input, same output rule AND not affecting the outside world after it has been run:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 18 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthdayPure(person)) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 18 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthdayPure(person)) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 18 }</span>
+<span class="hljs-built_in">console</span>.log(haveBirthdayPure(person)) <span class="hljs-comment">// { age: 19 }</span>
+<span class="hljs-built_in">console</span>.log(person) <span class="hljs-comment">// { age: 18 }</span>
+</code></pre>
+<h2 id="conclusions">Conclusions</h2>
+<p>You&apos;ve learned the 2 rules pure functions must follow:</p>
+<ol>
+<li>same input, same output</li>
+<li>no side effects</li>
+</ol>
+<p>To ensure same input, same output, functions must only deal with data that came from their parameters. Pure functions must ignore the outside world.</p>
+<p>If there is something in the outside world like a global variable, closure variable, or even a module that the function needs to work, it MUST be passed in via the arguments, else it will violate rule #1.</p>
+<p>You&apos;ve learned that passing in the outside world through function parameters is not enough. If you mutate the data while it is inside the function, or call other impure functions that do, you can affect the outside after the function is run. This will violate rule #2. To solve that, you must not mutate data, and instead use immutable data.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Part 1: Pure Functions">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="var_and_let.html" class="navigation navigation-next " aria-label="Next page: The Case for var and let">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"next":{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},"previous":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"path":"part1/README.md","ref":"part1/README.md","articles":[{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},{"title":"Spot The Impurities","level":"1.2.3","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},{"title":"Error Quest!","level":"1.2.4","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},{"title":"What's Not Allowed","level":"1.2.5","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},{"title":"Practice Purity with Predicates","level":"1.2.6","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},{"title":"Practice Purity with Test Stubs","level":"1.2.7","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/input_output_side_effects.md","mtime":"2018-08-11T16:59:57.435Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-11T22:51:38.133Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
