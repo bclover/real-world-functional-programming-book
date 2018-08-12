@@ -10,7 +10,7 @@
     * [Practice Purity with Predicates](part1/practice_purity.md)
     * [Practice Purity with Test Stubs](part1/practice_stubs.md)
 * [Part 2: Getting and Setting Data](part2/README.md)
-    * [Storing Data](part2/storing_data.md)
+    * [Trouble With Dots](part2/trouble_with_dots.md)
     * [Get](part2/get.md)
     * [Set](part2/set.md)
     * [Lenses](part2/lenses.md)

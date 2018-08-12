@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="storing_data.md" />
+    <link rel="next" href="trouble_with_dots.html" />
     
     
     <link rel="prev" href="../part1/practice_stubs.html" />
@@ -226,12 +226,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="storing_data.md">
+        <li class="chapter " data-level="1.3.1" data-path="trouble_with_dots.html">
             
-                <span>
+                <a href="trouble_with_dots.html">
             
                     
-                    Storing Data
+                    Trouble With Dots
             
                 </a>
             
@@ -239,9 +239,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="get.md">
+        <li class="chapter " data-level="1.3.2" data-path="get.html">
             
-                <span>
+                <a href="get.html">
             
                     
                     Get
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="set.md">
+        <li class="chapter " data-level="1.3.3" data-path="set.html">
             
-                <span>
+                <a href="set.html">
             
                     
                     Set
@@ -265,9 +265,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.4" data-path="lenses.md">
+        <li class="chapter " data-level="1.3.4" data-path="lenses.html">
             
-                <span>
+                <a href="lenses.html">
             
                     
                     Lenses
@@ -860,21 +860,7 @@
                                 
                                 <h1 id="getting-and-setting-data">Getting and Setting Data</h1>
 <p>A lot of functional programming revolves around functions. Getting and setting data is a crucial part in programming. It&apos;s also how you easily violate pure function rules by mutating data or creating null pointer exceptions.</p>
-<p>Let&apos;s cover getting data first.</p>
-<h2 id="the-trouble-with-dots">The Trouble with Dots</h2>
-<p>In many dynamic languages, you can access parts of structures like Objects, Arrays, and class instances through <code>.</code>, the dot operator. Normally that works great:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> person = {
-    firstName: <span class="hljs-string">&apos;Jesse&apos;</span>,
-    lastName: <span class="hljs-string">&apos;Warden&apos;</span>,
-    age: <span class="hljs-number">39</span>,
-    address: {
-        street: <span class="hljs-string">&apos;007 Cow Lane&apos;</span>,
-        phone: [<span class="hljs-string">&apos;123-456-7890&apos;</span>]
-    }
-}
-<span class="hljs-built_in">console</span>.log(person.firstName) <span class="hljs-comment">// Jesse</span>
-</code></pre>
-<p>If you misspell a property, no worries:</p>
+<p>Herein we&apos;ll cover the normal ways of getting &amp; setting data, and why that isn&apos;t pure. We&apos;ll then cover the various safe and terse ways we can get data purely. Finally, we&apos;ll cover some basic getting and setting of data using lenses via Ramda. </p>
 
                                 
                                 </section>
@@ -907,7 +893,7 @@
                 </a>
                 
                 
-                <a href="storing_data.md" class="navigation navigation-next " aria-label="Next page: Storing Data">
+                <a href="trouble_with_dots.html" class="navigation navigation-next " aria-label="Next page: Trouble With Dots">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -918,7 +904,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 2: Getting and Setting Data","level":"1.3","depth":1,"next":{"title":"Storing Data","level":"1.3.1","depth":2,"path":"part2/storing_data.md","ref":"part2/storing_data.md","articles":[]},"previous":{"title":"Practice Purity with Test Stubs","level":"1.2.7","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part2/README.md","mtime":"2018-08-11T23:12:16.724Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-11T22:51:38.133Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 2: Getting and Setting Data","level":"1.3","depth":1,"next":{"title":"Trouble With Dots","level":"1.3.1","depth":2,"path":"part2/trouble_with_dots.md","ref":"part2/trouble_with_dots.md","articles":[]},"previous":{"title":"Practice Purity with Test Stubs","level":"1.2.7","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part2/README.md","mtime":"2018-08-12T00:32:42.379Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-12T00:32:02.489Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
