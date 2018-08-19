@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="reduce.md" />
+    <link rel="next" href="reduce.html" />
     
     
     <link rel="prev" href="map.html" />
@@ -349,9 +349,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="reduce.md">
+        <li class="chapter " data-level="1.4.3" data-path="reduce.html">
             
-                <span>
+                <a href="reduce.html">
             
                     
                     reduce
@@ -362,9 +362,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="every.md">
+        <li class="chapter " data-level="1.4.4" data-path="every.html">
             
-                <span>
+                <a href="every.html">
             
                     
                     every
@@ -375,9 +375,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="some.md">
+        <li class="chapter " data-level="1.4.5" data-path="some.html">
             
-                <span>
+                <a href="some.html">
             
                     
                     some
@@ -432,9 +432,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../part4/README.md">
+        <li class="chapter " data-level="1.5" data-path="../part4/">
             
-                <span>
+                <a href="../part4/">
             
                     
                     Part 4: Curry and Partial Application
@@ -446,9 +446,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../part4/curry.md">
+        <li class="chapter " data-level="1.5.1" data-path="../part4/curry.html">
             
-                <span>
+                <a href="../part4/curry.html">
             
                     
                     All Functions Take 1 Argument
@@ -459,7 +459,59 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="../part4/tacit_programming.md">
+        <li class="chapter " data-level="1.5.2" data-path="../part4/parameter_order.html">
+            
+                <a href="../part4/parameter_order.html">
+            
+                    
+                    Parameter Order
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../part4/partial_application.html">
+            
+                <a href="../part4/partial_application.html">
+            
+                    
+                    Partial Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../part4/arity.html">
+            
+                <a href="../part4/arity.html">
+            
+                    
+                    Arity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../part4/styles_of_curry.html">
+            
+                <a href="../part4/styles_of_curry.html">
+            
+                    
+                    Styles Of Curry
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../part4/tacit_programming.md">
             
                 <span>
             
@@ -472,7 +524,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.3" data-path="../part4/practice_curry_predicates.md">
+        <li class="chapter " data-level="1.5.7" data-path="../part4/practice_curry_predicates.md">
             
                 <span>
             
@@ -485,7 +537,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../part4/practice_">
+        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_">
             
                 <span>
             
@@ -858,7 +910,64 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="filter-only-give-me-the-good-stuff">Filter: Only Give Me the Good Stuff</h1>
+                                <h1 id="filter-3-things-go-in-only-the-things-you-want-come-out">Filter: 3 things go in, only the things you want come out</h1>
+<p>The <code>filter</code> function is another array comprehension like <code>map</code> used when a user is filtering search results they want to see, and in parsing operations. You give it an Array and a predicate function (a function that only returns <code>true</code> or <code>false</code>). The <code>filter</code> function will give every item to the predicate, and whenever that function returns <code>true</code>, it&apos;ll put that item in the new Array, else if it&apos;s <code>false</code>, it won&apos;t include it.</p>
+<h2 id="old-sk00l-for">Old Sk00l for</h2>
+<p>Let&apos;s filter using the traditional <code>for</code> loop. We have our list of people and doggo&apos;s, and we&apos;re only wanting to keep the humans.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> group = [
+    {
+        name: <span class="hljs-string">&apos;Jesse&apos;</span>,
+        type: <span class="hljs-string">&apos;human&apos;</span>
+    },
+    {
+        name: <span class="hljs-string">&apos;Brandy&apos;</span>,
+        type: <span class="hljs-string">&apos;human&apos;</span>
+    },
+    {
+        name: <span class="hljs-string">&apos;Albus&apos;</span>,
+        type: <span class="hljs-string">&apos;dog&apos;</span>
+    }
+]
+
+<span class="hljs-keyword">const</span> len = group.length
+<span class="hljs-keyword">const</span> filtered = []
+<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+    <span class="hljs-keyword">const</span> current = group[i]
+    <span class="hljs-keyword">if</span>(current.type === <span class="hljs-string">&apos;human&apos;</span>) {
+        filtered.push(current)
+    }
+}
+</code></pre>
+<p>Logging it out, we can see our new <code>filtered</code> Array is:</p>
+<pre><code class="lang-javascript">[ { name: <span class="hljs-string">&apos;Jesse&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
+  { name: <span class="hljs-string">&apos;Brandy&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> } ]
+</code></pre>
+<h2 id="filter-raw">filter: raw</h2>
+<p>We can create a somewhat pure function using <code>filter</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { filter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
+
+<span class="hljs-keyword">const</span> typeIsHuman = item =&gt; item.type === <span class="hljs-string">&apos;human&apos;</span>
+<span class="hljs-keyword">const</span> filterHumans = group =&gt;
+    filter(
+        group, 
+        typeIsHuman
+    )
+</code></pre>
+<p>If we pass <code>filterHumans</code> the group, it&apos;ll give us the same filtered, new Array back like the above <code>for</code> loop does:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(filterHumans(group))
+[ { name: <span class="hljs-string">&apos;Jesse&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
+  { name: <span class="hljs-string">&apos;Brandy&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> } ]
+</code></pre>
+<h2 id="filter-pure">filter: pure</h2>
+<p>While our <code>filterHumans</code> function is pure, it still has the Trouble With Dots. In <a href="part3/map.md">Part 3: map</a> we fixed the dot problem there using <code>nth</code> function which solves the Trouble With Array Bracket Access problem. Our fix here is to use <code>get</code>.</p>
+<p>Updating our <code>typeIsHuman</code> function above, we&apos;ll fix the predicate function we pass the <code>filter</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., get } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
+
+<span class="hljs-keyword">const</span> typeIsHuman = item =&gt; get(item, <span class="hljs-string">&apos;type&apos;</span>) === <span class="hljs-string">&apos;human&apos;</span>
+</code></pre>
+<p>Now, if <code>item</code> is <code>undefined</code>, <code>get(undefined, &apos;type&apos;)</code> will return <code>undefined</code>, and the predicate will return <code>false</code>, ensuring the weird item isn&apos;t included in the filter.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>Filter: Take an Array of things in, give each thing to a function, if the function returns <code>true</code> when you give it an item, store it in an new Array to give back, else discard it. The <code>filter</code> function expects a pure predicate function, and is itself a pure function.</p>
 
                                 
                                 </section>
@@ -891,7 +1000,7 @@
                 </a>
                 
                 
-                <a href="reduce.md" class="navigation navigation-next " aria-label="Next page: reduce">
+                <a href="reduce.html" class="navigation navigation-next " aria-label="Next page: reduce">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -902,7 +1011,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"filter","level":"1.4.2","depth":2,"next":{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},"previous":{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/filter.md","mtime":"2018-08-12T20:39:19.111Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-12T20:44:36.703Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"filter","level":"1.4.2","depth":2,"next":{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},"previous":{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/filter.md","mtime":"2018-08-16T00:22:52.094Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T21:34:01.841Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

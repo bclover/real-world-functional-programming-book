@@ -28,9 +28,8 @@ const party = [
     }
 ]
 
-const len = party.length
 let summary = ''
-for(i = 0; i < len; i++) {
+for(i = 0; i < party.length; i++) {
     const member = party[i]
     summary += `${member.name} \t- ${member.hitPoints}/${member.maxHitPoints}\n`
 }

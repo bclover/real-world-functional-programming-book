@@ -349,9 +349,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="reduce.md">
+        <li class="chapter " data-level="1.4.3" data-path="reduce.html">
             
-                <span>
+                <a href="reduce.html">
             
                     
                     reduce
@@ -362,9 +362,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="every.md">
+        <li class="chapter " data-level="1.4.4" data-path="every.html">
             
-                <span>
+                <a href="every.html">
             
                     
                     every
@@ -375,9 +375,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="some.md">
+        <li class="chapter " data-level="1.4.5" data-path="some.html">
             
-                <span>
+                <a href="some.html">
             
                     
                     some
@@ -432,9 +432,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../part4/README.md">
+        <li class="chapter " data-level="1.5" data-path="../part4/">
             
-                <span>
+                <a href="../part4/">
             
                     
                     Part 4: Curry and Partial Application
@@ -446,9 +446,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../part4/curry.md">
+        <li class="chapter " data-level="1.5.1" data-path="../part4/curry.html">
             
-                <span>
+                <a href="../part4/curry.html">
             
                     
                     All Functions Take 1 Argument
@@ -459,7 +459,59 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="../part4/tacit_programming.md">
+        <li class="chapter " data-level="1.5.2" data-path="../part4/parameter_order.html">
+            
+                <a href="../part4/parameter_order.html">
+            
+                    
+                    Parameter Order
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../part4/partial_application.html">
+            
+                <a href="../part4/partial_application.html">
+            
+                    
+                    Partial Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../part4/arity.html">
+            
+                <a href="../part4/arity.html">
+            
+                    
+                    Arity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../part4/styles_of_curry.html">
+            
+                <a href="../part4/styles_of_curry.html">
+            
+                    
+                    Styles Of Curry
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../part4/tacit_programming.md">
             
                 <span>
             
@@ -472,7 +524,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.3" data-path="../part4/practice_curry_predicates.md">
+        <li class="chapter " data-level="1.5.7" data-path="../part4/practice_curry_predicates.md">
             
                 <span>
             
@@ -485,7 +537,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../part4/practice_">
+        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_">
             
                 <span>
             
@@ -858,7 +910,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="map-stuff-goes-in-new-stuff-comes-out">map: Stuff goes in, new stuff comes out</h1>
+                                <h1 id="map-3-things-go-in-3-new-things-come-out">map: 3 things go in, 3 new things come out</h1>
 <p>The <code>map</code> function is often used for parsing operations. You have a list of data, and you want all items in it modified the same way, and put back in the same spot they currently are.</p>
 <h2 id="old-sk00l-for">Old Sk00l for</h2>
 <p>Let&apos;s do that using the native <code>for</code> loop. We&apos;ll take an Array of strings and convert it to people objects.</p>
@@ -976,7 +1028,42 @@ map(names, name =&gt; name.toUpperCase())
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> uppercaseName = name =&gt; name.toUpperCase()
 map(names, uppercaseName)
 </code></pre>
-<p>Map: Take an Array of things in, give each thing to a function, store whatever that function gives you back in a new Array in the same position, then return that new Array back. Map expects a pure function, and is itself a pure function.</p>
+<h1 id="map-pure">map: pure</h1>
+<p>Array comprehensions are assumed to take pure functions. That means even if they are super simple, they&apos;re still expected to be strict about following the purity rules.</p>
+<p>That means the <code>arrayToPerson</code> can be slightly improved to be more pure. If you read the Trouble with Array Bracket Access, then you understand that errors can occur in this function.</p>
+<p>There is a pure function Lodash offers called <a href="https://lodash.com/docs/4.17.10#nth" target="_blank">nth</a> and <a href="https://ramdajs.com/docs/#nth" target="_blank">Ramda has as nth well</a> that we can use to fix this.</p>
+<p>While accessing <code>undefined</code> using bracket access will throw an <code>Error</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-literal">undefined</span>[<span class="hljs-number">3</span>]
+<span class="hljs-comment">// TypeError: Cannot read property &apos;3&apos; of undefined</span>
+</code></pre>
+<p>The <code>nth</code> function just returns <code>undefined</code>:</p>
+<pre><code class="lang-javascript">nth(<span class="hljs-literal">undefined</span>, <span class="hljs-number">3</span>)
+<span class="hljs-comment">// undefined</span>
+</code></pre>
+<p>Using that, we can make our <code>map</code>&apos;s conversion function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arrayToPerson = array =&gt;
+    ({
+        name: array[<span class="hljs-number">0</span>],
+        address: {
+            street: array[<span class="hljs-number">1</span>],
+            phone: array[<span class="hljs-number">2</span>]
+        },
+        type: array[<span class="hljs-number">3</span>]
+    })
+</code></pre>
+<p>Into a more pure version using <code>nth</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arrayToPerson = array =&gt;
+    ({
+        name: nth(array, <span class="hljs-number">0</span>),
+        address: {
+            street: nth(array, <span class="hljs-number">1</span>),
+            phone: nth(array, <span class="hljs-number">2</span>),
+        },
+        type: nth(array, <span class="hljs-number">3</span>)
+    })
+</code></pre>
+<h2 id="conclusions">Conclusions</h2>
+<p>Map: Take an Array of things in, give each thing to a function, store whatever that function gives you back in a new Array in the same position, then return that new Array back. The <code>map</code> function expects a pure function, and is itself a pure function.</p>
 
                                 
                                 </section>
@@ -1020,7 +1107,7 @@ map(names, uppercaseName)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"map","level":"1.4.1","depth":2,"next":{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},"previous":{"title":"Part 3: List Comprehensions","level":"1.4","depth":1,"path":"part3/README.md","ref":"part3/README.md","articles":[{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},{"title":"some","level":"1.4.5","depth":2,"path":"part3/some.md","ref":"part3/some.md","articles":[]},{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},{"title":"Practice every with Predicates","level":"1.4.7","depth":2,"path":"part3/practice_every.md","ref":"part3/practice_every.md","articles":[]},{"title":"Practice map with JSON","level":"1.4.8","depth":2,"path":"part3/practice_map.md","ref":"part3/practice_map.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/map.md","mtime":"2018-08-12T20:16:34.686Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-12T20:44:36.703Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"map","level":"1.4.1","depth":2,"next":{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},"previous":{"title":"Part 3: List Comprehensions","level":"1.4","depth":1,"path":"part3/README.md","ref":"part3/README.md","articles":[{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},{"title":"some","level":"1.4.5","depth":2,"path":"part3/some.md","ref":"part3/some.md","articles":[]},{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},{"title":"Practice every with Predicates","level":"1.4.7","depth":2,"path":"part3/practice_every.md","ref":"part3/practice_every.md","articles":[]},{"title":"Practice map with JSON","level":"1.4.8","depth":2,"path":"part3/practice_map.md","ref":"part3/practice_map.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/map.md","mtime":"2018-08-15T23:42:34.762Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T21:34:01.841Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
