@@ -4,7 +4,7 @@ Algebraic Data Types are Objects in Functional Programming that give you a commo
 
 > What if everything had the same interface?
 
-While dynamic programming languages don't have strong typing, they still have native types like Array and Promise that hold data and have conventions on how you use them. An Array is a list, I can add data to it, get data out using numbers or methods, and construction methods like Array destructuring `[...original, "new data to add"]. Promise also wraps data in itself, you can get data out using `then`, and like Array, you can chain Promises together by returning a Promise in the `then` callback.
+While dynamic programming languages don't have strong typing, they still have native types like Array and Promise that hold data and have conventions on how you use them. An Array is a list, I can add data to it, get data out using numbers or methods, and construction methods like Array destructuring `[...original, "new data to add"]`. Promise also wraps data in itself, you can get data out using `then`, and like Array, you can chain Promises together by returning a Promise in the `then` callback.
 
 Algebraic Data Types, or ADT's for short, are useful just like Array and Promise are useful: Hold data, you can get data out, and depending on which library you use, all can be chained together in known ways.
 
