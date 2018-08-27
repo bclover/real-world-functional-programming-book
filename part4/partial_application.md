@@ -57,8 +57,6 @@ const loadWebsite = request => {
     return loadURL
 }
 ```
-
-LOCKED AND LOADED!
     
 ## Making Your Own Partial Applications
 
@@ -192,16 +190,23 @@ export const loadWebsiteWithRequest = partial(loadWebsite, [request])
 
 ## Partial Application With No Arguments
 
-While `partial` is a pure way to create partial applications without using currying, it can also create partial applications that take no arguments, something you can't do with currying.
+While `partial` is a pure way to create partial applications without using currying, it can also create partial applications that take no arguments, something you can't do with currying. You can use this technique for integration testing using the unit test runner [Mocha](https://mochajs.org/). Assuming you have 2 REST API's for `/ping` and `/get/users` running on localhost:
 
 ```javascript
-// Node's CommonJS
-module.exports = {
-    loadJesseWardenDotKizzohm: partial(loadWebsite, [request, 'http://jessewarden.com'])
-}
+const ping = partial(loadWebsite, [request, 'http://localhost:3000/ping'])
+const getUsers = partial(loadWebsite, [request, 'http://localhost:3000/get/users'])
 
-// ES6
-export const loadJesseWardenDotKizzohm = partial(loadWebsite, [request, 'http://jessewarden.com'])
+beforeEach(() => {
+    // if ping responds, we can start running integration tests,
+    // otherwise, if the server isn't up, no point in running the tests.
+    return ping()
+})
+it('when /get/users is called, it should get a list of users', () => {
+    return getUsers()
+    .then(users => {
+        expect(users[0].firstName).to.not.be.empty
+    })
+})
 ```
 
 ## Fixing Argument Order with partialRight

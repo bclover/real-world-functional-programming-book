@@ -63,7 +63,9 @@ const loadWebsite = (request, url) => {
 loadWebsite.length // 2
 ```
 
-Lodash will report an arity of `0` always. It supports function calling in curried style `(a)(b)` or imperative style `(a, b)`:
+### Lodash
+
+Lodash will report an arity of `0` always. It supports function calling in curried style `(a)(b)`, imperative style `(a, b)`, and mixed `(a, b)(c)`:
 
 ```javascript
 const { curry } = require('lodash')
@@ -72,7 +74,9 @@ curry(alwaysTrue).length // 0
 curry(loadWebsite).length // 0
 ```
 
-Ramda will report the length of the original function which is helpful if you intend to use this function in frameworks who care about function arity or you're not sure how many parameters a function requires. Sometimes you'll call a function and you'll be confused why you're getting a function back instead a `Promise` or some other expected value, so checking the function length can help, at least with Ramda. It supports function calling in curried style `(a)(b)` or imperative style `(a, b)`:
+### Ramda
+
+Ramda will report the length of the original function which is helpful if you intend to use this function in frameworks who care about function arity or you're not sure how many parameters a function requires. Sometimes you'll call a function and you'll be confused why you're getting a function back instead a `Promise` or some other expected value, so checking the function length can help, at least with Ramda. It supports function calling in curried style `(a)(b)`, imperative style `(a, b)`, and mixed `(a, b)(c)`:
 
 ```javascript
 const { curry } = require('ramda')
@@ -81,7 +85,9 @@ curry(alwaysTrue).length // 0
 curry(loadWebsite).length // 2
 ```
 
-Folktale requires you to define the function arity ahead of time, but like Lodash reports `0` no matter what you put. Like Lodash and Ramda, it supports function calling in curried style `(a)(b)` or imperative style `(a, b)`.
+### Folktale
+
+Folktale requires you to define the function arity ahead of time, but like Lodash reports `0` no matter what you put. Like Lodash and Ramda, it supports function calling in curried style `(a)(b)`, imperative style `(a, b)`, and mixed `(a, b)(c)`:
 
 ```javascript
 const curry = require('folktale/core/lambda/curry')
@@ -89,6 +95,8 @@ const curry = require('folktale/core/lambda/curry')
 curry(0, alwaysTrue).length // 0
 curry(2, loadWebsite).length // 0
 ```
+
+### Sanctuary
 
 Sanctuary cares about types, and as such, doesn't support taking in variadic functions to convert to curried functions. Instead, you have to choose the arity ahead of time using one of their functions. They support `curry2`, `curry3`, `curry4`, and `curry5`. Unlike the others, it technically reports the correct number of `1`, despite the number in `curry2` or the others being bigger than `1`. It only supports a curry style `(a)(b)` of calling functions.
 

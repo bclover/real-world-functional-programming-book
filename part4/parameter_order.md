@@ -6,6 +6,12 @@ Function currying won't help you unless the arguments are in a good order. There
 
 ... however, we all **DON'T** know what URL's we'll be using yet.
 
+```javascript
+// request will be require('request')
+// url... well... you have to call it for us to know...
+const loadWebsite = (request, url) => ...
+```
+
 Knowns and unknowns.
 
 While we have to follow the pure function rules and define the dependencies, some of them we may know what'll they'll end up being, like, forever.

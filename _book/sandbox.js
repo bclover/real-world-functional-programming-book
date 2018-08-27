@@ -1,32 +1,15 @@
-const { reduce, toArray } = require('lodash')
+const { getOr, filter } = require('lodash/fp')
 
 const party = [
-    {
-        name: 'Jesse',
-        clazz: 'Swashbuckler'
-    }
+    { name: 'Jesse', type: 'human' },
+    { name: 'Brandy', type: 'human' },
+    { name: 'Albus', type: 'dawg' }
 ]
 
-function addFriendOrFriendsToParty(party) {
-    const membersToAdd = toArray(arguments)
-    membersToAdd.shift()
-    return reduce(
-        membersToAdd, 
-        (currentParty, member) => {
-            return [...currentParty, member]
-        },
-        party
+const filterHumans = people =>
+    filter(
+        person => getOr('unknown', 'type', person) === 'human',
+        people
     )
-}
 
-// console.log(addFriendOrFriendsToParty(party, { name: 'Brandy', clazz: 'Cleric' }))
-
-console.log(
-    addFriendOrFriendsToParty(
-        party, 
-        { name: 'Brandy', clazz: 'Cleric' },
-        { name: 'Albus', clazz: 'War Dog' },
-        { name: 'Robo', clazz: 'Bard' },
-        { name: 'Sydney', clazz: 'Mage' }
-    )
-)
+console.log(filterHumans(party))

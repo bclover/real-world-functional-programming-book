@@ -121,10 +121,16 @@ const singSong = () => {
 
 const whoDat = (name, song) => {
     console.log("name is:", name)
+    // song is a function, whatever you
+    // pass in, this function will call it
+    // with no arguments
     song()
 }
 
 whoDat(name, singSong)
+// name is: Jesse
+// 🎶 Copy Pasta Coding 🎶
+// ... for the win.
 ```
 
 Note whether we pass a function a `String` or a `Function`, it's cool with either. Same goes for return values:
@@ -142,8 +148,15 @@ const sayMyName = name => {
     return youAreAwesome
 }
 
-const LukeCageIsAwesome = sayMyName('Luke Cage')
-LukeCageIsAwesome()
+const PowerMan = sayMyName('Luke Cage')
+PowerMan()
+/*
+Luke Cage is...
+
+        _______ _  _  _ _______ _______  _____  _______ _______
+        |_____| |  |  | |______ |______ |     | |  |  | |______
+        |     | |__|__| |______ ______| |_____| |  |  | |______
+*/
 ```
 
 I can make a function that takes dynamic arguments, and store it for later.

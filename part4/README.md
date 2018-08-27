@@ -1,3 +1,7 @@
+# Why vs. How Curry Works
+
+If you're more interested in how currying can help you in your current work vs the how it works, skip this and the following 5 sections and go to the [Lodash FP](lodash_fp.md) section. It compares and contrasts the 2 libraries giving you insights into how function currying and partial applications can be useful in your work.
+
 # Curry and Partial Application
 
 Currying, or function currying, is when you make all functions take 1 argument, even those that normal need more. This means if you have a function that takes 2 arguments to do something useful, if you call it with 1 argument, it'll return a function. If you call that returned function with 1 argument, it'll then return the result. It's named after the guy who invented the technique, Haskell Brooks Curry.
@@ -43,3 +47,5 @@ const getAuditLogger = (
 Pure to be sure, but wow... is this what it's like in the real world?
 
 The solution is to use function currying, partial applications as arguments, and good old examining your requirements and code to ensure your functions are as simple as possible.
+
+

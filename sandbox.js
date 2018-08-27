@@ -1,32 +1,31 @@
-const { reduce, toArray } = require('lodash')
+const { flow, map, filter, getOr, set, startCase, get } = require('lodash/fp')
 
-const party = [
-    {
-        name: 'Jesse',
-        clazz: 'Swashbuckler'
-    }
-]
+const peopleString = `[
+    ["jesse warden", "swasbuckler", 18, 21, "human"],
+    ["brandy fortune", "cleric", 11, 11, "human"],
+    ["albus dumbledog", "war dog", 7, 9, "dawg"]
+    ]`
 
-function addFriendOrFriendsToParty(party) {
-    const membersToAdd = toArray(arguments)
-    membersToAdd.shift()
-    return reduce(
-        membersToAdd, 
-        (currentParty, member) => {
-            return [...currentParty, member]
-        },
-        party
-    )
-}
-
-// console.log(addFriendOrFriendsToParty(party, { name: 'Brandy', clazz: 'Cleric' }))
-
-console.log(
-    addFriendOrFriendsToParty(
-        party, 
-        { name: 'Brandy', clazz: 'Cleric' },
-        { name: 'Albus', clazz: 'War Dog' },
-        { name: 'Robo', clazz: 'Bard' },
-        { name: 'Sydney', clazz: 'Mage' }
-    )
+const listToPeople = map( ([name, clazz, hitPoints, maxHitPoints, type]) =>
+    ({ name, clazz, hitPoints, maxHitPoints, type })
 )
+
+const filterHumans =
+    filter(
+        person => getOr('unknown', 'type', person) === 'human'
+    )
+
+const formatNames =
+    map(
+        list => set('name', startCase(get('name', list)), list)
+    )
+
+const showHumans = flow([
+    JSON.parse,
+    listToPeople,
+    filterHumans,
+    formatNames
+])
+
+
+console.log(showHumans(peopleString))

@@ -33,14 +33,18 @@ You can test this with Function Declarations, Function Expressions, and Arrow Fu
 None:
 
 ```javascript
-const alwaysTrue = () => true
+function alwaysTrue() {
+    return true
+}
 alwaysTrue.length // 0
 ```
 
 One:
 
 ```javascript
-const sup = name => console.log(`Sup ${name}!`)
+const sup = function(name) {
+    console.log(`Sup ${name}!`)
+}
 sup.length // 1
 ```
 
