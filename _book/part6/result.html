@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Part 5: Composition · GitBook</title>
+        <title>Result · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="passing_functions_to_functions.html" />
+    <link rel="next" href="union.md" />
     
     
-    <link rel="prev" href="../part4/practice_" />
+    <link rel="prev" href="validation.html" />
     
 
     </head>
@@ -555,9 +555,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../part5/">
             
-                <a href="./">
+                <a href="../part5/">
             
                     
                     Part 5: Composition
@@ -569,9 +569,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="passing_functions_to_functions.html">
+        <li class="chapter " data-level="1.6.1" data-path="../part5/passing_functions_to_functions.html">
             
-                <a href="passing_functions_to_functions.html">
+                <a href="../part5/passing_functions_to_functions.html">
             
                     
                     Passing Functions to Functions
@@ -582,9 +582,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="composing_functions.html">
+        <li class="chapter " data-level="1.6.2" data-path="../part5/composing_functions.html">
             
-                <a href="composing_functions.html">
+                <a href="../part5/composing_functions.html">
             
                     
                     Composing Functions
@@ -595,9 +595,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="tacit_programming.html">
+        <li class="chapter " data-level="1.6.3" data-path="../part5/tacit_programming.html">
             
-                <a href="tacit_programming.html">
+                <a href="../part5/tacit_programming.html">
             
                     
                     Tacit Programming
@@ -613,9 +613,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../part6/">
+        <li class="chapter " data-level="1.7" data-path="./">
             
-                <a href="../part6/">
+                <a href="./">
             
                     
                     Part 6: Algebraic Data Types
@@ -627,9 +627,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../part6/maybe.html">
+        <li class="chapter " data-level="1.7.1" data-path="maybe.html">
             
-                <a href="../part6/maybe.html">
+                <a href="maybe.html">
             
                     
                     Maybe
@@ -640,9 +640,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.2" data-path="../part6/validation.html">
+        <li class="chapter " data-level="1.7.2" data-path="validation.html">
             
-                <a href="../part6/validation.html">
+                <a href="validation.html">
             
                     
                     Validation
@@ -653,9 +653,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.3" data-path="../part6/result.html">
+        <li class="chapter active" data-level="1.7.3" data-path="result.html">
             
-                <a href="../part6/result.html">
+                <a href="result.html">
             
                     
                     Result
@@ -666,7 +666,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.4" data-path="../part6/union.md">
+        <li class="chapter " data-level="1.7.4" data-path="union.md">
             
                 <span>
             
@@ -679,7 +679,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.5" data-path="../part6/practice_maybe_config.md">
+        <li class="chapter " data-level="1.7.5" data-path="practice_maybe_config.md">
             
                 <span>
             
@@ -692,7 +692,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.6" data-path="../part6/practice_validator_predicates.md">
+        <li class="chapter " data-level="1.7.6" data-path="practice_validator_predicates.md">
             
                 <span>
             
@@ -705,7 +705,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.7" data-path="../part6/practice_result_json.md">
+        <li class="chapter " data-level="1.7.7" data-path="practice_result_json.md">
             
                 <span>
             
@@ -718,7 +718,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.8" data-path="../part6/practice_union_files.md">
+        <li class="chapter " data-level="1.7.8" data-path="practice_union_files.md">
             
                 <span>
             
@@ -921,7 +921,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Part 5: Composition</a>
+        <a href=".." >Result</a>
     </h1>
 </div>
 
@@ -936,10 +936,113 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="composition">Composition</h1>
-<p>Function composition is combining functions together. It&apos;s how you build libraries, API&apos;s, and programs using Functional Programming. It&apos;s a <a href="https://en.wikipedia.org/wiki/Function_composition" target="_blank">well defined math term</a>, and usually refers to combining Partial Applications together.</p>
-<p>However, there are a variety of ways to combine functions together. Pure Functions are the core awesomeness of Functional Programming. Showing the variety of ways you can use these in real world programming is helpful and justifies your hard work.</p>
-<p>We&apos;ll cover passing functions as parameters, using various ways to compose function pipelines both sync and async, and finally tacit programming which is also called point free programming.</p>
+                                <h1 id="result">Result</h1>
+<p>A <code>Result</code> is a data type for modeling errors. Unlike <code>try</code>/<code>catch</code> and <code>throw</code>, it can give you more control on progating those errors in a pure way. When in doubt, if it&apos;s async and it can fail, use <code>Promise</code>. If it&apos;s sync and it can fail, use <code>Result</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Result = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/result&apos;</span>)
+<span class="hljs-keyword">const</span> { Ok, <span class="hljs-built_in">Error</span> } = Result
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;fs&apos;</span>)
+
+<span class="hljs-comment">// async</span>
+<span class="hljs-keyword">const</span> readFile = file =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        fs.readFile(file, (err, data) =&gt;
+            err
+            ? failure(err)
+            : success(data)
+        )
+    )
+
+readFile(<span class="hljs-string">&apos;non-existent-file.cow&apos;</span>)
+.then(contents =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;contents:&quot;</span>, contents))
+.catch(error =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;file read error:&quot;</span>, error))
+<span class="hljs-comment">// file read error: { Error: ENOENT: no such file or directory, open &apos;non-existent-file.cow&apos;</span>
+
+<span class="hljs-comment">// sync</span>
+<span class="hljs-keyword">const</span> readFileSync = file =&gt; {
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> data = fs.readFileSync(file)
+        <span class="hljs-keyword">return</span> Ok(data)
+    } <span class="hljs-keyword">catch</span>(readError) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Error</span>(readError.message)
+    }
+}
+
+<span class="hljs-keyword">const</span> result = readFileSync(<span class="hljs-string">&apos;non-existent-file.cow&apos;</span>)
+<span class="hljs-comment">// result: folktale:Result.Error({ value: &quot;ENOENT: no such file or directory, open &apos;non-existent-file.cow&apos;&quot; })</span>
+</code></pre>
+<h2 id="ok-and-error">Ok and Error</h2>
+<p>The two sub-types of <code>Result</code> are <code>Ok</code> and <code>Error</code>. <code>Ok</code> means whatever you were doing worked, and <code>Ok</code> will contain the data. It could also just mean &quot;things didn&apos;t blow up&quot;.</p>
+<p>The <code>Error</code> contain what went wrong. This can be any data type you want. If it&apos;s one thing, a String is usually best. If you don&apos;t know, the original native <code>Error</code> is better. If you decide to create a custom one, be careful of name collisions. Destructuring <code>Error</code> leads to confusion when you start going <code>new Error(&apos;t3h failurez&apos;)</code> and get back a Folktale <code>Result</code> <code>folktale:Result.Error({ value: &quot;t3h failurez&quot; })</code> instead of what you thought, a native error with stack trace included <code>Error: t3h failurez</code>.</p>
+<p>When many things can go wrong, its better to use a Union Type (see next section, <a href="union.md">Part 6: Union Types</a>).</p>
+<h2 id="chi-chi-chain-chain">Chi Chi Chain Chain</h2>
+<p>Like <code>Promise</code> and <code>Maybe</code>, you can chain <code>Result</code>. The <code>chain</code> method works like the others; good things like <code>Ok</code> will continue the <code>chain</code>. As soon as an <code>Result.Error</code> is returned, the whole <code>chain</code> is aborted.</p>
+<p>Below, everything is fine:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Result = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/result&apos;</span>)
+<span class="hljs-keyword">const</span> { Ok, <span class="hljs-built_in">Error</span> } = Result
+<span class="hljs-keyword">const</span> { startCase } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
+
+<span class="hljs-keyword">const</span> safeSplit = name =&gt; {
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> result = name.split(<span class="hljs-string">&apos; &apos;</span>)
+        <span class="hljs-keyword">return</span> Ok(result)
+    } <span class="hljs-keyword">catch</span>(error) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Error</span>(error.message)
+    }
+}
+
+<span class="hljs-built_in">console</span>.log(
+    Ok(<span class="hljs-string">&apos;warden jesse&apos;</span>)
+    .chain(name =&gt; safeSplit(name))
+    .chain(name =&gt; Ok(name.reverse()))
+    .chain(name =&gt; Ok(startCase(name)))
+)
+<span class="hljs-comment">// folktale:Result.Ok({ value: &quot;Jesse Warden&quot; })</span>
+</code></pre>
+<p>However, if we inject bad data at the beginning:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(
+    Ok(<span class="hljs-literal">undefined</span>)
+    .chain(name =&gt; safeSplit(name))
+    .chain(name =&gt; Ok(name.reverse()))
+    .chain(name =&gt; Ok(startCase(name)))
+)
+<span class="hljs-comment">// folktale:Result.Error({ value: &quot;Cannot read property &apos;split&apos; of undefined&quot; })</span>
+</code></pre>
+<p>Just like <code>Promise</code> and <code>Maybe</code>; good values will keep chaining, bad ones immediately abort.</p>
+<h2 id="getting-data-out">Getting Data Out</h2>
+<p>Like <code>Maybe</code>, if there is data in the <code>Ok</code>, you can get it out, else supply a default in case of an <code>Error</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> castSpellResult = <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Failed, not enough mana.&apos;</span>)
+<span class="hljs-keyword">const</span> didSpellWork = castSpellResult.getOrElse(<span class="hljs-string">&apos;Spell casting failed.&apos;</span>)
+
+<span class="hljs-built_in">console</span>.log(didSpellWork)
+<span class="hljs-comment">// Spell casting failed</span>
+
+<span class="hljs-keyword">const</span> attackResult = Ok(<span class="hljs-string">&apos;Success, 4 points of damage!&apos;</span>)
+<span class="hljs-keyword">const</span> didAttackWork = attackResult.getOrElse(<span class="hljs-string">&apos;Attack failed.&apos;</span>)
+<span class="hljs-built_in">console</span>.log(didAttackWork)
+<span class="hljs-comment">// Success, 4 points of damage!</span>
+</code></pre>
+<h2 id="pattern-matching">Pattern Matching</h2>
+<p>Like <code>Maybe</code> and <code>Validator</code>, you can use <code>matchWith</code> to pattern match on the <code>Result</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> attackResult = Ok( { hit: <span class="hljs-literal">true</span>, attacker: <span class="hljs-string">&apos;Jesse&apos;</span>, target: <span class="hljs-string">&apos;Bad Guy&apos;</span>, weapon: <span class="hljs-string">&apos;Boomerang&apos;</span> } )
+<span class="hljs-keyword">const</span> printedResult = attackResult.matchWith({
+    Ok: ( { value } ) =&gt;
+        value.hit
+        ? <span class="hljs-string">`<span class="hljs-subst">${value.attacker}</span> successfully hit <span class="hljs-subst">${value.target}</span> with <span class="hljs-subst">${value.weapon}</span>!`</span>
+        : <span class="hljs-string">`<span class="hljs-subst">${value.attacker}</span> missed <span class="hljs-subst">${value.target}</span> with <span class="hljs-subst">${value.weapon}</span>...`</span>
+})
+
+<span class="hljs-built_in">console</span>.log(printedResult)
+<span class="hljs-comment">// Jesse successfully hit Bad Guy with Boomerang!</span>
+</code></pre>
+<h2 id="try">try</h2>
+<p>Just like using <code>promisify</code> became a habit to more easily wrap callback methods to return a Promise instead, so too is it common to wrap methods that can <code>throw</code> errors with <code>Result</code> using <code>Result.try</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result = Result.try(() =&gt; <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-literal">undefined</span>))
+
+<span class="hljs-built_in">console</span>.log(result)
+<span class="hljs-comment">// folktale:Result.Error({ value: SyntaxError: Unexpected token u in JSON at position 0 })</span>
+</code></pre>
+<h2 id="conclusions">Conclusions</h2>
+<p>Use <code>Result</code> when something can go wrong, typically a native Error is thrown, or a bunch of things can go wrong. When it&apos;s ok, like an Array not having your data, or an environment variable not being set, use a <code>Maybe</code>. If you need to know a series of Errors, <code>Validation</code> is probably better. <a href="https://folktale.origamitower.com/api/v2.3.0/en/folktale.result.html" target="_blank">Learn more</a> from the Folktale <code>Result</code> documentation. </p>
 
                                 
                                 </section>
@@ -967,12 +1070,12 @@
 
             
                 
-                <a href="../part4/practice_" class="navigation navigation-prev " aria-label="Previous page: Practice with Express">
+                <a href="validation.html" class="navigation navigation-prev " aria-label="Previous page: Validation">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="passing_functions_to_functions.html" class="navigation navigation-next " aria-label="Next page: Passing Functions to Functions">
+                <a href="union.md" class="navigation navigation-next " aria-label="Next page: Union">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -983,7 +1086,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 5: Composition","level":"1.6","depth":1,"next":{"title":"Passing Functions to Functions","level":"1.6.1","depth":2,"path":"part5/passing_functions_to_functions.md","ref":"part5/passing_functions_to_functions.md","articles":[]},"previous":{"title":"Practice with Express","level":"1.5.8","depth":2,"path":"part4/practice_","ref":"part4/practice_","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/README.md","mtime":"2018-08-19T15:29:57.147Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-28T16:08:33.068Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Result","level":"1.7.3","depth":2,"next":{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},"previous":{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/result.md","mtime":"2018-08-27T18:25:04.064Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-28T16:08:33.068Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

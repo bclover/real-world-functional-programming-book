@@ -266,4 +266,4 @@ console.log(
 
 ## Conclusions
 
-Whenever you are getting data from an outside source of your code like servers, files, and environment variables, `Maybe` is a great return value choice. When calling functions that may not have the data you're looking for, like looking in Array's or for specific key/values in Objects, Maybe is a much safer, and easier to work with return value, than `undefined`, `null`, or `-1`. 
+Whenever you are getting data from an outside source of your code like servers, files, and environment variables, `Maybe` is a great return value choice. When calling functions that may not have the data you're looking for, like looking in Array's or for specific key/values in Objects, Maybe is a much safer, and easier to work with return value, than `undefined`, `null`, or `-1`. [Learn more](https://folktale.origamitower.com/api/v2.3.0/en/folktale.maybe.html) from the Folktale `Maybe` documentation. 

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Part 5: Composition · GitBook</title>
+        <title>Part 6: Algebraic Data Types · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="passing_functions_to_functions.html" />
+    <link rel="next" href="maybe.html" />
     
     
-    <link rel="prev" href="../part4/practice_" />
+    <link rel="prev" href="../part5/tacit_programming.html" />
     
 
     </head>
@@ -555,9 +555,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../part5/">
             
-                <a href="./">
+                <a href="../part5/">
             
                     
                     Part 5: Composition
@@ -569,9 +569,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="passing_functions_to_functions.html">
+        <li class="chapter " data-level="1.6.1" data-path="../part5/passing_functions_to_functions.html">
             
-                <a href="passing_functions_to_functions.html">
+                <a href="../part5/passing_functions_to_functions.html">
             
                     
                     Passing Functions to Functions
@@ -582,9 +582,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="composing_functions.html">
+        <li class="chapter " data-level="1.6.2" data-path="../part5/composing_functions.html">
             
-                <a href="composing_functions.html">
+                <a href="../part5/composing_functions.html">
             
                     
                     Composing Functions
@@ -595,9 +595,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="tacit_programming.html">
+        <li class="chapter " data-level="1.6.3" data-path="../part5/tacit_programming.html">
             
-                <a href="tacit_programming.html">
+                <a href="../part5/tacit_programming.html">
             
                     
                     Tacit Programming
@@ -613,9 +613,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../part6/">
+        <li class="chapter active" data-level="1.7" data-path="./">
             
-                <a href="../part6/">
+                <a href="./">
             
                     
                     Part 6: Algebraic Data Types
@@ -627,9 +627,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../part6/maybe.html">
+        <li class="chapter " data-level="1.7.1" data-path="maybe.html">
             
-                <a href="../part6/maybe.html">
+                <a href="maybe.html">
             
                     
                     Maybe
@@ -640,9 +640,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.2" data-path="../part6/validation.html">
+        <li class="chapter " data-level="1.7.2" data-path="validation.html">
             
-                <a href="../part6/validation.html">
+                <a href="validation.html">
             
                     
                     Validation
@@ -653,9 +653,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.3" data-path="../part6/result.html">
+        <li class="chapter " data-level="1.7.3" data-path="result.html">
             
-                <a href="../part6/result.html">
+                <a href="result.html">
             
                     
                     Result
@@ -666,7 +666,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.4" data-path="../part6/union.md">
+        <li class="chapter " data-level="1.7.4" data-path="union.md">
             
                 <span>
             
@@ -679,7 +679,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.5" data-path="../part6/practice_maybe_config.md">
+        <li class="chapter " data-level="1.7.5" data-path="practice_maybe_config.md">
             
                 <span>
             
@@ -692,7 +692,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.6" data-path="../part6/practice_validator_predicates.md">
+        <li class="chapter " data-level="1.7.6" data-path="practice_validator_predicates.md">
             
                 <span>
             
@@ -705,7 +705,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.7" data-path="../part6/practice_result_json.md">
+        <li class="chapter " data-level="1.7.7" data-path="practice_result_json.md">
             
                 <span>
             
@@ -718,7 +718,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.8" data-path="../part6/practice_union_files.md">
+        <li class="chapter " data-level="1.7.8" data-path="practice_union_files.md">
             
                 <span>
             
@@ -921,7 +921,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Part 5: Composition</a>
+        <a href=".." >Part 6: Algebraic Data Types</a>
     </h1>
 </div>
 
@@ -936,10 +936,14 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="composition">Composition</h1>
-<p>Function composition is combining functions together. It&apos;s how you build libraries, API&apos;s, and programs using Functional Programming. It&apos;s a <a href="https://en.wikipedia.org/wiki/Function_composition" target="_blank">well defined math term</a>, and usually refers to combining Partial Applications together.</p>
-<p>However, there are a variety of ways to combine functions together. Pure Functions are the core awesomeness of Functional Programming. Showing the variety of ways you can use these in real world programming is helpful and justifies your hard work.</p>
-<p>We&apos;ll cover passing functions as parameters, using various ways to compose function pipelines both sync and async, and finally tacit programming which is also called point free programming.</p>
+                                <h1 id="algebraic-data-types">Algebraic Data Types</h1>
+<p>Algebraic Data Types are Objects in Functional Programming that give you a common interfaces to work with data. While I promised I wouldn&apos;t cover Category Theory in this book, it does hold one compelling reason to learn Functional Programming:</p>
+<blockquote>
+<p>What if everything had the same interface?</p>
+</blockquote>
+<p>While dynamic programming languages don&apos;t have strong typing, they still have native types like Array and Promise that hold data and have conventions on how you use them. An Array is a list, I can add data to it, get data out using numbers or methods, and construction methods like Array destructuring <code>[...original, &quot;new data to add&quot;]</code>. Promise also wraps data in itself, you can get data out using <code>then</code>, and like Array, you can chain Promises together by returning a Promise in the <code>then</code> callback.</p>
+<p>Algebraic Data Types, or ADT&apos;s for short, are useful just like Array and Promise are useful: Hold data, you can get data out, and depending on which library you use, all can be chained together in known ways.</p>
+<p>This is also where dynamic languages start to become painful. Creating an Array or Promise is fine, but once you start chaining things together, it&apos;s hard to know &quot;what comes out&quot; without a compiler or intellisense in your IDE to help you. Algebraic Data Types have this problem as well once you start composing them together. You only really know if it works by running the code. Still, they can add clarity of intent, help in data validation, and make it easier to work with data and errors.</p>
 
                                 
                                 </section>
@@ -967,12 +971,12 @@
 
             
                 
-                <a href="../part4/practice_" class="navigation navigation-prev " aria-label="Previous page: Practice with Express">
+                <a href="../part5/tacit_programming.html" class="navigation navigation-prev " aria-label="Previous page: Tacit Programming">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="passing_functions_to_functions.html" class="navigation navigation-next " aria-label="Next page: Passing Functions to Functions">
+                <a href="maybe.html" class="navigation navigation-next " aria-label="Next page: Maybe">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -983,7 +987,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 5: Composition","level":"1.6","depth":1,"next":{"title":"Passing Functions to Functions","level":"1.6.1","depth":2,"path":"part5/passing_functions_to_functions.md","ref":"part5/passing_functions_to_functions.md","articles":[]},"previous":{"title":"Practice with Express","level":"1.5.8","depth":2,"path":"part4/practice_","ref":"part4/practice_","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/README.md","mtime":"2018-08-19T15:29:57.147Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-28T16:08:33.068Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"next":{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},"previous":{"title":"Tacit Programming","level":"1.6.3","depth":2,"path":"part5/tacit_programming.md","ref":"part5/tacit_programming.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/README.md","mtime":"2018-08-27T14:11:40.821Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-28T16:08:33.068Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

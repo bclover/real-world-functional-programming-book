@@ -1,8 +1,8 @@
-# Validator
+# Validation
 
-A Validator is a data type that represents if what validation errors occurred on data. It's basically an Array with some helpful methods. This is my favorite Algebraic Data Type, mainly because it was one of my gateways to Fuctional Programming, and another gateway to Total Functions (we'll cover those in the next Chapter, [Part 7: Total Functions](part7/README.md)). More importantly, it can tell you all the things that went wrong with a function in excruciating detail. When you start composing large programs together, it is what negates the need for interpreting the stack trace; you just read the validation errors to see what happened.
+A Validation is a data type that represents if what validation errors occurred on data. It's basically an Array with some helpful methods. This is my favorite Algebraic Data Type, mainly because it was one of my gateways to Fuctional Programming, and another gateway to Total Functions (we'll cover those in the next Chapter, [Part 7: Total Functions](part7/README.md)). More importantly, it can tell you all the things that went wrong with a function in excruciating detail. When you start composing large programs together, it is what negates the need for interpreting the stack trace; you just read the validation errors to see what happened.
 
-You use Validators to validate data. In typed languages, it can be used for data coming from outside effects, like web servers, files, and environment variables. It can also be used to ensure certain rules pass or fail. For dynamic languages, it can do that as well as double as a runtime type checker. For front-end develop, it can be used to validate user data like form input.
+You use Validations to validate data. In typed languages, it can be used for data coming from outside effects, like web servers, files, and environment variables. It can also be used to ensure certain rules pass or fail. For dynamic languages, it can do that as well as double as a runtime type checker. For front-end develop, it can be used to validate user data like form input.
 
 ```javascript
 const Validation = require('folktale/validation')
@@ -36,7 +36,7 @@ console.log(isHealthy(brandy))
 
 ## Adding Success and Failure
 
-Like `Maybe`, the `Validator` has 2 sub-types, `Success` and `Failure`. They each hold 2 types of data. `Success` holds the data you're validation. `Failure` holds a list of validation errors, typically strings. If the data you're validating has 3 errors, the Array inside the `Failure` will have 3 String items.
+Like `Maybe`, the `Validation` has 2 sub-types, `Success` and `Failure`. They each hold 2 types of data. `Success` holds the data you're validation. `Failure` holds a list of validation errors, typically strings. If the data you're validating has 3 errors, the Array inside the `Failure` will have 3 String items.
 
 Unlike `Maybe`, you can add these types together. It's similar to an Array `concat` method:
 
@@ -86,7 +86,7 @@ console.log(onlyTheErrorsMam)
 // })
 ```
 
-## Combining Validators
+## Combining Validations
 
 Typically you'll make functions that validate some data, and then combine them together:
 
@@ -114,7 +114,7 @@ In the above, Jesse is neither healthy, nor is his class a Cleric, so both valid
 
 ## Pattern Matching
 
-Like `Maybe`, you can pattern match the `Validator` using `matchWith`. For `Success`, the `value` will be whatever you passed in, and for `Failure`, it's the Array of validation errors you made (typically an Array of Strings):
+Like `Maybe`, you can pattern match the `Validation` using `matchWith`. For `Success`, the `value` will be whatever you passed in, and for `Failure`, it's the Array of validation errors you made (typically an Array of Strings):
 
 ```javascript
 const isHealthyHealer = member =>
@@ -131,6 +131,6 @@ console.log(isHealthyHealer(brandy)) // true
 
 ## Conclusions
 
-Validators are great for validating data and knowing exactly why it failed. When you're sanitizing your inputs in your API, you can provide wonderful feedback to yourself for debuggin, and in your error messages to developers. For front-end development, it's a wonderful way to validate form fields, and to provide a lot of helpful error messages to users. For both, be as verbose as possible in the `Failure` to help debug validation later so there is no ambiguity why it failed.
+Validations are great for validating data and knowing exactly why it failed. When you're sanitizing your inputs in your API, you can provide wonderful feedback to yourself for debuggin, and in your error messages to developers. For front-end development, it's a wonderful way to validate form fields, and to provide a lot of helpful error messages to users. For both, be as verbose as possible in the `Failure` to help debug validation later so there is no ambiguity why it failed. [Learn more](https://folktale.origamitower.com/api/v2.3.0/en/folktale.validation.html) from the Folktale `Validation` documentation. 
 
-... omg, Shannon just showed up.
+... omg, Shannon just showed up. Good thing I didn't say I was Shannon.
