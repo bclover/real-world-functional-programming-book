@@ -350,3 +350,5 @@ The con's are they can require more unit tests to ensure you've handled the edge
 Also, developers who are not using types don't like how verbose they are to debug and modify. We've take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the `add` function itself, you'll end up writing unit tests for the others anyway to ensure you've written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it's hard for future developers to understand why the private functions of your module are being so thoroughly tested. 
 
 cow
+
+cow2
