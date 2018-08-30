@@ -348,3 +348,5 @@ Total functions are pure functions that accept all inputs. The pro's are enhance
 The con's are they can require more unit tests to ensure you've handled the edge cases. This is before you even start writing property tests via [jsverify](https://github.com/jsverify/jsverify). Like unit test stubs, they will expect a certain implementation shape, and so your stubs have to be more thorough to match the implementation. i.e. "A `get` is good enough, right? Wait... we're not even testing `post`, why do I need to implement a blank function for it on the stub?"
 
 Also, developers who are not using types don't like how verbose they are to debug and modify. We've take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the `add` function itself, you'll end up writing unit tests for the others anyway to ensure you've written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it's hard for future developers to understand why the private functions of your module are being so thoroughly tested. 
+
+cow
