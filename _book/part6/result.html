@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="union.md" />
+    <link rel="next" href="union.html" />
     
     
     <link rel="prev" href="validation.html" />
@@ -666,9 +666,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.4" data-path="union.md">
+        <li class="chapter " data-level="1.7.4" data-path="union.html">
             
-                <span>
+                <a href="union.html">
             
                     
                     Union
@@ -736,9 +736,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="../part7/README.md">
+        <li class="chapter " data-level="1.8" data-path="../part7/">
             
-                <span>
+                <a href="../part7/">
             
                     
                     Part 7: Total Functions
@@ -973,7 +973,7 @@ readFile(<span class="hljs-string">&apos;non-existent-file.cow&apos;</span>)
 <h2 id="ok-and-error">Ok and Error</h2>
 <p>The two sub-types of <code>Result</code> are <code>Ok</code> and <code>Error</code>. <code>Ok</code> means whatever you were doing worked, and <code>Ok</code> will contain the data. It could also just mean &quot;things didn&apos;t blow up&quot;.</p>
 <p>The <code>Error</code> contain what went wrong. This can be any data type you want. If it&apos;s one thing, a String is usually best. If you don&apos;t know, the original native <code>Error</code> is better. If you decide to create a custom one, be careful of name collisions. Destructuring <code>Error</code> leads to confusion when you start going <code>new Error(&apos;t3h failurez&apos;)</code> and get back a Folktale <code>Result</code> <code>folktale:Result.Error({ value: &quot;t3h failurez&quot; })</code> instead of what you thought, a native error with stack trace included <code>Error: t3h failurez</code>.</p>
-<p>When many things can go wrong, its better to use a Union Type (see next section, <a href="union.md">Part 6: Union Types</a>).</p>
+<p>When many things can go wrong, its better to use a Union Type (see next section, <a href="union.html">Part 6: Union Types</a>).</p>
 <h2 id="chi-chi-chain-chain">Chi Chi Chain Chain</h2>
 <p>Like <code>Promise</code> and <code>Maybe</code>, you can chain <code>Result</code>. The <code>chain</code> method works like the others; good things like <code>Ok</code> will continue the <code>chain</code>. As soon as an <code>Result.Error</code> is returned, the whole <code>chain</code> is aborted.</p>
 <p>Below, everything is fine:</p>
@@ -1075,7 +1075,7 @@ readFile(<span class="hljs-string">&apos;non-existent-file.cow&apos;</span>)
                 </a>
                 
                 
-                <a href="union.md" class="navigation navigation-next " aria-label="Next page: Union">
+                <a href="union.html" class="navigation navigation-next " aria-label="Next page: Union">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1086,7 +1086,7 @@ readFile(<span class="hljs-string">&apos;non-existent-file.cow&apos;</span>)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Result","level":"1.7.3","depth":2,"next":{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},"previous":{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/result.md","mtime":"2018-08-27T18:25:04.064Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-28T16:08:33.068Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Result","level":"1.7.3","depth":2,"next":{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},"previous":{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/result.md","mtime":"2018-08-27T18:25:04.064Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-30T15:57:37.473Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

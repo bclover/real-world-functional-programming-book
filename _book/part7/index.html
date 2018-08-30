@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>map · GitBook</title>
+        <title>Part 7: Total Functions · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="filter.html" />
+    <link rel="next" href="../part8/README.md" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="../part6/practice_union_files.md" />
     
 
     </head>
@@ -309,9 +309,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../part3/">
             
-                <a href="./">
+                <a href="../part3/">
             
                     
                     Part 3: List Comprehensions
@@ -323,9 +323,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.1" data-path="map.html">
+        <li class="chapter " data-level="1.4.1" data-path="../part3/map.html">
             
-                <a href="map.html">
+                <a href="../part3/map.html">
             
                     
                     map
@@ -336,9 +336,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="filter.html">
+        <li class="chapter " data-level="1.4.2" data-path="../part3/filter.html">
             
-                <a href="filter.html">
+                <a href="../part3/filter.html">
             
                     
                     filter
@@ -349,9 +349,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="reduce.html">
+        <li class="chapter " data-level="1.4.3" data-path="../part3/reduce.html">
             
-                <a href="reduce.html">
+                <a href="../part3/reduce.html">
             
                     
                     reduce
@@ -362,9 +362,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="every.html">
+        <li class="chapter " data-level="1.4.4" data-path="../part3/every.html">
             
-                <a href="every.html">
+                <a href="../part3/every.html">
             
                     
                     every
@@ -375,9 +375,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="some.html">
+        <li class="chapter " data-level="1.4.5" data-path="../part3/some.html">
             
-                <a href="some.html">
+                <a href="../part3/some.html">
             
                     
                     some
@@ -388,7 +388,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="zip.md">
+        <li class="chapter " data-level="1.4.6" data-path="../part3/zip.md">
             
                 <span>
             
@@ -401,7 +401,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.7" data-path="practice_every.md">
+        <li class="chapter " data-level="1.4.7" data-path="../part3/practice_every.md">
             
                 <span>
             
@@ -414,7 +414,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.8" data-path="practice_map.md">
+        <li class="chapter " data-level="1.4.8" data-path="../part3/practice_map.md">
             
                 <span>
             
@@ -736,9 +736,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="../part7/">
+        <li class="chapter active" data-level="1.8" data-path="./">
             
-                <a href="../part7/">
+                <a href="./">
             
                     
                     Part 7: Total Functions
@@ -921,7 +921,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >map</a>
+        <a href=".." >Part 7: Total Functions</a>
     </h1>
 </div>
 
@@ -936,160 +936,34 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="map-3-things-go-in-3-new-things-come-out">map: 3 things go in, 3 new things come out</h1>
-<p>The <code>map</code> function is often used for parsing operations. You have a list of data, and you want all items in it modified the same way, and put back in the same spot they currently are.</p>
-<h2 id="old-sk00l-for">Old Sk00l for</h2>
-<p>Let&apos;s do that using the native <code>for</code> loop. We&apos;ll take an Array of strings and convert it to people objects.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> peopleFields = [
-    [<span class="hljs-string">&quot;jesse warden&quot;</span>, <span class="hljs-string">&quot;123 Cow Ville&quot;</span>, [<span class="hljs-string">&quot;123-555-1234&quot;</span>, <span class="hljs-string">&quot;999-555-8234&quot;</span>], <span class="hljs-string">&quot;human&quot;</span>],
-    [<span class="hljs-string">&quot;brandy fortune&quot;</span>, <span class="hljs-string">&quot;123 Cow Ville&quot;</span>, [<span class="hljs-string">&quot;123-867-5309&quot;</span>], <span class="hljs-string">&quot;human&quot;</span>],
-    [<span class="hljs-string">&quot;albus dumbledog&quot;</span>, <span class="hljs-string">&quot;92 Dog Down&quot;</span>, [<span class="hljs-string">&quot;123-555-1234&quot;</span>], <span class="hljs-string">&quot;dawg&quot;</span>]
-]
-
-<span class="hljs-keyword">const</span> len = peopleFields.length
-<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; len; i++) {
-    <span class="hljs-keyword">const</span> fields = peopleFields[i]
-    peopleFields[i] = {
-        name: fields[<span class="hljs-number">0</span>],
-        address: {
-            street: fields[<span class="hljs-number">1</span>],
-            phone: fields[<span class="hljs-number">2</span>]
-        },
-        type: fields[<span class="hljs-number">3</span>]
-    }
-}
+                                <h1 id="total-functions">Total Functions</h1>
+<p>A total function is a pure function that works with all inputs. They often depend on how the language and operators, like <code>+</code> work. If you create a function that adds numbers, it&apos;ll work with a <code>Number</code>, <code>String</code>, <code>Function</code>, some random <code>class</code>, anything! Typically they are a lot easier to make in strongly typed languages because the compiler will ensure your function that adds 2 <code>Number</code>s never gets a String input, or ensures you use <code>+</code> instead of <code>++</code> by accident.</p>
+<p>In dynamic languages, you have to do a lot more work to validate your inputs and take a whitelist approach to types. Considering that JavaScript, Python, and Lua are communities built largely upon libraries, you can&apos;t guarantee that someone will be </p>
+<h2 id="problem-adding-random-things">Problem: Adding Random Things</h2>
+<p>Dynamic languages pass random things everywhere. We attempt to not pass random things when we write code and unit tests, but the dynamism is a double edged sword: power of flexibility, yet bad things happen when you get what you weren&apos;t expecting.</p>
+<p>For example, here&apos;s our original pure function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b
 </code></pre>
-<p>Printing it, you see it&apos;s replaced the Arrays of Strings with Arrays of people Objects:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(peopleFields)
-[ { name: <span class="hljs-string">&apos;jesse warden&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;human&apos;</span> },
-  { name: <span class="hljs-string">&apos;brandy fortune&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;human&apos;</span> },
-  { name: <span class="hljs-string">&apos;albus dumbledog&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;92 Dog Down&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;dawg&apos;</span> } ]
+<p>It follows all pure function rules of same input, same output, and no side effects.</p>
+<p>However, what happens if we add things that aren&apos;t numbers?</p>
+<pre><code class="lang-javascript">add(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;how now brown cow&apos;</span>), { get: <span class="hljs-string">&apos;busy child&apos;</span> })
+<span class="hljs-comment">// &apos;Error: how now brown cow[object Object]&apos;</span>
 </code></pre>
-<h2 id="new-school-foreach">New School forEach</h2>
-<p>Cool, let&apos;s use the same code, but using the native <code>forEach</code> Array method:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mutateArrayToPerson = (fields, index, array) =&gt; {
-    array[index] = {
-        name: fields[<span class="hljs-number">0</span>],
-        address: {
-            street: fields[<span class="hljs-number">1</span>],
-            phone: fields[<span class="hljs-number">2</span>]
-        },
-        type: fields[<span class="hljs-number">3</span>]
-    }
-}
-peopleFields.forEach(mutateArrayToPerson)
+<p>Um, ok... that isn&apos;t really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in <code>flow</code>/<code>compose</code> or <code>Promise</code>, the chain can get corrupted. You may get parsing results or errors that don&apos;t make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again. </p>
+<h2 id="solution-solving-with-types">Solution: Solving With Types</h2>
+<p>One way to solve this is to use types. With just a little metadata added by you the developer, compilers can read and understand your code, and find your errors in nanoseconds. They can even offer fixes, or sometimes automatically fix. <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, an open source language &amp; compiler started by Microsoft and open source, is one such language.</p>
+<p>Rewriting our function in TypeScript, we explicitly say &quot;Yo, this function takes 2 numbers, and returns a number.&quot; This is enough for the TypeScript compiler, <code>tsc</code> to verify your inputs.</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> add = ( a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span>) : <span class="hljs-built_in">number</span> =&gt; a + b
 </code></pre>
-<p>Logging it out we get the same result:</p>
-<pre><code class="lang-javascript">[ { name: <span class="hljs-string">&apos;jesse warden&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;human&apos;</span> },
-  { name: <span class="hljs-string">&apos;brandy fortune&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;human&apos;</span> },
-  { name: <span class="hljs-string">&apos;albus dumbledog&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;92 Dog Down&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;dawg&apos;</span> } ]
-</code></pre>
-<p>Tighter code, but risky with the dot, and mutates data.</p>
-<h2 id="map">map</h2>
-<p>Let&apos; s crate a pure function to parse the Array:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arrayToPerson = array =&gt;
-    ({
-        name: array[<span class="hljs-number">0</span>],
-        address: {
-            street: array[<span class="hljs-number">1</span>],
-            phone: array[<span class="hljs-number">2</span>]
-        },
-        type: array[<span class="hljs-number">3</span>]
-    })
-</code></pre>
-<p>Note, you could write <code>arrayToPerson</code> using <code>return</code> if that&apos;s more comfortable for you. Arrow functions, if no curly braces are used, will <code>return</code> for you:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arrayToPerson = array =&gt; {
-    <span class="hljs-keyword">return</span> {
-        name: array[<span class="hljs-number">0</span>],
-        address: {
-            street: array[<span class="hljs-number">1</span>],
-            phone: array[<span class="hljs-number">2</span>]
-        },
-        type: array[<span class="hljs-number">3</span>]
-    }
-}
-</code></pre>
-<p>Take an Array and return a Person object. Let&apos;s test it out:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(arrayToPerson(peopleFields[<span class="hljs-number">0</span>]))
-{ name: <span class="hljs-string">&apos;jesse warden&apos;</span>,
-  address:
-   { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>,
-     phone: [ <span class="hljs-string">&apos;123-555-1234&apos;</span>, <span class="hljs-string">&apos;999-555-8234&apos;</span> ] },
-  type: <span class="hljs-string">&apos;human&apos;</span> }
-</code></pre>
-<p>Great, now <code>map</code> can use that function on the entire list:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { map } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
-
-<span class="hljs-built_in">console</span>.log(map(peopleFields, arrayToPerson))
-[ { name: <span class="hljs-string">&apos;jesse warden&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;human&apos;</span> },
-  { name: <span class="hljs-string">&apos;brandy fortune&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;human&apos;</span> },
-  { name: <span class="hljs-string">&apos;albus dumbledog&apos;</span>,
-    address: { street: <span class="hljs-string">&apos;92 Dog Down&apos;</span>, phone: [<span class="hljs-built_in">Array</span>] },
-    type: <span class="hljs-string">&apos;dawg&apos;</span> } ]
-</code></pre>
-<p>While we defined the function separately for unit testing purposes, you can write anonymous functions inline as well:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">&apos;jesse warden&apos;</span>, <span class="hljs-string">&apos;brandy fortune&apos;</span>, <span class="hljs-string">&apos;albus dumbledog&apos;</span>]
-
-map(names, name =&gt; name.toUpperCase())
-
-[<span class="hljs-string">&quot;JESSE WARDEN&quot;</span>, <span class="hljs-string">&quot;BRANDY FORTUNE&quot;</span>, <span class="hljs-string">&quot;ALBUS DUMBLEDOG&quot;</span>]
-</code></pre>
-<p>Instead of:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> uppercaseName = name =&gt; name.toUpperCase()
-map(names, uppercaseName)
-</code></pre>
-<h1 id="map-pure">map: pure</h1>
-<p>Array comprehensions are assumed to take pure functions. That means even if they are super simple, they&apos;re still expected to be strict about following the purity rules.</p>
-<p>That means the <code>arrayToPerson</code> can be slightly improved to be more pure. If you read the Trouble with Array Bracket Access, then you understand that errors can occur in this function.</p>
-<p>There is a pure function Lodash offers called <a href="https://lodash.com/docs/4.17.10#nth" target="_blank">nth</a> and <a href="https://ramdajs.com/docs/#nth" target="_blank">Ramda has as nth well</a> that we can use to fix this.</p>
-<p>While accessing <code>undefined</code> using bracket access will throw an <code>Error</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-literal">undefined</span>[<span class="hljs-number">3</span>]
-<span class="hljs-comment">// TypeError: Cannot read property &apos;3&apos; of undefined</span>
-</code></pre>
-<p>The <code>nth</code> function just returns <code>undefined</code>:</p>
-<pre><code class="lang-javascript">nth(<span class="hljs-literal">undefined</span>, <span class="hljs-number">3</span>)
-<span class="hljs-comment">// undefined</span>
-</code></pre>
-<p>Using that, we can make our <code>map</code>&apos;s conversion function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arrayToPerson = array =&gt;
-    ({
-        name: array[<span class="hljs-number">0</span>],
-        address: {
-            street: array[<span class="hljs-number">1</span>],
-            phone: array[<span class="hljs-number">2</span>]
-        },
-        type: array[<span class="hljs-number">3</span>]
-    })
-</code></pre>
-<p>Into a more pure version using <code>nth</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arrayToPerson = array =&gt;
-    ({
-        name: nth(array, <span class="hljs-number">0</span>),
-        address: {
-            street: nth(array, <span class="hljs-number">1</span>),
-            phone: nth(array, <span class="hljs-number">2</span>),
-        },
-        type: nth(array, <span class="hljs-number">3</span>)
-    })
-</code></pre>
-<h2 id="conclusions">Conclusions</h2>
-<p>Map: Take an Array of things in, give each thing to a function, store whatever that function gives you back in a new Array in the same position, then return that new Array back. The <code>map</code> function expects a pure function, and is itself a pure function.</p>
+<p>Before we can even run the code in TypeScript, we have to compile it to JavaScript. However, instantly, TypeScript shows us an error with our 2nd add:</p>
+<blockquote>
+<p>Argument of type &apos;Error&apos; is not assignable to prameter of type &apos;number&apos;.`</p>
+</blockquote>
+<p>In English, that&apos;s:</p>
+<blockquote>
+<p>&quot;The <code>add</code> function only takes a <code>Number</code> for the first argument, but you are passing an <code>Error</code>. You&apos;re not allowed to do that. Change the first parameter to a <code>Number</code>.&quot;</p>
+</blockquote>
+<p>As your functions grow in number, size, and you start composing them, it can be really hard to keep track of all the types going around, and ensuring that you&apos;re always getting the correct type, or if another developer using your code will get a meaningful error if your function chokes on a weird type it wasn&apos;t expecting.</p>
 
                                 
                                 </section>
@@ -1117,12 +991,12 @@ map(names, uppercaseName)
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Part 3: List Comprehensions">
+                <a href="../part6/practice_union_files.md" class="navigation navigation-prev " aria-label="Previous page: Practice Union with reading files">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="filter.html" class="navigation navigation-next " aria-label="Next page: filter">
+                <a href="../part8/README.md" class="navigation navigation-next " aria-label="Next page: Part 8: Debugging">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1133,7 +1007,7 @@ map(names, uppercaseName)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"map","level":"1.4.1","depth":2,"next":{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},"previous":{"title":"Part 3: List Comprehensions","level":"1.4","depth":1,"path":"part3/README.md","ref":"part3/README.md","articles":[{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},{"title":"some","level":"1.4.5","depth":2,"path":"part3/some.md","ref":"part3/some.md","articles":[]},{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},{"title":"Practice every with Predicates","level":"1.4.7","depth":2,"path":"part3/practice_every.md","ref":"part3/practice_every.md","articles":[]},{"title":"Practice map with JSON","level":"1.4.8","depth":2,"path":"part3/practice_map.md","ref":"part3/practice_map.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/map.md","mtime":"2018-08-15T23:42:34.762Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-30T15:57:37.473Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"next":{"title":"Part 8: Debugging","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Tap","level":"1.9.1","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]},{"title":"Logging vs Purity","level":"1.9.2","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]}]},"previous":{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/README.md","mtime":"2018-08-30T15:59:20.568Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-30T15:57:37.473Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

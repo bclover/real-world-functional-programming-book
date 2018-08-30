@@ -1,45 +1,33 @@
-const Result = require('folktale/result')
-const { Ok, Error } = Result
-const { startCase } = require('lodash/fp')
+const { find } = require('lodash/fp')
+const { union, derivations} = require('folktale/adt/union')
 
-const safeSplit = name => {
-    try {
-        const result = name.split(' ')
-        return Ok(result)
-    } catch(error) {
-        return Error(error.message)
-    }
-}
+const FindUserResult = union('FindUserResult', {
+    User(user) { return { user } },
+    IDNotFound(userID) { return { userID } }
+}).derive(derivations.debugRepresentation)
 
+const { User, IDNotFound } = FindUserResult
 
-// console.log(
-//     Ok(undefined)
-//     .chain(name => safeSplit(name))
-//     .chain(name => Ok(name.reverse()))
-//     .chain(name => Ok(startCase(name)))
-// )
+const findUserByID = (users, userID) =>
+    find(
+        user => user.id === userID,
+        users
+    )
 
-// const castSpellResult = Error('Failed, not enough mana.')
-// const didSpellWork = castSpellResult.getOrElse('Spell casting failed.')
+const findUser = (users, userID) =>
+    findUserByID(users, userID)
+    ? User(findUserByID(users, userID))
+    : IDNotFound(userID)
 
-// console.log(didSpellWork)
-// // Spell casting failed
+const users = [
+    { name: 'Jesse', id: 1 },
+    { name: 'Brandy', id: 2 }
+]
 
-// const attackResult = Ok('Success, 4 points of damage!')
-// const didAttackWork = attackResult.getOrElse('Attack failed.')
-// console.log(didAttackWork)
+const result1 = findUser(users, 2)
+console.log(result1)
+// FindUserResult.User({ user: { name: "Brandy", id: 2 } })
 
-// const attackResult = Ok( { hit: true, attacker: 'Jesse', target: 'Bad Guy', weapon: 'Boomerang' } )
-// const printedResult = attackResult.matchWith({
-//     Ok: ( { value } ) =>
-//         value.hit
-//         ? `${value.attacker} successfully hit ${value.target} with ${value.weapon}!`
-//         : `${value.attacker} missed ${value.target} with ${value.weapon}...`
-// })
-
-// console.log(printedResult)
-
-const result = Result.try(() => JSON.parse(undefined))
-
-console.log(result)
-// folktale:Result.Error({ value: SyntaxError: Unexpected token u in JSON at position 0 })
+const result2 = findUser(users, 5)
+console.log(result2)
+// FindUserResult.IDNotFound({ userID: 5 })
