@@ -1,33 +1,78 @@
-const { find } = require('lodash/fp')
-const { union, derivations} = require('folktale/adt/union')
 
-const FindUserResult = union('FindUserResult', {
-    User(user) { return { user } },
-    IDNotFound(userID) { return { userID } }
-}).derive(derivations.debugRepresentation)
+const {isString, some, get, hasIn, isFunction } = require('lodash')
+const Validation = require('folktale/validation')
+const { Success, Failure } = Validation
 
-const { User, IDNotFound } = FindUserResult
+// -- Predicates ---------------------
 
-const findUserByID = (users, userID) =>
-    find(
-        user => user.id === userID,
-        users
+const hasGetFunction = o => isFunction(get(o, 'get'))
+const hasPostFunction = o => isFunction(get(o, 'post'))
+const hasInitParams = o => hasIn(o, 'initParams')
+
+const legitString = o => isString(o) && o.length > 0
+const hasHTTP = o => isString(o) && o.toLowerCase().indexOf('http') > -1
+const hasHTTPS = o => isString(o) && o.toLowerCase().indexOf('https') > -1
+const hasLocalhost = o => isString(o) && o.toLowerCase().indexOf('localhost') > -1
+const hasDots = o => isString(o) && o.indexOf('.') > -1
+
+const legitURL = o =>
+    legitString(o)
+    && some(
+        [
+            hasHTTP,
+            hasHTTPS,
+            hasLocalhost,
+            hasDots
+        ],
+        predicate => predicate(o)
     )
 
-const findUser = (users, userID) =>
-    findUserByID(users, userID)
-    ? User(findUserByID(users, userID))
-    : IDNotFound(userID)
+// -- Validations ---------------------
 
-const users = [
-    { name: 'Jesse', id: 1 },
-    { name: 'Brandy', id: 2 }
-]
+const validRequestGet = o =>
+    hasGetFunction(o)
+    ? Success(o)
+    : Failure([`Your request doesn't have a get function, you sent: ${o}`])
 
-const result1 = findUser(users, 2)
-console.log(result1)
-// FindUserResult.User({ user: { name: "Brandy", id: 2 } })
+const validRequestPost = o =>
+    hasPostFunction(o)
+    ? Success(o)
+    : Failure([`Your request doesn't have a post function, you sent: ${o}`])
 
-const result2 = findUser(users, 5)
-console.log(result2)
-// FindUserResult.IDNotFound({ userID: 5 })
+const validRequestInitParams = o =>
+    hasInitParams(o)
+    ? Success(o)
+    : Failure([`Your request doesn't have an initParams function, you sent: ${o}`])
+
+const validRequest = o =>
+    validRequestGet(o)
+    .concat(validRequestPost(o))
+    .concat(validRequestInitParams(o))
+
+const validURL = o =>
+    legitURL(o)
+    ? Success(o)
+    : Failure([`The URL doesn't appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: ${o}`])
+
+
+const loadWebsite = (request, url) =>
+    new Promise((success, failure) =>
+        validRequest(request)
+        .concat(validURL(url))
+        .matchWith({
+            Failure: ({ value }) => failure(new Error(value.join(', '))),
+            Success: _ =>
+                request.get(url, (err, res, body) =>
+                    err
+                    ? failure(err)
+                    : success({res, body})
+                )
+        })
+    )
+
+const r = require('request').get
+loadWebsite(r, 'http://jessewarden.com')
+.then( ({ body }) => console.log("html:", body.substring(0, 21)))
+.catch(error => console.log("error:", error))
+// html: <!DOCTYPE html>
+// <html

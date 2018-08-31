@@ -943,6 +943,8 @@
 <p>Dynamic languages pass random things everywhere. We attempt to not pass random things when we write code and unit tests, but the dynamism is a double edged sword: power of flexibility, yet bad things happen when you get what you weren&apos;t expecting.</p>
 <p>For example, here&apos;s our original pure function:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b
+
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
 </code></pre>
 <p>It follows all pure function rules of same input, same output, and no side effects.</p>
 <p>However, what happens if we add things that aren&apos;t numbers?</p>
@@ -963,7 +965,247 @@
 <blockquote>
 <p>&quot;The <code>add</code> function only takes a <code>Number</code> for the first argument, but you are passing an <code>Error</code>. You&apos;re not allowed to do that. Change the first parameter to a <code>Number</code>.&quot;</p>
 </blockquote>
-<p>As your functions grow in number, size, and you start composing them, it can be really hard to keep track of all the types going around, and ensuring that you&apos;re always getting the correct type, or if another developer using your code will get a meaningful error if your function chokes on a weird type it wasn&apos;t expecting.</p>
+<p>As your functions grow in number, size, and you start composing them, it can be really hard to keep track of all the types going around, and ensuring that you&apos;re always getting the correct type. If another developer is using your code, will they get a meaningful error if your function chokes on a weird type it wasn&apos;t expecting? These kinds of problems types can help like TypeScript, <a href="https://flow.org/" target="_blank">Flow</a>, <a href="http://elm-lang.org/" target="_blank">Elm</a>, and <a href="http://www.purescript.org/" target="_blank">PureScript</a>.</p>
+<p>The downside here is libraries. Just because you&apos;re using a transpilation/compilation solution doesn&apos;t mean your consumers are. While you can use TypeScript and publish a library to <code>npm</code> doesn&apos;t mean those who install it will be using TypeScript. They could just be using raw JavaScript, or Webpack with just ES6. That said, even a little can help, it just won&apos;t make your functions total for everyone.</p>
+<h2 id="solution-solving-with-manual-native-runtime-validation">Solution: Solving With Manual, Native Runtime Validation</h2>
+<p>Another solution is to do your own runtime type evaluation. If you implement a whitelist, then you only ensure the types you&apos;re expecting get through, otherwise you tell the caller of the function it failed, and you give them as much detail about what they passed in so they can have an easier time debugging.</p>
+<p>Without using any libraries and just raw JavaScript, we&apos;ll return our own result following the multiple return value model that Go, Lua, and Python follow (see <a href="part1/error_quest.md">Part 1: Error Quest</a>):</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isNumber = o =&gt; <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">&apos;number&apos;</span>
+<span class="hljs-keyword">const</span> addNumbers = (a, b) =&gt;
+    ( isNumber(a) &amp;&amp; isNumber(b) )
+    ? {ok: <span class="hljs-literal">true</span>, data: a + b}
+    : {ok: <span class="hljs-literal">false</span>, error: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Either a or b aren&apos;t Numbers. a: <span class="hljs-subst">${a}</span>, b: <span class="hljs-subst">${b}</span>`</span>)}
+</code></pre>
+<p>There are some edge cases with our <code>isNumber</code>; <code>1</code> and <code>Number(1)</code> will be <code>true</code>, but <code>new Number(1)</code> will be false, but it&apos;s &quot;mostly&quot; total just like some functions are &quot;mostly&quot; pure.</p>
+<p>Now calling it:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))
+<span class="hljs-comment">// { ok: true, data: 3 }</span>
+
+<span class="hljs-built_in">console</span>.log(add(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;how now brown cow&apos;</span>), { get: <span class="hljs-string">&apos;busy child&apos;</span> }))
+<span class="hljs-comment">// { ok: false,</span>
+<span class="hljs-comment">//   error: Error: Either a or b aren&apos;t Numbers. a: Error: how now brown cow, b: [object Object]</span>
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Now the function is mostly total. It&apos;ll literrly accept ANYTHING and let you know if add worked or not. Where pure functions are dependable to build applications on, total functions are a level above that and nigh unbreakable.</p>
+<h2 id="solution-solving-with-manual-folktale-runtime-validation">Solution: Solving With Manual, Folktale Runtime Validation</h2>
+<p>The challenge with the above is that <code>isNumber</code>, while a predicate, isn&apos;t very composable when you have a bunch of arguments that are different kinds. Also, some types have multiple rules above them such as product or Union types and so you&apos;ll run multiple predicates against them.</p>
+<p>Folktale <code>Validation</code>s work great here. Let&apos;s take our load website pure function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loadWebsite = (request, url) =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        request.get(url, (err, res, body) =&gt;
+            err
+            ? failure(err)
+            : success({res, body})
+        )
+    )
+</code></pre>
+<p>... and make it total using Folktale <code>Validation</code>s. We&apos;ll first need a bunch of predicates to ensure our <code>request</code> and <code>url</code> are acceptable types.</p>
+<h3 id="request-shape">Request Shape</h3>
+<p>Let&apos;s ensure our <code>request</code> &quot;looks the right shape&quot;; has the expected methods and properties we&apos;d want <code>request</code> to have. If it has those, it&apos;s probably a <code>request</code> and the developer/us didn&apos;t screw up. We&apos;ll rely heavily on Lodash&apos; base predicates. Given <code>request</code> uses Object Oriented Programming, we&apos;ll use <code>hasIn</code> to be safe when looking for properties as opposed to <code>has</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { get, hasIn, isFunction } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+
+<span class="hljs-keyword">const</span> hasGetFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;get&apos;</span>))
+<span class="hljs-keyword">const</span> hasPostFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;post&apos;</span>))
+<span class="hljs-keyword">const</span> hasInitParams = o =&gt; hasIn(o, <span class="hljs-string">&apos;initParams&apos;</span>)
+</code></pre>
+<h3 id="url-shape">URL Shape</h3>
+<p>For our <code>url</code>, we&apos;ll ensure she&apos;s a <code>String</code>, and looks like a URL:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ..., isString, some } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+
+<span class="hljs-keyword">const</span> legitString = o =&gt; isString(o) &amp;&amp; o.length &gt; <span class="hljs-number">0</span>
+<span class="hljs-keyword">const</span> hasHTTP = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;http&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasHTTPS = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;https&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasLocalhost = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;localhost&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasDots = o =&gt; isString(o) &amp;&amp; o.indexOf(<span class="hljs-string">&apos;.&apos;</span>) &gt; <span class="hljs-number">-1</span>
+
+<span class="hljs-keyword">const</span> legitURL = o =&gt;
+    legitString(o)
+    &amp;&amp; some(
+        [
+            hasHTTP,
+            hasHTTPS,
+            hasLocalhost,
+            hasDots
+        ],
+        predicate =&gt; predicate(o)
+    )
+</code></pre>
+<p>A quick test of the URL one:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;https://google.com&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;localhost:8080&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;192.168.0.1&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;chicken pot pie&apos;</span>)) <span class="hljs-comment">// false</span>
+</code></pre>
+<h3 id="request-validations">Request Validations</h3>
+<p>Now we&apos;ll create some <code>Validation</code>s that use those predicates for request:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Validation = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/validation&apos;</span>)
+<span class="hljs-keyword">const</span> { Success, Failure } = Validation
+
+<span class="hljs-keyword">const</span> validRequestGet = o =&gt;
+    hasGetFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a get function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestPost = o =&gt;
+    hasPostFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a post function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestInitParams = o =&gt;
+    hasInitParams(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have an initParams function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequest = o =&gt;
+    validRequestGet(o)
+    .concat(validRequestPost(o))
+    .concat(validRequestInitParams(o))
+</code></pre>
+<h3 id="url-validations">URL Validations</h3>
+<p>Now the <code>url</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> validURL = o =&gt;
+    legitURL(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`The URL doesn&apos;t appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: <span class="hljs-subst">${o}</span>`</span>])
+</code></pre>
+<h3 id="combining-it-all-together">Combining it All Together</h3>
+<p>Combining those together to make our function total:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loadWebsite = (request, url) =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        validRequest(request)
+        .concat(validURL(url))
+        .matchWith({
+            Failure: ({ value }) =&gt; failure(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(value.join(<span class="hljs-string">&apos;, &apos;</span>))),
+            Success: _ =&gt;
+                request.get(url, (err, res, body) =&gt;
+                    err
+                    ? failure(err)
+                    : success({res, body})
+                )
+        })
+    )
+</code></pre>
+<p>When we call it with good parameters, we get our expected result:</p>
+<pre><code class="lang-javascript">loadWebsite(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>), <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)
+.then( ({ body }) =&gt; <span class="hljs-built_in">console</span>.log(body.substring(<span class="hljs-number">0</span>, <span class="hljs-number">21</span>)))
+.catch(error =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;error:&quot;</span>, error))
+<span class="hljs-comment">// html: &lt;!DOCTYPE html&gt;</span>
+<span class="hljs-comment">// &lt;html</span>
+</code></pre>
+<p>If we mess up the <code>url</code>, however:</p>
+<pre><code class="lang-javascript">loadWebsite(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>), <span class="hljs-string">&apos;&#x1F42E;&apos;</span>)
+...
+<span class="hljs-comment">// error: Error: The URL doesn&apos;t appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: &#x1F42E;</span>
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Same for giving a bogus <code>request</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> r = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>).get
+loadWebsite(r, <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)
+...
+<span class="hljs-comment">// error: Error: Your request doesn&apos;t have a get function, you sent: function (uri, options, callback) {</span>
+<span class="hljs-comment">//     var params = initParams(uri, options, callback)</span>
+<span class="hljs-comment">//     params.method = method</span>
+<span class="hljs-comment">//     return request(params, params.callback)</span>
+<span class="hljs-comment">//   }, Your request doesn&apos;t have a post function, you sent: function (uri, options, callback) {</span>
+<span class="hljs-comment">//     var params = initParams(uri, options, callback)</span>
+<span class="hljs-comment">//     params.method = method</span>
+<span class="hljs-comment">//     return request(params, params.callback)</span>
+<span class="hljs-comment">//   }, Your request doesn&apos;t have an initParams function, you sent: function (uri, options, callback) {</span>
+<span class="hljs-comment">//     var params = initParams(uri, options, callback)</span>
+<span class="hljs-comment">//     params.method = method</span>
+<span class="hljs-comment">//     return request(params, params.callback)</span>
+<span class="hljs-comment">//   }</span>
+<span class="hljs-comment">//   ...</span>
+</code></pre>
+<p>You can see you can now pass whatever you want, and only the good gets through. Instead of relying on 3rd party code and libraries that don&apos;t have the best error handling, you only use those errors if bad data somehow makes it passed your total function validations. Anything you can do using <code>Validation</code>s to ensure yourself or another developer doesn&apos;t have to think when reading an error message is super helpful and time saving. That, and you can avoid strange errors that can occur when third party libraries/code aren&apos;t as good as you are in handling various types.</p>
+<p>The final code is:</p>
+<pre><code class="lang-javascript">
+<span class="hljs-keyword">const</span> {isString, some, get, hasIn, isFunction } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+<span class="hljs-keyword">const</span> Validation = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/validation&apos;</span>)
+<span class="hljs-keyword">const</span> { Success, Failure } = Validation
+
+<span class="hljs-comment">// -- Predicates ---------------------</span>
+
+<span class="hljs-keyword">const</span> hasGetFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;get&apos;</span>))
+<span class="hljs-keyword">const</span> hasPostFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;post&apos;</span>))
+<span class="hljs-keyword">const</span> hasInitParams = o =&gt; hasIn(o, <span class="hljs-string">&apos;initParams&apos;</span>)
+
+<span class="hljs-keyword">const</span> legitString = o =&gt; isString(o) &amp;&amp; o.length &gt; <span class="hljs-number">0</span>
+<span class="hljs-keyword">const</span> hasHTTP = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;http&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasHTTPS = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;https&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasLocalhost = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;localhost&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasDots = o =&gt; isString(o) &amp;&amp; o.indexOf(<span class="hljs-string">&apos;.&apos;</span>) &gt; <span class="hljs-number">-1</span>
+
+<span class="hljs-keyword">const</span> legitURL = o =&gt;
+    legitString(o)
+    &amp;&amp; some(
+        [
+            hasHTTP,
+            hasHTTPS,
+            hasLocalhost,
+            hasDots
+        ],
+        predicate =&gt; predicate(o)
+    )
+
+<span class="hljs-comment">// -- Validations ---------------------</span>
+
+<span class="hljs-keyword">const</span> validRequestGet = o =&gt;
+    hasGetFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a get function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestPost = o =&gt;
+    hasPostFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a post function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestInitParams = o =&gt;
+    hasInitParams(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have an initParams function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequest = o =&gt;
+    validRequestGet(o)
+    .concat(validRequestPost(o))
+    .concat(validRequestInitParams(o))
+
+<span class="hljs-keyword">const</span> validURL = o =&gt;
+    legitURL(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`The URL doesn&apos;t appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: <span class="hljs-subst">${o}</span>`</span>])
+
+
+<span class="hljs-keyword">const</span> loadWebsite = (request, url) =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        validRequest(request)
+        .concat(validURL(url))
+        .matchWith({
+            Failure: ({ value }) =&gt; failure(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(value.join(<span class="hljs-string">&apos;, &apos;</span>))),
+            Success: _ =&gt;
+                request.get(url, (err, res, body) =&gt;
+                    err
+                    ? failure(err)
+                    : success({res, body})
+                )
+        })
+    )
+</code></pre>
+<h3 id="unit-test-side-note">Unit Test Side Note</h3>
+<p>Note now that we&apos;re checking for all 3 methods on <code>request</code>, this may fail unit tests that stub only request with a get function, i.e.:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// this will fail since stub won&apos;t pass validation</span>
+it(<span class="hljs-string">&apos;request.get should work&apos;</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> requestStub = {
+        get: (url, callback) =&gt; callback(<span class="hljs-literal">undefined</span>, {}, <span class="hljs-string">&apos;yay&apos;</span>)
+    }
+    expect(loadWebsite(requestStub, <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)).to.eventually.be.fulfilled;
+})
+</code></pre>
+<h2 id="conclusions">Conclusions</h2>
+<p>Total functions are pure functions that accept all inputs. The pro&apos;s are enhanced error handling if done manually, less unknown errors from other code, and overall more dependenable functions. The error messages, especially from API response errors, are really helpful for consumers of your code.</p>
+<p>The con&apos;s are they can require more unit tests to ensure you&apos;ve handled the edge cases. This is before you even start writing property tests via <a href="https://github.com/jsverify/jsverify" target="_blank">jsverify</a>. Like unit test stubs, they will expect a certain implementation shape, and so your stubs have to be more thorough to match the implementation. i.e. &quot;A <code>get</code> is good enough, right? Wait... we&apos;re not even testing <code>post</code>, why do I need to implement a blank function for it on the stub?&quot;</p>
+<p>Also, developers who are not using types don&apos;t like how verbose they are to debug and modify. We&apos;ve take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the <code>add</code> function itself, you&apos;ll end up writing unit tests for the others anyway to ensure you&apos;ve written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it&apos;s hard for future developers to understand why the private functions of your module are being so thoroughly tested. </p>
 
                                 
                                 </section>
@@ -1007,7 +1249,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"next":{"title":"Part 8: Debugging","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Tap","level":"1.9.1","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]},{"title":"Logging vs Purity","level":"1.9.2","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]}]},"previous":{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/README.md","mtime":"2018-08-30T15:59:20.568Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-30T15:57:37.473Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"next":{"title":"Part 8: Debugging","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Tap","level":"1.9.1","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]},{"title":"Logging vs Purity","level":"1.9.2","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]}]},"previous":{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/README.md","mtime":"2018-08-30T22:19:37.633Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-31T13:34:28.886Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
