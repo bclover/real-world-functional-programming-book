@@ -969,7 +969,236 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="test-driven-development">Test Driven Development</h1>
-<p>The Test Driven Development methodology gives you a way to utilize unit testing as a way to design your code while ensuring you can be confident in constant feature additions and changes. However, </p>
+<p><strong>Caveat</strong>: This section is not promoting Test Driven Development. It is not saying TDD is the one, true way to do things. It is not encouraging you to use TDD. Rather, it&apos;s a lens to show the truth of what Functional Programming will NOT solve for you, yet still containing helpful programming advice. That, and you should learn about TDD because multiple smart, experienced people agree it has goodness within despite the various, justified detractors.</p>
+<p>The Test Driven Development methodology gives uses unit testing as a way to design your code while ensuring you can be confident in constant feature additions and changes.</p>
+<p>However, the meaning of TDD over the years has warped into test everything first, and maintain this massive unit test suite full of complicated mocks and stubs, you can&apos;t play with ideas at all, or that your code is driven by tests. Once you start bringing in <a href="https://www.seleniumhq.org/" target="_blank">Selenium</a> / functional tests, things got worse.  The much respected David Heinemeier Hansson, known as <a href="https://twitter.com/dhh" target="_blank">DHH on Twitter</a> and famous for a variety of things namely creating <a href="https://rubyonrails.org/" target="_blank">Ruby on Rails</a>, wrote a pretty <a href="http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html" target="_blank">scathing blog post on TDD</a> which further clouded the value.</p>
+<p>Let&apos;s assume for this post TDD is like Agile: Triggers a maligned attitude at its mere mention, is misunderstood, everyone says they practice it, apparently don&apos;t do it right, yet there is some truth is in there somewhere.</p>
+<p>Functional Programming, while making things easier to unit test, does NOT solve the problems of maintaining large unit test suites, helping you in consulting to convince teams to move from the <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank">ice cream cone to the test pyramid</a> or hexagon/honeycomb/hardcore drugs, or ensuring your stubs accurately reflect the concretes they are substituting.</p>
+<p>Like Object Oriented Programming, it follows the same rules that Kent Beck and crew laid out to test the feature. We use the term feature instead of module because Node, Python, and Lua use the term module to imply &quot;where you put your function(s) and class(es)&quot;. Functional Programming like good Object Oriented code bases and bases in <a href="https://www.factorio.com/" target="_blank">Factorio</a>, benefits from automating everything.</p>
+<p>Below will cover the false sense of security Functional Programming can give you, how Red Green Refactor is practiced in Functional Programming, and stating the obvious trade offs with using concrete implementations vs. stubs.</p>
+<h2 id="false-sense-of-security">False Sense of Security</h2>
+<p>Functional Programming can give you a few false senses of security:</p>
+<ul>
+<li>Your test suite size WILL go down</li>
+<li>individual functions with few arguments are easier to test</li>
+<li>you&apos;ll get 100% test coverage more easily</li>
+<li>your tests are deterministic and pass consistently</li>
+<li>your larger test suites can be run concurrently, speeding them up and not breaking because there is no shared state in pure functions</li>
+</ul>
+<p>While the suite size goes down, a lot of those tests may be testing implementation details and you don&apos;t need to test those. Like in OOP, publics test your privates. With 100% test coverage, you&apos;ll still get bugs. Stubs are not your concrete implementations; they are different. Consistently passing tests just mean they&apos;re consistently missing bugs or consistently having false positives. Functions with a lot of arguments, however, are still hard, have a lot of stubs, and can be just as confusing as large mocks.</p>
+<p>Bottom line, even if you no longer get new features, libraries update a lot for security reasons and innovation that changes the public API. You need to change your code even if your code isn&apos;t changing. Additionally, no one likes to maintain large test suites, even if they are more understandable in Functional code. This slows you and/or your team down.</p>
+<p>To end on a happy note, it&apos;s a false sense of security, NOT accomplishment. The unit tests, high coverage, and few stubs are something you should be proud of.</p>
+<h2 id="what-is-a-public-api">What is a Public API?</h2>
+<p>When we talk about a public API from a Functional Programming perspective, we mean whatever functions are exposed from your module. Now, in Dynamic languages, there often isn&apos;t a lot of control here, nor a feature of public, private, nor protected, so you&apos;ll do one of the following:</p>
+<ol>
+<li>expose everything</li>
+<li>expose everything, but name things with underscore prefixes (i.e. <code>thisIsPublic</code>, <code>_thisIsPrivate</code>)</li>
+<li>expose nothing and use closures only</li>
+<li>combination of the above using globals and a custom module system</li>
+</ol>
+<p>What we mean by public API in JavaScript is whatever functions <code>module.exports</code> has on it, or whatever uses the <code>export</code> keyword in ES6. For Python, whatever your folder exposes via <code>__init__.py</code>. For Lua, whatever you return from your module file.</p>
+<p>Now, all 3 of those are modules, but they could import other modules and not expose those internals:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// string.js</span>
+<span class="hljs-keyword">const</span> { startCase } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+<span class="hljs-keyword">const</span> parseName = name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>).reverse().map(startCase).join(<span class="hljs-string">&apos;, &apos;</span>)
+
+<span class="hljs-built_in">module</span>.exports = parseName
+
+<span class="hljs-comment">// api.js</span>
+<span class="hljs-keyword">const</span> parseName = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./string&apos;</span>)
+
+<span class="hljs-built_in">module</span>.exports = parseName
+</code></pre>
+<p>Our API in this case is the <code>parseName</code> function from the <code>api.js</code> file.</p>
+<p>If we import <code>parseName</code> from <code>api.mjs</code>, we can use it, but can&apos;t access anything else from it, nor from <code>string.js</code>. This controlled level of privacy allows api to only expose things it wants, and change the internals however it wants. This controlled flexibility is good: easier for the developers to get their ideas down in code and folders how they want, yet providing developers using it a consistent API. If the <code>api.js</code> were to change, they&apos;d do a major version change in their <code>package.json</code> so code bases wouldn&apos;t break unless those developers are ready to change their code to accommodate the API change.</p>
+<p>The <code>parseName</code> is a function, but in OOP code bases, it&apos;d be a <code>class</code>, and that class would have only <code>public</code> methods for you to utilize to access the internals however it sees fit. Both OOP and Functional Programming can practice encapsulation. </p>
+<h2 id="tdd-internal-vs-feature">TDD: Internal vs. Feature</h2>
+<p>TDD is pitched as &quot;write the test first, make it fail, then fix the code under test to make it pass&quot;. However, that leads to &quot;every function/class in my code base most likely has a test&quot;. For libraries especially, this may seem ok, but eventually you end up with massive amounts of unit tests usually outnumbering your code because of the stub and/or mock sizes. The problem here is soon as you want to change anything, even if you&apos;re not changing the public API, a lot of your tests break. So even if you don&apos;t change the public api, you&apos;re still having to maintain and modify all of those tests even if your feature doesn&apos;t break.</p>
+<p>... and that&apos;s what we care about: the feature.</p>
+<p>Both OOP and FP agree that they don&apos;t care about your implementation details, just the public API. However, the public API might not be your feature. You might not even know your public API yet.</p>
+<h2 id="red-green-refactor">Red, Green, Refactor</h2>
+<p>The following describes how to practice Red, Green, Refactor for Functional Programming. Red Green Refactor is the core way of practicing Test Driven Development.</p>
+<h3 id="step-1-failing-feature-unit-test">Step 1: Failing Feature Unit Test</h3>
+<p>Take your feature, and write a unit test for it. Do the bare minimum to get it to compile and then ensure the test fails for the function not returning the right value. For the back-end this could be just 1 module that exports 1 method to &quot;do all the things&quot;. For front end, this could be unit test verifying you can do the basics in virtual DOM (it doesn&apos;t have to be Selenium based).</p>
+<h3 id="step-2-write-your-fun-code">Step 2: Write Your Fun Code</h3>
+<p>Write the code that will make the feature work. This should be right side brain fun. Don&apos;t stress about 100% function purity, nor worry getting your visual design pixel perfect to the design comps. Use real implementations of libraries instead of stubs/mocks. For front end, get the UI connected to the back-end. For the back-end, get it talking to the database or socket server and showing things in the browser or curl or <a href="https://www.getpostman.com/" target="_blank">Postman</a> for REST URL&apos;s. This should make your feature test pass.</p>
+<p>No new tests should be added in this step.</p>
+<h3 id="step-3-refactor">Step 3: Refactor</h3>
+<p>Make the code as pure as you deem appropriate and refactor until your happy. This should be the left brain fun.</p>
+<p>No new tests should be added in this step.</p>
+<h3 id="red-green-refactor-conclusion">Red, Green, Refactor Conclusion</h3>
+<p>The result should be a Red unit test, a Green test after your feature mostly works, and then code you&apos;re proud of without breaking the test nor by adding any new tests. When you add a new feature, repeat steps 1, 2, and 3. If you&apos;re using code coverage, you&apos;ll note that many paths aren&apos;t followed unless certain error conditions arise, and that&apos;s ok for now. We&apos;re interested in the happy path: does the feature work. Unhappy paths, such as login failure, are a feature as well so test those with the same guidelines.</p>
+<h2 id="api-example">API Example</h2>
+<p>Let&apos;s do an API example first since it&apos;s easier than UI. We need to read a list of users from a relational database. </p>
+<blockquote>
+<p>As a user,
+I need to see a list of users,
+so that I can better administrate my API&quot;. We&apos;ll use Node and Postegres.</p>
+</blockquote>
+<h3 id="step-1-red">Step 1: Red</h3>
+<p>Our basic app that currently does nothing but blow up:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> startServer = () =&gt; <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;startServer not implemented yet&apos;</span>))
+<span class="hljs-keyword">const</span> stopServer = () =&gt; <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;stopServer not implemented yet&apos;</span>))
+
+<span class="hljs-built_in">module</span>.exports = {
+    startServer,
+    stopServer
+}
+</code></pre>
+<p>And our <a href="https://jestjs.io/" target="_blank">Jest</a> unit tests that fail:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>)
+
+<span class="hljs-keyword">const</span> { startServer, stopServer } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../src/app&apos;</span>)
+
+afterEach(() =&gt; {
+    <span class="hljs-keyword">return</span> stopServer()
+})
+
+test(<span class="hljs-string">&apos;When I call the /users/list API, I should get a list of users&apos;</span>, () =&gt; {
+    <span class="hljs-keyword">return</span> startServer()
+    .then( () =&gt;
+        <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+            request.get(<span class="hljs-string">&apos;/users/list&apos;</span>, (err, res, body) =&gt;
+                err
+                ? failure(err)
+                : success(body)
+    )))
+    .then(users =&gt; {
+        expect(users.data[<span class="hljs-number">0</span>].firstName).toBe(<span class="hljs-string">&apos;jesse&apos;</span>)
+    })
+})
+</code></pre>
+<h3 id="step-2-green">Step 2: Green</h3>
+<p>After setting up Postgres with a users table and inserting some data, I then write all the Node code to make it pass:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>)
+<span class="hljs-keyword">const</span> app = express()
+<span class="hljs-keyword">const</span> { Pool } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;pg&apos;</span>)
+<span class="hljs-keyword">const</span> pool = <span class="hljs-keyword">new</span> Pool()
+
+app.get(<span class="hljs-string">&apos;/users/list&apos;</span>, (req, res) =&gt; {
+    <span class="hljs-keyword">return</span> pool.query(<span class="hljs-string">&apos;SELECT username,date FROM users;&apos;</span>)
+    .then(result =&gt; result.rows)
+    .then(users =&gt; {
+        res.json({result: <span class="hljs-literal">true</span>, data: users})
+    })
+    .catch(err =&gt; {
+        res.json({result: <span class="hljs-literal">false</span>, error: err.message})
+    })
+})
+
+<span class="hljs-keyword">let</span> server
+
+<span class="hljs-keyword">const</span> startServer = () =&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>( resolve =&gt; {
+        server = app.listen(<span class="hljs-number">3000</span>, () =&gt; {
+            resolve(server)
+        })
+    })
+}
+<span class="hljs-keyword">const</span> stopServer = () =&gt;
+    pool.end()
+    .then(() =&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt; {
+            server.close( err =&gt; {
+                <span class="hljs-keyword">if</span>(err) {
+                    <span class="hljs-keyword">return</span> failure(err)
+                }
+                success()
+            })
+        })
+    })
+
+<span class="hljs-built_in">module</span>.exports = {
+    startServer,
+    stopServer
+}
+</code></pre>
+<p>Running <code>npm test</code> works and if I run coverage it&apos;s at 90%. To confirm why, we can see from the coverage report that the route and the stopping of the server both have error handling code that our happy path feature doesn&apos;t cover.</p>
+<h3 id="step-3-refactor">Step 3: Refactor</h3>
+<p>Now we clean up the code. Let&apos;s make the functions mostly pure and add some minor database validation. We&apos;ll leave the <code>let</code> for now as our only state.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>)
+<span class="hljs-keyword">const</span> { Pool } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;pg&apos;</span>)
+<span class="hljs-keyword">const</span> Result = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/result&apos;</span>)
+<span class="hljs-keyword">const</span> { Ok } = Result
+<span class="hljs-keyword">const</span> Validation = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/validation&apos;</span>)
+<span class="hljs-keyword">const</span> { Success, Failure } = Validation
+<span class="hljs-keyword">const</span> { get, partial, memoize, curry } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
+
+<span class="hljs-keyword">const</span> getPool = () =&gt; <span class="hljs-keyword">new</span> Pool()
+<span class="hljs-keyword">const</span> getPoolCached = memoize(getPool)
+
+<span class="hljs-keyword">const</span> validRows = o =&gt;
+    <span class="hljs-built_in">Array</span>.isArray(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Invalid Rows: Postgres didn&apos;t return an Array of rows, instead returned: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> getUsers = pool =&gt;
+    pool.query(<span class="hljs-string">&apos;SELECT username,date FROM users;&apos;</span>)
+    .then(get(<span class="hljs-string">&apos;rows&apos;</span>))
+    .then(validRows)
+    .then(validation =&gt;
+        validation.matchWith({
+           Failure: ({value}) =&gt; Result.Error(value),
+           Success: ({value}) =&gt; Ok(value)
+        }))
+    .catch(error =&gt; <span class="hljs-built_in">Promise</span>.resolve(
+        Result.Error(<span class="hljs-string">`Postgres Error: <span class="hljs-subst">${get(&apos;message&apos;, error)}</span>`</span>)
+    ))
+<span class="hljs-keyword">const</span> getUsersPartial = partial(getUsers, [getPoolCached()])
+
+<span class="hljs-keyword">const</span> sendError = res =&gt; error =&gt;
+    res.json({ result: <span class="hljs-literal">false</span>, error })
+
+<span class="hljs-keyword">const</span> sendOk = res =&gt; data =&gt;
+    res.json({ result: <span class="hljs-literal">true</span>, data })
+
+<span class="hljs-keyword">const</span> getUsersRoute = curry( (getUsersPartial, req, res) =&gt;
+    getUsersPartial()
+    .then(result =&gt;
+        result.matchWith({
+            <span class="hljs-built_in">Error</span>: ({value}) =&gt; sendError(res)(value),
+            Ok: ({value}) =&gt; sendOk(res)(value)
+        })
+    ))
+
+<span class="hljs-keyword">const</span> getUsersRoutePartial = getUsersRoute(getUsersPartial)
+
+<span class="hljs-keyword">const</span> addUsersListRoute = app =&gt; route =&gt;
+    Ok(
+        app.get(<span class="hljs-string">&apos;/users/list&apos;</span>, route)
+    )
+
+<span class="hljs-keyword">const</span> listen = port =&gt; app =&gt;
+    Result.try(
+        () =&gt; app.listen(port)
+    )
+
+<span class="hljs-keyword">let</span> server
+<span class="hljs-keyword">const</span> startServer = getUsersRoutePartial =&gt; port =&gt; app =&gt;
+    addUsersListRoute(app)(getUsersRoutePartial)
+    .chain(_ =&gt; listen(port)(app))
+    .chain(newServer =&gt; {
+        server = newServer
+        <span class="hljs-keyword">return</span> Result.Ok(server)
+    })
+    .matchWith({
+        <span class="hljs-built_in">Error</span>: ({value}) =&gt; <span class="hljs-built_in">Promise</span>.reject(value),
+        Ok: ({value}) =&gt; <span class="hljs-built_in">Promise</span>.resolve(server)
+    })
+<span class="hljs-keyword">const</span> startServerPartial = () =&gt; startServer(getUsersRoutePartial)(<span class="hljs-number">3000</span>)(express())
+
+<span class="hljs-keyword">const</span> stopServer = pool =&gt;
+    pool.end()
+    .then( _ =&gt; server.close())
+<span class="hljs-keyword">const</span> stopServerPartial = partial(stopServer, [getPoolCached()])
+
+<span class="hljs-built_in">module</span>.exports = {
+    startServer: startServerPartial,
+    stopServer: stopServerPartial
+}
+</code></pre>
+<p>Coverage goes from 90% to 88% because we are not covering the 2 new error scenarios it introduced. Coverage is still helping, though, because it&apos;s pointing out areas we can do some more testing on later.</p>
+<p>The point is, more pure code, easier to test specific parts if you need, API didn&apos;t change, and we didn&apos;t violate the rules by adding any new tests. Feature still works despite the fact we completely rewrote the internals to be more functional.</p>
 
                                 
                                 </section>
@@ -1013,7 +1242,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Test Driven Development","level":"1.10.2","depth":2,"next":{"title":"Part 10: Working With Others","level":"1.11","depth":1,"path":"part10/README.md","ref":"part10/README.md","articles":[{"title":"Heed the Warnings","level":"1.11.1","depth":2,"path":"part10/heed_the_warnings.md","ref":"part10/heed_the_warnings.md","articles":[]},{"title":"Dealing with Imperatives","level":"1.11.2","depth":2,"path":"part10/imperatives.md","ref":"part10/imperatives.md","articles":[]},{"title":"Dealing with OOP","level":"1.11.3","depth":2,"path":"part10/oop.md","ref":"part10/oop.md","articles":[]},{"title":"Safe Advice","level":"1.11.4","depth":2,"path":"part10/safe_advice.md","ref":"part10/safe_advice.md","articles":[]}]},"previous":{"title":"Why We Use Stubs and Not Mocks","level":"1.10.1","depth":2,"path":"part9/stubs_and_mocks.md","ref":"part9/stubs_and_mocks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/tdd.md","mtime":"2018-09-02T15:26:04.822Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-02T15:26:55.973Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Test Driven Development","level":"1.10.2","depth":2,"next":{"title":"Part 10: Working With Others","level":"1.11","depth":1,"path":"part10/README.md","ref":"part10/README.md","articles":[{"title":"Heed the Warnings","level":"1.11.1","depth":2,"path":"part10/heed_the_warnings.md","ref":"part10/heed_the_warnings.md","articles":[]},{"title":"Dealing with Imperatives","level":"1.11.2","depth":2,"path":"part10/imperatives.md","ref":"part10/imperatives.md","articles":[]},{"title":"Dealing with OOP","level":"1.11.3","depth":2,"path":"part10/oop.md","ref":"part10/oop.md","articles":[]},{"title":"Safe Advice","level":"1.11.4","depth":2,"path":"part10/safe_advice.md","ref":"part10/safe_advice.md","articles":[]}]},"previous":{"title":"Why We Use Stubs and Not Mocks","level":"1.10.1","depth":2,"path":"part9/stubs_and_mocks.md","ref":"part9/stubs_and_mocks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/tdd.md","mtime":"2018-09-02T22:12:18.434Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-02T17:28:35.615Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

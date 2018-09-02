@@ -54,6 +54,7 @@
 * [Part 9: Testing](part9/README.md)
     * [Why We Use Stubs and Not Mocks](part9/stubs_and_mocks.md)
     * [Test Driven Development](part9/tdd.md)
+    * [Predicate Property Testing](part9/property_testing.md)
 * [Part 10: Working With Others](part10/README.md)
     * [Heed the Warnings](part10/heed_the_warnings.md)
     * [Dealing with Imperatives](part10/imperatives.md)
