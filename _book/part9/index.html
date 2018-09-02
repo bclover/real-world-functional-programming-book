@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>some · GitBook</title>
+        <title>Part 9: Testing · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="zip.md" />
+    <link rel="next" href="stubs_and_mocks.html" />
     
     
-    <link rel="prev" href="every.html" />
+    <link rel="prev" href="../part8/logging_purity.md" />
     
 
     </head>
@@ -309,9 +309,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../part3/">
             
-                <a href="./">
+                <a href="../part3/">
             
                     
                     Part 3: List Comprehensions
@@ -323,9 +323,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="map.html">
+        <li class="chapter " data-level="1.4.1" data-path="../part3/map.html">
             
-                <a href="map.html">
+                <a href="../part3/map.html">
             
                     
                     map
@@ -336,9 +336,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="filter.html">
+        <li class="chapter " data-level="1.4.2" data-path="../part3/filter.html">
             
-                <a href="filter.html">
+                <a href="../part3/filter.html">
             
                     
                     filter
@@ -349,9 +349,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="reduce.html">
+        <li class="chapter " data-level="1.4.3" data-path="../part3/reduce.html">
             
-                <a href="reduce.html">
+                <a href="../part3/reduce.html">
             
                     
                     reduce
@@ -362,9 +362,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="every.html">
+        <li class="chapter " data-level="1.4.4" data-path="../part3/every.html">
             
-                <a href="every.html">
+                <a href="../part3/every.html">
             
                     
                     every
@@ -375,9 +375,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.5" data-path="some.html">
+        <li class="chapter " data-level="1.4.5" data-path="../part3/some.html">
             
-                <a href="some.html">
+                <a href="../part3/some.html">
             
                     
                     some
@@ -388,7 +388,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="zip.md">
+        <li class="chapter " data-level="1.4.6" data-path="../part3/zip.md">
             
                 <span>
             
@@ -401,7 +401,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.7" data-path="practice_every.md">
+        <li class="chapter " data-level="1.4.7" data-path="../part3/practice_every.md">
             
                 <span>
             
@@ -414,7 +414,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.8" data-path="practice_map.md">
+        <li class="chapter " data-level="1.4.8" data-path="../part3/practice_map.md">
             
                 <span>
             
@@ -794,9 +794,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="../part9/">
+        <li class="chapter active" data-level="1.10" data-path="./">
             
-                <a href="../part9/">
+                <a href="./">
             
                     
                     Part 9: Testing
@@ -808,9 +808,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/stubs_and_mocks.html">
+        <li class="chapter " data-level="1.10.1" data-path="stubs_and_mocks.html">
             
-                <a href="../part9/stubs_and_mocks.html">
+                <a href="stubs_and_mocks.html">
             
                     
                     Why We Use Stubs and Not Mocks
@@ -821,9 +821,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/tdd.html">
+        <li class="chapter " data-level="1.10.2" data-path="tdd.html">
             
-                <a href="../part9/tdd.html">
+                <a href="tdd.html">
             
                     
                     Test Driven Development
@@ -953,7 +953,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >some</a>
+        <a href=".." >Part 9: Testing</a>
     </h1>
 </div>
 
@@ -968,63 +968,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="some-3-things-go-in-true-comes-out-if-the-predicate-says-at-least-one-thing-is-true">some: 3 things go in, true comes out if the predicate says at least one thing is true</h1>
-<p>The <code>some</code> functions an Array and a predicate function, and returns <code>true</code> if the predicate function returns true for at least 1 of the Array items. Like <code>every</code>, it&apos;s another Array comprehension built atop The Big 3.</p>
-<h2 id="old-sk00l-for">Old Sk00l for</h2>
-<p>Let&apos;s every our party has at least one person who can act as a Doctor for the other party members in case they get hurt.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> party = [
-    {
-        name: <span class="hljs-string">&apos;Jesse&apos;</span>,
-        clazz: <span class="hljs-string">&apos;Swashbuckler&apos;</span>,
-        hitPoints: <span class="hljs-number">20</span>,
-        maxHitPoints: <span class="hljs-number">22</span>
-    },
-    {
-        name: <span class="hljs-string">&apos;Brandy&apos;</span>,
-        clazz: <span class="hljs-string">&apos;Cleric&apos;</span>,
-        hitPoints: <span class="hljs-number">14</span>,
-        maxHitPoints: <span class="hljs-number">14</span>
-    },
-    {
-        name: <span class="hljs-string">&apos;Albus&apos;</span>,
-        clazz: <span class="hljs-string">&apos;War Dog&apos;</span>,
-        hitPoints: <span class="hljs-number">5</span>,
-        maxHitPoints: <span class="hljs-number">9</span>
-    }
-]
-
-<span class="hljs-keyword">let</span> atLeast1Healer = <span class="hljs-literal">false</span>
-<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; party.length; i++) {
-    <span class="hljs-keyword">const</span> member = party[i]
-    <span class="hljs-keyword">if</span>(member.clazz === <span class="hljs-string">&apos;Cleric&apos;</span>) {
-        atLeast1Healer = <span class="hljs-literal">true</span>
-    }
-}
-<span class="hljs-built_in">console</span>.log(atLeast1Healer) <span class="hljs-comment">// true</span>
-</code></pre>
-<p>It&apos;s <code>true</code> because Brandy is a Cleric even though Jesse and Albus are not.</p>
-<h2 id="some">some</h2>
-<p>We can purify that by using <code>some</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { some } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
-
-<span class="hljs-keyword">const</span> isCleric = member =&gt;
-    member.clazz === <span class="hljs-string">&apos;Cleric&apos;</span>
-
-<span class="hljs-keyword">const</span> partyHasAtLeastOneDoctor = party =&gt;
-    some(party, isCleric)
-</code></pre>
-<p>Because Brandy is a Cleric, the <code>isCleric</code> function will return <code>true</code> at least once while <code>some</code> is looping through all 3 party members.</p>
-<h2 id="type-detection">Type Detection</h2>
-<p>With <code>every</code>, we ensured that a party member was exactly as we expected it to be. Some types in dynamic languages, however, we can be more flexible with. For example, while interfaces aren&apos;t natively supported, can we test for that. An example is detecting if something is a <code>Promise</code>. While <code>Promise</code> is a native <code>class</code> in JavaScript, a lot of implementations of Promise have cropped up in the past decade while waiting for the API be officially implemented by browsers.</p>
-<p>Instead of being strict like we were with <code>every</code> around a party member, we&apos;ll see if it has the <code>then</code> of a Promise or Promise like library, or JQuery&apos;s <code>done</code>:</p>
-<p>```javascript
-const { isFunction, get } = require(&apos;lodash&apos;)</p>
-<p>const hasThen = o =&gt;
-    isFunction(get(o, &apos;then&apos;))</p>
-<p>const hasDone = o =&gt;
-    isFunction(get(o, &apos;done&apos;))</p>
-<p>const isPromiseLike = o =&gt;
-    hasThen(o) &amp;&amp; hasDone(o)</p>
+                                <h1 id="testing">Testing</h1>
+<p>There are some problems that are solved by unit testing in Functional Programming, such as not needing mocks and requiring only stubs for dependencies.</p>
+<p>Other problems remain, though.</p>
+<p>Stubbing only enough to get the test to pass means you&apos;ve got the minimally required implementation of the dependency. This requires some form of integration testing to ensure you&apos;ve implemented your stub correctly. Also, as library versions change, public API&apos;s may change, so what you had that was correct is now broken in the new version. Finally, are you testing the module and API or implementation details?</p>
+<p>We&apos;ll cover why you don&apos;t need mocks, why your stubs still aren&apos;t good enough, and a refresher on TDD with Functional Programming since it often has an Object Oriented Programming slant.</p>
 
                                 
                                 </section>
@@ -1052,12 +1000,12 @@ const { isFunction, get } = require(&apos;lodash&apos;)</p>
 
             
                 
-                <a href="every.html" class="navigation navigation-prev " aria-label="Previous page: every">
+                <a href="../part8/logging_purity.md" class="navigation navigation-prev " aria-label="Previous page: Logging vs Purity">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="zip.md" class="navigation navigation-next " aria-label="Next page: zip">
+                <a href="stubs_and_mocks.html" class="navigation navigation-next " aria-label="Next page: Why We Use Stubs and Not Mocks">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1068,7 +1016,7 @@ const { isFunction, get } = require(&apos;lodash&apos;)</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"some","level":"1.4.5","depth":2,"next":{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},"previous":{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/some.md","mtime":"2018-08-18T13:41:59.071Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-02T15:26:55.973Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 9: Testing","level":"1.10","depth":1,"next":{"title":"Why We Use Stubs and Not Mocks","level":"1.10.1","depth":2,"path":"part9/stubs_and_mocks.md","ref":"part9/stubs_and_mocks.md","articles":[]},"previous":{"title":"Logging vs Purity","level":"1.9.2","depth":2,"path":"part8/logging_purity.md","ref":"part8/logging_purity.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/README.md","mtime":"2018-09-01T12:36:37.572Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-02T15:26:55.973Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

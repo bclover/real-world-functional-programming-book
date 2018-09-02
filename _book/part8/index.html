@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>some · GitBook</title>
+        <title>Part 8: Debugging · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="zip.md" />
+    <link rel="next" href="logging_vs_purity.md" />
     
     
-    <link rel="prev" href="every.html" />
+    <link rel="prev" href="../part7/" />
     
 
     </head>
@@ -309,9 +309,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../part3/">
             
-                <a href="./">
+                <a href="../part3/">
             
                     
                     Part 3: List Comprehensions
@@ -323,9 +323,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="map.html">
+        <li class="chapter " data-level="1.4.1" data-path="../part3/map.html">
             
-                <a href="map.html">
+                <a href="../part3/map.html">
             
                     
                     map
@@ -336,9 +336,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="filter.html">
+        <li class="chapter " data-level="1.4.2" data-path="../part3/filter.html">
             
-                <a href="filter.html">
+                <a href="../part3/filter.html">
             
                     
                     filter
@@ -349,9 +349,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="reduce.html">
+        <li class="chapter " data-level="1.4.3" data-path="../part3/reduce.html">
             
-                <a href="reduce.html">
+                <a href="../part3/reduce.html">
             
                     
                     reduce
@@ -362,9 +362,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="every.html">
+        <li class="chapter " data-level="1.4.4" data-path="../part3/every.html">
             
-                <a href="every.html">
+                <a href="../part3/every.html">
             
                     
                     every
@@ -375,9 +375,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.5" data-path="some.html">
+        <li class="chapter " data-level="1.4.5" data-path="../part3/some.html">
             
-                <a href="some.html">
+                <a href="../part3/some.html">
             
                     
                     some
@@ -388,7 +388,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="zip.md">
+        <li class="chapter " data-level="1.4.6" data-path="../part3/zip.md">
             
                 <span>
             
@@ -401,7 +401,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.7" data-path="practice_every.md">
+        <li class="chapter " data-level="1.4.7" data-path="../part3/practice_every.md">
             
                 <span>
             
@@ -414,7 +414,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.8" data-path="practice_map.md">
+        <li class="chapter " data-level="1.4.8" data-path="../part3/practice_map.md">
             
                 <span>
             
@@ -749,9 +749,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="../part8/">
+        <li class="chapter active" data-level="1.9" data-path="./">
             
-                <a href="../part8/">
+                <a href="./">
             
                     
                     Part 8: Debugging
@@ -763,7 +763,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="../part8/logging_vs_purity.md">
+        <li class="chapter " data-level="1.9.1" data-path="logging_vs_purity.md">
             
                 <span>
             
@@ -776,7 +776,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="../part8/logging_purity.md">
+        <li class="chapter " data-level="1.9.2" data-path="logging_purity.md">
             
                 <span>
             
@@ -953,7 +953,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >some</a>
+        <a href=".." >Part 8: Debugging</a>
     </h1>
 </div>
 
@@ -968,63 +968,127 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="some-3-things-go-in-true-comes-out-if-the-predicate-says-at-least-one-thing-is-true">some: 3 things go in, true comes out if the predicate says at least one thing is true</h1>
-<p>The <code>some</code> functions an Array and a predicate function, and returns <code>true</code> if the predicate function returns true for at least 1 of the Array items. Like <code>every</code>, it&apos;s another Array comprehension built atop The Big 3.</p>
-<h2 id="old-sk00l-for">Old Sk00l for</h2>
-<p>Let&apos;s every our party has at least one person who can act as a Doctor for the other party members in case they get hurt.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> party = [
-    {
-        name: <span class="hljs-string">&apos;Jesse&apos;</span>,
-        clazz: <span class="hljs-string">&apos;Swashbuckler&apos;</span>,
-        hitPoints: <span class="hljs-number">20</span>,
-        maxHitPoints: <span class="hljs-number">22</span>
-    },
-    {
-        name: <span class="hljs-string">&apos;Brandy&apos;</span>,
-        clazz: <span class="hljs-string">&apos;Cleric&apos;</span>,
-        hitPoints: <span class="hljs-number">14</span>,
-        maxHitPoints: <span class="hljs-number">14</span>
-    },
-    {
-        name: <span class="hljs-string">&apos;Albus&apos;</span>,
-        clazz: <span class="hljs-string">&apos;War Dog&apos;</span>,
-        hitPoints: <span class="hljs-number">5</span>,
-        maxHitPoints: <span class="hljs-number">9</span>
-    }
-]
+                                <h1 id="debugging">Debugging</h1>
+<p>Debugging Functional code is a bit different than imperative or Object Oriented code. Your primary means of debugging in imperative and Object Oriented code is exceptions, stack traces, and step debuggers. For functional programming, you often don&apos;t have access to the implementation details. That said, you can still use both.</p>
+<h2 id="imperative-debugging">Imperative Debugging</h2>
+<p>In imperative and OOP, you&apos;ll have lines of code that you can set breakpoints or logs on to figure out &quot;what&apos;s going on inside&quot;:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { startCase } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
+<span class="hljs-keyword">const</span> log = <span class="hljs-built_in">console</span>.log
 
-<span class="hljs-keyword">let</span> atLeast1Healer = <span class="hljs-literal">false</span>
-<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; party.length; i++) {
-    <span class="hljs-keyword">const</span> member = party[i]
-    <span class="hljs-keyword">if</span>(member.clazz === <span class="hljs-string">&apos;Cleric&apos;</span>) {
-        atLeast1Healer = <span class="hljs-literal">true</span>
-    }
+<span class="hljs-keyword">const</span> fixName = name =&gt; {
+    log(<span class="hljs-string">&quot;fixName, name:&quot;</span>, name)
+    <span class="hljs-keyword">const</span> list = name.split(<span class="hljs-string">&apos; &apos;</span>)
+    log(<span class="hljs-string">&quot;list:&quot;</span>, list)
+    list[<span class="hljs-number">0</span>] = startCase(list[<span class="hljs-number">0</span>])
+    log(<span class="hljs-string">&quot;list:&quot;</span>, list)
+    list[<span class="hljs-number">1</span>] = startCase(list[<span class="hljs-number">1</span>])
+    log(<span class="hljs-string">&quot;list:&quot;</span>, list)
+    <span class="hljs-keyword">const</span> fixedName = <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>
+    log(<span class="hljs-string">&quot;fixedName:&quot;</span>, fixedName)
+    <span class="hljs-keyword">return</span> fixedName
 }
-<span class="hljs-built_in">console</span>.log(atLeast1Healer) <span class="hljs-comment">// true</span>
 </code></pre>
-<p>It&apos;s <code>true</code> because Brandy is a Cleric even though Jesse and Albus are not.</p>
-<h2 id="some">some</h2>
-<p>We can purify that by using <code>some</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { some } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
-
-<span class="hljs-keyword">const</span> isCleric = member =&gt;
-    member.clazz === <span class="hljs-string">&apos;Cleric&apos;</span>
-
-<span class="hljs-keyword">const</span> partyHasAtLeastOneDoctor = party =&gt;
-    some(party, isCleric)
+<p>There&apos;s a bug in the <code>fixName</code> function. We&apos;ve put a log message on every line. We&apos;ll run the code and see where things start to break down.</p>
+<pre><code class="lang-javascript">fixName, name: jesse warden
+list: [ <span class="hljs-string">&apos;jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
+list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
+list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;Warden&apos;</span> ]
+fixedName: <span class="hljs-literal">undefined</span>, Jesse
+<span class="hljs-literal">undefined</span>, Jesse
 </code></pre>
-<p>Because Brandy is a Cleric, the <code>isCleric</code> function will return <code>true</code> at least once while <code>some</code> is looping through all 3 party members.</p>
-<h2 id="type-detection">Type Detection</h2>
-<p>With <code>every</code>, we ensured that a party member was exactly as we expected it to be. Some types in dynamic languages, however, we can be more flexible with. For example, while interfaces aren&apos;t natively supported, can we test for that. An example is detecting if something is a <code>Promise</code>. While <code>Promise</code> is a native <code>class</code> in JavaScript, a lot of implementations of Promise have cropped up in the past decade while waiting for the API be officially implemented by browsers.</p>
-<p>Instead of being strict like we were with <code>every</code> around a party member, we&apos;ll see if it has the <code>then</code> of a Promise or Promise like library, or JQuery&apos;s <code>done</code>:</p>
-<p>```javascript
-const { isFunction, get } = require(&apos;lodash&apos;)</p>
-<p>const hasThen = o =&gt;
-    isFunction(get(o, &apos;then&apos;))</p>
-<p>const hasDone = o =&gt;
-    isFunction(get(o, &apos;done&apos;))</p>
-<p>const isPromiseLike = o =&gt;
-    hasThen(o) &amp;&amp; hasDone(o)</p>
+<p>Things were fine until <code>fixedName</code>. The <code>list[2]</code> should be <code>list[1]</code>, whoops. If we fix:</p>
+<pre><code class="lang-javascript">...
+<span class="hljs-comment">// list[1] was list[2]</span>
+<span class="hljs-keyword">const</span> fixedName = <span class="hljs-string">`<span class="hljs-subst">${list[1]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>
+...
+</code></pre>
+<p>...and re-run:</p>
+<pre><code class="lang-javascript">fixName, name: jesse warden
+list: [ <span class="hljs-string">&apos;jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
+list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
+list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;Warden&apos;</span> ]
+fixedName: Warden, Jesse
+Warden, Jesse
+</code></pre>
+<p>W00t!</p>
+<h2 id="functional-debugging-the-cop-out">Functional Debugging: The Cop Out</h2>
+<p>Let&apos;s do the same thing using a <code>Promise</code> chain:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
+    <span class="hljs-built_in">Promise</span>.resolve(name)
+    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
+    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
+    .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
+    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
+</code></pre>
+<p>As you start to learn, it&apos;s ok to do the cop out; i.e. going back to imperative. The only bad thing about this method is you&apos;re changing the function itself by effectively re-writing it. Still, I recommend it to get comfortable writing no <code>{}</code> in your code. It can be a bit of a pain matching up the braces <code>{}</code> and parenthesis <code>()</code> without compiler help as there are cases where you can misplace them and not get errors.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
+    <span class="hljs-built_in">Promise</span>.resolve(name)
+    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
+    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
+    .then(list =&gt; {
+        log(<span class="hljs-string">&quot;list:&quot;</span>, list)
+        <span class="hljs-keyword">return</span> [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])]
+    })
+    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
+</code></pre>
+<h2 id="functional-debugging-tap">Functional Debugging: Tap</h2>
+<p>The frustration from imperative/OOP coders is &quot;you can&apos;t see what&apos;s going on in the pipes&quot;. So you make a tap; a pipe that tells you what&apos;s going on inside it.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tap = arg =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;tap:&quot;</span>, arg)
+    <span class="hljs-keyword">return</span> arg
+}
+</code></pre>
+<p>Typically, <code>Promise</code>s used in chains take 1 argument, just like <code>Result</code>, <code>Maybe</code>, etc. So our function will take the argument, then just return it; the only difference is it logs it. We then insert our logger pipe:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
+    <span class="hljs-built_in">Promise</span>.resolve(name)
+    .then(tap)
+    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
+    .then(tap)
+    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
+    .then(tap)
+    .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
+    .then(tap)
+    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
+    .then(tap)
+</code></pre>
+<p>When we run, it looks very similar:</p>
+<pre><code class="lang-javascript">fixName(<span class="hljs-string">&apos;jesse warden&apos;</span>).then(<span class="hljs-built_in">console</span>.log)
+tap: jesse warden
+tap: [ <span class="hljs-string">&apos;jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
+tap: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
+tap: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;Warden&apos;</span> ]
+tap: <span class="hljs-literal">undefined</span>, Jesse
+<span class="hljs-literal">undefined</span>, Jesse
+</code></pre>
+<p>We can use tap to inspect the pipes without violating pure function rules.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>You can use cop out if you&apos;re in a hurry or just completely confused. Composing functions in a sync and async way is a huge new concept, and imperative code can be very crystal clear about what is happening. You can still use breakpoints if your IDE supports it, just be aware pure functions sometimes don&apos;t expose their local variables easily in some IDE&apos;s... because they don&apos;t have any. There are a variety of taps, as well, especially once you incorporate partial applications to help give you more insight into the different stages of chaining your code is doing.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tap = label =&gt; arg =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${label}</span>: <span class="hljs-subst">${arg}</span>`</span>)
+    <span class="hljs-keyword">return</span> arg
+}
+</code></pre>
+<p>Then we can give a custom label to each section:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
+    <span class="hljs-built_in">Promise</span>.resolve(name)
+    .then(tap(<span class="hljs-string">&apos;start&apos;</span>))
+    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
+    .then(tap(<span class="hljs-string">&apos;after split space&apos;</span>))
+    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
+    .then(tap(<span class="hljs-string">&apos;starCase first name&apos;</span>))
+    .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
+    .then(tap(<span class="hljs-string">&apos;starCase last name&apos;</span>))
+    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
+    .then(tap(<span class="hljs-string">&apos;done&apos;</span>))
+</code></pre>
+<p>It&apos;s a bit more clear when it prints out:</p>
+<pre><code class="lang-javascript">start: jesse warden
+after split space: jesse,warden
+starCase first name: Jesse,warden
+starCase last name: Jesse,Warden
+done: <span class="hljs-literal">undefined</span>, Jesse
+<span class="hljs-literal">undefined</span>, Jesse
+</code></pre>
 
                                 
                                 </section>
@@ -1052,12 +1116,12 @@ const { isFunction, get } = require(&apos;lodash&apos;)</p>
 
             
                 
-                <a href="every.html" class="navigation navigation-prev " aria-label="Previous page: every">
+                <a href="../part7/" class="navigation navigation-prev " aria-label="Previous page: Part 7: Total Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="zip.md" class="navigation navigation-next " aria-label="Next page: zip">
+                <a href="logging_vs_purity.md" class="navigation navigation-next " aria-label="Next page: Tap">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1068,7 +1132,7 @@ const { isFunction, get } = require(&apos;lodash&apos;)</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"some","level":"1.4.5","depth":2,"next":{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},"previous":{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/some.md","mtime":"2018-08-18T13:41:59.071Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-02T15:26:55.973Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 8: Debugging","level":"1.9","depth":1,"next":{"title":"Tap","level":"1.9.1","depth":2,"path":"part8/logging_vs_purity.md","ref":"part8/logging_vs_purity.md","articles":[]},"previous":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"path":"part7/README.md","ref":"part7/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/README.md","mtime":"2018-08-31T17:59:30.649Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-02T15:26:55.973Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
