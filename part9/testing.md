@@ -284,7 +284,26 @@ Coverage goes from 90% to 88% because we are not covering the 2 new error scenar
 
 The point is, more pure code, easier to test specific parts if you need, API didn't change, and we didn't violate the rules by adding any new tests. Feature still works despite the fact we completely rewrote the internals to be more functional.
 
+# Property Tests
 
+Property tests are unit tests that generate random data. Even if you have greater than 100% unit test coverage, you can miss a certain scenarios:
 
+```javascript
+const stringNotBlank = o => o.length > ''
+
+stringNotBlank('cow') // true
+stringNotBlank('') // false
+stringNotBlank() // TypeError: Cannot read property 'length' of undefined
+```
+
+To fix, you have to change it to:
+
+```javascript
+import { isString } from 'lodash'
+
+const stringNotBlank = o => isString(o) && o.length > ''
+```
+
+Instead of trying to ensure you've covered every possible input type, you instead let the computer generate those for you. Also called fuzz tests, they are inspired by [Quickcheck](http://hackage.haskell.org/package/QuickCheck) from Haskell.
 
 
