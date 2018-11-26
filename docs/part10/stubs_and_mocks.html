@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Tacit Programming · GitBook</title>
+        <title>Why We Use Stubs and Not Mocks · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../part6/" />
+    <link rel="next" href="testing.html" />
     
     
-    <link rel="prev" href="composing_functions.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -581,9 +581,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../part5/">
             
-                <a href="./">
+                <a href="../part5/">
             
                     
                     Part 5: Composition
@@ -595,9 +595,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="passing_functions_to_functions.html">
+        <li class="chapter " data-level="1.6.1" data-path="../part5/passing_functions_to_functions.html">
             
-                <a href="passing_functions_to_functions.html">
+                <a href="../part5/passing_functions_to_functions.html">
             
                     
                     Passing Functions to Functions
@@ -608,9 +608,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="composing_functions.html">
+        <li class="chapter " data-level="1.6.2" data-path="../part5/composing_functions.html">
             
-                <a href="composing_functions.html">
+                <a href="../part5/composing_functions.html">
             
                     
                     Composing Functions
@@ -621,9 +621,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6.3" data-path="tacit_programming.html">
+        <li class="chapter " data-level="1.6.3" data-path="../part5/tacit_programming.html">
             
-                <a href="tacit_programming.html">
+                <a href="../part5/tacit_programming.html">
             
                     
                     Tacit Programming
@@ -891,9 +891,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11" data-path="../part10/">
+        <li class="chapter " data-level="1.11" data-path="./">
             
-                <a href="../part10/">
+                <a href="./">
             
                     
                     Part 10: Testing
@@ -905,9 +905,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.1" data-path="../part10/stubs_and_mocks.html">
+        <li class="chapter active" data-level="1.11.1" data-path="stubs_and_mocks.html">
             
-                <a href="../part10/stubs_and_mocks.html">
+                <a href="stubs_and_mocks.html">
             
                     
                     Why We Use Stubs and Not Mocks
@@ -918,9 +918,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2" data-path="../part10/testing.html">
+        <li class="chapter " data-level="1.11.2" data-path="testing.html">
             
-                <a href="../part10/testing.html">
+                <a href="testing.html">
             
                     
                     Testing
@@ -931,7 +931,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.3" data-path="../part10/property_testing.md">
+        <li class="chapter " data-level="1.11.3" data-path="property_testing.md">
             
                 <span>
             
@@ -949,9 +949,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="./">
             
-                <a href="../part10/">
+                <a href="./">
             
                     
                     Part 10: Working With Others
@@ -963,7 +963,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="heed_the_warnings.md">
             
                 <span>
             
@@ -976,7 +976,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="imperatives.md">
             
                 <span>
             
@@ -989,7 +989,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="oop.md">
             
                 <span>
             
@@ -1002,7 +1002,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="safe_advice.md">
             
                 <span>
             
@@ -1063,7 +1063,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Tacit Programming</a>
+        <a href=".." >Why We Use Stubs and Not Mocks</a>
     </h1>
 </div>
 
@@ -1078,199 +1078,169 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="composition-and-tacit-programming">Composition and Tacit Programming</h1>
-<p><a href="https://en.wikipedia.org/wiki/Tacit_programming" target="_blank">Tacit Programming</a>, which also goes by the name of point-free style, is a way to write functions without specifying their arguments. It&apos;s useful for:</p>
+                                <h1 id="only-stubs-no-more-mocks-or-spies">Only Stubs, No More Mocks or Spies</h1>
+<p>You don&apos;t need mocks in Functional Programming because mocks test side effects. If you&apos;re writing Functional code, it is made up of pure functions. Pure functions don&apos;t have side effects. So no need for mocks. If you&apos;re trying to isolate code, you may still need stubs.</p>
+<h2 id="unit-test">Unit Test</h2>
+<p>A unit test is supposed to be a unit. No one knows (but think they know) what a unit is in programming. For now, a unit is any Object you want to test: Object, class, function, module, whatever.</p>
+<h2 id="object-under-test">Object Under Test</h2>
+<p>An &quot;object under test&quot; is the thing you&apos;re testing. If you have an <code>it</code> in Jasmine/Mocha in JavaScript or Busted in Lua, or a <code>test_*</code> function Python&apos;s PyTest, whatever that test function is supposed to be testing, that&apos;s the &quot;object under test&quot;. Given how Mocks/Spies work, however, it may not be immediately obvious &quot;what is the actual object under test here?&quot;</p>
+<h2 id="what-is-a-stub">What is a Stub?</h2>
+<p>A stub is typically an <code>Object</code> or <code>Function</code> that always does the same thing, typically returning the value you need. If you want your unit tests to be deterministic, and thus dependable, you ensure they always do the same thing every time they run. Given our <code>loadWebsite</code> function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loadWebsite = request =&gt; url =&gt; ...
+</code></pre>
+<p>If we want to stub <code>request</code> to guarantee the test works whether the internet works or not with minimal side effects, you stub it:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> requestStub = {
+    get: (url, callback) =&gt; callback(<span class="hljs-literal">undefined</span>, {}, <span class="hljs-string">&apos;hey&apos;</span>)
+}
+</code></pre>
+<p>This stub is mostly a pure function, and we can use it to create a dependable unit test:</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">&apos;loadWebsite should work&apos;</span>, ()=&gt; {
+    <span class="hljs-keyword">return</span> loadWebsite(requestStub, <span class="hljs-string">&apos;some url&apos;</span>)
+    .then(result =&gt; {
+        expect(result).toBe(<span class="hljs-string">&apos;hey&apos;</span>)
+    })
+})
+</code></pre>
+<h2 id="what-is-a-mock">What is a Mock?</h2>
+<p>Mocks are stubs that can track what happened to them during the test execution. You can then make assertions on what they remember. They are sometimes called spies because the Object will record what it sees &quot;covertly&quot;. Whether using Object Oriented Programming or Functional, the &quot;how things happen&quot; is intended to be hidden, so using an Object in this way is considered spying. In Dynamic languages, they&apos;ll sometimes re-use a real implementation, and overwrite functions, methods, or properties with temporary Objects unlike statically typed languages where it&apos;s wrapped through Composition. This may cause a <code>restore</code> step, where you turn the Object back to the way it was after the test/suite.</p>
+<p>Let&apos;s cover post assertions, testing specifically for side effects, and pre-assertions.</p>
+<h2 id="mocks-in-post-assertions">Mocks in Post Assertions</h2>
+<p>Given our old school <code>for</code> loop:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getParsedNames = (names, callback) =&gt; {
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; names.length; i++) {
+        <span class="hljs-keyword">const</span> parsedName = parseName(names[i])
+        callback(parsedName, i)
+    }
+}
+</code></pre>
+<p>We can test what happened to the callback; did it get inside the function and get used like we think it should? To do that, we need a function that remembers what happened to itself.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mockCallback = (...args) =&gt; {
+    mockCallback.calls++
+    mockCallback.calledWith.push(args)
+}
+mockCallback.calls = <span class="hljs-number">0</span>
+mockCallback.calledWith = []
+</code></pre>
+<p>Not when we test it, we can make some assertions on it in the test:</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">&apos;getParsedNames should be called with correct parsed names 3 times for 3 item array&apos;</span>, ()=&gt; {
+    <span class="hljs-keyword">const</span> names = [<span class="hljs-string">&apos;jesse warden&apos;</span>, <span class="hljs-string">&apos;brandy fortune&apos;</span>, <span class="hljs-string">&apos;albus dumbledog&apos;</span>]
+    getParsedNames(names, mockCallback)
+    expect(mockCallback.calls).toBe(<span class="hljs-number">3</span>)
+    expect(mockCallback.calledWith[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]).toBe(<span class="hljs-string">&apos;Fortune, Brandy&apos;</span>)
+})
+</code></pre>
+<h3 id="call-something-here-read-about-it-over-there">Call Something Here, Read About It Over There</h3>
+<p>Pure function rules are same input, same output, and no side effects. Class methods typically are not pure functions because although they sometimes may have inputs, many don&apos;t have return values, and almost always are setting data internally on a mutable <code>this</code> or <code>self</code> property that is the place where all the data internally for the class is stored. While you can write pure functions in a class, and even make them public, if you&apos;re using a class, you&apos;re going to follow the Object Oriented Programming rule of encapsulation. That is hiding data internally, and exposing access to it from a public API.</p>
+<p>In a sense, one could argue that a class can be a pure function because it can follow the spirit of the pure function rules:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Adder</span> </span>{
+    add(a, b) =&gt; {
+        <span class="hljs-keyword">this</span>._result = a + b
+    }
+    get result() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.result
+    }
+}
+
+<span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> Adder()
+a.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;result:&quot;</span>, a.result)
+</code></pre>
+<p>However, as soon as you test it, you know you&apos;re testing side effects because there:</p>
 <ul>
-<li>to write less code</li>
-<li>to help in composition of functions</li>
-<li>same reason you use partial applications in reducing the amount of arguments you need to provide</li>
+<li>is no return value</li>
+<li>the value changes on the object after you set a method</li>
 </ul>
-<h2 id="map-and-get">map and get</h2>
-<p>We&apos;ve already covered using curried functions from the <a href="lodash_fp.md">Lodash FP section</a> to reduce the amount of code you can write and to create re-usable functions from partial applications.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// lodash</span>
-<span class="hljs-keyword">const</span> getNames = party =&gt; map(
-    party, 
-    person =&gt; get(person, <span class="hljs-string">&apos;name&apos;</span>)
-)
-
-<span class="hljs-comment">// lodash/fp</span>
-<span class="hljs-keyword">const</span> getNames = map(get(<span class="hljs-string">&apos;name&apos;</span>))
+<pre><code class="lang-javascript">it(<span class="hljs-string">&quot;Adder&apos;s add, when called will add 2 numbers&quot;</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> Adder()
+    expect(instance.result).toBe(<span class="hljs-literal">undefined</span>)
+    <span class="hljs-keyword">const</span> result = instance.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+    expect(instance.result).toBe(<span class="hljs-number">3</span>)
+    expect(result).toBe(<span class="hljs-literal">undefined</span>)
+})
 </code></pre>
-<p>Those partial applications used in the lodash/fp exmple don&apos;t define their function parameters. Below, we compare the point style where they define the arguments, and point-free where they don&apos;t:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// point style</span>
-<span class="hljs-keyword">const</span> getName = object =&gt; get(<span class="hljs-string">&apos;name&apos;</span>, object)
-<span class="hljs-keyword">const</span> mapNames = party =&gt; map(getName, party)
-<span class="hljs-keyword">const</span> getNames = party =&gt; mapNames(party)
-
-<span class="hljs-comment">// point-free style</span>
-<span class="hljs-keyword">const</span> getName = get(<span class="hljs-string">&apos;name&apos;</span>)
-<span class="hljs-keyword">const</span> mapNames = map(getNames)
-<span class="hljs-keyword">const</span> getNames = mapNames
-</code></pre>
-<h2 id="pros-and-cons">Pro&apos;s and Con&apos;s</h2>
-<p>There are 3 upsides to using point-free:</p>
+<p>Let&apos;s read those expectations in order:</p>
 <ol>
-<li>less code</li>
-<li>sometimes less wasted functions</li>
-<li>sometimes you create re-usable functions</li>
+<li>Make sure the Object&apos;s result property is <code>undefined</code></li>
+<li>Make sure the method has a side effect on the Object.</li>
+<li>Make sure the method didn&apos;t return a result.</li>
 </ol>
-<p>The <code>map(get(&apos;name&apos;))</code> is much less code than <code>map(party, person =&gt; get(person, &apos;name&apos;))</code>, and we don&apos;t have to create functions merely to ensure the arguments are in the right order. Assuming the common stuff is the left/first parameter, we can create a lot of re-usable functions using partial applications by only passing in some of the arguments to curried functions.</p>
-<p>There are 3 downsides to point-free, specific to dynamic languages:</p>
-<ol>
-<li>memorize function signatures</li>
-<li>no types nor runtime assertions</li>
-<li>it&apos;s an extra step of &quot;thinking&quot;</li>
-</ol>
-<p>Do you know what <code>get</code>&apos;s function signature is? And <code>map</code>&apos;s? We&apos;ve just covered it. How about <code>reduce</code> in lodash/fp instead of lodash? When you see <code>map(get(&apos;name&apos;))</code>, you have to have memorized what the function signatures are for <code>get</code> and <code>map</code>. If you haven&apos;t, then you have to go look them up, else you don&apos;t understand the code. One could argue you have the same problem for any abstraction, but do you have to do the same for this?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getName = object =&gt; get(<span class="hljs-string">&apos;name&apos;</span>, object)
-<span class="hljs-keyword">const</span> getNamesFromListOfObjects = party =&gt;
-    map(
-        member =&gt; getName(member),
-        party
-    )
+<p>Let&apos;s re-write that as a pure function with test:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b
+
+it(<span class="hljs-string">&apos;add will add 2 numbers&apos;</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+    expect(result).toBe(<span class="hljs-number">3</span>)
+})
 </code></pre>
-<p>None of those functions are needed using lodash/fp, but we used them to be more clear. So you don&apos;t have to memorize the function signatures, nor force those reading your code to memorize them too. You don&apos;t have to think because the functions clearly list their function arguments, and use adjectives to give you hints as to what they are and what they might return.</p>
-<p>Let&apos;s give a few more examples to see if you like it or not. Sometimes you&apos;ll just have to pick and choose where you use it.</p>
-<h2 id="validating-data">Validating Data</h2>
-<p>Let&apos;s validate data using lodash/fp in a point and point-free styles so we can contrast them. Validating data in dynamic languages typically is saying &quot;does it look like the Object I want?&quot; Unlike typed languages where &quot;it must be this type&quot; whether at compile time or runtime, in dynamic languages, you&apos;re like &quot;if it has a <code>then</code>, it&apos;s probably something that that acts like a Promise, so we can treat it like one in our system; good enough for government work!&quot;</p>
-<p>Our data:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> person = {
-    name: <span class="hljs-string">&apos;Jesse Warden&apos;</span>,
-    address: {
-        street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>,
-        phone: [
-            <span class="hljs-string">&apos;123-555-1234&apos;</span>,
-            <span class="hljs-string">&apos;999-555-8234&apos;</span>
-        ]
+<p>Has a return value, no need to check before and after for side effects.</p>
+<h3 id="pre-programmed-assertions">Pre-programmed Assertions</h3>
+<p>Traditionally, mocks are known for pre-programmed assertions. You use them in this way to ensure things are being used as expected... if not, fail the test. Instead of testing how something was used, like a spy, you make your assertions before you even call your object under test. Let&apos;s OOP-i-fy our names parser using <a href="https://www.typescriptlang.org/docs/handbook/classes.html" target="_blank">TypeScript</a> so we can enforce public/private properties and methods:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { startCase } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NamesParser</span> </span>{
+
+    private names: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">String</span>&gt;
+
+    private _parsedNames: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">String</span>&gt;
+
+    public get parsedNames(): <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">String</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._parsedNames
+    }
+
+    <span class="hljs-keyword">constructor</span>(names: Array&lt;String&gt;) {
+        <span class="hljs-keyword">this</span>.names = names
+        <span class="hljs-keyword">this</span>._parsedNames = []
+    }
+
+    private parseName(name) : <span class="hljs-built_in">String</span> {
+        <span class="hljs-keyword">return</span> name.split(<span class="hljs-string">&apos; &apos;</span>).reverse().map(startCase).join(<span class="hljs-string">&apos;, &apos;</span>)
+    }
+
+    public parseNames() {
+        <span class="hljs-keyword">this</span>._parsedNames = []
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.names.length; i++) {
+            <span class="hljs-keyword">this</span>._parsedNames[i] = <span class="hljs-keyword">this</span>.parseName(<span class="hljs-keyword">this</span>.names[i])
+        }
     }
 }
 </code></pre>
-<p>We&apos;ll use <code>has</code> to verify the Object has a property we expect to find, and <code>every</code> to run through all the properties we&apos;re looking for. As long as it found all the properties, the Object is probably ok.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { has, every } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
-
-<span class="hljs-keyword">const</span> legitPerson = person =&gt;
-    every(
-        hasResult =&gt; hasResult === <span class="hljs-literal">true</span>,
-        [
-            has(<span class="hljs-string">&apos;name&apos;</span>, person),
-            has(<span class="hljs-string">&apos;address.street&apos;</span>, person),
-            has(<span class="hljs-string">&apos;address.phone[0]&apos;</span>, person)
-        ]
-    )
-
-<span class="hljs-built_in">console</span>.log(legitPerson(person)) <span class="hljs-comment">// true</span>
+<p>For the unit test, we know it should return a good value, so let&apos;s build that assertion into the mock.</p>
+<p>The one will one will pass because <code>parseName</code> is only being called once for the 1 item in the Array:</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">&apos;NamesParser should call parseName one time for 1 value&apos;</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> NamesParser([<span class="hljs-string">&apos;jesse warden&apos;</span>])
+    <span class="hljs-keyword">const</span> mock = sinon.mock(parser)
+    mock.expects(<span class="hljs-string">&quot;parseName&quot;</span>).once().throws()
+    parser.parseNames()
+    mock.verify()
+})
 </code></pre>
-<p>We can reduce how verbose it is using point-free style on the <code>has</code>. Instead of populating the Array with a bunch of Booleans, we can instead populate it with a bunch of Functions. We still keep the original <code>legitPerson</code> point style, but at least reduce the contents of the function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> legitPerson = person =&gt; every(
-    predicate =&gt; predicate(person),
-    [
-        has(<span class="hljs-string">&apos;name&apos;</span>),
-        has(<span class="hljs-string">&apos;address.street&apos;</span>),
-        has(<span class="hljs-string">&apos;address.phone[0]&apos;</span>)
-    ]
-)
-
-<span class="hljs-built_in">console</span>.log(legitPerson(person)) <span class="hljs-comment">// true</span>
+<p>This one fails because we gave it 2 items, but keep the expectation that will will call <code>parseName</code> 1 time:</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">&apos;NamesParser should call parseName one time for 1 value&apos;</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> NamesParser([<span class="hljs-string">&apos;jesse warden&apos;</span>, <span class="hljs-string">&apos;brandy fortune&apos;</span>])
+    <span class="hljs-keyword">const</span> mock = sinon.mock(parser)
+    mock.expects(<span class="hljs-string">&quot;parseName&quot;</span>).once().throws()
+    parser.parseNames()
+    mock.verify()
+})
 </code></pre>
-<h2 id="default-values-via-getor-with-filtering">Default Values via getOr with Filtering</h2>
-<h3 id="getor">getOr</h3>
-<p>Sometimes you want default values in case what you&apos;re trying to get doesn&apos;t exist. We&apos;ve covered <code>get</code> in <a href="part2/get.md">Part 2: Get</a>, which allows you to safely get data. If the data isn&apos;t there, it&apos;ll return <code>undefined</code>. If you want to use default values in the case of <code>undefined</code>, however, it&apos;s a bit unwieldy:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { get } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash/fp&apos;</span>
-
-<span class="hljs-keyword">const</span> getPersonType = person =&gt; {
-    <span class="hljs-keyword">let</span> result = get(<span class="hljs-string">&apos;type&apos;</span>, person)
-    <span class="hljs-keyword">if</span>(result === <span class="hljs-literal">undefined</span>) {
-        result = <span class="hljs-string">&apos;unknown&apos;</span>
-    }
-    <span class="hljs-keyword">return</span> result
-}
-</code></pre>
-<p>We can instead use <code>getOr</code> to say &quot;Maybe there is a value there... if it is, great, use it, otherwise just use the default.&quot;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { getOr } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash/fp&apos;</span>
-
-<span class="hljs-keyword">const</span> getPersonType = person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person)
-</code></pre>
-<p>Or point-free:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getPersonType = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-</code></pre>
-<p>I should point out, the regular Lodash version reads more naturally: &quot;from this Object, get the &apos;type&apos;, or just use &apos;unknown&apos;&quot; whereas lodash/fp reads &quot;If we don&apos;t find anything use &apos;unknown&apos;, when looking for the &apos;type&apos; property, on this Object&quot;. Lesson: Curry friendly doesn&apos;t always mean reader friendly.</p>
-<h3 id="using-getor-and-flow-with-filter">Using getOr and flow with filter</h3>
-<p>Point-free can either really help if you&apos;ve memorized the API, or really harm, when you start composing functions together. As they get larger, you can prevent this from being too verbose via point-free style. Below we&apos;ll filter a list by only getting the humans using <code>getOr</code> and <code>filter</code>. Below is our needed imports and <code>party</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { getOr, filter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
-
-<span class="hljs-keyword">const</span> party = [
-    { name: <span class="hljs-string">&apos;Jesse&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
-    { name: <span class="hljs-string">&apos;Brandy&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
-    { name: <span class="hljs-string">&apos;Albus&apos;</span>, type: <span class="hljs-string">&apos;dawg&apos;</span> }
-]
-</code></pre>
-<p>We&apos;ll use <code>filter</code> in a point style to only get the humans:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> filterHumans = people =&gt;
-    filter(
-        person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person) === <span class="hljs-string">&apos;human&apos;</span>,
-        people
-    )
-</code></pre>
-<p>Running it against the <code>party</code>, we get:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(filterHumans(party))
-<span class="hljs-comment">// [ { name: &apos;Jesse&apos;, type: &apos;human&apos; },</span>
-<span class="hljs-comment">//   { name: &apos;Brandy&apos;, type: &apos;human&apos; } ]</span>
-</code></pre>
-<p>If we rewrote that in point-free style, we could remove the <code>people</code> parameter because <code>filter</code> is already curried by default, and expects the Array as the 2nd parameter:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> filterHumans =
-    filter(
-        person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person) === <span class="hljs-string">&apos;human&apos;</span>
-    )
-</code></pre>
-<p>We can&apos;t further make it point-free without creating some additional pure functions, namely the predicate we pass to filter. Let&apos;s shrink <code>getOr</code> to be point-free first:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// from</span>
-<span class="hljs-keyword">const</span> getTypeOrUnknown = person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person)
-<span class="hljs-comment">// to</span>
-<span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-</code></pre>
-<p>Now we can put that into our <code>filter</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-<span class="hljs-keyword">const</span> filterHumans =
-    filter(
-        person =&gt; getTypeOrUnknown(person) === <span class="hljs-string">&apos;human&apos;</span>
-    )
-</code></pre>
-<h3 id="isequal">isEqual</h3>
-<p>Almost all operators in JavaScript have equivalent pure function versions of them in lodash/fp. Operators work well and should not be avoided, but they do not compose as well as functions do. The <code>isEqual</code> is like <code>===</code>, just a function. We can replace the <code>thing === &apos;human&apos;</code> with <code>isEqual</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// point style</span>
-<span class="hljs-keyword">const</span> equalsHuman = thing =&gt; isEqual(<span class="hljs-string">&apos;human&apos;</span>, thing)
-
-<span class="hljs-comment">// point-free style</span>
-<span class="hljs-keyword">const</span> equalsHuman = isEqual(<span class="hljs-string">&apos;human&apos;</span>)
-</code></pre>
-<p>Using that in our <code>filter</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-<span class="hljs-keyword">const</span> equalsHuman = isEqual(<span class="hljs-string">&apos;human&apos;</span>)
-<span class="hljs-keyword">const</span> filterHumans =
-    filter(
-        person =&gt; equalsHuman(getTypeOrUnknown(person))
-    )
-</code></pre>
-<p>Great, one function left.</p>
-<h3 id="flow">Flow</h3>
-<p>However, you see the nesting up there? The <code>equalsHuman(getTypeOrUnknown(person))</code> part. Once you have 2 or more functions nested like this, you can break them into a line using <code>flow</code>. It allows you to compose functions into a chain or set of pipes, just like Promises do, but synchronously. Don&apos;t worry if this is hard to grok, we&apos;ve devoted an entire section to flow in <a href="composing_functions.html">composing functions</a> in this chapter.</p>
-<p>To make the filter predicate point-free, we have to remove that <code>person</code> parameter. The only way to do that is to write a function that wraps <code>equalsHuman</code> and <code>getTypeOrUnknown</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = person =&gt; equalsHuman(getTypeOrUnknown(person))
-</code></pre>
-<p>... but he isn&apos;t point-free. Let&apos;s use <code>flow</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = person =&gt; flow([getTypeOrUnknown, equalsHuman])(person)
-</code></pre>
-<p>And then the point-free version:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = flow([getTypeOrUnknown, equalsHuman])
-</code></pre>
-<p>Now, using that in our <code>filter</code> to make all of it point-free:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-<span class="hljs-keyword">const</span> equalsHuman = isEqual(<span class="hljs-string">&apos;human&apos;</span>)
-<span class="hljs-keyword">const</span> isHuman = flow([getTypeOrUnknown, equalsHuman])
-<span class="hljs-keyword">const</span> filterHumans = filter(isHuman)
-</code></pre>
+<p>Again, test one thing here, but look for the results over there. With Mocks via pre-programmed assertions, you&apos;ve doing 4 nasty things:</p>
+<ol>
+<li>mutating the object under test</li>
+<li>testing specifically for side effects</li>
+<li>intentionally throwing an <code>Error</code></li>
+<li>re-mutate the object after the test</li>
+</ol>
+<p>While 1 and 4 do not follow pure function rules, you get a pass since you&apos;re in a dynamic language, and that&apos;s one of the reasons we like dynamic languages; everything is fair game. That said, your unit tests are not your actual code anymore; they&apos;re modified objects. Number 3, while intentional in unit tests, is not following pure function rules. You give a function inputs and test its outputs. An <code>Error</code> is not an output, it&apos;s a side effect. Again, you get a pass because technically it&apos;s the mock throwing the error, not your function/class.</p>
+<p>... however, #2 is not ok at all.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>Point-free style can significantly reduce the amount of code you have to write, and often happens when you use a lot of partial applications. The cost is increased cognitive load: it makes you think more when reading it. Most of what we you do as a programmer is read code, not write it. That&apos;s why some people call point-free programming &quot;pointless programming&quot;.</p>
+<p>As you can see, there is zero need for spies/mocks with pure functions because:</p>
+<ol>
+<li>no need to mutate the object before or after; it&apos;s a <code>function</code> and you use as is</li>
+<li>no need to setup assertions on how something should be used, you&apos;re just calling 1 function and checking the outputs are expected based on the inputs</li>
+<li>Side effects?</li>
+</ol>
+<p>You&apos;ll assume no side effects, yes, HOWEVER, don&apos;t discount testing for them. Using unit tests to test for the LACK OF side effects is actually something unit tests are really good at. If you&apos;re not sure if code is 100% pure, unit tests will help you track them down. Just be aware these tests will rot over time, especially if you are testing private module methods. Feel free to delete later vs. maintain them.</p>
+<p>Mocks aren&apos;t used in Functional Programming because there are no side effects to test for. The Object under test is always a <code>function</code>, so there is no <code>class</code> method or <code>Object</code> property to modify and watch. You&apos;re just testing the functions that take inputs and have expected outputs. Some of those inputs may be slow, complicated, or from hard to setup 3rd party code so pure function stubs may be used.</p>
 
                                 
                                 </section>
@@ -1298,12 +1268,12 @@
 
             
                 
-                <a href="composing_functions.html" class="navigation navigation-prev " aria-label="Previous page: Composing Functions">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Part 10: Testing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../part6/" class="navigation navigation-next " aria-label="Next page: Part 6: Algebraic Data Types">
+                <a href="testing.html" class="navigation navigation-next " aria-label="Next page: Testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1314,7 +1284,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tacit Programming","level":"1.6.3","depth":2,"next":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"path":"part6/README.md","ref":"part6/README.md","articles":[{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},{"title":"Practice Validator with Predicates","level":"1.7.6","depth":2,"path":"part6/practice_validator_predicates.md","ref":"part6/practice_validator_predicates.md","articles":[]},{"title":"Practice Result with JSON","level":"1.7.7","depth":2,"path":"part6/practice_result_json.md","ref":"part6/practice_result_json.md","articles":[]},{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]}]},"previous":{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/tacit_programming.md","mtime":"2018-08-26T22:06:12.591Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"next":{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},"previous":{"title":"Part 10: Testing","level":"1.11","depth":1,"path":"part10/README.md","ref":"part10/README.md","articles":[{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"path":"part10/stubs_and_mocks.md","ref":"part10/stubs_and_mocks.md","articles":[]},{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},{"title":"Predicate Property Testing","level":"1.11.3","depth":2,"path":"part10/property_testing.md","ref":"part10/property_testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part10/stubs_and_mocks.md","mtime":"2018-09-02T14:56:38.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

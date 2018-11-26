@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Tacit Programming · GitBook</title>
+        <title>Custom Lens · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../part6/" />
+    <link rel="next" href="../part9/" />
     
     
-    <link rel="prev" href="composing_functions.html" />
+    <link rel="prev" href="composing_lenses.html" />
     
 
     </head>
@@ -581,9 +581,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../part5/">
             
-                <a href="./">
+                <a href="../part5/">
             
                     
                     Part 5: Composition
@@ -595,9 +595,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="passing_functions_to_functions.html">
+        <li class="chapter " data-level="1.6.1" data-path="../part5/passing_functions_to_functions.html">
             
-                <a href="passing_functions_to_functions.html">
+                <a href="../part5/passing_functions_to_functions.html">
             
                     
                     Passing Functions to Functions
@@ -608,9 +608,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="composing_functions.html">
+        <li class="chapter " data-level="1.6.2" data-path="../part5/composing_functions.html">
             
-                <a href="composing_functions.html">
+                <a href="../part5/composing_functions.html">
             
                     
                     Composing Functions
@@ -621,9 +621,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6.3" data-path="tacit_programming.html">
+        <li class="chapter " data-level="1.6.3" data-path="../part5/tacit_programming.html">
             
-                <a href="tacit_programming.html">
+                <a href="../part5/tacit_programming.html">
             
                     
                     Tacit Programming
@@ -775,9 +775,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="../part8/">
+        <li class="chapter " data-level="1.9" data-path="./">
             
-                <a href="../part8/">
+                <a href="./">
             
                     
                     Part 8: Optics
@@ -789,9 +789,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="../part8/isomorphisms.html">
+        <li class="chapter " data-level="1.9.1" data-path="isomorphisms.html">
             
-                <a href="../part8/isomorphisms.html">
+                <a href="isomorphisms.html">
             
                     
                     Isomorphisms
@@ -802,9 +802,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="../part8/prisms.html">
+        <li class="chapter " data-level="1.9.2" data-path="prisms.html">
             
-                <a href="../part8/prisms.html">
+                <a href="prisms.html">
             
                     
                     Prisms
@@ -815,9 +815,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.3" data-path="../part8/composing_lenses.html">
+        <li class="chapter " data-level="1.9.3" data-path="composing_lenses.html">
             
-                <a href="../part8/composing_lenses.html">
+                <a href="composing_lenses.html">
             
                     
                     Composing Lenses
@@ -828,9 +828,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.4" data-path="../part8/custom_lens.html">
+        <li class="chapter active" data-level="1.9.4" data-path="custom_lens.html">
             
-                <a href="../part8/custom_lens.html">
+                <a href="custom_lens.html">
             
                     
                     Custom Lens
@@ -1063,7 +1063,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Tacit Programming</a>
+        <a href=".." >Custom Lens</a>
     </h1>
 </div>
 
@@ -1078,199 +1078,101 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="composition-and-tacit-programming">Composition and Tacit Programming</h1>
-<p><a href="https://en.wikipedia.org/wiki/Tacit_programming" target="_blank">Tacit Programming</a>, which also goes by the name of point-free style, is a way to write functions without specifying their arguments. It&apos;s useful for:</p>
-<ul>
-<li>to write less code</li>
-<li>to help in composition of functions</li>
-<li>same reason you use partial applications in reducing the amount of arguments you need to provide</li>
-</ul>
-<h2 id="map-and-get">map and get</h2>
-<p>We&apos;ve already covered using curried functions from the <a href="lodash_fp.md">Lodash FP section</a> to reduce the amount of code you can write and to create re-usable functions from partial applications.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// lodash</span>
-<span class="hljs-keyword">const</span> getNames = party =&gt; map(
-    party, 
-    person =&gt; get(person, <span class="hljs-string">&apos;name&apos;</span>)
+                                <h1 id="creating-a-custom-lens">Creating a Custom Lens</h1>
+<p>Using this basic isomorphism concept and the <code>compose</code> function, you can combine the reading and writing of the file together to its own lens. While a <code>Buffer</code> that comes from reading a file, turned into <code>String</code>, then an <code>Object</code>, then back again is also an isomorphism, we need some information about the original Object so we&apos;ll just create a custom lens.</p>
+<h2 id="lens-function-getter">Lens Function: Getter</h2>
+<p>Like <code>iso</code>, a <code>lens</code> function&apos;s first parameter is a getter, and the function&apos;s signature is basically a reducer; take in some data as a single parameter, return some transformed data. The <code>readFileSync</code> is straightforward; if you give it a filename, it&apos;ll return the contents of that file, hence we just give it the function as the first parameter:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., lens } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;focused&apos;</span>
+
+<span class="hljs-keyword">const</span> fileLens = lens(
+    readFileSync,
+    ...
 )
+</code></pre>
+<h2 id="lens-function-setter">Lens Function: Setter</h2>
+<p>The <code>writeFileSync</code> however takes 2 parameters; the filename and contents, yet returns nothing. If we supply a simple wrapper, pre-filling the 1st parameter:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., writeFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;fs&apos;</span>
 
-<span class="hljs-comment">// lodash/fp</span>
-<span class="hljs-keyword">const</span> getNames = map(get(<span class="hljs-string">&apos;name&apos;</span>))
-</code></pre>
-<p>Those partial applications used in the lodash/fp exmple don&apos;t define their function parameters. Below, we compare the point style where they define the arguments, and point-free where they don&apos;t:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// point style</span>
-<span class="hljs-keyword">const</span> getName = object =&gt; get(<span class="hljs-string">&apos;name&apos;</span>, object)
-<span class="hljs-keyword">const</span> mapNames = party =&gt; map(getName, party)
-<span class="hljs-keyword">const</span> getNames = party =&gt; mapNames(party)
-
-<span class="hljs-comment">// point-free style</span>
-<span class="hljs-keyword">const</span> getName = get(<span class="hljs-string">&apos;name&apos;</span>)
-<span class="hljs-keyword">const</span> mapNames = map(getNames)
-<span class="hljs-keyword">const</span> getNames = mapNames
-</code></pre>
-<h2 id="pros-and-cons">Pro&apos;s and Con&apos;s</h2>
-<p>There are 3 upsides to using point-free:</p>
-<ol>
-<li>less code</li>
-<li>sometimes less wasted functions</li>
-<li>sometimes you create re-usable functions</li>
-</ol>
-<p>The <code>map(get(&apos;name&apos;))</code> is much less code than <code>map(party, person =&gt; get(person, &apos;name&apos;))</code>, and we don&apos;t have to create functions merely to ensure the arguments are in the right order. Assuming the common stuff is the left/first parameter, we can create a lot of re-usable functions using partial applications by only passing in some of the arguments to curried functions.</p>
-<p>There are 3 downsides to point-free, specific to dynamic languages:</p>
-<ol>
-<li>memorize function signatures</li>
-<li>no types nor runtime assertions</li>
-<li>it&apos;s an extra step of &quot;thinking&quot;</li>
-</ol>
-<p>Do you know what <code>get</code>&apos;s function signature is? And <code>map</code>&apos;s? We&apos;ve just covered it. How about <code>reduce</code> in lodash/fp instead of lodash? When you see <code>map(get(&apos;name&apos;))</code>, you have to have memorized what the function signatures are for <code>get</code> and <code>map</code>. If you haven&apos;t, then you have to go look them up, else you don&apos;t understand the code. One could argue you have the same problem for any abstraction, but do you have to do the same for this?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getName = object =&gt; get(<span class="hljs-string">&apos;name&apos;</span>, object)
-<span class="hljs-keyword">const</span> getNamesFromListOfObjects = party =&gt;
-    map(
-        member =&gt; getName(member),
-        party
-    )
-</code></pre>
-<p>None of those functions are needed using lodash/fp, but we used them to be more clear. So you don&apos;t have to memorize the function signatures, nor force those reading your code to memorize them too. You don&apos;t have to think because the functions clearly list their function arguments, and use adjectives to give you hints as to what they are and what they might return.</p>
-<p>Let&apos;s give a few more examples to see if you like it or not. Sometimes you&apos;ll just have to pick and choose where you use it.</p>
-<h2 id="validating-data">Validating Data</h2>
-<p>Let&apos;s validate data using lodash/fp in a point and point-free styles so we can contrast them. Validating data in dynamic languages typically is saying &quot;does it look like the Object I want?&quot; Unlike typed languages where &quot;it must be this type&quot; whether at compile time or runtime, in dynamic languages, you&apos;re like &quot;if it has a <code>then</code>, it&apos;s probably something that that acts like a Promise, so we can treat it like one in our system; good enough for government work!&quot;</p>
-<p>Our data:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> person = {
-    name: <span class="hljs-string">&apos;Jesse Warden&apos;</span>,
-    address: {
-        street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>,
-        phone: [
-            <span class="hljs-string">&apos;123-555-1234&apos;</span>,
-            <span class="hljs-string">&apos;999-555-8234&apos;</span>
-        ]
-    }
-}
-</code></pre>
-<p>We&apos;ll use <code>has</code> to verify the Object has a property we expect to find, and <code>every</code> to run through all the properties we&apos;re looking for. As long as it found all the properties, the Object is probably ok.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { has, every } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
-
-<span class="hljs-keyword">const</span> legitPerson = person =&gt;
-    every(
-        hasResult =&gt; hasResult === <span class="hljs-literal">true</span>,
-        [
-            has(<span class="hljs-string">&apos;name&apos;</span>, person),
-            has(<span class="hljs-string">&apos;address.street&apos;</span>, person),
-            has(<span class="hljs-string">&apos;address.phone[0]&apos;</span>, person)
-        ]
-    )
-
-<span class="hljs-built_in">console</span>.log(legitPerson(person)) <span class="hljs-comment">// true</span>
-</code></pre>
-<p>We can reduce how verbose it is using point-free style on the <code>has</code>. Instead of populating the Array with a bunch of Booleans, we can instead populate it with a bunch of Functions. We still keep the original <code>legitPerson</code> point style, but at least reduce the contents of the function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> legitPerson = person =&gt; every(
-    predicate =&gt; predicate(person),
-    [
-        has(<span class="hljs-string">&apos;name&apos;</span>),
-        has(<span class="hljs-string">&apos;address.street&apos;</span>),
-        has(<span class="hljs-string">&apos;address.phone[0]&apos;</span>)
-    ]
+<span class="hljs-keyword">const</span> fileLens = lens(
+    readFileSync,
+    (data, originalData) =&gt; writeFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>, data)
 )
-
-<span class="hljs-built_in">console</span>.log(legitPerson(person)) <span class="hljs-comment">// true</span>
 </code></pre>
-<h2 id="default-values-via-getor-with-filtering">Default Values via getOr with Filtering</h2>
-<h3 id="getor">getOr</h3>
-<p>Sometimes you want default values in case what you&apos;re trying to get doesn&apos;t exist. We&apos;ve covered <code>get</code> in <a href="part2/get.md">Part 2: Get</a>, which allows you to safely get data. If the data isn&apos;t there, it&apos;ll return <code>undefined</code>. If you want to use default values in the case of <code>undefined</code>, however, it&apos;s a bit unwieldy:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { get } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash/fp&apos;</span>
+<p>Better, but one problem; the setter part of the lens is supposed to be a reducer and return what it set. Since <code>writeFileSync</code> is mainly about side effects, specifically writing the file, it doesn&apos;t return anything and throws if it fails. Very imperative and not what we need. Let&apos;s modify it and just return the data you wrote for now. Since <code>writeFileSync</code> always returns <code>undefined</code>, the short circuit <code>||</code> will always return <code>data</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fileLens = iso(
+    readFileSync,
+    (data, originalData) =&gt; writeFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>, data) || data
+)
+</code></pre>
+<h2 id="composing-lenses">Composing Lenses</h2>
+<p>Internally, Focused uses its own <code>compose</code> method to combine all the lenses together. Our <code>set</code>:</p>
+<pre><code class="lang-javascript">set(_.$(jsonISO).saveDate, ...
+</code></pre>
+<p>Without the proxy syntax could be written as:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ..., prop, compose } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;focused&apos;</span>)
 
-<span class="hljs-keyword">const</span> getPersonType = person =&gt; {
-    <span class="hljs-keyword">let</span> result = get(<span class="hljs-string">&apos;type&apos;</span>, person)
-    <span class="hljs-keyword">if</span>(result === <span class="hljs-literal">undefined</span>) {
-        result = <span class="hljs-string">&apos;unknown&apos;</span>
+<span class="hljs-keyword">const</span> lens = compose(
+    jsonISO,
+    prop(<span class="hljs-string">&apos;savedDate&apos;</span>)
+)
+<span class="hljs-keyword">const</span> updated = set(lens, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), gameState)
+</code></pre>
+<p>Let&apos;s do that so we can combine our <code>fileLens</code> first, then our <code>jsonISO</code> 2nd:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> readAndParseLens = compose(
+  fileLens,
+  jsonISO
+)
+</code></pre>
+<h2 id="using-our-custom-lens">Using Our Custom Lens</h2>
+<p>And we can still keep our proxy syntax with <code>savedDate</code>. Notice we give it the filename instead of the <code>gameState</code> as the 3rd parameter:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> updatedString = set(_.$(readAndParseLens).saveDate, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">&apos;savedgame.json&apos;</span>)
+</code></pre>
+<p>Logging out the <code>String</code>:</p>
+<pre><code class="lang-json">{ <span class="hljs-string">&quot;saveDate&quot;</span>: <span class="hljs-string">&quot;2018-11-25T21:24:58.726Z&quot;</span>,
+    <span class="hljs-string">&quot;map&quot;</span>: <span class="hljs-string">&quot;overworld&quot;</span>,
+    <span class="hljs-string">&quot;chapter&quot;</span>: <span class="hljs-number">3</span>,
+    ...
+</code></pre>
+<p>And to verify the side effect of writing the file worked, the contents of the file:</p>
+<pre><code class="lang-json">{ <span class="hljs-string">&quot;saveDate&quot;</span>: <span class="hljs-string">&quot;2018-11-25T21:24:58.726Z&quot;</span>,
+    <span class="hljs-string">&quot;map&quot;</span>: <span class="hljs-string">&quot;overworld&quot;</span>,
+    <span class="hljs-string">&quot;chapter&quot;</span>: <span class="hljs-number">3</span>,
+    ...
+</code></pre>
+<h2 id="enhancing-our-custom-lens">Enhancing Our Custom Lens</h2>
+<p>When saving games, you have many saved games. We&apos;re using our &quot;savedgame.json&quot; as a template, but then writing over it every time. Our custom lens even hardcodes &quot;savegame.json&quot; inside of it. What we want is to have a new filename each time we set the <code>saveDate</code>, and have that be part of the filename to make sorting easier and ensure unique filenames.</p>
+<p>My kids date hack on various games such as <a href="http://www.animal-crossing.com/" target="_blank">Animal Crossing</a>; meaning they manually change the video game console&apos;s system clock backwards and forwards so they don&apos;t have to wait in the real world. This results in the game rewarding them &quot;earlier&quot; than it should, and allowing them to experience special days whenever they want by travelling to the future in game time. This also means using a date as a filename could have collisions, so we&apos;ll enhance our lens to use a unique string from a Universal Unique Identifier via the <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid library</a> to prevent those collisions. Date hacking should be allowed and shouldn&apos;t result in them accidentally overwriting saved games. Although writing files is a side effect, we&apos;ll attempt to keep it as immutable as possible.</p>
+<p>From our original lens function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fileLens = iso(
+    readFileSync,
+    (data, originalData) =&gt; writeFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>, data) || data
+)
+</code></pre>
+<p>Let&apos;s utilize the 2nd parameter of our lens setter, the <code>originalData</code> which is the filename you passed in to read, <code>savedgame.json</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> uuidv4 <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;uuid/v4&apos;</span>
+...
+    (data, originalData) =&gt; {
+        <span class="hljs-keyword">const</span> filename = 
+            originalData
+            .split(<span class="hljs-string">&apos;.json&apos;</span>)
+            .join(<span class="hljs-string">&apos;&apos;</span>)
+        <span class="hljs-keyword">const</span> dataJSON = <span class="hljs-built_in">JSON</span>.parse(data)
+        <span class="hljs-keyword">const</span> newFilename = <span class="hljs-string">`<span class="hljs-subst">${filename}</span>_<span class="hljs-subst">${dataJSON.saveDate}</span>_<span class="hljs-subst">${uuidv4()}</span>.json`</span>
+        writeFileSync(newFilename, data)
+        <span class="hljs-keyword">return</span> newFilename
     }
-    <span class="hljs-keyword">return</span> result
-}
+...
 </code></pre>
-<p>We can instead use <code>getOr</code> to say &quot;Maybe there is a value there... if it is, great, use it, otherwise just use the default.&quot;</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { getOr } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash/fp&apos;</span>
-
-<span class="hljs-keyword">const</span> getPersonType = person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person)
+<p>Nice, now each time we run her, we&apos;ll get a new filename generated and written to, using our template read-only, even with date hacking:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> updatedString = set(_.$(readAndParseLens).saveDate, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">&apos;savedgame.json&apos;</span>)
+<span class="hljs-comment">// savedgame_2018-11-26T00:21:47.141Z_26ca739b-7e86-4a4d-9363-f63f8e3828e6.json</span>
 </code></pre>
-<p>Or point-free:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getPersonType = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
+<p>And the data inside:</p>
+<pre><code class="lang-json">{ <span class="hljs-string">&quot;saveDate&quot;</span>: <span class="hljs-string">&quot;2018-11-26T00:21:47.141Z&quot;</span>,
+    <span class="hljs-string">&quot;map&quot;</span>: <span class="hljs-string">&quot;overworld&quot;</span>,
+    <span class="hljs-string">&quot;chapter&quot;</span>: <span class="hljs-number">3</span>,
+    ...
 </code></pre>
-<p>I should point out, the regular Lodash version reads more naturally: &quot;from this Object, get the &apos;type&apos;, or just use &apos;unknown&apos;&quot; whereas lodash/fp reads &quot;If we don&apos;t find anything use &apos;unknown&apos;, when looking for the &apos;type&apos; property, on this Object&quot;. Lesson: Curry friendly doesn&apos;t always mean reader friendly.</p>
-<h3 id="using-getor-and-flow-with-filter">Using getOr and flow with filter</h3>
-<p>Point-free can either really help if you&apos;ve memorized the API, or really harm, when you start composing functions together. As they get larger, you can prevent this from being too verbose via point-free style. Below we&apos;ll filter a list by only getting the humans using <code>getOr</code> and <code>filter</code>. Below is our needed imports and <code>party</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { getOr, filter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
-
-<span class="hljs-keyword">const</span> party = [
-    { name: <span class="hljs-string">&apos;Jesse&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
-    { name: <span class="hljs-string">&apos;Brandy&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
-    { name: <span class="hljs-string">&apos;Albus&apos;</span>, type: <span class="hljs-string">&apos;dawg&apos;</span> }
-]
-</code></pre>
-<p>We&apos;ll use <code>filter</code> in a point style to only get the humans:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> filterHumans = people =&gt;
-    filter(
-        person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person) === <span class="hljs-string">&apos;human&apos;</span>,
-        people
-    )
-</code></pre>
-<p>Running it against the <code>party</code>, we get:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(filterHumans(party))
-<span class="hljs-comment">// [ { name: &apos;Jesse&apos;, type: &apos;human&apos; },</span>
-<span class="hljs-comment">//   { name: &apos;Brandy&apos;, type: &apos;human&apos; } ]</span>
-</code></pre>
-<p>If we rewrote that in point-free style, we could remove the <code>people</code> parameter because <code>filter</code> is already curried by default, and expects the Array as the 2nd parameter:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> filterHumans =
-    filter(
-        person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person) === <span class="hljs-string">&apos;human&apos;</span>
-    )
-</code></pre>
-<p>We can&apos;t further make it point-free without creating some additional pure functions, namely the predicate we pass to filter. Let&apos;s shrink <code>getOr</code> to be point-free first:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// from</span>
-<span class="hljs-keyword">const</span> getTypeOrUnknown = person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person)
-<span class="hljs-comment">// to</span>
-<span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-</code></pre>
-<p>Now we can put that into our <code>filter</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-<span class="hljs-keyword">const</span> filterHumans =
-    filter(
-        person =&gt; getTypeOrUnknown(person) === <span class="hljs-string">&apos;human&apos;</span>
-    )
-</code></pre>
-<h3 id="isequal">isEqual</h3>
-<p>Almost all operators in JavaScript have equivalent pure function versions of them in lodash/fp. Operators work well and should not be avoided, but they do not compose as well as functions do. The <code>isEqual</code> is like <code>===</code>, just a function. We can replace the <code>thing === &apos;human&apos;</code> with <code>isEqual</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// point style</span>
-<span class="hljs-keyword">const</span> equalsHuman = thing =&gt; isEqual(<span class="hljs-string">&apos;human&apos;</span>, thing)
-
-<span class="hljs-comment">// point-free style</span>
-<span class="hljs-keyword">const</span> equalsHuman = isEqual(<span class="hljs-string">&apos;human&apos;</span>)
-</code></pre>
-<p>Using that in our <code>filter</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-<span class="hljs-keyword">const</span> equalsHuman = isEqual(<span class="hljs-string">&apos;human&apos;</span>)
-<span class="hljs-keyword">const</span> filterHumans =
-    filter(
-        person =&gt; equalsHuman(getTypeOrUnknown(person))
-    )
-</code></pre>
-<p>Great, one function left.</p>
-<h3 id="flow">Flow</h3>
-<p>However, you see the nesting up there? The <code>equalsHuman(getTypeOrUnknown(person))</code> part. Once you have 2 or more functions nested like this, you can break them into a line using <code>flow</code>. It allows you to compose functions into a chain or set of pipes, just like Promises do, but synchronously. Don&apos;t worry if this is hard to grok, we&apos;ve devoted an entire section to flow in <a href="composing_functions.html">composing functions</a> in this chapter.</p>
-<p>To make the filter predicate point-free, we have to remove that <code>person</code> parameter. The only way to do that is to write a function that wraps <code>equalsHuman</code> and <code>getTypeOrUnknown</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = person =&gt; equalsHuman(getTypeOrUnknown(person))
-</code></pre>
-<p>... but he isn&apos;t point-free. Let&apos;s use <code>flow</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = person =&gt; flow([getTypeOrUnknown, equalsHuman])(person)
-</code></pre>
-<p>And then the point-free version:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = flow([getTypeOrUnknown, equalsHuman])
-</code></pre>
-<p>Now, using that in our <code>filter</code> to make all of it point-free:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getTypeOrUnknown = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
-<span class="hljs-keyword">const</span> equalsHuman = isEqual(<span class="hljs-string">&apos;human&apos;</span>)
-<span class="hljs-keyword">const</span> isHuman = flow([getTypeOrUnknown, equalsHuman])
-<span class="hljs-keyword">const</span> filterHumans = filter(isHuman)
-</code></pre>
-<h2 id="conclusions">Conclusions</h2>
-<p>Point-free style can significantly reduce the amount of code you have to write, and often happens when you use a lot of partial applications. The cost is increased cognitive load: it makes you think more when reading it. Most of what we you do as a programmer is read code, not write it. That&apos;s why some people call point-free programming &quot;pointless programming&quot;.</p>
 
                                 
                                 </section>
@@ -1298,12 +1200,12 @@
 
             
                 
-                <a href="composing_functions.html" class="navigation navigation-prev " aria-label="Previous page: Composing Functions">
+                <a href="composing_lenses.html" class="navigation navigation-prev " aria-label="Previous page: Composing Lenses">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../part6/" class="navigation navigation-next " aria-label="Next page: Part 6: Algebraic Data Types">
+                <a href="../part9/" class="navigation navigation-next " aria-label="Next page: Part 9: Debugging">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1314,7 +1216,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tacit Programming","level":"1.6.3","depth":2,"next":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"path":"part6/README.md","ref":"part6/README.md","articles":[{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},{"title":"Practice Validator with Predicates","level":"1.7.6","depth":2,"path":"part6/practice_validator_predicates.md","ref":"part6/practice_validator_predicates.md","articles":[]},{"title":"Practice Result with JSON","level":"1.7.7","depth":2,"path":"part6/practice_result_json.md","ref":"part6/practice_result_json.md","articles":[]},{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]}]},"previous":{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/tacit_programming.md","mtime":"2018-08-26T22:06:12.591Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Custom Lens","level":"1.9.4","depth":2,"next":{"title":"Part 9: Debugging","level":"1.10","depth":1,"path":"part9/README.md","ref":"part9/README.md","articles":[{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/logging_vs_purity.md","ref":"part9/logging_vs_purity.md","articles":[]},{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/logging_purity.md","ref":"part9/logging_purity.md","articles":[]}]},"previous":{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/custom_lens.md","mtime":"2018-11-26T00:25:40.801Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
