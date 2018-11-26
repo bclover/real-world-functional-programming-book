@@ -73,7 +73,13 @@ UI development in general commonly has a lot of side-effects, so do your best to
 
 **Synopsis**: Dangerous in closures like `arguments`, and breaks function currying. Should be avoided, unless single argument only. Use single argument functions carefully.
 
+**Solution**: Favor partial applications over default arguments.
+
 Like variadic functions, functions which have an arbitrary amount of arguments, default arguments have the same challenges. You can create pure functions using them, but unfortunately they break function currying. Most function currying is based around a specific number of arguments for a function, and creates confusing behavior when you get a function's result back when you were expecting a partial application instead.
+
+The other problem is with assumptions. Default arguments are typically used by developers trying to be nice to other developers. "If they don't want to pass this thing, or just don't know, it's all good, we'll provide a reasonable default". Except that assumption can cause un-intended problems down the line. This is more prevalent in dynamic languages where types can't figure out "what you really meant".
+
+Examples include asking a REST API for a specific set of products; if you don't pass the product type, it defaults to the most common. Once you start building an API atop this, hoewver, you can get into trouble where other functions start getting confused why they can't find certain values in the Array, and it turns out the the core lookup function was defaulting to a product that you didn't want. It is better to favor explicit arguments and then make a partial application for those developers who don't know what to pass or just want to pass less arguments.
 
 There is one exception: single argument functions.
 

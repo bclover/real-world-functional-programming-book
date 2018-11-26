@@ -54,7 +54,7 @@ console.log(parents) // [ 'Brandy', 'Jesse' ]
 
 Same input, same output, but it has side effects. The world changes after it runs because it doesn't utilize immutability.
 
-Libraries like `Ramda` are built using pure functions. This makes it so you can use the same method names like Array's `reverse`, but not worry about side effects as all return values are immutable.
+Libraries like [Ramda](https://ramdajs.com/docs/#reverse) are built using pure functions. This makes it so you can use the same method names like Array's `reverse`, but not worry about side effects as all return values are immutable.
 
 ## Closures
 
@@ -108,3 +108,4 @@ In JavaScript, the simple solution is to return a `Promise`. It'll resolve when 
 
 ## React Components
 
+// TODO

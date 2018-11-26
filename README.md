@@ -1,6 +1,6 @@
 # Warning
 
-Learning Functional Programming will change your life, but not necessarily for the better. I'm happy I continue to learn more about it, and feel is has drastically improved my ability to write reliable code. Unit tests are easier to write.
+Learning Functional Programming will change your life, but not necessarily for the better. I'm happy I continue to learn more about it, and feel is has drastically improved my ability to write reliable code. Unit tests are easier to write. It is a different way of thinking about code, and will change the way you look at code once you learn it. There is no going back.
 
 Like the time I learned Object Oriented Programming, or Design Patterns, or Model View Controller frameworks, you see the world in a new way. You have a new hammer and everything becomes a nail. You know the "one true way" and there is no going back and you struggle to reconcile the new way with the ways of old.
 
@@ -18,7 +18,9 @@ Beyond that, no catch.
 
 # What Does "Real-World" Mean?
 
-Languages like JavaScript, Python, and Java are languages you can get a job using at the time of this writing. Web development, data science & machine learning, and REST API's. You can use them and work with non-functional programmers in the same code base. While it's slowly changing, it currently is hard to get a job using functional languages. Tech industry interviews are broken. Many managers are afraid to use non-standard languages because they don't think they can hire people to fix and maintain the code base. Companies hire for someone knowing a language or skill vs. ability to learn. This guide is meant to teach you concepts you can use to benefit your current work in "normal" programming languages as well as ensuring you still can get a job "using Java".
+Languages like JavaScript, Python, and Java are languages you can get a job using at the time of this writing. They're all used in web development, data science & machine learning, and building REST API's. You can use them and work with non-functional programmers in the same code base. While it's slowly changing, it currently is hard to get a job using functional languages. Tech industry interviews are broken. Many managers are afraid to use non-standard languages because they don't think they can hire people to maintain the code base if you or your FP co-workers leave. Companies hire for someone knowing a language or skill vs. ability to learn. Not everyone wants to learn FP.
+
+This guide is meant to teach you concepts you can use to benefit your current work in "normal" programming languages as well as ensuring you still can get a job "using Java" if you wish. Part of the skill, and challenge, of using FP in the current climate is co-existing with non-functional programmers in non-functional programming languages. The good news is that JavaScript, Python, and other dynamic languages have all you need built into the language to start programming FP. Even strongly typed class ones like Java and C# do as well.
 
 # Real-World Functional Programming
 

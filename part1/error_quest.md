@@ -75,20 +75,31 @@ Let's see how other languages handle this in a slightly functional way.
 This is a common pattern solved in other languages. In Go, it's built INTO the language. In Go, you can return multiple values. This has made it a convention to return errors as the last argument, and check them in a procedural style before continuing. 
 
 ```go
+func safeParseJSON(jsonString string) (object, error) {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("couldn't parse JSON and it panicked", r)
+            return nil, errors.New("jsonString")
+        }
+    }()
+    parsed, err := json.Marshal(jsonString)
+    return parsed, err
+}
+
 obj, err := safeParseJSON("{\"foo\":\"bar\"}")
 if err != nil {
     fmt.Printf("couldn't parse JSON: %v\n", err)
     return
 }
 fmt.Println("Parsed JSON:", obj)
+
 ```
 
-However, it's still written in a procedural style, hence Rebecca Skinner creating [Gofpher](https://github.com/asteris-llc/gofpher) for [Monadic Error Handling in Go](https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go?slide=61) (i.e. JavaScript `Promise` style).
-
+However, it's still written in a procedural style, hence Rebecca Skinner creating [Gofpher](https://github.com/asteris-llc/gofpher) for [Monadic Error Handling in Go](https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go?slide=61) (i.e. JavaScript `Promise` style). Note the verbose [defer](https://blog.golang.org/defer-panic-and-recover) to recover from panics. 
 
 ### Lua Error Handling
 
-Lua has multiple return values for functions as well, and provides a function called `pcall`, short for "protected call" that works similarly. Unlike Go, the first value is "did this function work or not". If the function failed, the 2nd return value will be the error, else whatever value(s) the function returns.
+Lua has multiple return values for functions as well, and provides a function called `pcall`, short for "protected call" that works similarly. Unlike Go, the first value is "did this function work or not". Also, if Go uses `panic`, the entire error blows away the stack, and you get no return value, forcing you to use a `defer`. In Lua, the p stands for "protected", effectively a try/catch. If the function failed via an Exception, the 2nd return value will be the error, else whatever value(s) the function returns. So Lua's `pcall` is pretty powerful compared to Go.
 
 ```lua
 local success, errorOrObject = pcall(JSON.parse, string)
@@ -275,5 +286,5 @@ const example = (JSON, fs) =>
 
 ## A Bunch of Things Could Go Wrong
 
-The above lumps all errors into the `catch` as a String. We have to search in 1 place without any ability to be proactive or reactive. Sometimes we need to know what error occurred as either some are ok, or some require different code paths for us to take. We'll cover this advanced error handling in the "Result" section in Part 5.
+The above lumps all errors into the `catch` as a String. We have to search in 1 place without any ability to be proactive or reactive. Sometimes we need to know what error occurred as either some are ok, or some require different code paths for us to take. We'll cover this advanced error handling in the "Result" section in Part 5 and being more clear about what exact error it was in "Union" in Part 6.
 
