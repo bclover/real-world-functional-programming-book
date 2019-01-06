@@ -511,7 +511,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../part4/arity.html">
+        <li class="chapter " data-level="1.5.4" data-path="../part4/closures_and_immutability.html">
+            
+                <a href="../part4/closures_and_immutability.html">
+            
+                    
+                    Closures And Immutability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../part4/arity.html">
             
                 <a href="../part4/arity.html">
             
@@ -524,7 +537,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="../part4/styles_of_curry.html">
+        <li class="chapter " data-level="1.5.6" data-path="../part4/styles_of_curry.html">
             
                 <a href="../part4/styles_of_curry.html">
             
@@ -537,7 +550,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="../part4/lodash_fp.html">
+        <li class="chapter " data-level="1.5.7" data-path="../part4/lodash_fp.html">
             
                 <a href="../part4/lodash_fp.html">
             
@@ -550,7 +563,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.7" data-path="../part4/practice_curry_predicates.md">
+        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_curry_predicates.md">
             
                 <span>
             
@@ -563,7 +576,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_">
+        <li class="chapter " data-level="1.5.9" data-path="../part4/practice_">
             
                 <span>
             
@@ -1084,11 +1097,11 @@
 <h2 id="playing--thinking-in-procedural">Playing &amp; Thinking in Procedural</h2>
 <p>A lot of time in programming, we&apos;re writing procedural code and storing those results in local variables. Local variables are variables only used for the life of the function, and are intentionally put there to be used by a closure. This could be for a variety of reasons.</p>
 <ul>
-<li>easier for you to think and build code this way vs. &quot;ALL PURE FUNCTIONS&quot;</li>
-<li>working on a complicated algorithm</li>
 <li>playing with ideas</li>
 <li>teaching</li>
+<li>working on a complicated algorithm and want instant feedback</li>
 <li>want to easily debug or log each line or to inspect variables</li>
+<li>easier for you to think and build code this way vs. &quot;ALL PURE FUNCTIONS&quot;</li>
 </ul>
 <p>For example, here is parsing URL parameters manually instead of using a library:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> log = <span class="hljs-built_in">console</span>.log
@@ -1125,7 +1138,7 @@ log(query) <span class="hljs-comment">// { name: &apos;jesse&apos; }</span>
 log(parseQuery(url)) <span class="hljs-comment">// { name: &apos;jesse&apos; }</span>
 </code></pre>
 <p>Copy pasta coding! Notice that we just copy and pasted the code. It follows the same input, same output rule. The outside world part we need, the <code>url</code>, is passed into the arguments. The <code>query</code>, although it&apos;s a <code>let</code> variable, it only exists for the life of the function and doesn&apos;t affect the outside world. Same for the <code>key</code> and <code>value</code> are constants, but they too only exist inside the function. </p>
-<p>The <code>log</code> technically breaks the being affected by the outside world, and affecting the world after its run. He&apos;s a noop, though, a function that returns no value so we assume it &quot;does no operation&quot;. You&apos;ll start to develop a 6th sense when you see noops, they probably indicate side effects happen after you call the function. We also use the <code>log</code> as a closure variable. He&apos;s harmless though, so this is ok. For now. See Part 6: Logging &amp; Purity to see a counterpoint to this.</p>
+<p>The <code>log</code> technically breaks the being affected by the outside world, and affecting the world after its run. He&apos;s a noop, though, a function that returns no value so we assume it &quot;does no operation&quot;. You&apos;ll start to develop a 6th sense when you see noops, they probably indicate side effects happen after you call the function. We also use the <code>log</code> as a closure variable. He&apos;s harmless though, so this is ok. For now. See <a href="../part9/log_purity.md">Part 9: Logging &amp; Purity</a> to see a counterpoint to this.</p>
 <h2 id="const-aint-so-constant">const Ain&apos;t So Constant</h2>
 <p>The <code>const</code>, or constant, is not a panacea to immutability. While we can define complex objects like Arrays and Objects using <code>const</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> friends = [<span class="hljs-string">&apos;&#x1F404;&apos;</span>, <span class="hljs-string">&apos;&#x1F415;&apos;</span>]
@@ -1199,7 +1212,7 @@ log(parseQuery(url)) <span class="hljs-comment">// { name: &apos;jesse&apos; }</
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The Case for var and let","level":"1.2.2","depth":2,"next":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},"previous":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/var_and_let.md","mtime":"2018-11-23T15:06:00.101Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"The Case for var and let","level":"1.2.2","depth":2,"next":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},"previous":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/var_and_let.md","mtime":"2019-01-05T19:32:24.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-06T21:14:22.781Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

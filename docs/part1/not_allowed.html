@@ -511,7 +511,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../part4/arity.html">
+        <li class="chapter " data-level="1.5.4" data-path="../part4/closures_and_immutability.html">
+            
+                <a href="../part4/closures_and_immutability.html">
+            
+                    
+                    Closures And Immutability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../part4/arity.html">
             
                 <a href="../part4/arity.html">
             
@@ -524,7 +537,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="../part4/styles_of_curry.html">
+        <li class="chapter " data-level="1.5.6" data-path="../part4/styles_of_curry.html">
             
                 <a href="../part4/styles_of_curry.html">
             
@@ -537,7 +550,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="../part4/lodash_fp.html">
+        <li class="chapter " data-level="1.5.7" data-path="../part4/lodash_fp.html">
             
                 <a href="../part4/lodash_fp.html">
             
@@ -550,7 +563,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.7" data-path="../part4/practice_curry_predicates.md">
+        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_curry_predicates.md">
             
                 <span>
             
@@ -563,7 +576,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_">
+        <li class="chapter " data-level="1.5.9" data-path="../part4/practice_">
             
                 <span>
             
@@ -1125,20 +1138,21 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
 <p>For front-end frameworks which utilize classes to encapsulate Graphical User Interface (GUI) state (i.e. pixels), it is unavoidable. There is a long history of using Object Oriented Programming for UI&apos;s. <a href="https://reactjs.org/" target="_blank">React</a> extends a Component class but encourages you to use Composition over Inheritance. <a href="https://angular.io" target="_blank">Angular</a> does the same using class decorators but thankfully often employs interfaces and compiler smarts. <a href="http://www.pixijs.com/" target="_blank">Pixi.js</a> uses a Sprite class to abstract away Canvas pixels.</p>
 <p>UI development in general commonly has a lot of side-effects, so do your best to keep most of your work in pure functions.</p>
 <h2 id="default-arguments">Default Arguments</h2>
-<p><strong>Synopsis</strong>: Dangerous in closures like <code>arguments</code>, and breaks function currying. Should be avoided, unless single argument only. Use single argument functions carefully.</p>
+<p><strong>Synopsis</strong>: Dangerous in closures like <code>arguments</code>, and breaks function currying. Should be avoided, unless single argument only for by val types (i.e. <code>String</code>, <code>Number</code>, etc) which provide pseudo immutability. Use single argument functions carefully.</p>
 <p><strong>Solution</strong>: Favor partial applications over default arguments.</p>
-<p>Like variadic functions, functions which have an arbitrary amount of arguments, default arguments have the same challenges. You can create pure functions using them, but unfortunately they break function currying. Most function currying is based around a specific number of arguments for a function, and creates confusing behavior when you get a function&apos;s result back when you were expecting a partial application instead.</p>
-<p>The other problem is with assumptions. Default arguments are typically used by developers trying to be nice to other developers. &quot;If they don&apos;t want to pass this thing, or just don&apos;t know, it&apos;s all good, we&apos;ll provide a reasonable default&quot;. Except that assumption can cause un-intended problems down the line. This is more prevalent in dynamic languages where types can&apos;t figure out &quot;what you really meant&quot;.</p>
-<p>Examples include asking a REST API for a specific set of products; if you don&apos;t pass the product type, it defaults to the most common. Once you start building an API atop this, hoewver, you can get into trouble where other functions start getting confused why they can&apos;t find certain values in the Array, and it turns out the the core lookup function was defaulting to a product that you didn&apos;t want. It is better to favor explicit arguments and then make a partial application for those developers who don&apos;t know what to pass or just want to pass less arguments.</p>
-<p>There is one exception: single argument functions.</p>
+<p>Like variadic functions, functions which have an arbitrary amount of arguments, default arguments have the same challenges. You can create pure functions using them, but unfortunately they break function currying. Most function currying is based around a specific number of arguments, called <a href="../part4/arity.html">Arity</a>, for a function, and creates confusing behavior when you get a function&apos;s result back when you were expecting a partial application instead. It is better to favor explicit arguments and then make a partial application for those developers who don&apos;t know what to pass or just want to pass less arguments.</p>
+<p>As you&apos;ll learn later, functions with default arguments are harder to compose because you&apos;ll get unintended arguments. When you&apos;re explicit with partial applications, it&apos;s more clear what argument goes where and the functions can be wired together more easily and predictably.</p>
 <h2 id="classes">Classes</h2>
 <p><strong>Synopsis</strong> The <code>class</code> keyword should be avoided for the same reasons as using <code>this</code>. Classes are also a lot more difficult to compose.</p>
-<p>The whole concept of storing variables as member and static variables inside a class, internal mutable state, causes a lot of side effects. It also ensures you won&apos;t get the same output with the same input. Class methods often have no input as they&apos;ll handle the inputs by referencing internal data on <code>this</code>. They&apos;ll also usually not have outputs either because they are modifying or updating state internally on <code>this</code>. As classes start using Inheritance or Composition, they&apos;ll be creating even more mutable state internally as they grow in size. Finally, JavaScript&apos;s implementation is not immutable, and both <code>this</code>, and the class itself, can be modified at runtime leading to various unintended null pointers. These errors or different outputs are not pure.</p>
+<p>The whole concept of storing variables as member and static variables inside a class, internal mutable state, causes a lot of side effects. It also ensures you won&apos;t get the same output with the same input. Class methods often have no input as they&apos;ll handle the inputs by referencing internal data on <code>this</code>. They typically don&apos;t have outputs either because they are modifying or updating state internally on <code>this</code>. As classes start using Inheritance or Composition, they&apos;ll be creating even more mutable state internally as they grow in size. Finally, JavaScript&apos;s implementation is not immutable, and both <code>this</code>, and the class itself, can be modified at runtime leading to various unintended null pointers. These errors or different outputs are not pure.</p>
+<p>Like default arguments, classes are a lot harder to compose with.</p>
 <p>See Dealing with OOP for strategies on using as safely as possible as at the time of this writing, encountering OOP in code bases you work on is unavoidable.</p>
 <h2 id="throw">throw</h2>
 <p><strong>Synopsis</strong>: Do not use <code>throw</code>. Instead, return the <code>Error</code> in an Object or an Algebraic Data Type that describes what we wrong, similar to Lua&apos;s <code>pcall</code> or Lua and Go&apos;s ability to return multiple return values.</p>
 <p>Errors are a challenging side effect. Not only do they prevent return values from even working, but occasionally, they can create situations where data, or the application itself, is in an unknown state vs crashing outright. This breaks the same output rule as well as the side effects rule.</p>
-<p>Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. In imperative style code, you can &quot;find the line where things went wrong&quot;. In debugging functional code, you&apos;re interested in &quot;why did the function return an error instead of a success&quot;. In composed functions and programs, you&apos;re interested in &quot;where in this pipeline of functions did my data become wrong&quot;. You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application (unless you&apos;re in Erlang/Elixir).</p>
+<p>Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. JavaScript is notorious for having source maps that do not map to the source giving red herrings on top of badly written error messages which are red herrings. In imperative style code, you can &quot;find the line where things went wrong&quot;. In debugging functional code, you&apos;re interested in &quot;why did the function return an error instead of a success&quot;. In composed functions and programs, you&apos;re interested in &quot;where in this pipeline of functions did my data become wrong&quot;. You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application.</p>
+<p>The exception is in Erlang/<a href="https://elixir-lang.org/" target="_blank">Elixir</a> or <a href="https://akka.io/" target="_blank">Akka</a> in Scala/Java where &quot;let it crash&quot; is the norm. You&apos;re more interested in application uptime than purity in those cases. For JavaScript, the equivalent is using <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> or <a href="https://www.docker.com/" target="_blank">Docker</a> on <a href="https://aws.amazon.com/ecs/" target="_blank">ECS</a> and any uncaught <a href="https://nodejs.org/api/process.html#process_event_uncaughtexception" target="_blank">sync</a> or <a href="https://nodejs.org/api/process.html#process_event_unhandledrejection" target="_blank">async</a> error means your application is in an unknonwn state, possibly impure, so you just nuke the entire process/container and get a new one. Since your application is supposedly stateless and uses immutable data, there is no worry about &quot;losing&quot; information as something like <a href="https://redis.io/" target="_blank">Redis</a> or your Database handles being the single source of truth and state.</p>
+<p>Serverless is the same way. While it might be tempting to <code>throw</code> since the function will only run for a few milliseconds/seconds anyway on disposable infrastructure, errors should be what they mean: your code is broken, you or your team needs to fix it. See <a href="../part6">Part 6 on Algebraic Data Types</a> for better return values for errors.</p>
 
                                 
                                 </section>
@@ -1182,7 +1196,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"next":{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},"previous":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/not_allowed.md","mtime":"2018-11-23T16:54:33.352Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"next":{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},"previous":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/not_allowed.md","mtime":"2019-01-06T17:31:00.195Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-06T21:14:22.781Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -511,7 +511,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="arity.html">
+        <li class="chapter " data-level="1.5.4" data-path="closures_and_immutability.html">
+            
+                <a href="closures_and_immutability.html">
+            
+                    
+                    Closures And Immutability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="arity.html">
             
                 <a href="arity.html">
             
@@ -524,7 +537,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.5" data-path="styles_of_curry.html">
+        <li class="chapter active" data-level="1.5.6" data-path="styles_of_curry.html">
             
                 <a href="styles_of_curry.html">
             
@@ -537,7 +550,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="lodash_fp.html">
+        <li class="chapter " data-level="1.5.7" data-path="lodash_fp.html">
             
                 <a href="lodash_fp.html">
             
@@ -550,7 +563,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.7" data-path="practice_curry_predicates.md">
+        <li class="chapter " data-level="1.5.8" data-path="practice_curry_predicates.md">
             
                 <span>
             
@@ -563,7 +576,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.8" data-path="practice_">
+        <li class="chapter " data-level="1.5.9" data-path="practice_">
             
                 <span>
             
@@ -1082,10 +1095,10 @@
 <p>We&apos;ve shown you how to manually create curried functions. However, many dynamic languages, especially JavaScript, use a lot of libraries and most aren&apos;t written in a functional way. Just like you can use <a href="https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original" target="_blank">promisify in Node</a> to convert a callback function to a <code>Promise</code> based one, Lodash, Ramda, Folktale, and Sanctuary have a <code>curry</code> function to convert non-curried functions to curried ones.</p>
 <p>These help in:</p>
 <ul>
+<li>help beginners ease into curried functions</li>
 <li>using 3rd party code you don&apos;t own</li>
 <li>code you&apos;ve already written and want to quickly convert</li>
-<li>help beginners ease into curried functions</li>
-<li>expose public functions that doesn&apos;t force curried function calling style onto those using the API</li>
+<li>expose public functions that doesn&apos;t force curried function calling style onto those using the API who may not be FP developers</li>
 </ul>
 <h2 id="lodash--ramdas-curry">Lodash&apos; &amp; Ramda&apos;s curry</h2>
 <p>Instead of converting our <code>loadWebsite</code> function to be manually curried, we can instead use Lodash&apos;s <a href="https://lodash.com/docs/4.17.10#curry" target="_blank">curry</a> function:</p>
@@ -1196,7 +1209,7 @@ curry2(loadWebsite).length <span class="hljs-comment">// 1</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Styles Of Curry","level":"1.5.5","depth":2,"next":{"title":"Lodash FP","level":"1.5.6","depth":2,"path":"part4/lodash_fp.md","ref":"part4/lodash_fp.md","articles":[]},"previous":{"title":"Arity","level":"1.5.4","depth":2,"path":"part4/arity.md","ref":"part4/arity.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/styles_of_curry.md","mtime":"2018-08-25T17:14:50.731Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Styles Of Curry","level":"1.5.6","depth":2,"next":{"title":"Lodash FP","level":"1.5.7","depth":2,"path":"part4/lodash_fp.md","ref":"part4/lodash_fp.md","articles":[]},"previous":{"title":"Arity","level":"1.5.5","depth":2,"path":"part4/arity.md","ref":"part4/arity.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/styles_of_curry.md","mtime":"2019-01-06T18:06:40.391Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-06T21:14:22.781Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -511,7 +511,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../part4/arity.html">
+        <li class="chapter " data-level="1.5.4" data-path="../part4/closures_and_immutability.html">
+            
+                <a href="../part4/closures_and_immutability.html">
+            
+                    
+                    Closures And Immutability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../part4/arity.html">
             
                 <a href="../part4/arity.html">
             
@@ -524,7 +537,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="../part4/styles_of_curry.html">
+        <li class="chapter " data-level="1.5.6" data-path="../part4/styles_of_curry.html">
             
                 <a href="../part4/styles_of_curry.html">
             
@@ -537,7 +550,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="../part4/lodash_fp.html">
+        <li class="chapter " data-level="1.5.7" data-path="../part4/lodash_fp.html">
             
                 <a href="../part4/lodash_fp.html">
             
@@ -550,7 +563,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.7" data-path="../part4/practice_curry_predicates.md">
+        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_curry_predicates.md">
             
                 <span>
             
@@ -563,7 +576,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_">
+        <li class="chapter " data-level="1.5.9" data-path="../part4/practice_">
             
                 <span>
             
@@ -1079,8 +1092,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="union">Union</h1>
-<p>A Union is a bunch of types in one value. You use them to represent many possible types. A String  is a scalar type; <code>&quot;cow&quot;</code> is always <code>&quot;cow&quot;</code> and completely different from <code>&quot;goat&quot;</code>. An Object is a product type; it&apos;s the combination of many types into one like <code>{ name: &apos;Dat Moo Moo&apos;, age: 2, type: &apos;&#x1F42E;&apos;, food: [&apos;hay&apos;, &apos;grass&apos;] }</code>. That <code>Object</code> contains 2 <code>String</code>s, a <code>Number</code>, and an <code>Array</code>. A Union combines those products together.</p>
-<p>If you&apos;ve read this book in order, you&apos;ve already seen 3 Union types: <code>Maybe</code>, <code>Validation</code> and <code>Result</code>. A <code>Maybe</code> is either a <code>Just</code> or <code>Nothing</code>. Both are distinct types like <code>Array</code>, and they have similar methods, but represent completely different things. The <code>Maybe</code> marries the 2 into 1 type.</p>
+<p>A Union is a bunch of types in one value. You use them to represent many possible types. They&apos;re also a great replacement for one or many Booleans. Union types have a special ability called matching that uses a pure function and removes the need for using <code>if</code> statements. You&apos;ve seen this briefly used in the <a href="validation.html">Validation</a> and <a href="result.html">Result</a> sections and we&apos;ll expound on it here.</p>
+<h2 id="scalars-products-and-unions">Scalars, Products, and Unions</h2>
+<p>A String  is a <strong>scalar</strong> type; <code>&quot;cow&quot;</code> is always <code>&quot;cow&quot;</code> and completely different from <code>&quot;goat&quot;</code>.</p>
+<p>An Object is a <strong>product</strong> type; it&apos;s the combination of many types into one like:</p>
+<pre><code class="lang-javascript">{ name: <span class="hljs-string">&apos;Dat Moo Moo&apos;</span>, age: <span class="hljs-number">2</span>, type: <span class="hljs-string">&apos;&#x1F42E;&apos;</span>, food: [<span class="hljs-string">&apos;hay&apos;</span>, <span class="hljs-string">&apos;grass&apos;</span>] }
+</code></pre>
+<p>That <code>Object</code> contains 2 <code>String</code>s, a <code>Number</code>, and an <code>Array</code>.</p>
+<p>A <strong>union</strong> type combines those products together. If you&apos;ve read this book in order, you&apos;ve already seen 3 Union types: <code>Maybe</code>, <code>Validation</code> and <code>Result</code>. A <code>Maybe</code> is either a <code>Just</code> or <code>Nothing</code>. Both are distinct types like <code>Array</code>, and they have similar methods, but represent completely different things. The <code>Maybe</code> marries the 2 into 1 type.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> union = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/adt/union/union&apos;</span>)
 
 <span class="hljs-keyword">const</span> Maybe = union(<span class="hljs-string">&apos;Maybe&apos;</span>, {
@@ -1221,8 +1240,258 @@ virus file: <span class="hljs-subst">${file}</span>`</span>,
 <span class="hljs-built_in">console</span>.log(didUploadWork(Success(<span class="hljs-string">&apos;some file&apos;</span>))) <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">console</span>.log(didUploadWork(NotLoggedIn(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>, <span class="hljs-number">400</span>)))) <span class="hljs-comment">// false</span>
 </code></pre>
+<h2 id="matchwith-vs-type-checking">matchWith vs. Type Checking</h2>
+<p>This style of wrapping complex return values into custom types is used in Object Oriented Programming as well. For exmaple, simplifying a <code>fetch</code> call into 3 possible return values/</p>
+<p>We got an HTTP status other than 200:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Failed</span> </span>{
+    <span class="hljs-keyword">constructor</span>(error) {
+        <span class="hljs-keyword">this</span>.error = error
+    }
+}
+</code></pre>
+<p>We got a good response, but couldn&apos;t parse the JSON:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JSONParseFailed</span> </span>{
+    <span class="hljs-keyword">constructor</span>(error) {
+        <span class="hljs-keyword">this</span>.error = error
+    }
+}
+</code></pre>
+<p>And a successful response with successful JSON parsing:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Successful</span> </span>{
+    <span class="hljs-keyword">constructor</span>(data) {
+        <span class="hljs-keyword">this</span>.data = data
+    }
+}
+</code></pre>
+<p>You&apos;d then check the type:</p>
+<pre><code class="lang-javascript">someFetchCall()
+.then(result =&gt; {
+    <span class="hljs-keyword">if</span>(result <span class="hljs-keyword">instanceof</span> Failed) {
+        error(<span class="hljs-string">&quot;HTTP call failed:&quot;</span>, result.error)
+        <span class="hljs-keyword">return</span> result.error
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(result <span class="hljs-keyword">instanceof</span> JSONParseFailed) {
+        error(<span class="hljs-string">&quot;JSON parsing failed:&quot;</span>, result.error)
+        <span class="hljs-keyword">return</span> result.error
+    } <span class="hljs-keyword">else</span> {
+        log(<span class="hljs-string">&quot;Successful:&quot;</span>, result.data)
+        <span class="hljs-keyword">return</span> result.data
+    }
+})
+</code></pre>
+<p>Ranting about the problems with <code>if</code> statements ecspecially without a type system is beyond the scope of this book, so suffice to say:</p>
+<ol>
+<li>we&apos;re not checking specifically for <code>Successful</code>, we just assume if the first too aren&apos;t found, it&apos;s <code>Successful</code>.</li>
+<li>If we were missing a type, we&apos;d get a null pointer on <code>result.data</code> trying to access data on a class type that doesn&apos;t have it... not really helpful to say why the fetch call did or did not succeed.</li>
+<li>If we add/remove a type, we have to be careful about ensuring the order of if statements and ensure each case is handled.</li>
+<li>What do we put for the else if we did specifically check for <code>Successful</code>?</li>
+<li>We&apos;re having to dot access class instances without lenses nor a type checker.</li>
+<li>You could accidentally forget to return a specific/correct value from the class error / data property.</li>
+<li>This is Imperative style code in a Functional Programming book, GTFO.</li>
+</ol>
+<p>Let&apos;s change that to a pure function using <code>matchWith</code> and Union a type instead. We&apos;ll first define are types like we did in the OOP example:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> FetchResult = union(<span class="hljs-string">&apos;FetchResult&apos;</span>, {
+    Failed(error) { <span class="hljs-keyword">return</span> { error } }
+    , JSONParseFailed(error) { <span class="hljs-keyword">return</span> { error } }
+    , Successful(data) { <span class="hljs-keyword">return</span> { data } }
+})
+</code></pre>
+<p>And to use it, we just use <code>matchWith</code>:</p>
+<pre><code class="lang-javascript">someFetchCall()
+.then(result =&gt;
+    result.matchWith({
+        Failed: error =&gt;
+            error(<span class="hljs-string">&quot;HTTP call failed:&quot;</span>, error)
+        , JSONParseFailed: error =&gt;
+            error(<span class="hljs-string">&quot;JSON parsing failed:&quot;</span>, error)
+        , Successful: data =&gt;
+            log(<span class="hljs-string">&quot;data:&quot;</span>, data)
+    })
+})
+</code></pre>
+<p>If you&apos;re not using a typed language like TypeScript or Flow, you can ensure you covered all possible cases with an <code>any</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { any } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/adt/union/union&apos;</span>)
+
+someFetchCall()
+.then(result =&gt;
+    result.matchWith({
+        ...
+        , [any]: () =&gt;
+            error(<span class="hljs-string">&quot;unknown match.&quot;</span>) <span class="hljs-comment">// might not be error</span>
+    })
+})
+</code></pre>
+<p>Remember, <code>matchWith</code> is a pure function. If you&apos;re forced to work with Promises, you can simply return the unboxed values, and the <code>data</code> will go to the <code>then</code> and the <code>error</code>&apos;s will automatically go to the <code>catch</code>:</p>
+<pre><code class="lang-javascript">...
+.then(result =&gt;
+    result.matchWith({
+        Failed: error =&gt;
+            error(<span class="hljs-string">&quot;HTTP call failed:&quot;</span>, error) || error
+        , JSONParseFailed: error =&gt;
+            error(<span class="hljs-string">&quot;JSON parsing failed:&quot;</span>, error) || error
+        , Successful: data =&gt;
+            log(<span class="hljs-string">&quot;data:&quot;</span>, data) || data
+    })
+})
+</code></pre>
+<p>While I&apos;m not a fan, many love the await/async syntax. If you use Union types as the return value instead of values or <code>Error</code>&apos;s like you do with Promises, you can solve 2 problems:</p>
+<ol>
+<li>no need for a try/catch</li>
+<li>allow the consumer to pattern match the result</li>
+</ol>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> someFetchCall()
+<span class="hljs-keyword">const</span> data = result.matchWith({
+    ...
+})
+</code></pre>
+<h2 id="boolean-replacements">Boolean Replacements</h2>
+<p>Jeremy Fairbank covers the problem with Boolean&apos;s is his presentation &quot;<a href="https://www.youtube.com/watch?v=6TDKHGtAxeg" target="_blank">Solving the Boolean Identity Crisis</a>&quot;. The short version is using Booleans, even outside of a type system can cause problems with <code>if</code> statements missing a case, and parameters not really being clear as to what they mean. We&apos;ll cover the latter problem.</p>
+<p>For example, this function call from a game:</p>
+<pre><code class="lang-javascript">jump(<span class="hljs-literal">true</span>)
+</code></pre>
+<p>Is the <code>true</code> meaning &quot;how high&quot; or &quot;using gravity boots to stick on the celing&quot; or.... what? No clue, so you go read the function definition to figure it out.</p>
+<p>... vs this one:</p>
+<pre><code class="lang-javascript">jump(Horizontal)
+</code></pre>
+<p>Suddenly it&apos;s more clear just by reading the function the first parameter means a horizontal jump vs a vertical one.</p>
+<p>Before types, you have to check the Boolean value with an if statement:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> jump = horizontal =&gt; {
+    <span class="hljs-keyword">if</span>(horizontal === <span class="hljs-literal">false</span>) { <span class="hljs-comment">// vertical jump</span>
+        object.applyForce( <span class="hljs-number">0</span>, <span class="hljs-number">2000</span>, object.x, object.y )
+    } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// horizontal jump</span>
+        object.applyForce( <span class="hljs-number">4000</span>, <span class="hljs-number">100</span>, object.x, object.y )
+    }
+}
+</code></pre>
+<p>vs. using a Union type:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> jump = direction =&gt;
+    direction.matchWith({
+        Vertical: _ =&gt;
+            object.applyForce( <span class="hljs-number">0</span>, <span class="hljs-number">2000</span>, object.x, object.y )
+        , Horizontal: _ =&gt;
+            object.applyForce( <span class="hljs-number">4000</span>, <span class="hljs-number">100</span>, object.x, object.y )
+    })
+</code></pre>
+<p>No need to worry about adding new types of jumps and missing an if else block:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> jump = direction =&gt;
+    direction.matchWith({
+        Vertical: _ =&gt;
+            object.applyForce( <span class="hljs-number">0</span>, <span class="hljs-number">2000</span>, object.x, object.y )
+        , Right: _ =&gt;
+            object.applyForce( <span class="hljs-number">4000</span>, <span class="hljs-number">100</span>, object.x, object.y )
+        , Left: _ =&gt;
+            object.applyForce( <span class="hljs-number">-4000</span>, <span class="hljs-number">100</span>, object.x, object.y )
+    })
+</code></pre>
+<h2 id="multiple-booleans-in-asynchronous-redux">Multiple Booleans in Asynchronous Redux</h2>
+<p>Whether you use <a href="https://github.com/redux-saga/redux-saga" target="_blank">sagas</a> or <a href="https://github.com/reduxjs/redux-thunk" target="_blank">thunks</a> to handle asynchronous calls in <a href="https://redux.js.org/" target="_blank">Redux</a> in <a href="https://reactjs.org/" target="_blank">React</a>, the UI portion is probably the same.</p>
+<ol>
+<li>Loading...</li>
+<li>Successfully got data.</li>
+<li>Failed to get data, here&apos;s the error and what you can do about it.</li>
+</ol>
+<p>The typical pattern is to create an Object specifically for that <a href="http://jessewarden.com/2012/07/finite-state-machines-in-game-development.html" target="_blank">finite state machine</a> that looks like this:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// loading state</span>
+{
+    loading: <span class="hljs-literal">true</span>
+    , data: <span class="hljs-literal">undefined</span>
+    , isError: <span class="hljs-literal">false</span>
+    , error : <span class="hljs-literal">undefined</span>
+}
+</code></pre>
+<p>And when you successfully got data:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// success state</span>
+{
+    loading: <span class="hljs-literal">false</span>
+    , data: { loggedIn: <span class="hljs-literal">true</span>, user: { firstName: <span class="hljs-string">&apos;Jesse&apos;</span> } }
+    , isError: <span class="hljs-literal">false</span>
+    , error : <span class="hljs-literal">undefined</span>
+}
+</code></pre>
+<p>And when it fails:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// error state</span>
+{
+    loading: <span class="hljs-literal">false</span>
+    , data: <span class="hljs-literal">undefined</span>
+    , isError: <span class="hljs-literal">true</span>
+    , error : <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;500 http status code returned.&apos;</span>)
+}
+</code></pre>
+<p>Creating reducer functions for this is pretty straightforward. However, you can prevent worrying about getting in invalid states such as:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// wait, is this the default?</span>
+{
+    loading: <span class="hljs-literal">false</span>
+    , data: <span class="hljs-literal">undefined</span>
+    , isError: <span class="hljs-literal">false</span>
+    , error : <span class="hljs-literal">undefined</span>
+}
+</code></pre>
+<p>Or my favorite:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// &quot;You are figh-ahd!&quot;</span>
+<span class="hljs-comment">// &quot;At least you bought me lunch.&quot;</span>
+<span class="hljs-comment">// &quot;Guuuuud philosophy... see gud in beehd!&quot;</span>
+{
+    loading: <span class="hljs-literal">true</span>
+    , data: { loggedIn : <span class="hljs-literal">true</span>, user: { firstName: <span class="hljs-string">&apos;Jesse&apos;</span> } }
+    , isError: <span class="hljs-literal">true</span>
+    , error : <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;200 http status code returned.&apos;</span>)
+}
+</code></pre>
+<p>Once you start having multiple Booleans, it feels pure and safe having just a few reducer functions ensuring you can&apos;t really get into an invalid state. However, it&apos;s easier to just use a Union type and not have to worry about it ever happening at all:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> LoginState = union(<span class="hljs-string">&apos;LoginState&apos;</span>, {
+    Loading() { <span class="hljs-keyword">return</span> {} }
+    , Failure(error) { <span class="hljs-keyword">return</span> { error } }
+    , Success(user) { <span class="hljs-keyword">return</span> { user } }
+})
+</code></pre>
+<p>Now for login, your reducer goes from this:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loginReducer = (previousState, action) =&gt; {
+    <span class="hljs-keyword">switch</span>(action.type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;login&apos;</span>:
+            <span class="hljs-keyword">return</span> {...previousState, loading: <span class="hljs-literal">true</span>, data: <span class="hljs-literal">undefined</span>, isError: <span class="hljs-literal">false</span>, error: <span class="hljs-literal">undefined</span>}
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;loginSuccess&apos;</span>:
+            <span class="hljs-keyword">return</span> {...previousState, loading: <span class="hljs-literal">false</span>, isError: <span class="hljs-literal">false</span>, data: action.data }
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;loginError&apos;</span>:
+            <span class="hljs-keyword">return</span> {...previousState, loading: <span class="hljs-literal">false</span>, isError: <span class="hljs-literal">true</span>, error: action.error }
+        <span class="hljs-keyword">default</span>:
+            previousState
+    }
+}
+</code></pre>
+<p>To this:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loginReducer = (previousState, action) =&gt; {
+    <span class="hljs-keyword">switch</span>(action.type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;login&apos;</span>:
+            <span class="hljs-keyword">return</span> Loading()
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;loginSuccess&apos;</span>:
+            <span class="hljs-keyword">return</span> Success(action.data)
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;loginError&apos;</span>:
+            <span class="hljs-keyword">return</span> Failure(action.error)
+        <span class="hljs-keyword">default</span>:
+            previousState
+    }
+}
+</code></pre>
+<p>And instead of your imperative JSX render method looking like this:</p>
+<pre><code class="lang-javascript">render() {
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.props.login.loading) {
+        <span class="hljs-keyword">return</span> &lt;Loading /&gt;
+    }
+    if(this.props.login.isError) {
+        return &lt;ErrorScreen error={this.props.login.error} /&gt;
+    }
+    return &lt;UserProfile user={this.props.login.data} /&gt;
+}
+</code></pre>
+<p>You can just match against the Union in a more functional way:</p>
+<pre><code class="lang-javascript">render =&gt; () =&gt;
+    <span class="hljs-keyword">this</span>.props.login.matchWith({
+        Loading: _ =&gt; &lt;Loading /&gt;
+        , Failure: error =&gt; &lt;ErrorScreen error={error} /&gt;
+        , Success: user =&gt; &lt;UserProfile user={user} /&gt;
+    })
+</code></pre>
 <h2 id="conclusions">Conclusions</h2>
-<p>Union types are great for modeling errors, or when you have multiple return types. They can represent data or <code>null</code> more specifically than a simple <code>Maybe</code>, and give you more insight into what we wrong than a simple <code>Result.Error</code>.</p>
+<p>Union types are great for modeling errors, or when you have multiple return types. They can represent data or <code>null</code> more specifically than a simple <code>Maybe</code>, and give you more insight into what we wrong than a simple <code>Result.Error</code>. They make functions that use Booleans as parameters more readable to other developers without having to read the function body to understand what the Boolean parameter means as the Union litterly has its meaning in its name. That, and no need for if statements which are easy to mess up. For mutiple Booleans where you&apos;re making smaller state machines, they can help simplify it and ensure only the states you want are capable of being reached.</p>
 
                                 
                                 </section>
@@ -1266,7 +1535,7 @@ virus file: <span class="hljs-subst">${file}</span>`</span>,
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Union","level":"1.7.4","depth":2,"next":{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},"previous":{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/union.md","mtime":"2018-08-29T17:09:49.860Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-26T00:45:07.630Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Union","level":"1.7.4","depth":2,"next":{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},"previous":{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/union.md","mtime":"2019-01-06T21:07:26.484Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-06T21:14:22.781Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

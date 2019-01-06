@@ -25,7 +25,7 @@ If you are running Docker containers on Amazon's [Elastic Container Service](htt
 
 You or your Ops team may have alarms setup to use these logs to help monitor the health of your infrastructure. Some of these alarms may be automated to destroy unhealthy infrastructure, and create new servers, send monitoring emails, etc.
 
-`console.log` destroying and recreating infrastructure as well as sending emails to Ops.
+`console.log`: Destroying and recreating infrastructure as well as sending emails to Ops.
 
 As you can see, those are some huge side effects.
 
