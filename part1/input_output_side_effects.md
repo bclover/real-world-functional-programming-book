@@ -1,10 +1,10 @@
 # Pure Functions: Same Input, Same Output, No Side Effects
 
-A pure function is a function that will always give the same output with the same input and has no side effects. A function that takes some arguments will always return the same value and no be affected by variables outside the function, nor will it change variables outside of it.
+A pure function is a function that will always give the same output with the same input and has no side effects. A function that takes some arguments will always return the same value and not be affected by variables outside the function, nor will it change variables outside of it after it's done executing.
 
 ## Same Input, Same Output
 
-Below we'll show an impure and a pure version of an addition function. Learning the rules is one thing, seeing how they are broken, and how you fix code to not break the rules is key. I promise this is the only math function, heh!
+Below we'll show an impure and a pure version of an addition function. Learning the rules is one thing, seeing how they are broken, and how you fix code to not break the rules is key. I promise this is the only math function this book has.
 
 ### Impure Add
 

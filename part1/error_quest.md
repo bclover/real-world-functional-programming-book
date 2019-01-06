@@ -2,9 +2,11 @@
 
 Returning Errors from functions is supported and encouraged in Functional Programming, but throwing them is not. Throwing errors via `throw new Error('boom')` breaks the first rule of pure functions, same input, same output because there is no output. Sometimes, an Error can cause unintended side effects in a piece of code, and breaks the "same output" part of the rule. Finally, once you throw an Error, the world is affected after the function ran, thus breaking the second rule of no side effects.
 
+For Node applications, this can cause a [pm2](http://pm2.keymetrics.io/) to restart one of your Node processes, a  [Docker container](https://www.docker.com/) to be destroyed in your [ECS cluster](https://aws.amazon.com/ecs/) or all kinds of infrastructure to be recycled based on error logs. Those are quite a lot of side effects from a simple `throw`.
+
 The bad news is, you're always going to have errors. Functional Programming won't fix your internet being down when you're making a REST call.
 
-The good news is when Errors occur in FP code, they won't break your program. If you're willing to create total functions, it'll tell you exactly what went wrong without you having to make sense of a long strack trace.
+The good news is when Errors occur in FP code, they won't break your program. For UI code, you can design for these errors predictably. If you're willing to create total functions, it'll tell you exactly what went wrong without you having to make sense of a long strack trace.
 
 ## Standard Error Handling
 

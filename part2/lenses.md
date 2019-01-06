@@ -1,8 +1,8 @@
 # Optic Basics: Lenses
 
-To use `get` and `set` together, Ramda use lenses. They are a bit lower-level and more specific API's. Lodash handles both Arrays and Objects, whereas you need to do that with separate functions in Ramda. Lenses combine `get` and `set` style functionality to navigate and modify large structures with sometimes less code.
+To use `get` and `set` together, Ramda use lenses. They are a bit lower-level and more specific API's. Lodash handles both Arrays and Objects, whereas you need to do that with separate functions in Ramda. Lenses combine `get` and `set` style functionality to navigate and modify large structures by composing smaller functions together.
 
-If you hear the word "Optics", that's what a lot of the Functional people use to refer to lens functions.
+If you hear the word "Optics", that's what a lot of the Functional people use to refer to lens functionality.
 
 ## Focus on a Property or Path, and View It in Ramda
 
@@ -74,11 +74,13 @@ console.log(result.name) // jesse warden
 console.log(person.name) // Jesse Warden
 ```
 
-Not that in Lodash, the `set` will modify it with the value you give it. The `over` in this case will replace it with with whatever function you give it taking the current value as an input, and the output as the new value. Note that it's assumed the function you give it, in this case `toLower`, is a pure function.
+In Lodash, the `set` will modify it with the value you give it. The `over` in this case will replace it with with whatever function you give it taking the current value as an input, and the output as the new value. Note that it's assumed the function you give it, in this case `toLower`, is a pure function.
 
 // TODO: Do I take this out? Move to another section? Seems advanced with composition way too early.
 
 ## Composition With Lenses
+
+// TODO: I hate this entire section.
 
 Using our above example, we can combine it with other functions to iterate through Arrays of Objects in a pure way. We'll take a list of people:
 

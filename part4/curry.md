@@ -7,6 +7,7 @@ Function currying was originally created to make functions easier to work in mat
 - create reusable functions from other functions
 - write in point free style
 - expose useful functions for developers using our code
+- make it easier to creat partial applications so you can more easily compose functions
 
 ## Manual Currying
 

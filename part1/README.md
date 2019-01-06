@@ -4,9 +4,11 @@ This is the **most important section** of the entire book. If you're in a hurry 
 
 Pure Functions are functions that given the same input, they'll give the same output, and have no side effects. A function that takes some arguments will always return the same value and not be affected by variables outside the function, nor will it change variables outside of it. They are the core foundation of all Functional Programming. They are the reason unit tests in FP don't need to use mocks. You don't need to look elsewhere to see what the function did. Instead, you just look at the return value of the function.
 
-They are also surprisingly flexible in their application despite their definition clearly stating that "1 plus 1 equals 2". Many programmers, even those who use FP languages and espouse the benefits, can be lax in how "pure" their code truly is. Making things too pure is where you'll often see criticism of FP.
+They are also surprisingly flexible in their application despite their definition clearly stating that "1 plus 1 equals 2". Many programmers, even those who use FP languages and espouse the benefits, can be lax in how "pure" their code truly is, myself included. Making things too pure is where you'll often see criticism of FP. Ensuring your code is as pure as possible can still lead to software that doesn't work.
 
-Making your code knowingly less pure is **fine**. At first you won't have a choice because you won't know any better. Later once you're skilled, you'll recognize the pain and time it'll take to follow the rules and make the right call it's not worth it. Calling this technical debt in code review doesn't always fly, though, as sometimes the library author or team has their own level of purity they're willing to go. Sometimes libraries and techniques simply don't exist or are not ready to use yet, such as Hooks in React 17.
+Making your code knowingly less pure is **fine**. At first you won't have a choice because you won't know any better. Later once you're skilled, you'll recognize the pain and time it'll take to follow the rules and make the right call that it's not worth it. Calling this technical debt in code review doesn't always fly, though, as sometimes the library author or team has their own level of purity they're willing to go. Sometimes libraries and techniques simply don't exist or are not ready to use yet, such as Hooks in React version 17, but your team is using version 16. Your team must use `classes` which have side effects instead of `functions`.
+
+The level of purity you should do is like doing Yoga. You should feel the stretch, but it shouldn't hurt. In the beginning though, evertyhing hurts, heh!
 
 # What We'll Cover
 

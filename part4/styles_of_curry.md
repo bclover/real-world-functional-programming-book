@@ -3,10 +3,10 @@
 We've shown you how to manually create curried functions. However, many dynamic languages, especially JavaScript, use a lot of libraries and most aren't written in a functional way. Just like you can use [promisify in Node](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original) to convert a callback function to a `Promise` based one, Lodash, Ramda, Folktale, and Sanctuary have a `curry` function to convert non-curried functions to curried ones.
 
 These help in:
+- help beginners ease into curried functions
 - using 3rd party code you don't own
 - code you've already written and want to quickly convert
-- help beginners ease into curried functions
-- expose public functions that doesn't force curried function calling style onto those using the API
+- expose public functions that doesn't force curried function calling style onto those using the API who may not be FP developers
 
 ## Lodash' & Ramda's curry
 

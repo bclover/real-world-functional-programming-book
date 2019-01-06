@@ -1,8 +1,19 @@
 # Union
 
-A Union is a bunch of types in one value. You use them to represent many possible types. A String  is a scalar type; `"cow"` is always `"cow"` and completely different from `"goat"`. An Object is a product type; it's the combination of many types into one like `{ name: 'Dat Moo Moo', age: 2, type: '🐮', food: ['hay', 'grass'] }`. That `Object` contains 2 `String`s, a `Number`, and an `Array`. A Union combines those products together.
+A Union is a bunch of types in one value. You use them to represent many possible types. They're also a great replacement for one or many Booleans. Union types have a special ability called matching that uses a pure function and removes the need for using `if` statements. You've seen this briefly used in the [Validation](./validation.md) and [Result](./result.md) sections and we'll expound on it here.
 
-If you've read this book in order, you've already seen 3 Union types: `Maybe`, `Validation` and `Result`. A `Maybe` is either a `Just` or `Nothing`. Both are distinct types like `Array`, and they have similar methods, but represent completely different things. The `Maybe` marries the 2 into 1 type.
+## Scalars, Products, and Unions
+
+A String  is a **scalar** type; `"cow"` is always `"cow"` and completely different from `"goat"`.
+
+An Object is a **product** type; it's the combination of many types into one like:
+
+```javascript
+{ name: 'Dat Moo Moo', age: 2, type: '🐮', food: ['hay', 'grass'] }```
+
+That `Object` contains 2 `String`s, a `Number`, and an `Array`.
+
+A **union** type combines those products together. If you've read this book in order, you've already seen 3 Union types: `Maybe`, `Validation` and `Result`. A `Maybe` is either a `Just` or `Nothing`. Both are distinct types like `Array`, and they have similar methods, but represent completely different things. The `Maybe` marries the 2 into 1 type.
 
 ```javascript
 const union = require('folktale/adt/union/union')
@@ -12,6 +23,8 @@ const Maybe = union('Maybe', {
     Nothing() {}
 })
 ```
+
+
 
 ## Basic Custom Example
 
@@ -177,6 +190,332 @@ console.log(didUploadWork(Success('some file'))) // true
 console.log(didUploadWork(NotLoggedIn(new Error('boom', 400)))) // false
 ```
 
+## matchWith vs. Type Checking
+
+This style of wrapping complex return values into custom types is used in Object Oriented Programming as well. For exmaple, simplifying a `fetch` call into 3 possible return values/
+
+We got an HTTP status other than 200:
+
+```javascript
+class Failed {
+    constructor(error) {
+        this.error = error
+    }
+}
+```
+
+We got a good response, but couldn't parse the JSON:
+
+```javascript
+class JSONParseFailed {
+    constructor(error) {
+        this.error = error
+    }
+}
+```
+
+And a successful response with successful JSON parsing:
+
+```javascript
+class Successful {
+    constructor(data) {
+        this.data = data
+    }
+} 
+```
+
+You'd then check the type:
+
+```javascript
+someFetchCall()
+.then(result => {
+    if(result instanceof Failed) {
+        error("HTTP call failed:", result.error)
+        return result.error
+    } else if(result instanceof JSONParseFailed) {
+        error("JSON parsing failed:", result.error)
+        return result.error
+    } else {
+        log("Successful:", result.data)
+        return result.data
+    }
+})
+```
+
+Ranting about the problems with `if` statements ecspecially without a type system is beyond the scope of this book, so suffice to say:
+1. we're not checking specifically for `Successful`, we just assume if the first too aren't found, it's `Successful`.
+2. If we were missing a type, we'd get a null pointer on `result.data` trying to access data on a class type that doesn't have it... not really helpful to say why the fetch call did or did not succeed.
+3. If we add/remove a type, we have to be careful about ensuring the order of if statements and ensure each case is handled.
+4. What do we put for the else if we did specifically check for `Successful`?
+5. We're having to dot access class instances without lenses nor a type checker.
+6. You could accidentally forget to return a specific/correct value from the class error / data property.
+7. This is Imperative style code in a Functional Programming book, GTFO.
+
+Let's change that to a pure function using `matchWith` and Union a type instead. We'll first define are types like we did in the OOP example:
+
+```javascript
+const FetchResult = union('FetchResult', {
+    Failed(error) { return { error } }
+    , JSONParseFailed(error) { return { error } }
+    , Successful(data) { return { data } }
+})
+```
+
+And to use it, we just use `matchWith`:
+
+```javascript
+someFetchCall()
+.then(result =>
+    result.matchWith({
+        Failed: error =>
+            error("HTTP call failed:", error)
+        , JSONParseFailed: error =>
+            error("JSON parsing failed:", error)
+        , Successful: data =>
+            log("data:", data)
+    })
+})
+```
+
+If you're not using a typed language like TypeScript or Flow, you can ensure you covered all possible cases with an `any`.
+
+```javascript
+const { any } = require('folktale/adt/union/union')
+
+someFetchCall()
+.then(result =>
+    result.matchWith({
+        ...
+        , [any]: () =>
+            error("unknown match.") // might not be error
+    })
+})
+```
+
+Remember, `matchWith` is a pure function. If you're forced to work with Promises, you can simply return the unboxed values, and the `data` will go to the `then` and the `error`'s will automatically go to the `catch`:
+
+```javascript
+...
+.then(result =>
+    result.matchWith({
+        Failed: error =>
+            error("HTTP call failed:", error) || error
+        , JSONParseFailed: error =>
+            error("JSON parsing failed:", error) || error
+        , Successful: data =>
+            log("data:", data) || data
+    })
+})
+```
+
+While I'm not a fan, many love the await/async syntax. If you use Union types as the return value instead of values or `Error`'s like you do with Promises, you can solve 2 problems:
+1. no need for a try/catch
+2. allow the consumer to pattern match the result
+
+```javascript
+const result = await someFetchCall()
+const data = result.matchWith({
+    ...
+})
+```
+
+## Boolean Replacements
+
+Jeremy Fairbank covers the problem with Boolean's is his presentation "[Solving the Boolean Identity Crisis](https://www.youtube.com/watch?v=6TDKHGtAxeg)". The short version is using Booleans, even outside of a type system can cause problems with `if` statements missing a case, and parameters not really being clear as to what they mean. We'll cover the latter problem.
+
+For example, this function call from a game:
+
+```javascript
+jump(true)
+```
+
+Is the `true` meaning "how high" or "using gravity boots to stick on the celing" or.... what? No clue, so you go read the function definition to figure it out.
+
+... vs this one:
+
+```javascript
+jump(Horizontal)
+```
+
+Suddenly it's more clear just by reading the function the first parameter means a horizontal jump vs a vertical one.
+
+Before types, you have to check the Boolean value with an if statement:
+
+```javascript
+const jump = horizontal => {
+    if(horizontal === false) { // vertical jump
+        object.applyForce( 0, 2000, object.x, object.y )
+    } else { // horizontal jump
+        object.applyForce( 4000, 100, object.x, object.y )
+    }
+}
+```
+
+vs. using a Union type:
+
+```javascript
+const jump = direction =>
+    direction.matchWith({
+        Vertical: _ =>
+            object.applyForce( 0, 2000, object.x, object.y )
+        , Horizontal: _ =>
+            object.applyForce( 4000, 100, object.x, object.y )
+    })
+```
+
+No need to worry about adding new types of jumps and missing an if else block:
+
+```javascript
+const jump = direction =>
+    direction.matchWith({
+        Vertical: _ =>
+            object.applyForce( 0, 2000, object.x, object.y )
+        , Right: _ =>
+            object.applyForce( 4000, 100, object.x, object.y )
+        , Left: _ =>
+            object.applyForce( -4000, 100, object.x, object.y )
+    })
+```
+
+## Multiple Booleans in Asynchronous Redux
+
+Whether you use [sagas](https://github.com/redux-saga/redux-saga) or [thunks](https://github.com/reduxjs/redux-thunk) to handle asynchronous calls in [Redux](https://redux.js.org/) in [React](https://reactjs.org/), the UI portion is probably the same.
+
+1. Loading...
+2. Successfully got data.
+3. Failed to get data, here's the error and what you can do about it.
+
+The typical pattern is to create an Object specifically for that [finite state machine](http://jessewarden.com/2012/07/finite-state-machines-in-game-development.html) that looks like this:
+
+```javascript
+// loading state
+{
+    loading: true
+    , data: undefined
+    , isError: false
+    , error : undefined
+}
+```
+
+And when you successfully got data:
+
+```javascript
+// success state
+{
+    loading: false
+    , data: { loggedIn: true, user: { firstName: 'Jesse' } }
+    , isError: false
+    , error : undefined
+}
+```
+
+And when it fails:
+
+```javascript
+// error state
+{
+    loading: false
+    , data: undefined
+    , isError: true
+    , error : new Error('500 http status code returned.')
+}
+```
+
+Creating reducer functions for this is pretty straightforward. However, you can prevent worrying about getting in invalid states such as:
+
+```javascript
+// wait, is this the default?
+{
+    loading: false
+    , data: undefined
+    , isError: false
+    , error : undefined
+}
+```
+
+Or my favorite:
+
+```javascript
+// "You are figh-ahd!"
+// "At least you bought me lunch."
+// "Guuuuud philosophy... see gud in beehd!"
+{
+    loading: true
+    , data: { loggedIn : true, user: { firstName: 'Jesse' } }
+    , isError: true
+    , error : new Error('200 http status code returned.')
+}
+```
+
+Once you start having multiple Booleans, it feels pure and safe having just a few reducer functions ensuring you can't really get into an invalid state. However, it's easier to just use a Union type and not have to worry about it ever happening at all:
+
+```javascript
+const LoginState = union('LoginState', {
+    Loading() { return {} }
+    , Failure(error) { return { error } }
+    , Success(user) { return { user } }
+})
+```
+
+Now for login, your reducer goes from this:
+
+```javascript
+const loginReducer = (previousState, action) => {
+    switch(action.type) {
+        case 'login':
+            return {...previousState, loading: true, data: undefined, isError: false, error: undefined}
+        case 'loginSuccess':
+            return {...previousState, loading: false, isError: false, data: action.data }
+        case 'loginError':
+            return {...previousState, loading: false, isError: true, error: action.error }
+        default:
+            previousState
+    }
+}
+```
+
+To this:
+
+```javascript
+const loginReducer = (previousState, action) => {
+    switch(action.type) {
+        case 'login':
+            return Loading()
+        case 'loginSuccess':
+            return Success(action.data)
+        case 'loginError':
+            return Failure(action.error)
+        default:
+            previousState
+    }
+}
+```
+
+And instead of your imperative JSX render method looking like this:
+
+```javascript
+render() {
+    if(this.props.login.loading) {
+        return <Loading />
+    }
+    if(this.props.login.isError) {
+        return <ErrorScreen error={this.props.login.error} />
+    }
+    return <UserProfile user={this.props.login.data} />
+}
+```
+
+You can just match against the Union in a more functional way:
+
+```javascript
+render => () =>
+    this.props.login.matchWith({
+        Loading: _ => <Loading />
+        , Failure: error => <ErrorScreen error={error} />
+        , Success: user => <UserProfile user={user} />
+    })
+```
+
 ## Conclusions
 
-Union types are great for modeling errors, or when you have multiple return types. They can represent data or `null` more specifically than a simple `Maybe`, and give you more insight into what we wrong than a simple `Result.Error`.
+Union types are great for modeling errors, or when you have multiple return types. They can represent data or `null` more specifically than a simple `Maybe`, and give you more insight into what we wrong than a simple `Result.Error`. They make functions that use Booleans as parameters more readable to other developers without having to read the function body to understand what the Boolean parameter means as the Union litterly has its meaning in its name. That, and no need for if statements which are easy to mess up. For mutiple Booleans where you're making smaller state machines, they can help simplify it and ensure only the states you want are capable of being reached.

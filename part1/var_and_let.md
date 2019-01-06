@@ -8,11 +8,11 @@ They are not off limits. Just use them inside a pure function.
 
 A lot of time in programming, we're writing procedural code and storing those results in local variables. Local variables are variables only used for the life of the function, and are intentionally put there to be used by a closure. This could be for a variety of reasons.
 
-- easier for you to think and build code this way vs. "ALL PURE FUNCTIONS"
-- working on a complicated algorithm
 - playing with ideas
 - teaching
+- working on a complicated algorithm and want instant feedback
 - want to easily debug or log each line or to inspect variables
+- easier for you to think and build code this way vs. "ALL PURE FUNCTIONS"
 
 For example, here is parsing URL parameters manually instead of using a library:
 
@@ -59,7 +59,7 @@ log(parseQuery(url)) // { name: 'jesse' }
 
 Copy pasta coding! Notice that we just copy and pasted the code. It follows the same input, same output rule. The outside world part we need, the `url`, is passed into the arguments. The `query`, although it's a `let` variable, it only exists for the life of the function and doesn't affect the outside world. Same for the `key` and `value` are constants, but they too only exist inside the function. 
 
-The `log` technically breaks the being affected by the outside world, and affecting the world after its run. He's a noop, though, a function that returns no value so we assume it "does no operation". You'll start to develop a 6th sense when you see noops, they probably indicate side effects happen after you call the function. We also use the `log` as a closure variable. He's harmless though, so this is ok. For now. See Part 6: Logging & Purity to see a counterpoint to this.
+The `log` technically breaks the being affected by the outside world, and affecting the world after its run. He's a noop, though, a function that returns no value so we assume it "does no operation". You'll start to develop a 6th sense when you see noops, they probably indicate side effects happen after you call the function. We also use the `log` as a closure variable. He's harmless though, so this is ok. For now. See [Part 9: Logging & Purity](../part9/log_purity.md) to see a counterpoint to this.
 
 ## const Ain't So Constant
 

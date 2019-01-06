@@ -31,6 +31,7 @@
     * [All Functions Take 1 Argument](part4/curry.md)
     * [Parameter Order](part4/parameter_order.md)
     * [Partial Application](part4/partial_application.md)
+    * [Closures And Immutability](part4/closures_and_immutability.md)
     * [Arity](part4/arity.md)
     * [Styles Of Curry](part4/styles_of_curry.md)
     * [Lodash FP](part4/lodash_fp.md)

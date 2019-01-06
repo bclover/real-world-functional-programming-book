@@ -2,6 +2,8 @@
 
 The `reduce` function takes an Array, a function to modify the data, and a starting value. The function gets each item in the Array and the current value of the accumulator. Whatever you return in the function will update the accumulator value. You don't have to update the accumulator at all if you don't want to.
 
+Reduce is [the Squat](https://startingstrength.com/article/squat-mechanics-a-clarification) of the big 3. Unlike `map` and `filter`, he might not even return an `Array`; he could return anything. Don't stress if `reduce` is challenging for months. Other languages will sometimes call it "fold" instead of "reduce".
+
 ## Old Sk00l for
 
 Let's accumulate using the traditional `for` loop. We want to iterate over a list of party members and create a formatted `String` summarizing what is in the list.
