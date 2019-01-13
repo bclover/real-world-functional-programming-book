@@ -4,6 +4,10 @@ The `reduce` function takes an Array, a function to modify the data, and a start
 
 Reduce is [the Squat](https://startingstrength.com/article/squat-mechanics-a-clarification) of the big 3. Unlike `map` and `filter`, he might not even return an `Array`; he could return anything. Don't stress if `reduce` is challenging for months. Other languages will sometimes call it "fold" instead of "reduce".
 
+Reduce also has a special name for the function you give it, unlike `map` or `filter`, called a `reducer`. If you've learned any Redux, then you'll immediately recognize it.
+
+[jwarden 1.8.2019] TODO: I like this example, but it's pretty advanced. Perhaps people skipping around might want something simpler. We should put at least 2 here; one showing the Array return, and the this one showing the String return.
+
 ## Old Sk00l for
 
 Let's accumulate using the traditional `for` loop. We want to iterate over a list of party members and create a formatted `String` summarizing what is in the list.

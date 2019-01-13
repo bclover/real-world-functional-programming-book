@@ -1,3 +1,7 @@
+[jwarden 1.8.2019] TODO: Remove some of the chaining stuff perhaps? A lot of examples, not sure the value of multiple... maybe need to sleep (again) on it.
+
+Also, need to show how we can compose using Maybe to make better pipelines... probably belongs in a separate section.
+
 # Maybe
 
 A Maybe is a data type that represents data either being there or not. It's used a lot when you are getting data from effects; loading data from a server, reading from a text file, or environment variables. It can also be used when you're asking for data that might not be there such as searching Array's or keys in Objects. We've covered `get` in [Part 3: get](part3/get.md) and `getOr` in [Part 5: Tacit Programming]. They are similar to a Maybe in practice; maybe this Object exists and has this property, and it isn't undefined... maybe not. Where `get` and `getOr` are functions that return data, Maybe is a type that holds data.
