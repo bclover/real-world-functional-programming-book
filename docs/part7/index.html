@@ -1,0 +1,1443 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Part 7: Total Functions · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../part8/" />
+    
+    
+    <link rel="prev" href="../part6/practice_union_files.md" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../part1/">
+            
+                <a href="../part1/">
+            
+                    
+                    Part 1: Pure Functions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../part1/input_output_side_effects.html">
+            
+                <a href="../part1/input_output_side_effects.html">
+            
+                    
+                    Same Input, Same Output, No Side Effects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../part1/var_and_let.html">
+            
+                <a href="../part1/var_and_let.html">
+            
+                    
+                    The Case for var and let
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../part1/using_vs_enforcing_immutability.html">
+            
+                <a href="../part1/using_vs_enforcing_immutability.html">
+            
+                    
+                    Using vs. Enforcing Immutability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../part1/spot_the_impurities.html">
+            
+                <a href="../part1/spot_the_impurities.html">
+            
+                    
+                    Spot The Impurities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../part1/error_quest.html">
+            
+                <a href="../part1/error_quest.html">
+            
+                    
+                    Error Quest!
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../part1/not_allowed.html">
+            
+                <a href="../part1/not_allowed.html">
+            
+                    
+                    What's Not Allowed
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../part1/practice_purity.html">
+            
+                <a href="../part1/practice_purity.html">
+            
+                    
+                    Practice Purity with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../part1/practice_stubs.html">
+            
+                <a href="../part1/practice_stubs.html">
+            
+                    
+                    Practice Purity with Test Stubs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../part2/">
+            
+                <a href="../part2/">
+            
+                    
+                    Part 2: Getting and Setting Data
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../part2/trouble_with_dots.html">
+            
+                <a href="../part2/trouble_with_dots.html">
+            
+                    
+                    Trouble With Dots
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../part2/trouble_with_array_access.html">
+            
+                <a href="../part2/trouble_with_array_access.html">
+            
+                    
+                    Trouble With Array Access
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../part2/get.html">
+            
+                <a href="../part2/get.html">
+            
+                    
+                    Get
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../part2/set.html">
+            
+                <a href="../part2/set.html">
+            
+                    
+                    Set
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../part2/lenses.html">
+            
+                <a href="../part2/lenses.html">
+            
+                    
+                    Lenses
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../part2/practice_big_json.md">
+            
+                <span>
+            
+                    
+                    Practice get with Big JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../part2/practice_big_json.md">
+            
+                <span>
+            
+                    
+                    Practice get with SOAP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../part3/">
+            
+                <a href="../part3/">
+            
+                    
+                    Part 3: List Comprehensions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../part3/map.html">
+            
+                <a href="../part3/map.html">
+            
+                    
+                    map
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../part3/filter.html">
+            
+                <a href="../part3/filter.html">
+            
+                    
+                    filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../part3/reduce.html">
+            
+                <a href="../part3/reduce.html">
+            
+                    
+                    reduce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../part3/every.html">
+            
+                <a href="../part3/every.html">
+            
+                    
+                    every
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../part3/some.html">
+            
+                <a href="../part3/some.html">
+            
+                    
+                    some
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../part3/zip.md">
+            
+                <span>
+            
+                    
+                    zip
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../part3/practice_every.md">
+            
+                <span>
+            
+                    
+                    Practice every with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../part3/practice_map.md">
+            
+                <span>
+            
+                    
+                    Practice map with JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../part4/">
+            
+                <a href="../part4/">
+            
+                    
+                    Part 4: Curry and Partial Application
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../part4/curry.html">
+            
+                <a href="../part4/curry.html">
+            
+                    
+                    All Functions Take 1 Argument
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../part4/parameter_order.html">
+            
+                <a href="../part4/parameter_order.html">
+            
+                    
+                    Parameter Order
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../part4/partial_application.html">
+            
+                <a href="../part4/partial_application.html">
+            
+                    
+                    Partial Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../part4/closures_and_immutability.html">
+            
+                <a href="../part4/closures_and_immutability.html">
+            
+                    
+                    Closures And Immutability
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../part4/arity.html">
+            
+                <a href="../part4/arity.html">
+            
+                    
+                    Arity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../part4/styles_of_curry.html">
+            
+                <a href="../part4/styles_of_curry.html">
+            
+                    
+                    Styles Of Curry
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../part4/lodash_fp.html">
+            
+                <a href="../part4/lodash_fp.html">
+            
+                    
+                    Lodash FP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../part4/practice_curry_predicates.md">
+            
+                <span>
+            
+                    
+                    Practice with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="../part4/practice_">
+            
+                <span>
+            
+                    
+                    Practice with Express
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../part5/">
+            
+                <a href="../part5/">
+            
+                    
+                    Part 5: Composition
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../part5/passing_functions_to_functions.html">
+            
+                <a href="../part5/passing_functions_to_functions.html">
+            
+                    
+                    Passing Functions to Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../part5/composing_functions.html">
+            
+                <a href="../part5/composing_functions.html">
+            
+                    
+                    Composing Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../part5/tacit_programming.html">
+            
+                <a href="../part5/tacit_programming.html">
+            
+                    
+                    Tacit Programming
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../part6/">
+            
+                <a href="../part6/">
+            
+                    
+                    Part 6: Algebraic Data Types
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../part6/maybe.html">
+            
+                <a href="../part6/maybe.html">
+            
+                    
+                    Maybe
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../part6/validation.html">
+            
+                <a href="../part6/validation.html">
+            
+                    
+                    Validation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../part6/result.html">
+            
+                <a href="../part6/result.html">
+            
+                    
+                    Result
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../part6/union.html">
+            
+                <a href="../part6/union.html">
+            
+                    
+                    Union
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../part6/practice_maybe_config.md">
+            
+                <span>
+            
+                    
+                    Practice Maybe with config
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../part6/practice_validator_predicates.md">
+            
+                <span>
+            
+                    
+                    Practice Validator with Predicates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="../part6/practice_result_json.md">
+            
+                <span>
+            
+                    
+                    Practice Result with JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="../part6/practice_union_files.md">
+            
+                <span>
+            
+                    
+                    Practice Union with reading files
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Part 7: Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../part8/">
+            
+                <a href="../part8/">
+            
+                    
+                    Part 8: Optics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../part8/isomorphisms.html">
+            
+                <a href="../part8/isomorphisms.html">
+            
+                    
+                    Isomorphisms
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../part8/prisms.html">
+            
+                <a href="../part8/prisms.html">
+            
+                    
+                    Prisms
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../part8/composing_lenses.html">
+            
+                <a href="../part8/composing_lenses.html">
+            
+                    
+                    Composing Lenses
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../part8/custom_lens.html">
+            
+                <a href="../part8/custom_lens.html">
+            
+                    
+                    Custom Lens
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../part9/">
+            
+                <a href="../part9/">
+            
+                    
+                    Part 9: Debugging
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+            
+                <span>
+            
+                    
+                    Tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+            
+                <span>
+            
+                    
+                    Logging vs Purity
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../part10/">
+            
+                <a href="../part10/">
+            
+                    
+                    Part 10: Testing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../part10/stubs_and_mocks.html">
+            
+                <a href="../part10/stubs_and_mocks.html">
+            
+                    
+                    Why We Use Stubs and Not Mocks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../part10/testing.html">
+            
+                <a href="../part10/testing.html">
+            
+                    
+                    Testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../part10/property_testing.md">
+            
+                <span>
+            
+                    
+                    Predicate Property Testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../part10/">
+            
+                <a href="../part10/">
+            
+                    
+                    Part 10: Working With Others
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+            
+                <span>
+            
+                    
+                    Heed the Warnings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+            
+                <span>
+            
+                    
+                    Dealing with Imperatives
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+            
+                <span>
+            
+                    
+                    Dealing with OOP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+            
+                <span>
+            
+                    
+                    Safe Advice
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../conclusions/README.md">
+            
+                <span>
+            
+                    
+                    Conclusions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Part 7: Total Functions</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="total-functions">Total Functions</h1>
+<p>A total function is a pure function that works with all inputs. They often depend on how the language and operators, like <code>+</code> work. If you create a function that adds numbers, it&apos;ll work with a <code>Number</code>, <code>String</code>, <code>Function</code>, some random <code>class</code>, anything! Typically they are a lot easier to make in strongly typed languages because the compiler will ensure your function that adds 2 <code>Number</code>s never gets a String input, or ensures you use <code>+</code> instead of <code>++</code> by accident.</p>
+<p>In dynamic languages, you have to do a lot more work to validate your inputs and take a whitelist approach to types. Considering that JavaScript, Python, and Lua are communities built largely upon libraries, you can&apos;t guarantee that someone will be </p>
+<h2 id="problem-adding-random-things">Problem: Adding Random Things</h2>
+<p>Dynamic languages pass random things everywhere. We attempt to not pass random things when we write code and unit tests, but the dynamism is a double edged sword: power of flexibility, yet bad things happen when you get what you weren&apos;t expecting.</p>
+<p>For example, here&apos;s our original pure function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b
+
+add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
+</code></pre>
+<p>It follows all pure function rules of same input, same output, and no side effects.</p>
+<p>However, what happens if we add things that aren&apos;t numbers?</p>
+<pre><code class="lang-javascript">add(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;how now brown cow&apos;</span>), { get: <span class="hljs-string">&apos;busy child&apos;</span> })
+<span class="hljs-comment">// &apos;Error: how now brown cow[object Object]&apos;</span>
+</code></pre>
+<p>Um, ok... that isn&apos;t really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in <code>flow</code>/<code>compose</code> or <code>Promise</code>, the chain can get corrupted. You may get parsing results or errors that don&apos;t make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again. </p>
+<h2 id="solution-solving-with-types">Solution: Solving With Types</h2>
+<p>One way to solve this is to use types. With just a little metadata added by you the developer, compilers can read and understand your code, and find your errors in nanoseconds. They can even offer fixes, or sometimes automatically fix. <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, an open source language &amp; compiler started by Microsoft and open source, is one such language.</p>
+<p>Rewriting our function in TypeScript, we explicitly say &quot;Yo, this function takes 2 numbers, and returns a number.&quot; This is enough for the TypeScript compiler, <code>tsc</code> to verify your inputs.</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> add = ( a: <span class="hljs-built_in">number</span>, b: <span class="hljs-built_in">number</span>) : <span class="hljs-built_in">number</span> =&gt; a + b
+</code></pre>
+<p>Before we can even run the code in TypeScript, we have to compile it to JavaScript. However, instantly, TypeScript shows us an error with our 2nd add:</p>
+<blockquote>
+<p>Argument of type &apos;Error&apos; is not assignable to prameter of type &apos;number&apos;.`</p>
+</blockquote>
+<p>In English, that&apos;s:</p>
+<blockquote>
+<p>&quot;The <code>add</code> function only takes a <code>Number</code> for the first argument, but you are passing an <code>Error</code>. You&apos;re not allowed to do that. Change the first parameter to a <code>Number</code>.&quot;</p>
+</blockquote>
+<p>As your functions grow in number, size, and you start composing them, it can be really hard to keep track of all the types going around, and ensuring that you&apos;re always getting the correct type. If another developer is using your code, will they get a meaningful error if your function chokes on a weird type it wasn&apos;t expecting? These kinds of problems types can help like TypeScript, <a href="https://flow.org/" target="_blank">Flow</a>, <a href="http://elm-lang.org/" target="_blank">Elm</a>, and <a href="http://www.purescript.org/" target="_blank">PureScript</a>.</p>
+<p>The downside here is libraries. Just because you&apos;re using a transpilation/compilation solution doesn&apos;t mean your consumers are. While you can use TypeScript and publish a library to <code>npm</code> doesn&apos;t mean those who install it will be using TypeScript. They could just be using raw JavaScript, or Webpack with just ES6. That said, even a little can help, it just won&apos;t make your functions total for everyone.</p>
+<h2 id="solution-solving-with-manual-native-runtime-validation">Solution: Solving With Manual, Native Runtime Validation</h2>
+<p>Another solution is to do your own runtime type evaluation. If you implement a whitelist, then you only ensure the types you&apos;re expecting get through, otherwise you tell the caller of the function it failed, and you give them as much detail about what they passed in so they can have an easier time debugging.</p>
+<p>Without using any libraries and just raw JavaScript, we&apos;ll return our own result following the multiple return value model that Go, Lua, and Python follow (see <a href="part1/error_quest.md">Part 1: Error Quest</a>):</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isNumber = o =&gt; <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">&apos;number&apos;</span>
+<span class="hljs-keyword">const</span> addNumbers = (a, b) =&gt;
+    ( isNumber(a) &amp;&amp; isNumber(b) )
+    ? {ok: <span class="hljs-literal">true</span>, data: a + b}
+    : {ok: <span class="hljs-literal">false</span>, error: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Either a or b aren&apos;t Numbers. a: <span class="hljs-subst">${a}</span>, b: <span class="hljs-subst">${b}</span>`</span>)}
+</code></pre>
+<p>There are some edge cases with our <code>isNumber</code>; <code>1</code> and <code>Number(1)</code> will be <code>true</code>, but <code>new Number(1)</code> will be false, but it&apos;s &quot;mostly&quot; total just like some functions are &quot;mostly&quot; pure.</p>
+<p>Now calling it:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))
+<span class="hljs-comment">// { ok: true, data: 3 }</span>
+
+<span class="hljs-built_in">console</span>.log(add(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;how now brown cow&apos;</span>), { get: <span class="hljs-string">&apos;busy child&apos;</span> }))
+<span class="hljs-comment">// { ok: false,</span>
+<span class="hljs-comment">//   error: Error: Either a or b aren&apos;t Numbers. a: Error: how now brown cow, b: [object Object]</span>
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Now the function is mostly total. It&apos;ll literrly accept ANYTHING and let you know if add worked or not. Where pure functions are dependable to build applications on, total functions are a level above that and nigh unbreakable.</p>
+<h2 id="solution-solving-with-manual-folktale-runtime-validation">Solution: Solving With Manual, Folktale Runtime Validation</h2>
+<p>The challenge with the above is that <code>isNumber</code>, while a predicate, isn&apos;t very composable when you have a bunch of arguments that are different kinds. Also, some types have multiple rules above them such as product or Union types and so you&apos;ll run multiple predicates against them.</p>
+<p>Folktale <code>Validation</code>s work great here. Let&apos;s take our load website pure function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loadWebsite = (request, url) =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        request.get(url, (err, res, body) =&gt;
+            err
+            ? failure(err)
+            : success({res, body})
+        )
+    )
+</code></pre>
+<p>... and make it total using Folktale <code>Validation</code>s. We&apos;ll first need a bunch of predicates to ensure our <code>request</code> and <code>url</code> are acceptable types.</p>
+<h3 id="request-shape">Request Shape</h3>
+<p>Let&apos;s ensure our <code>request</code> &quot;looks the right shape&quot;; has the expected methods and properties we&apos;d want <code>request</code> to have. If it has those, it&apos;s probably a <code>request</code> and the developer/us didn&apos;t screw up. We&apos;ll rely heavily on Lodash&apos; base predicates. Given <code>request</code> uses Object Oriented Programming, we&apos;ll use <code>hasIn</code> to be safe when looking for properties as opposed to <code>has</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { get, hasIn, isFunction } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+
+<span class="hljs-keyword">const</span> hasGetFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;get&apos;</span>))
+<span class="hljs-keyword">const</span> hasPostFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;post&apos;</span>))
+<span class="hljs-keyword">const</span> hasInitParams = o =&gt; hasIn(o, <span class="hljs-string">&apos;initParams&apos;</span>)
+</code></pre>
+<h3 id="url-shape">URL Shape</h3>
+<p>For our <code>url</code>, we&apos;ll ensure she&apos;s a <code>String</code>, and looks like a URL:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ..., isString, some } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+
+<span class="hljs-keyword">const</span> legitString = o =&gt; isString(o) &amp;&amp; o.length &gt; <span class="hljs-number">0</span>
+<span class="hljs-keyword">const</span> hasHTTP = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;http&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasHTTPS = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;https&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasLocalhost = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;localhost&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasDots = o =&gt; isString(o) &amp;&amp; o.indexOf(<span class="hljs-string">&apos;.&apos;</span>) &gt; <span class="hljs-number">-1</span>
+
+<span class="hljs-keyword">const</span> legitURL = o =&gt;
+    legitString(o)
+    &amp;&amp; some(
+        [
+            hasHTTP,
+            hasHTTPS,
+            hasLocalhost,
+            hasDots
+        ],
+        predicate =&gt; predicate(o)
+    )
+</code></pre>
+<p>A quick test of the URL one:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;https://google.com&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;localhost:8080&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;192.168.0.1&apos;</span>)) <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(legitURL(<span class="hljs-string">&apos;chicken pot pie&apos;</span>)) <span class="hljs-comment">// false</span>
+</code></pre>
+<h3 id="request-validations">Request Validations</h3>
+<p>Now we&apos;ll create some <code>Validation</code>s that use those predicates for request:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Validation = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/validation&apos;</span>)
+<span class="hljs-keyword">const</span> { Success, Failure } = Validation
+
+<span class="hljs-keyword">const</span> validRequestGet = o =&gt;
+    hasGetFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a get function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestPost = o =&gt;
+    hasPostFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a post function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestInitParams = o =&gt;
+    hasInitParams(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have an initParams function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequest = o =&gt;
+    validRequestGet(o)
+    .concat(validRequestPost(o))
+    .concat(validRequestInitParams(o))
+</code></pre>
+<h3 id="url-validations">URL Validations</h3>
+<p>Now the <code>url</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> validURL = o =&gt;
+    legitURL(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`The URL doesn&apos;t appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: <span class="hljs-subst">${o}</span>`</span>])
+</code></pre>
+<h3 id="combining-it-all-together">Combining it All Together</h3>
+<p>Combining those together to make our function total:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loadWebsite = (request, url) =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        validRequest(request)
+        .concat(validURL(url))
+        .matchWith({
+            Failure: ({ value }) =&gt; failure(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(value.join(<span class="hljs-string">&apos;, &apos;</span>))),
+            Success: _ =&gt;
+                request.get(url, (err, res, body) =&gt;
+                    err
+                    ? failure(err)
+                    : success({res, body})
+                )
+        })
+    )
+</code></pre>
+<p>When we call it with good parameters, we get our expected result:</p>
+<pre><code class="lang-javascript">loadWebsite(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>), <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)
+.then( ({ body }) =&gt; <span class="hljs-built_in">console</span>.log(body.substring(<span class="hljs-number">0</span>, <span class="hljs-number">21</span>)))
+.catch(error =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;error:&quot;</span>, error))
+<span class="hljs-comment">// html: &lt;!DOCTYPE html&gt;</span>
+<span class="hljs-comment">// &lt;html</span>
+</code></pre>
+<p>If we mess up the <code>url</code>, however:</p>
+<pre><code class="lang-javascript">loadWebsite(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>), <span class="hljs-string">&apos;&#x1F42E;&apos;</span>)
+...
+<span class="hljs-comment">// error: Error: The URL doesn&apos;t appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: &#x1F42E;</span>
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>Same for giving a bogus <code>request</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> r = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>).get
+loadWebsite(r, <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)
+...
+<span class="hljs-comment">// error: Error: Your request doesn&apos;t have a get function, you sent: function (uri, options, callback) {</span>
+<span class="hljs-comment">//     var params = initParams(uri, options, callback)</span>
+<span class="hljs-comment">//     params.method = method</span>
+<span class="hljs-comment">//     return request(params, params.callback)</span>
+<span class="hljs-comment">//   }, Your request doesn&apos;t have a post function, you sent: function (uri, options, callback) {</span>
+<span class="hljs-comment">//     var params = initParams(uri, options, callback)</span>
+<span class="hljs-comment">//     params.method = method</span>
+<span class="hljs-comment">//     return request(params, params.callback)</span>
+<span class="hljs-comment">//   }, Your request doesn&apos;t have an initParams function, you sent: function (uri, options, callback) {</span>
+<span class="hljs-comment">//     var params = initParams(uri, options, callback)</span>
+<span class="hljs-comment">//     params.method = method</span>
+<span class="hljs-comment">//     return request(params, params.callback)</span>
+<span class="hljs-comment">//   }</span>
+<span class="hljs-comment">//   ...</span>
+</code></pre>
+<p>You can see you can now pass whatever you want, and only the good gets through. Instead of relying on 3rd party code and libraries that don&apos;t have the best error handling, you only use those errors if bad data somehow makes it passed your total function validations. Anything you can do using <code>Validation</code>s to ensure yourself or another developer doesn&apos;t have to think when reading an error message is super helpful and time saving. That, and you can avoid strange errors that can occur when third party libraries/code aren&apos;t as good as you are in handling various types.</p>
+<p>The final code is:</p>
+<pre><code class="lang-javascript">
+<span class="hljs-keyword">const</span> {isString, some, get, hasIn, isFunction } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
+<span class="hljs-keyword">const</span> Validation = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/validation&apos;</span>)
+<span class="hljs-keyword">const</span> { Success, Failure } = Validation
+
+<span class="hljs-comment">// -- Predicates ---------------------</span>
+
+<span class="hljs-keyword">const</span> hasGetFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;get&apos;</span>))
+<span class="hljs-keyword">const</span> hasPostFunction = o =&gt; isFunction(get(o, <span class="hljs-string">&apos;post&apos;</span>))
+<span class="hljs-keyword">const</span> hasInitParams = o =&gt; hasIn(o, <span class="hljs-string">&apos;initParams&apos;</span>)
+
+<span class="hljs-keyword">const</span> legitString = o =&gt; isString(o) &amp;&amp; o.length &gt; <span class="hljs-number">0</span>
+<span class="hljs-keyword">const</span> hasHTTP = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;http&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasHTTPS = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;https&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasLocalhost = o =&gt; isString(o) &amp;&amp; o.toLowerCase().indexOf(<span class="hljs-string">&apos;localhost&apos;</span>) &gt; <span class="hljs-number">-1</span>
+<span class="hljs-keyword">const</span> hasDots = o =&gt; isString(o) &amp;&amp; o.indexOf(<span class="hljs-string">&apos;.&apos;</span>) &gt; <span class="hljs-number">-1</span>
+
+<span class="hljs-keyword">const</span> legitURL = o =&gt;
+    legitString(o)
+    &amp;&amp; some(
+        [
+            hasHTTP,
+            hasHTTPS,
+            hasLocalhost,
+            hasDots
+        ],
+        predicate =&gt; predicate(o)
+    )
+
+<span class="hljs-comment">// -- Validations ---------------------</span>
+
+<span class="hljs-keyword">const</span> validRequestGet = o =&gt;
+    hasGetFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a get function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestPost = o =&gt;
+    hasPostFunction(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have a post function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequestInitParams = o =&gt;
+    hasInitParams(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`Your request doesn&apos;t have an initParams function, you sent: <span class="hljs-subst">${o}</span>`</span>])
+
+<span class="hljs-keyword">const</span> validRequest = o =&gt;
+    validRequestGet(o)
+    .concat(validRequestPost(o))
+    .concat(validRequestInitParams(o))
+
+<span class="hljs-keyword">const</span> validURL = o =&gt;
+    legitURL(o)
+    ? Success(o)
+    : Failure([<span class="hljs-string">`The URL doesn&apos;t appear to be a valid url containing http, https, localhost, or dots for an IP Address. You sent: <span class="hljs-subst">${o}</span>`</span>])
+
+
+<span class="hljs-keyword">const</span> loadWebsite = (request, url) =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
+        validRequest(request)
+        .concat(validURL(url))
+        .matchWith({
+            Failure: ({ value }) =&gt; failure(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(value.join(<span class="hljs-string">&apos;, &apos;</span>))),
+            Success: _ =&gt;
+                request.get(url, (err, res, body) =&gt;
+                    err
+                    ? failure(err)
+                    : success({res, body})
+                )
+        })
+    )
+</code></pre>
+<h3 id="unit-test-side-note">Unit Test Side Note</h3>
+<p>Note now that we&apos;re checking for all 3 methods on <code>request</code>, this may fail unit tests that stub only request with a get function, i.e.:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// this will fail since stub won&apos;t pass validation</span>
+it(<span class="hljs-string">&apos;request.get should work&apos;</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> requestStub = {
+        get: (url, callback) =&gt; callback(<span class="hljs-literal">undefined</span>, {}, <span class="hljs-string">&apos;yay&apos;</span>)
+    }
+    expect(loadWebsite(requestStub, <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>)).to.eventually.be.fulfilled;
+})
+</code></pre>
+<h2 id="conclusions">Conclusions</h2>
+<p>Total functions are pure functions that accept all inputs. The pro&apos;s are enhanced error handling if done manually, less unknown errors from other code, and overall more dependable functions. The error messages, especially from API response errors, are really helpful for consumers of your code.</p>
+<p>The con&apos;s are they can require more unit tests to ensure you&apos;ve handled the edge cases. This is before you even start writing property tests via <a href="https://github.com/jsverify/jsverify" target="_blank">jsverify</a>. Like unit test stubs, they will expect a certain implementation shape, and so your stubs have to be more thorough to match the implementation. i.e. &quot;A <code>get</code> is good enough, right? Wait... we&apos;re not even testing <code>post</code>, why do I need to implement a blank function for it on the stub?&quot;</p>
+<p>Also, developers who are not using types don&apos;t like how verbose they are to debug and modify. We&apos;ve take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the <code>add</code> function itself, you&apos;ll end up writing unit tests for the others anyway to ensure you&apos;ve written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it&apos;s hard for future developers to understand why the private functions of your module are being so thoroughly tested. </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../part6/practice_union_files.md" class="navigation navigation-prev " aria-label="Previous page: Practice Union with reading files">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../part8/" class="navigation navigation-next " aria-label="Next page: Part 8: Optics">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"next":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"previous":{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/README.md","mtime":"2018-11-25T23:52:17.819Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
