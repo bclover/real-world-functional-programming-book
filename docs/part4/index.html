@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1094,13 +1113,14 @@
                                 <h1 id="why-vs-how-curry-works">Why vs. How Curry Works</h1>
 <p>If you&apos;re more interested in how currying can help you in your current work vs the how it works, skip this and the following 5 sections and go to the <a href="lodash_fp.html">Lodash FP</a> section. It compares and contrasts the 2 libraries giving you insights into how function currying and partial applications can be useful in your work.</p>
 <h1 id="curry-and-partial-application">Curry and Partial Application</h1>
-<p>Currying, or function currying, is when you make all functions take 1 argument, even those that normal need more. This means if you have a function that takes 2 arguments to do something useful, if you call it with 1 argument, it&apos;ll return a function. If you call that returned function with 1 argument, it&apos;ll then return the result. It&apos;s named after the guy who invented the technique, Haskell Brooks Curry.</p>
+<p>Currying, or function currying, is when you make all functions take 1 argument, even those that normally need more. This means if you have a function that takes 2 arguments to do something useful, if you call it with 1 argument, it&apos;ll return a function. If you call that returned function with 1 argument, it&apos;ll then return the result. It&apos;s named after the guy who invented the technique, Haskell Brooks Curry.</p>
 <p>Why in the world would you ever do this bizarre practice?</p>
 <p>When you start using pure functions, you&apos;ll notice that your functions start to have a lot of arguments. Features like default arguments, variable number of arguments, or referencing class variables that significantly reduce how many arguments your functions need are discouraged. If a pure function must declare it&apos;s dependencies to the outside world in its function parameters, then if it starts to compose other functions who have needs, then those are all added together into a lot of function arguments needed to run the function.</p>
-<p>Dynamic languages also have pure abstractions to ensure no runtime errors. Things like <code>get</code>, <code>set</code>, <code>lenses</code> to safely access and set data, try/catch for ensuring no errors as side effects, and using the Factory design pattern for creating complex Objects many JavaScript libraries need to initialize themselves. All of this adds verbosity you don&apos;t have in type compiled languages.</p>
+<p>Dynamic languages also have pure abstractions to ensure no runtime errors. Things like <code>get</code>, <code>set</code>, and <code>lenses</code> to safely access and set data, try/catch for ensuring no errors as side effects, and using the Factory design pattern for creating complex Objects many JavaScript libraries need to initialize themselves. All of this adds verbosity you don&apos;t have in type compiled languages.</p>
 <h2 id="entropy-of-simplicity">Entropy of Simplicity</h2>
 <p>To determine if something is a <code>String</code> only requires 1 argument: </p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isString = o =&gt; <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">&apos;string&apos;</span>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isString = o =&gt;
+    <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">&apos;string&apos;</span>
 </code></pre>
 <p>Making an HTTP call requires both the http module and the URL:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getDataFromServer = (request, url) =&gt; {
@@ -1122,6 +1142,8 @@
 </code></pre>
 <p>Pure to be sure, but wow... is this what it&apos;s like in the real world?</p>
 <p>The solution is to use function currying, partial applications as arguments, and good old examining your requirements and code to ensure your functions are as simple as possible.</p>
+<h2 id="what-well-cover">What We&apos;ll Cover</h2>
+<p>In this section, we&apos;ll cover how currying works, why you&apos;d do it, and what you can use it for. We&apos;ll also show why parameter order is so important. With these two understood, we can then cover partial applications; how to create them, how to use them, and how to compose them. We&apos;ll also re-visit closures and immutability since closures are the core technique of how we make function currying work in JavaScript. Being aware of the some of the pitfalls can help you understand what is going on, what to look out for, and what not to do. We&apos;ll cover function arity so you understand how it relates to function currying and partial applications. We&apos;ll also cover the many styles of curry that can allow you to slowly adopt it in your codebase without scaring off or inconveniencing developers using your code. Finally, we&apos;ll show how using what you&apos;ve learned will allow you to use the advanced version of Lodash called &quot;Lodash FP&quot;.</p>
 
                                 
                                 </section>
@@ -1165,7 +1187,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 4: Curry and Partial Application","level":"1.5","depth":1,"next":{"title":"All Functions Take 1 Argument","level":"1.5.1","depth":2,"path":"part4/curry.md","ref":"part4/curry.md","articles":[]},"previous":{"title":"Practice map with JSON","level":"1.4.8","depth":2,"path":"part3/practice_map.md","ref":"part3/practice_map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/README.md","mtime":"2018-08-25T17:20:32.452Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 4: Curry and Partial Application","level":"1.5","depth":1,"next":{"title":"All Functions Take 1 Argument","level":"1.5.1","depth":2,"path":"part4/curry.md","ref":"part4/curry.md","articles":[]},"previous":{"title":"Practice map with JSON","level":"1.4.8","depth":2,"path":"part3/practice_map.md","ref":"part3/practice_map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/README.md","mtime":"2019-03-04T00:08:19.493Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

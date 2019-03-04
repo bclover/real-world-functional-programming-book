@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1091,11 +1110,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="every-3-things-go-in-true-comes-out-if-the-predicate-says-all-things-are-true">every: 3 things go in, true comes out if the predicate says all things are true</h1>
-<p>The <code>every</code> function takes an Array and a predicate function (a function that only returns <code>true</code> or <code>false</code>) and returns <code>true</code> if every item that&apos;s given to the predicate returns true, else false. It&apos;s a great example of an Array comprehension that is built upon <code>map</code>. It&apos;s used a lot in data validation.</p>
+                                <h1 id="every-3-things-go-in-true-or-false-comes-out">every: 3 things go in, true or false comes out</h1>
+<p>The <code>every</code> function takes an <code>Array</code> and a predicate function (a function that only returns <code>true</code> or <code>false</code>). It returns <code>true</code> if every item that&apos;s given to the predicate returns true, else <code>false</code>. It&apos;s a great example of an Array comprehension that is built upon <code>reduce</code>. It&apos;s used a lot in data validation.</p>
 <p>Think of <code>every</code> as asking &quot;Is everything true that <em>_</em>&quot;. The blank is whatever your predicate function is figuring out to be true or not based on the input.</p>
 <h2 id="old-sk00l-for">Old Sk00l for</h2>
-<p>Let&apos;s verify everyone in our party has full health or not. Hit points are a measurement using numbers of a person&apos;s health. If your current hit points equal your max, then you&apos;re healthy. If their half, you&apos;re  seriously injured or sick.</p>
+<p>Let&apos;s verify everyone in our party has full health or not. Hit points are a measurement using numbers of a person&apos;s health. If your current hit points equal your max, then you&apos;re healthy. If their half, you&apos;re seriously injured or sick. Not the good sick, the bad sick.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> party = [
     {
         name: <span class="hljs-string">&apos;Jesse&apos;</span>,
@@ -1131,9 +1150,12 @@
 <p>We can purify that by using <code>every</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { every } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
 
-<span class="hljs-keyword">const</span> memberIsHealthy = member =&gt; member.hitPoints &gt;= member.maxHitPoints
+<span class="hljs-keyword">const</span> memberIsHealthy = member =&gt;
+    member.hitPoints &gt;= member.maxHitPoints
 
-<span class="hljs-keyword">const</span> partyIsHealthy = party =&gt; every(party, memberIsHealthy)
+<span class="hljs-keyword">const</span> partyIsHealthy = party =&gt;
+    every(party, memberIsHealthy)
+
 partyIsHealthy(party) <span class="hljs-comment">// false</span>
 </code></pre>
 <p>&quot;If I give every party member to <code>memberIsHealthy</code>, does it return <code>true</code> for every single Array item?&quot;</p>
@@ -1223,7 +1245,7 @@ legitPerson({
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"every","level":"1.4.4","depth":2,"next":{"title":"some","level":"1.4.5","depth":2,"path":"part3/some.md","ref":"part3/some.md","articles":[]},"previous":{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/every.md","mtime":"2018-09-20T01:53:34.906Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"every","level":"1.4.4","depth":2,"next":{"title":"some","level":"1.4.5","depth":2,"path":"part3/some.md","ref":"part3/some.md","articles":[]},"previous":{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/every.md","mtime":"2019-03-03T23:51:15.615Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

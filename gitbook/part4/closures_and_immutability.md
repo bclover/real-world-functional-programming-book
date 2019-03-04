@@ -79,11 +79,11 @@ It worked.
 (node:19713) UnhandledPromiseRejectionWarning: Error: heh, not immutable, dat boom
 ```
 
-While using closures for data privacy is the core of how curried functions work in JavaScript, they still obey data by reference rules. Closures are not a panacea for immutability. If you mutate their references elsewhere, the closure doesn't have an immutable copy. While it can seem obvious that you can violating pure functions by mutating data, you'll often be working with code that may do this for unit testing purposes, or other reasons. If you're getting impure results, don't be afraid to whip out `Object.freeze` to see who is violating immutability. Ensure you put `'use strict'` up top in Node to trigger the exceptions.
+While using closures for data privacy is the core of how curried functions work in JavaScript, they still obey data by reference rules. Closures **are not** a panacea for immutability. If you mutate their references elsewhere, the closure doesn't have an immutable copy. While it can seem obvious that you can violating pure functions by mutating data, you'll often be working with code that may do this for unit testing purposes, or other reasons. If you're getting impure results, don't be afraid to whip out `Object.freeze` to see who is violating immutability. Ensure you put `'use strict'` up top in Node to trigger the exceptions `Object.freeze` can throw to help you.
 
 ```javascript
 'use strict'
 const request = Object.freeze({ head: _ => Promise.resolve("It worked.") })
 ```
 
-I don't recommend leaving `Object.freeze` in your code because it's a [broken window](https://pragprog.com/the-pragmatic-programmer/extracts/software-entropy). Instead, focus on finding the mutation and fixing it unless it's something requiring herculean effort to change like how your unit testing framework works. 
+I don't recommend leaving `Object.freeze` in your code because it's a [broken window](https://pragprog.com/the-pragmatic-programmer/extracts/software-entropy). Instead, focus on finding the mutation and fixing it unless it's something requiring herculean effort to change, like how your unit testing framework works, for example. 

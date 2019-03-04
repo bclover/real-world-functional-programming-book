@@ -1,6 +1,6 @@
 # get or prop
 
-The safe way is to create a get function. For objects you know the shape of, meaning you know what properties and value types they typically have, you can create these yourself.
+The safe way to access `Objects` is to create a get function. For objects you know the shape of, meaning you know what properties and value types they typically have, you can create these yourself.
 
 ```javascript
 const getFirstName = person => {
@@ -41,10 +41,18 @@ const getStreetAddress = person => {
 }
 ```
 
+Using the operator could be re-written as:
+
+```javascript
+const getStreetAddress = person =>
+    person.address?.home?.street
+```
+
 It's less code and safer just to use `get` with the path:
 
 ```javascript
-const getStreetAddress = person => get(person, 'person.address.home.street')
+const getStreetAddress = person =>
+    get(person, 'person.address.home.street')
 ```
 
 Now those are just Objects. Arrays require you to do runtime type checking:
@@ -66,7 +74,8 @@ const getFirstHomePhone = person => {
 ... or you could just use `get`:
 
 ```javascript
-const getFirstHomePhone = person => get(person, 'person.address.home.phone[0]')
+const getFirstHomePhone = person =>
+    get(person, 'person.address.home.phone[0]')
 ```
 
 This also works great for deeply nested JSON data structures you often get back from REST API's as well as SOAP and XML you've parsed to JSON.
@@ -82,3 +91,7 @@ const url = get(configuration, 'services.emailURL', 'http://dev.server.com/email
 ```
 
 If it can't find the `services.emailURL` path on `configuration`, or if `configuration` is `undefined`, it'll just default to that dev url, 'http://dev.server.com/email'.
+
+## Conclusions
+
+Using `get` ensures you never have errors. The `Object` can change it's property names on you, or even be `undefined`, but your program still won't have errors. It also helps you avoid error prone, verbose null checks and results in smaller code. As we'll see in future chapters, using this `get` function will allow us to compose her very flexibly into a variety of ways.

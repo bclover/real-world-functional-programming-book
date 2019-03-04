@@ -2,7 +2,7 @@
 
 If a thing can change into something different, but then change back, then those two things are isomorphic.
 
-Examples are JSON. You can have a JSON string that turns into a JSON Object via `JSON.parse`, but then can turn back into the exact same string again via `JSON.stringify`. In working with legacy systems such as [XML SOAP](https://en.wikipedia.org/wiki/SOAP) we'll often convert those large XML structures to JSON, and then back again to XML SOAP. If you're familiar with the [Memento Design Pattern](https://en.wikipedia.org/wiki/Memento_pattern), it's kind of like that.
+One example is JSON. You can have a JSON string that turns into a JSON Object via `JSON.parse`, but then can turn back into the exact same string again via `JSON.stringify`. In working with legacy systems such as [XML SOAP](https://en.wikipedia.org/wiki/SOAP) we'll often convert those large XML structures to JSON, and then back again to XML SOAP. If you're familiar with the [Memento Design Pattern](https://en.wikipedia.org/wiki/Memento_pattern), it's kind of like that.
 
 If you're building a game and want to save it, you'll typically implement the Memento design pattern to create a small `Object` that represents the game as it is right now, and then write that to disk as a file, and possibly sync to a cloud server as well. When loading the game, that `Object` has all the information you need to load the correct level, character stats, and place in the story the player should resume at.
 
@@ -10,7 +10,7 @@ The only thing that isn't deterministic about save games is the date they were c
 
 We can implement this feature as purely as possible using lenses to give you an example of using isomorphisms in practice. Below we'll walk through saving a game and then loading a save game below using the [Focused](https://github.com/yelouafi/focused) library as it has support for isomorphisms and an easier way to compose lenses together.
 
-Be aware Focused has 2 ways to use it; using the facade api which is magic af, or the explicit API which looks a lot more like [Ramda]. We'll show both, although the proxy option is one of `focused`'s selling points over Ramda for advanced Optics. Also note most functions in `focused` are curried by deafult and support the regular function way of calling them (`set(lens, value, object)`) as well as a single argument per function cal (`set(lens)(value)(object)`).
+Be aware Focused has 2 ways to use it; using the facade api which is magic af, or the explicit API which looks a lot more like [Ramda]. We'll show both, although the proxy option is one of `focused`'s selling points over Ramda for advanced Optics. Also note most functions in `focused` are curried by default and support the regular function way of calling them (`set(lens, value, object)`) as well as a single argument per function cal (`set(lens)(value)(object)`).
 
 ## Basic Set
 
@@ -67,7 +67,7 @@ import { lensProxy } from 'focused'
 const _ = lensProxy()
 ```
 
-Next, let's import `set` to update our `Object` much like we'd do in Ramda. Notice, however, the use of `_` and dotting properties; that is how you create a basic `prop` or `get` lens using Focused's proxy api.
+Next, let's import `set` to update our `Object` much like we'd do in Lodash or Ramda. Notice, however, the use of `_` and dotting properties; that is how you create a basic `prop` or `get` lens using Focused's proxy api. Specifically the `_.saveDate` below would be `get('saveDate')` in Lodash:
 
 ```javascript
 import { ..., set } from 'focused'
@@ -117,7 +117,7 @@ const savedGameString = readFileSync('savedgame.json')
 const updatedString = set(_.$(jsonISO).saveDate, new Date(), savedGameString)
 ```
 
-Logging out the string, it looks like:
+Logging out the `updatedString` string, it looks like:
 
 ```json
 { "saveDate": "2018-11-25T18:51:09.227Z",
@@ -125,3 +125,7 @@ Logging out the string, it looks like:
     "chapter": 3,
     ...
 ```
+
+## Conclusions
+
+Isomorphisms are used when you convert data back and forth. It happens often in places like Orchestration API's where you have a [back-end for your front-end](https://samnewman.io/patterns/architectural/bff/). The Node API will call a SOAP service and translate the XML to JSON. If the user does something that we need to update in the back-end, we'll convert the JSON from the front-end application to XML and call the SOAP service again. Reading and writing JSON files to disk like in the above save game example is another. If you're dealing with any relational databases, this pattern [can also help you a lot there](https://enterprisecraftsmanship.com/2016/11/03/oop-fp-and-object-relational-impedance-mismatch/).

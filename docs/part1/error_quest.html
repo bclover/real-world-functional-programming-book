@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1091,21 +1110,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="hold-up-wait-a-minute-please-dont-put-some-boom-in-it">Hold Up, Wait a Minute, Please Don&apos;t Put Some BOOM In It</h1>
+                                <h1 id="hold-up-wait-a-minute-let-us-trap-the-boom-in-it">Hold Up, Wait a Minute, Let Us Trap The BOOM In It</h1>
 <p>Returning Errors from functions is supported and encouraged in Functional Programming, but throwing them is not. Throwing errors via <code>throw new Error(&apos;boom&apos;)</code> breaks the first rule of pure functions, same input, same output because there is no output. Sometimes, an Error can cause unintended side effects in a piece of code, and breaks the &quot;same output&quot; part of the rule. Finally, once you throw an Error, the world is affected after the function ran, thus breaking the second rule of no side effects.</p>
-<p>For Node applications, this can cause a <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> to restart one of your Node processes, a  <a href="https://www.docker.com/" target="_blank">Docker container</a> to be destroyed in your <a href="https://aws.amazon.com/ecs/" target="_blank">ECS cluster</a> or all kinds of infrastructure to be recycled based on error logs. Those are quite a lot of side effects from a simple <code>throw</code>.</p>
-<p>The bad news is, you&apos;re always going to have errors. Functional Programming won&apos;t fix your internet being down when you&apos;re making a REST call.</p>
+<p>When running Node in in a concurrent environment like <a href="https://aws.amazon.com/ecs/" target="_blank">ECS</a>, <a href="https://kubernetes.io/" target="_blank">Kubernetes</a>, or <a href="https://aws.amazon.com/lambda/" target="_blank">Lambdas</a> through a <a href="https://aws.amazon.com/step-functions/" target="_blank">Step Function</a> this can be a good or bad thing depending upon how you handle it. This can cause a <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> to restart one of your Node processes, a <a href="https://www.docker.com/" target="_blank">Docker container</a> to be destroyed in your <a href="https://aws.amazon.com/ecs/" target="_blank">ECS cluster</a> or all kinds of infrastructure to be recycled based on error logs. Those are quite a lot of side effects from a simple <code>throw</code>.</p>
+<p>The bad news is, you&apos;re always going to have errors. Functional Programming won&apos;t fix your internet being down when you&apos;re making a REST call or your browser out of memory when you attempt to <code>console.log</code> some big JSON.</p>
 <p>The good news is when Errors occur in FP code, they won&apos;t break your program. For UI code, you can design for these errors predictably. If you&apos;re willing to create total functions, it&apos;ll tell you exactly what went wrong without you having to make sense of a long strack trace.</p>
 <h2 id="standard-error-handling">Standard Error Handling</h2>
 <p>Let&apos;s take our existing bullet-proof, never fail function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> alwaysTrue = () =&gt; <span class="hljs-literal">true</span>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> alwaysTrue = () =&gt;
+    <span class="hljs-literal">true</span>
 </code></pre>
 <p>And unit test it:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result = alwaysTrue()
 expect(result).to.equal(<span class="hljs-literal">true</span>)
 </code></pre>
 <p>Now let&apos;s create one that always booms:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> alwaysBoom = () =&gt; { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>) }
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> alwaysBoom = () =&gt; {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>)
+}
 </code></pre>
 <p>And unit test it a similar way:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result = alwaysBoom()
@@ -1138,6 +1160,7 @@ expect(result).to.equal(<span class="hljs-literal">true</span>)
 <p>Let&apos;s see how other languages handle this in a slightly functional way.</p>
 <h3 id="go-error-handling">Go Error Handling</h3>
 <p>This is a common pattern solved in other languages. In Go, it&apos;s built INTO the language. In Go, you can return multiple values. This has made it a convention to return errors as the last argument, and check them in a procedural style before continuing. </p>
+<p>This function attempts to parse a JSON String. It returns <code>parsed</code>, the parsed JSON Object, and <code>err</code>, the error if it failed:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">func</span> safeParseJSON(jsonString <span class="hljs-keyword">string</span>) (object, error) {
     <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() {
         <span class="hljs-keyword">if</span> r := <span class="hljs-built_in">recover</span>(); r != <span class="hljs-literal">nil</span> {
@@ -1148,14 +1171,18 @@ expect(result).to.equal(<span class="hljs-literal">true</span>)
     parsed, err := json.Marshal(jsonString)
     <span class="hljs-keyword">return</span> parsed, err
 }
-
-obj, err := safeParseJSON(<span class="hljs-string">&quot;{\&quot;foo\&quot;:\&quot;bar\&quot;}&quot;</span>)
-<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+</code></pre>
+<p>To use it, you simply call  and assign it to the 2 values, <code>obj</code> and <code>err</code>:</p>
+<pre><code class="lang-go">obj, err := safeParseJSON(<span class="hljs-string">&quot;{\&quot;foo\&quot;:\&quot;bar\&quot;}&quot;</span>)
+</code></pre>
+<p>You can then revert back to imperative style coding and see if the <code>err</code> exists, and if so, abort all code moving forward.</p>
+<pre><code class="lang-go"><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
     fmt.Printf(<span class="hljs-string">&quot;couldn&apos;t parse JSON: %v\n&quot;</span>, err)
     <span class="hljs-keyword">return</span>
 }
 fmt.Println(<span class="hljs-string">&quot;Parsed JSON:&quot;</span>, obj)
 </code></pre>
+<p>Here, we log it, but in functions where you&apos;re inside other functions, you&apos;d simply return your own error:</p>
 <p>However, it&apos;s still written in a procedural style, hence Rebecca Skinner creating <a href="https://github.com/asteris-llc/gofpher" target="_blank">Gofpher</a> for <a href="https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go?slide=61" target="_blank">Monadic Error Handling in Go</a> (i.e. JavaScript <code>Promise</code> style). Note the verbose <a href="https://blog.golang.org/defer-panic-and-recover" target="_blank">defer</a> to recover from panics. </p>
 <h3 id="lua-error-handling">Lua Error Handling</h3>
 <p>Lua has multiple return values for functions as well, and provides a function called <code>pcall</code>, short for &quot;protected call&quot; that works similarly. Unlike Go, the first value is &quot;did this function work or not&quot;. Also, if Go uses <code>panic</code>, the entire error blows away the stack, and you get no return value, forcing you to use a <code>defer</code>. In Lua, the p stands for &quot;protected&quot;, effectively a try/catch. If the function failed via an Exception, the 2nd return value will be the error, else whatever value(s) the function returns. So Lua&apos;s <code>pcall</code> is pretty powerful compared to Go.</p>
@@ -1175,8 +1202,9 @@ fmt.Println(<span class="hljs-string">&quot;Parsed JSON:&quot;</span>, obj)
         <span class="hljs-keyword">return</span> (<span class="hljs-keyword">True</span>, <span class="hljs-keyword">None</span>, result)
     <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
         <span class="hljs-keyword">return</span> (<span class="hljs-keyword">False</span>, str(e), <span class="hljs-keyword">None</span>)
-
-success, error, obj = safe_json_parse(string)
+</code></pre>
+<p>Notice when we use it, it flattens out into those variables; <code>success</code> will be <code>True</code> or <code>False</code>, <code>error</code> will be <code>None</code> or the string error, and <code>obj</code> will either be your data, or <code>None</code>:</p>
+<pre><code class="lang-python">success, error, obj = safe_json_parse(string)
 <span class="hljs-keyword">if</span> success == <span class="hljs-keyword">False</span>:
     print(<span class="hljs-string">&quot;Failed:&quot;</span>, error)
     <span class="hljs-keyword">return</span>
@@ -1347,7 +1375,7 @@ print(<span class="hljs-string">&quot;Parsed JSON:&quot;</span>, obj)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Error Quest!","level":"1.2.5","depth":2,"next":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},"previous":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/error_quest.md","mtime":"2019-01-06T17:11:02.221Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Error Quest!","level":"1.2.5","depth":2,"next":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},"previous":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/error_quest.md","mtime":"2019-03-03T20:38:27.624Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

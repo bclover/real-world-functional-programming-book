@@ -39,14 +39,16 @@ Logging it out, we can see our new `filtered` Array is:
   { name: 'Brandy', type: 'human' } ]
 ```
 
-## filter: raw
+## Filter
 
 We can create a somewhat pure function using `filter`:
 
 ```javascript
 import { filter } from 'lodash'
 
-const typeIsHuman = item => item.type === 'human'
+const typeIsHuman = item =>
+    item.type === 'human'
+
 const filterHumans = group =>
     filter(
         group, 
@@ -61,20 +63,6 @@ console.log(filterHumans(group))
 [ { name: 'Jesse', type: 'human' },
   { name: 'Brandy', type: 'human' } ]
 ```
-
-## filter: pure
-
-While our `filterHumans` function is pure, it still has the Trouble With Dots. In [Part 3: map](part3/map.md) we fixed the dot problem there using `nth` function which solves the Trouble With Array Bracket Access problem. Our fix here is to use `get`.
-
-Updating our `typeIsHuman` function above, we'll fix the predicate function we pass the `filter`:
-
-```javascript
-import { ..., get } from 'lodash'
-
-const typeIsHuman = item => get(item, 'type') === 'human'
-```
-
-Now, if `item` is `undefined`, `get(undefined, 'type')` will return `undefined`, and the predicate will return `false`, ensuring the weird item isn't included in the filter.
 
 ## Conclusions
 

@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1094,7 +1113,7 @@
                                 <h1 id="spot-the-impurities">Spot The Impurities</h1>
 <p>We&apos;re going to show a series of functions that are pure and impure. You&apos;ll see the various ways they break the pure function rules, and how to fix them. The strength of dynamic languages is that they have a wide variety of developers from different backgrounds such as Imperative, Object Oriented, and Declarative (Functional Programming).</p>
 <p>Declarative is in the minority.</p>
-<p>As such, you&apos;ll be navigating a lot of impure code and will have to decide what to make pure and what not too based on your experience, deadlines, and team norms. Knowing the nuanced ways one can break function purity will help you navigate non-pure code. You&apos;ll also start to develop a Spidey Sense about the signs of impurity, both in the code you read and in the code you write. As you develop this 6th sense, it&apos;ll help you on your journey to function purity and in code reviews of peers.</p>
+<p>As such, you&apos;ll be navigating a lot of impure code and will have to decide what to make pure and what not too based on your experience, deadlines, and team norms. Knowing the nuanced ways one can break function purity will help you navigate non-pure code. You&apos;ll also start to develop a <a href="https://sixthsensereader.org/about-the-book/abcderium-index/spidey-sense/" target="_blank">Spidey Sense</a> about the signs of impurity, both in the code you read and in the code you write. As you develop this 6th sense, it&apos;ll help you on your journey to function purity and in code reviews of peers.</p>
 <h2 id="prior-art">Prior Art</h2>
 <p>But first, let&apos;s look at the various pure and impure functions built into JavaScript itself.</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">Math</span>.round(<span class="hljs-number">1.034</span>) <span class="hljs-comment">// 1</span>
@@ -1117,24 +1136,24 @@
 <span class="hljs-built_in">console</span>.log(parents) <span class="hljs-comment">// [ &apos;Jesse&apos;, &apos;Brandy&apos; ]</span>
 <span class="hljs-built_in">console</span>.log(kids) <span class="hljs-comment">// [ &apos;Sydney&apos;, &apos;Rowan&apos; ]</span>
 </code></pre>
-<p>Same input, same output, no side effects.</p>
+<p>The <code>concat</code> obeys same input, same output, and no side effects.</p>
 <p>However, <code>reverse</code> doesn&apos;t create a new Array, and instead mutates the original.</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(parents) <span class="hljs-comment">// [ &apos;Jesse&apos;, &apos;Brandy&apos; ]</span>
 <span class="hljs-keyword">const</span> reversed = parents.reverse()
 <span class="hljs-built_in">console</span>.log(reversed) <span class="hljs-comment">// [ &apos;Brandy&apos;, &apos;Jesse&apos; ]</span>
 <span class="hljs-built_in">console</span>.log(parents) <span class="hljs-comment">// [ &apos;Brandy&apos;, &apos;Jesse&apos; ]</span>
 </code></pre>
-<p>Same input, same output, but it has side effects. The world changes after it runs because it doesn&apos;t utilize immutability.</p>
+<p>The <code>reverse</code> function obeys same input, same output, but it has side effects. The world changes after it runs because it doesn&apos;t utilize immutability.</p>
 <p>Libraries like <a href="https://ramdajs.com/docs/#reverse" target="_blank">Ramda</a> are built using pure functions. This makes it so you can use the same method names like Array&apos;s <code>reverse</code>, but not worry about side effects as all return values are immutable.</p>
 <h2 id="closures">Closures</h2>
-<p>Closures, whether Node or Browser, are a common way to utilizes imported modules and classes.</p>
+<p>Closures, whether Node or Browser, are a common way to utilize imported modules and classes.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;request-promise&apos;</span>
 
 <span class="hljs-keyword">const</span> getUsers = () =&gt; {
     <span class="hljs-keyword">return</span> request.get(<span class="hljs-string">&apos;/api/users/all&apos;</span>, {json: <span class="hljs-literal">true</span>})
 }
 </code></pre>
-<p>This breaks the pure function rules in 2 ways: it&apos;s affected by the outside world, and it has side effects after it runs. The <code>getUsers</code> won&apos;t always return the same output because the <code>request</code> doesn&apos;t come in from the function arguments. You&apos;ll also end up having to mutate your code using mocking/stubbing libraries like <a href="https://sinonjs.org/" target="_blank">Sinon</a> or <a href="https://github.com/testdouble/testdouble.js/" target="_blank">TestDouble</a> to test it. The side effects is from the <code>request.get</code> making an HTTP call.</p>
+<p>This breaks the pure function rules in 2 ways: it&apos;s affected by the outside world, and it has side effects after it runs, whether the less pure CommonJS <code>require</code> or the more pure ES6 <code>import</code>. The <code>getUsers</code> won&apos;t always return the same output because the <code>request</code> doesn&apos;t come in from the function arguments. You&apos;ll also end up having to mutate your code using mocking/stubbing libraries like <a href="https://sinonjs.org/" target="_blank">Sinon</a> or <a href="https://github.com/testdouble/testdouble.js/" target="_blank">TestDouble</a> to test it. The side effects is from the <code>request.get</code> making an HTTP call.</p>
 <p><strong>Partial Solution</strong>: Declare your dependencies in your arguments.</p>
 <p>You make it pure by passing in the <code>request</code> module.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;request-promise&apos;</span>
@@ -1159,10 +1178,100 @@ it(<span class="hljs-string">&apos;should resolve with a user&apos;</span>, ()=&
 })
 </code></pre>
 <h2 id="http-call-fix">HTTP Call Fix?</h2>
-<p>Fixing the HTTP call that is made, affecting the outside world after the function runs, is beyond the scope of this book. That level of purity is only gained through creating your own class/Object to contain those side effects, like <a href="http://elm-lang.org/" target="_blank">Elm</a> does, or using strict state containers like <a href="https://redux.js.org/" target="_blank">Redux</a>, <a href="https://github.com/calmm-js/documentation/blob/master/introduction-to-calmm.md" target="_blank">Calmm</a>, or even more advanced methods. Many think it isn&apos;t worth it given it&apos;s such a common thing to do in browser applications and Node API&apos;s.</p>
+<p>Fixing the HTTP call that is made, affecting the outside world after the function runs, is beyond the scope of this book. That level of purity is only gained through creating your own class/Object to contain those side effects, like <a href="http://elm-lang.org/" target="_blank">Elm</a> does, or using strict state containers like <a href="https://redux.js.org/" target="_blank">Redux</a>, <a href="https://github.com/calmm-js/documentation/blob/master/introduction-to-calmm.md" target="_blank">Calmm</a>, or even more advanced methods such as <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank">React Hooks</a>. Many think it isn&apos;t worth it given it&apos;s such a common thing to do in browser applications and Node API&apos;s. </p>
 <p>In JavaScript, the simple solution is to return a <code>Promise</code>. It&apos;ll resolve when the operation is successful or not through <code>.then</code> and <code>.catch</code>. As long as the function you send to the <code>Promise</code> is a pure function, you&apos;re good &quot;enough&quot;.</p>
-<h2 id="react-components">React Components</h2>
-<p>// TODO</p>
+<h2 id="random-noops">Random Noops</h2>
+<p>When you see functions that don&apos;t return values, you&apos;ll start to immediately identify them as noops. As long as they&apos;re logging related, you can often let them go. However, other times, they&apos;ll be in amongst other functions, not classes, and your hair should stand on end:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getUsers = pg =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt; {
+        <span class="hljs-keyword">const</span> pool = getPool(pg)
+        connect(pg)
+        pool.query(<span class="hljs-string">&apos;users&apos;</span>, (err, result) =&gt; {
+            <span class="hljs-keyword">if</span>(err) {
+                <span class="hljs-keyword">return</span> failure(err)
+            }
+            success(result.data)
+        }
+    })
+</code></pre>
+<p>The <code>getUsers</code> returns a Promise. She takes in the <code>pg</code> variable, probably a Postegres database module and thus declares her outside dependencies. The Promise wraps a callback, a side effect style way of coding, and using a Promise wrapper is a common way to make the function more pure. If it errors, it errors the Promise; if it succeeds, if gives the data parsed from the database query.</p>
+<p>... but what is <code>connect</code> doing? It has no return value. It does not appear like logging, and instead looks like it&apos;s attempting to connect to the Postegres database? What if it fails? What else is it doing? While we&apos;re inside a <code>Promise</code>, and thus have built-in try/catch functionality, this is actually worse in that it can hide it&apos;s side effect, and we wouldn&apos;t know until we inspect the <code>promise.catch</code> to read the error and figure out somewhere internally it&apos;s failing to connect.</p>
+<p>While not the best way to handle errors, the more pure way would be to have <code>connect</code> at a bare minimum return a <code>Promise</code>; it&apos;ll either connect, or it won&apos;t with an <code>Error</code> saying why. We can then connect that to our existing <code>Promise</code>, and only run the database query once it is successfully connected:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getUsers = pg =&gt;
+    connect(pg)
+    .then( () =&gt;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt; {
+            <span class="hljs-keyword">const</span> pool = getPool(pg)
+            pool.query(<span class="hljs-string">&apos;users&apos;</span>, (err, result) =&gt; {
+                <span class="hljs-keyword">if</span>(err) {
+                    <span class="hljs-keyword">return</span> failure(err)
+                }
+                success(result.data)
+            })
+        })
+    )
+</code></pre>
+<p>Be on the lookout for functions that have no return value and aren&apos;t logging related.</p>
+<h2 id="node-middlewares">Node Middlewares</h2>
+<p>Node was created and used long before <code>Promises</code> became du-jour in JavaScript. There are still many callback holdouts who swear by their <a href="https://github.com/caolan/async" target="_blank">async library</a>. This means most of the popular API and site frameworks such as <a href="https://expressjs.com/" target="_blank">Express</a> and <a href="http://restify.com/" target="_blank">Restify</a> all follow the Node middleware ways of arhcitecting and building plugins. Middlewares hide massive side effects and are not pure.</p>
+<p>A basic API to get a list of suers in Express looks like:</p>
+<pre><code class="lang-javascript">app.get(<span class="hljs-string">&apos;/users/list&apos;</span>, (req, res) =&gt;
+    getUsers()
+    .then( users =&gt;
+        res.send(<span class="hljs-number">200</span>).json({ result: <span class="hljs-literal">true</span>, data: users })
+    )
+    .catch( error =&gt;
+        res.send(<span class="hljs-number">500</span>).join({ result: <span class="hljs-literal">false</span>, error: error.message })
+    )
+)
+</code></pre>
+<p>However, that <code>http://localhost:9000/users/list</code> REST url would work without any authentication, so they&apos;ll have an authentication run first. The <code>app.get</code>&apos;s function signature is &quot;First parameter is a String name of the route, every other parameter is a function you want to run&quot;.</p>
+<pre><code class="lang-javascript">app.get(
+    <span class="hljs-string">&apos;/users/list&apos;</span>, <span class="hljs-comment">// route name</span>
+    (req, res) =&gt; ... <span class="hljs-comment">// function to run when route is hit on server</span>
+)
+</code></pre>
+<p>It&apos;ll run them in order, so typically you&apos;ll see authentication plugins like OAuth ask you to put the authentication function first:</p>
+<pre><code class="lang-javascript">app.get(
+    <span class="hljs-string">&apos;/users/list&apos;</span>,
+    (req, res, next) =&gt; ..., <span class="hljs-comment">// auth stuff here</span>
+    (req, res) =&gt; ...
+)
+</code></pre>
+<p>Notice the 3rd parameter called <code>next</code>. It&apos;s a function, specifically a callback function. When your function is done, it has 3 choices:</p>
+<ol>
+<li>call <code>res.send</code>, preventing all further functions from being run.</li>
+<li>call <code>next()</code> with no parameters signalling your function or &quot;middleware&quot; is done and has run successfully, and the next middleware can run.</li>
+<li>call <code>next(error)</code> with an <code>Error</code> as the first and only paramaeter, signalling that your middleware failed and no further middlewares should be run.</li>
+</ol>
+<p>What happens after depends on the framework and middleware, but typically you&apos;d also send a message to the user.</p>
+<pre><code class="lang-javascript">app.get(
+    <span class="hljs-string">&apos;/users/list&apos;</span>,
+    (req, res, next) =&gt; {
+        <span class="hljs-keyword">if</span>(isAuthorizedUser(req.params.user)) {
+            next()
+        } <span class="hljs-keyword">else</span> {
+            next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Not authorized&apos;</span>))
+        }
+    }
+    (req, res) =&gt; ...
+)
+</code></pre>
+<p>This mis-mash of patterns is what you&apos;d to do compose asynchronous functions together in web/API frameworks before <code>Promise</code> chains became popular. The downside is there are a lot of side effects in this approach without any way for you to prevent them causing errors, nor easily unit test them without intentionally mocking side effects.</p>
+<p>The best way is just not use the middlware pattern at all, instead using Promises:</p>
+<pre><code class="lang-javascript">app.get(
+    <span class="hljs-string">&apos;/users/list&apos;</span>,
+    (req, res) =&gt;
+        isAuthorized(req.params.user)
+        .then(getUsers)
+        .then( users =&gt;
+            res.send(<span class="hljs-number">200</span>).json({ result: <span class="hljs-literal">true</span>, data: users })
+        )
+        .catch( error =&gt;
+            res.send(<span class="hljs-number">500</span>).join({ result: <span class="hljs-literal">false</span>, error: error.message })
+        )
+)
+</code></pre>
 
                                 
                                 </section>
@@ -1206,7 +1315,7 @@ it(<span class="hljs-string">&apos;should resolve with a user&apos;</span>, ()=&
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"next":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"previous":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/spot_the_impurities.md","mtime":"2018-11-23T16:16:35.868Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"next":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"previous":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/spot_the_impurities.md","mtime":"2019-03-03T20:21:04.007Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

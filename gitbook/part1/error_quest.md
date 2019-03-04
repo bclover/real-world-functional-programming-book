@@ -1,10 +1,10 @@
-# Hold Up, Wait a Minute, Please Don't Put Some BOOM In It
+# Hold Up, Wait a Minute, Let Us Trap The BOOM In It
 
 Returning Errors from functions is supported and encouraged in Functional Programming, but throwing them is not. Throwing errors via `throw new Error('boom')` breaks the first rule of pure functions, same input, same output because there is no output. Sometimes, an Error can cause unintended side effects in a piece of code, and breaks the "same output" part of the rule. Finally, once you throw an Error, the world is affected after the function ran, thus breaking the second rule of no side effects.
 
-For Node applications, this can cause a [pm2](http://pm2.keymetrics.io/) to restart one of your Node processes, a  [Docker container](https://www.docker.com/) to be destroyed in your [ECS cluster](https://aws.amazon.com/ecs/) or all kinds of infrastructure to be recycled based on error logs. Those are quite a lot of side effects from a simple `throw`.
+When running Node in in a concurrent environment like [ECS](https://aws.amazon.com/ecs/), [Kubernetes](https://kubernetes.io/), or [Lambdas](https://aws.amazon.com/lambda/) through a [Step Function](https://aws.amazon.com/step-functions/) this can be a good or bad thing depending upon how you handle it. This can cause a [pm2](http://pm2.keymetrics.io/) to restart one of your Node processes, a [Docker container](https://www.docker.com/) to be destroyed in your [ECS cluster](https://aws.amazon.com/ecs/) or all kinds of infrastructure to be recycled based on error logs. Those are quite a lot of side effects from a simple `throw`.
 
-The bad news is, you're always going to have errors. Functional Programming won't fix your internet being down when you're making a REST call.
+The bad news is, you're always going to have errors. Functional Programming won't fix your internet being down when you're making a REST call or your browser out of memory when you attempt to `console.log` some big JSON.
 
 The good news is when Errors occur in FP code, they won't break your program. For UI code, you can design for these errors predictably. If you're willing to create total functions, it'll tell you exactly what went wrong without you having to make sense of a long strack trace.
 
@@ -13,7 +13,8 @@ The good news is when Errors occur in FP code, they won't break your program. Fo
 Let's take our existing bullet-proof, never fail function:
 
 ```javascript
-const alwaysTrue = () => true
+const alwaysTrue = () =>
+    true
 ```
 
 And unit test it:
@@ -26,7 +27,9 @@ expect(result).to.equal(true)
 Now let's create one that always booms:
 
 ```javascript
-const alwaysBoom = () => { throw new Error('boom') }
+const alwaysBoom = () => {
+    throw new Error('boom')
+}
 ```
 
 And unit test it a similar way:
@@ -76,6 +79,8 @@ Let's see how other languages handle this in a slightly functional way.
 
 This is a common pattern solved in other languages. In Go, it's built INTO the language. In Go, you can return multiple values. This has made it a convention to return errors as the last argument, and check them in a procedural style before continuing. 
 
+This function attempts to parse a JSON String. It returns `parsed`, the parsed JSON Object, and `err`, the error if it failed:
+
 ```go
 func safeParseJSON(jsonString string) (object, error) {
     defer func() {
@@ -87,15 +92,25 @@ func safeParseJSON(jsonString string) (object, error) {
     parsed, err := json.Marshal(jsonString)
     return parsed, err
 }
+```
 
+To use it, you simply call  and assign it to the 2 values, `obj` and `err`:
+
+```go
 obj, err := safeParseJSON("{\"foo\":\"bar\"}")
+```
+
+You can then revert back to imperative style coding and see if the `err` exists, and if so, abort all code moving forward.
+
+```go
 if err != nil {
     fmt.Printf("couldn't parse JSON: %v\n", err)
     return
 }
 fmt.Println("Parsed JSON:", obj)
-
 ```
+
+Here, we log it, but in functions where you're inside other functions, you'd simply return your own error:
 
 However, it's still written in a procedural style, hence Rebecca Skinner creating [Gofpher](https://github.com/asteris-llc/gofpher) for [Monadic Error Handling in Go](https://speakerdeck.com/rebeccaskinner/monadic-error-handling-in-go?slide=61) (i.e. JavaScript `Promise` style). Note the verbose [defer](https://blog.golang.org/defer-panic-and-recover) to recover from panics. 
 
@@ -125,7 +140,11 @@ def safe_json_parse(string):
         return (True, None, result)
     except Exception as e:
         return (False, str(e), None)
+```
 
+Notice when we use it, it flattens out into those variables; `success` will be `True` or `False`, `error` will be `None` or the string error, and `obj` will either be your data, or `None`:
+
+```python
 success, error, obj = safe_json_parse(string)
 if success == False:
     print("Failed:", error)
@@ -289,4 +308,3 @@ const example = (JSON, fs) =>
 ## A Bunch of Things Could Go Wrong
 
 The above lumps all errors into the `catch` as a String. We have to search in 1 place without any ability to be proactive or reactive. Sometimes we need to know what error occurred as either some are ok, or some require different code paths for us to take. We'll cover this advanced error handling in the "Result" section in Part 5 and being more clear about what exact error it was in "Union" in Part 6.
-

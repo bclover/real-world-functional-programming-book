@@ -1,13 +1,12 @@
-# every: 3 things go in, true comes out if the predicate says all things are true
+# every: 3 things go in, true or false comes out
 
-The `every` function takes an Array and a predicate function (a function that only returns `true` or `false`) and returns `true` if every item that's given to the predicate returns true, else false. It's a great example of an Array comprehension that is built upon `map`. It's used a lot in data validation.
+The `every` function takes an `Array` and a predicate function (a function that only returns `true` or `false`). It returns `true` if every item that's given to the predicate returns true, else `false`. It's a great example of an Array comprehension that is built upon `reduce`. It's used a lot in data validation.
 
 Think of `every` as asking "Is everything true that ___". The blank is whatever your predicate function is figuring out to be true or not based on the input.
 
 ## Old Sk00l for
 
-Let's verify everyone in our party has full health or not. Hit points are a measurement using numbers of a person's health. If your current hit points equal your max, then you're healthy. If their half, you're  seriously injured or sick.
-
+Let's verify everyone in our party has full health or not. Hit points are a measurement using numbers of a person's health. If your current hit points equal your max, then you're healthy. If their half, you're seriously injured or sick. Not the good sick, the bad sick.
 
 ```javascript
 const party = [
@@ -50,9 +49,12 @@ We can purify that by using `every`:
 ```javascript
 const { every } = require('lodash')
 
-const memberIsHealthy = member => member.hitPoints >= member.maxHitPoints
+const memberIsHealthy = member =>
+    member.hitPoints >= member.maxHitPoints
 
-const partyIsHealthy = party => every(party, memberIsHealthy)
+const partyIsHealthy = party =>
+    every(party, memberIsHealthy)
+
 partyIsHealthy(party) // false
 ```
 

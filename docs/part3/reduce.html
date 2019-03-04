@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1091,10 +1110,10 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="reduce-3-things-go-in-what-youve-accumulated-comes-out">reduce: 3 things go in, what you&apos;ve accumulated comes out</h1>
-<p>The <code>reduce</code> function takes an Array, a function to modify the data, and a starting value. The function gets each item in the Array and the current value of the accumulator. Whatever you return in the function will update the accumulator value. You don&apos;t have to update the accumulator at all if you don&apos;t want to.</p>
+                                <h1 id="reduce-3-things-go-in-whatever-you-want-comes-out">reduce: 3 things go in, whatever you want comes out</h1>
+<p>The <code>reduce</code> function takes an <code>Array</code>, a function to modify the data, and a starting value. The function gets each item in the Array and the current value of the accumulator. Whatever you return in the function will update the accumulator value. You don&apos;t have to update the accumulator at all if you don&apos;t want to.</p>
 <p>Reduce is <a href="https://startingstrength.com/article/squat-mechanics-a-clarification" target="_blank">the Squat</a> of the big 3. Unlike <code>map</code> and <code>filter</code>, he might not even return an <code>Array</code>; he could return anything. Don&apos;t stress if <code>reduce</code> is challenging for months. Other languages will sometimes call it &quot;fold&quot; instead of &quot;reduce&quot;.</p>
-<p>Reduce also has a special name for the function you give it, unlike <code>map</code> or <code>filter</code>, called a <code>reducer</code>. If you&apos;ve learned any Redux, then you&apos;ll immediately recognize it.</p>
+<p>Reduce also has a special name for the function you give it called a <code>reducer</code>. If you&apos;ve learned any Redux, then you&apos;ll immediately recognize it. The Redux framework is a bunch of <code>reducer</code> functions.</p>
 <p>[jwarden 1.8.2019] TODO: I like this example, but it&apos;s pretty advanced. Perhaps people skipping around might want something simpler. We should put at least 2 here; one showing the Array return, and the this one showing the String return.</p>
 <h2 id="old-sk00l-for">Old Sk00l for</h2>
 <p>Let&apos;s accumulate using the traditional <code>for</code> loop. We want to iterate over a list of party members and create a formatted <code>String</code> summarizing what is in the list.</p>
@@ -1131,11 +1150,24 @@
 Brandy  - 14/14
 Albus   - 5/9
 </code></pre><h1 id="reduce">reduce</h1>
-<p>We can purify that by using <code>reduce</code>:</p>
+<p>We can purify that by using <code>reduce</code>. First, our reduce function:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> addMemberToSummary = (summary, member) =&gt;
     <span class="hljs-string">`<span class="hljs-subst">${summary}</span><span class="hljs-subst">${member.name}</span> \t- <span class="hljs-subst">${member.hitPoints}</span>/<span class="hljs-subst">${member.maxHitPoints}</span>\n`</span>
-
-<span class="hljs-keyword">const</span> partyToString = party =&gt;
+</code></pre>
+<p>Let&apos;s test it out:</p>
+<pre><code class="lang-javascript">addMemberToSummary(
+    <span class="hljs-string">&apos;&apos;</span>, 
+    {
+        name: <span class="hljs-string">&apos;Jesse&apos;</span>,
+        clazz: <span class="hljs-string">&apos;Swashbuckler&apos;</span>,
+        hitPoints: <span class="hljs-number">20</span>,
+        maxHitPoints: <span class="hljs-number">22</span>
+    })
+)
+<span class="hljs-comment">// Jesse   - 20/22</span>
+</code></pre>
+<p>Nice, now we&apos;ll use that function in <code>reduce</code> below:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> partyToString = party =&gt;
     reduce(
         party,
         addMemberToSummary,
@@ -1162,8 +1194,14 @@ Albus   - 5/9
 </ul>
 <h2 id="conclusions">Conclusions</h2>
 <p>Reduce: Take an Array of things in as well as an accumulator, give the current value of the accumulator and the current item in the Array to the reduce function, whatever that function returns will be set as the new value for the accumulator. Whatever the accumulator value is after the last item in the Array has been iterated over, that&apos;s what is returned from the function. The <code>reduce</code> function expects a pure reducer function, and is itself a pure function.</p>
-<p>Unlike <code>map</code> and <code>filter</code>, the <code>reduce</code> function can take long while to wrap your head around. Additionally, you can still struggle to remember exactly how it works for a long time, and continually look up the documentation on parameter order, and the reducer function parameter order. Also, the accumulator can be anything (a <code>Number</code> for adding numbers, another <code>Array</code> for doing a more complicated <code>map</code>, etc) so it can take time to find creative uses from your own exploration. Give yourself some slack; this is the hardest of The Big 3 list comprehensions to memorize, use, and get proficient with.</p>
-<p>For those familiar with the <a href="https://redux.js.org/" target="_blank">Redux</a> framework, the function <code>reduce</code> takes is called a reducer function, and that&apos;s basically the core of how Redux works. </p>
+<p>It&apos;s called &quot;accumulator&quot; because it&apos;s assumed to accumlate, or &quot;collect&quot; values over time, but that isn&apos;t always the case. You can return whatever you want from your <code>reducer</code> function.</p>
+<p>Unlike <code>map</code> and <code>filter</code>, the <code>reduce</code> function can take long while to wrap your head around. </p>
+<blockquote>
+<p>Map... change stuff.
+Filter... filter stuff.
+Reduce... uh... convert, or... uh....</p>
+</blockquote>
+<p>Additionally, you can still struggle to remember exactly how it works for a long time, and continually look up the documentation on parameter order, and the reducer function parameter order. Also, the accumulator can be anything (a <code>Number</code> for adding numbers, another <code>Array</code> for doing a more complicated <code>map</code>, etc) so it can take time to find creative uses from your own exploration. Give yourself some slack; this is the hardest of The Big 3 list comprehensions to memorize, use, and get proficient with.</p>
 
                                 
                                 </section>
@@ -1207,7 +1245,7 @@ Albus   - 5/9
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"reduce","level":"1.4.3","depth":2,"next":{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},"previous":{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/reduce.md","mtime":"2019-01-09T04:54:52.960Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"reduce","level":"1.4.3","depth":2,"next":{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},"previous":{"title":"filter","level":"1.4.2","depth":2,"path":"part3/filter.md","ref":"part3/filter.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/reduce.md","mtime":"2019-03-03T23:49:21.137Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

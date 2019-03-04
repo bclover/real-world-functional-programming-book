@@ -19,7 +19,7 @@ weapons[2] // Chakram
 weapons.2 // SyntaxError: Unexpected number
 ```
 
-You can do the same with Strings since it'll coerce it:
+You can do the same with Strings, though, since it'll coerce it:
 
 ```javascript
 weapons['2'] // Chakram

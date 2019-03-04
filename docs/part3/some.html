@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1091,10 +1110,10 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="some-3-things-go-in-true-comes-out-if-the-predicate-says-at-least-one-thing-is-true">some: 3 things go in, true comes out if the predicate says at least one thing is true</h1>
-<p>The <code>some</code> functions an Array and a predicate function, and returns <code>true</code> if the predicate function returns true for at least 1 of the Array items. Like <code>every</code>, it&apos;s another Array comprehension built atop The Big 3.</p>
+                                <h1 id="some-3-things-go-in-true-or-false-comes-out">some: 3 things go in, true or false comes out.</h1>
+<p>The <code>some</code> function takes an Array and a predicate function, and returns <code>true</code> if the predicate function returns true for at least 1 of the Array items. Like <code>every</code>, it&apos;s another Array comprehension built atop <code>reduce</code>.</p>
 <h2 id="old-sk00l-for">Old Sk00l for</h2>
-<p>Let&apos;s every our party has at least one person who can act as a Doctor for the other party members in case they get hurt.</p>
+<p>Let&apos;s see if at least one of our party members can act as a Doctor for the other party members in case they get hurt.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> party = [
     {
         name: <span class="hljs-string">&apos;Jesse&apos;</span>,
@@ -1137,17 +1156,6 @@
     some(party, isCleric)
 </code></pre>
 <p>Because Brandy is a Cleric, the <code>isCleric</code> function will return <code>true</code> at least once while <code>some</code> is looping through all 3 party members.</p>
-<h2 id="type-detection">Type Detection</h2>
-<p>With <code>every</code>, we ensured that a party member was exactly as we expected it to be. Some types in dynamic languages, however, we can be more flexible with. For example, while interfaces aren&apos;t natively supported, can we test for that. An example is detecting if something is a <code>Promise</code>. While <code>Promise</code> is a native <code>class</code> in JavaScript, a lot of implementations of Promise have cropped up in the past decade while waiting for the API be officially implemented by browsers.</p>
-<p>Instead of being strict like we were with <code>every</code> around a party member, we&apos;ll see if it has the <code>then</code> of a Promise or Promise like library, or JQuery&apos;s <code>done</code>:</p>
-<p>```javascript
-const { isFunction, get } = require(&apos;lodash&apos;)</p>
-<p>const hasThen = o =&gt;
-    isFunction(get(o, &apos;then&apos;))</p>
-<p>const hasDone = o =&gt;
-    isFunction(get(o, &apos;done&apos;))</p>
-<p>const isPromiseLike = o =&gt;
-    hasThen(o) &amp;&amp; hasDone(o)</p>
 
                                 
                                 </section>
@@ -1191,7 +1199,7 @@ const { isFunction, get } = require(&apos;lodash&apos;)</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"some","level":"1.4.5","depth":2,"next":{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},"previous":{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/some.md","mtime":"2018-08-18T13:41:59.071Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"some","level":"1.4.5","depth":2,"next":{"title":"zip","level":"1.4.6","depth":2,"path":"part3/zip.md","ref":"part3/zip.md","articles":[]},"previous":{"title":"every","level":"1.4.4","depth":2,"path":"part3/every.md","ref":"part3/every.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/some.md","mtime":"2019-03-03T23:58:40.929Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

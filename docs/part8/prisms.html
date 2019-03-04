@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="./">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1092,13 +1111,13 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="prisms">Prisms</h1>
-<p>A prism is an isomorphism that is total. Meaning, if <code>JSON.parse</code> fails, it doesn&apos;t throw an Error in our lens. Let&apos;s update our <code>jsonISO</code> we created in <a href="isomorphism.md">Part 7&apos;s Isomorphism</a> from a partial iso to a total iso. We take what we learned from <a href="../part7/">Part 7 on total functions</a> and make our Isomorphism total-ish. We don&apos;t have to worry, for now, about going back (i.e. the setter <code>JSON.stringify</code>), just the getter (<code>JSON.parse</code>).</p>
+<p>A prism is an isomorphism that is <a href="../part7/total_functions.html">total</a>. Meaning, if <code>JSON.parse</code> fails, it doesn&apos;t throw an Error in our lens. Let&apos;s update our <code>jsonISO</code> we created in <a href="isomorphisms.html">Part 8&apos;s Isomorphism</a> from a partial iso to a total iso. We take what we learned from <a href="../part7/">Part 7 on total functions</a> and make our Isomorphism total-ish. We don&apos;t have to worry, for now, about going back (i.e. the setter <code>JSON.stringify</code>), just the getter (<code>JSON.parse</code>).</p>
 <p>This is also the only time it is ok to use <code>null</code> in JavaScript.</p>
 <h2 id="from-partial-to-total">From Partial To Total</h2>
-<p>We&apos;ll take the existing iso:</p>
+<p>Instead of using our existing isomorphism:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> jsonISO = iso(<span class="hljs-built_in">JSON</span>.parse, <span class="hljs-built_in">JSON</span>.stringify)
 </code></pre>
-<p>Instead, we&apos;ll add basic erorr handling, and return <code>null</code> if it doesn&apos;t work:</p>
+<p>Instead, we&apos;ll create a new one that has basic erorr handling, and return <code>null</code> if it doesn&apos;t work:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { simplePrism } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;focused&apos;</span>
 
 <span class="hljs-keyword">const</span> jsonISOMaybe = simplePrism(
@@ -1116,7 +1135,7 @@
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> savedGameString = readFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>)
 <span class="hljs-keyword">const</span> updatedString = set(_.$(jsonISOMaybe).saveDate, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), savedGameString)
 </code></pre>
-<p>... iet works the same:</p>
+<p>... it works the same:</p>
 <pre><code class="lang-json">{ <span class="hljs-string">&quot;saveDate&quot;</span>: <span class="hljs-string">&quot;2018-11-25T23:32:41.887Z&quot;</span>,
     <span class="hljs-string">&quot;map&quot;</span>: <span class="hljs-string">&quot;overworld&quot;</span>,
     <span class="hljs-string">&quot;chapter&quot;</span>: <span class="hljs-number">3</span>,
@@ -1170,7 +1189,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Prisms","level":"1.9.2","depth":2,"next":{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},"previous":{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/prisms.md","mtime":"2018-11-26T00:23:16.583Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Prisms","level":"1.9.2","depth":2,"next":{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},"previous":{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/prisms.md","mtime":"2019-01-20T17:16:52.858Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

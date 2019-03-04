@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1102,6 +1121,7 @@
 <li>working on a complicated algorithm and want instant feedback</li>
 <li>want to easily debug or log each line or to inspect variables</li>
 <li>easier for you to think and build code this way vs. &quot;ALL PURE FUNCTIONS&quot;</li>
+<li>the above with Test Driven Development / Red Green Refactor</li>
 </ul>
 <p>For example, here is parsing URL parameters manually instead of using a library:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> log = <span class="hljs-built_in">console</span>.log
@@ -1119,7 +1139,7 @@ log(query) <span class="hljs-comment">// { name: &apos;jesse&apos; }</span>
 <p>It&apos;s really easy and quick to create temporary <code>let</code> and <code>const</code> variables in a procedural way to play with ideas. You can log each line to see exactly what is happening to learn or find mistakes.</p>
 <h2 id="pure-lets">Pure lets</h2>
 <p><strong>Solution</strong>: Follow the pure function rules and you&apos;re fine.</p>
-<p>This behavior and style of writing is still encouraged. Many of us coming from Imperative backgrounds thinking in terms of &quot;how&quot; something should work vs. &quot;what&quot; should happen. If this mode of thinking is easier for you, go for it! You can still write this way and keep things pure if you just follow the 2 rules. Let&apos;s take the above and make it mostly pure.</p>
+<p>This behavior and style of writing is still encouraged. Many of us coming from Imperative backgrounds thinking in terms of &quot;how&quot; something should work vs. &quot;what&quot; should happen. If this mode of thinking is easier for you, then go for it! You can still write this way and keep things pure if you just follow the 2 rules. Let&apos;s take the above and make it mostly pure.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> log = <span class="hljs-built_in">console</span>.log
 <span class="hljs-keyword">const</span> url = <span class="hljs-string">&quot;/api/search?name=jesse&quot;</span>
 
@@ -1137,7 +1157,7 @@ log(query) <span class="hljs-comment">// { name: &apos;jesse&apos; }</span>
 }
 log(parseQuery(url)) <span class="hljs-comment">// { name: &apos;jesse&apos; }</span>
 </code></pre>
-<p>Copy pasta coding! Notice that we just copy and pasted the code. It follows the same input, same output rule. The outside world part we need, the <code>url</code>, is passed into the arguments. The <code>query</code>, although it&apos;s a <code>let</code> variable, it only exists for the life of the function and doesn&apos;t affect the outside world. Same for the <code>key</code> and <code>value</code> are constants, but they too only exist inside the function. </p>
+<p>Copy pasta coding! Notice that we just copy and pasted the code inside a function. It follows the same input, same output rule. The outside world part we need, the <code>url</code>, is passed into the arguments. The <code>query</code>, although it&apos;s a <code>let</code> variable, it only exists for the life of the function and doesn&apos;t affect the outside world. Same for the <code>key</code> and <code>value</code> are constants, but they too only exist inside the function. </p>
 <p>The <code>log</code> technically breaks the being affected by the outside world, and affecting the world after its run. He&apos;s a noop, though, a function that returns no value so we assume it &quot;does no operation&quot;. You&apos;ll start to develop a 6th sense when you see noops, they probably indicate side effects happen after you call the function. We also use the <code>log</code> as a closure variable. He&apos;s harmless though, so this is ok. For now. See <a href="../part9/log_purity.md">Part 9: Logging &amp; Purity</a> to see a counterpoint to this.</p>
 <h2 id="const-aint-so-constant">const Ain&apos;t So Constant</h2>
 <p>The <code>const</code>, or constant, is not a panacea to immutability. While we can define complex objects like Arrays and Objects using <code>const</code>:</p>
@@ -1153,9 +1173,10 @@ log(parseQuery(url)) <span class="hljs-comment">// { name: &apos;jesse&apos; }</
 </code></pre>
 <h2 id="pure-const">Pure const</h2>
 <p><strong>Solution</strong>: Use immutable return values, assign those to <code>const</code>.</p>
-<p>Complex objects like <code>Object</code> and <code>Array</code>, or even modules and class instances will have methods that can hide mutation; changing a variable&apos;s value. Practice immutability by creating new objects, deep clones, or using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">Destructuring assignment</a> shown in <a href="part1/input_output_side_effects.md">Same Input, Same Output, No Side Effects</a> inside of pure functions.</p>
+<p>Complex objects like <code>Object</code> and <code>Array</code>, or even modules and class instances will have methods that can hide mutation; changing a variable&apos;s value. This is how you&apos;re supposed to do things in Object Oriented Programming, hiding data access and modification. Practice immutability by creating new objects, deep clones, or using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">Destructuring assignment</a> shown in <a href="part1/input_output_side_effects.md">Same Input, Same Output, No Side Effects</a> inside of pure functions.</p>
 <p>Our example above can be changed to pure by using Array destructuring:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> addFriends = (friends, newFriend) =&gt; ([...friends, newFriend])
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> addFriends = (friends, newFriend) =&gt;
+    ([...friends, newFriend])
 </code></pre>
 <p>Now, we can add all kinds of friends, multiple times, and it&apos;s a pure function, and doesn&apos;t really care if <code>const</code> works like one would assume a constant should work or not:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> friends = [<span class="hljs-string">&apos;&#x1F404;&apos;</span>, <span class="hljs-string">&apos;&#x1F415;&apos;</span>]
@@ -1212,7 +1233,7 @@ log(parseQuery(url)) <span class="hljs-comment">// { name: &apos;jesse&apos; }</
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"The Case for var and let","level":"1.2.2","depth":2,"next":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},"previous":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/var_and_let.md","mtime":"2019-01-05T19:32:24.606Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"The Case for var and let","level":"1.2.2","depth":2,"next":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},"previous":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/var_and_let.md","mtime":"2019-03-03T18:38:04.494Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

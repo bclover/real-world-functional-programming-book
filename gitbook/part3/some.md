@@ -1,11 +1,10 @@
-# some: 3 things go in, true comes out if the predicate says at least one thing is true
+# some: 3 things go in, true or false comes out.
 
-The `some` functions an Array and a predicate function, and returns `true` if the predicate function returns true for at least 1 of the Array items. Like `every`, it's another Array comprehension built atop The Big 3.
+The `some` function takes an Array and a predicate function, and returns `true` if the predicate function returns true for at least 1 of the Array items. Like `every`, it's another Array comprehension built atop `reduce`.
 
 ## Old Sk00l for
 
-Let's every our party has at least one person who can act as a Doctor for the other party members in case they get hurt.
-
+Let's see if at least one of our party members can act as a Doctor for the other party members in case they get hurt.
 
 ```javascript
 const party = [
@@ -56,23 +55,4 @@ const partyHasAtLeastOneDoctor = party =>
 ```
 
 Because Brandy is a Cleric, the `isCleric` function will return `true` at least once while `some` is looping through all 3 party members.
-
-## Type Detection
-
-With `every`, we ensured that a party member was exactly as we expected it to be. Some types in dynamic languages, however, we can be more flexible with. For example, while interfaces aren't natively supported, can we test for that. An example is detecting if something is a `Promise`. While `Promise` is a native `class` in JavaScript, a lot of implementations of Promise have cropped up in the past decade while waiting for the API be officially implemented by browsers.
-
-Instead of being strict like we were with `every` around a party member, we'll see if it has the `then` of a Promise or Promise like library, or JQuery's `done`:
-
-```javascript
-const { isFunction, get } = require('lodash')
-
-const hasThen = o =>
-    isFunction(get(o, 'then'))
-
-const hasDone = o =>
-    isFunction(get(o, 'done'))
-
-const isPromiseLike = o =>
-    hasThen(o) && hasDone(o)
-
 

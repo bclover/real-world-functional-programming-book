@@ -1,10 +1,10 @@
-# reduce: 3 things go in, what you've accumulated comes out
+# reduce: 3 things go in, whatever you want comes out
 
-The `reduce` function takes an Array, a function to modify the data, and a starting value. The function gets each item in the Array and the current value of the accumulator. Whatever you return in the function will update the accumulator value. You don't have to update the accumulator at all if you don't want to.
+The `reduce` function takes an `Array`, a function to modify the data, and a starting value. The function gets each item in the Array and the current value of the accumulator. Whatever you return in the function will update the accumulator value. You don't have to update the accumulator at all if you don't want to.
 
 Reduce is [the Squat](https://startingstrength.com/article/squat-mechanics-a-clarification) of the big 3. Unlike `map` and `filter`, he might not even return an `Array`; he could return anything. Don't stress if `reduce` is challenging for months. Other languages will sometimes call it "fold" instead of "reduce".
 
-Reduce also has a special name for the function you give it, unlike `map` or `filter`, called a `reducer`. If you've learned any Redux, then you'll immediately recognize it.
+Reduce also has a special name for the function you give it called a `reducer`. If you've learned any Redux, then you'll immediately recognize it. The Redux framework is a bunch of `reducer` functions.
 
 [jwarden 1.8.2019] TODO: I like this example, but it's pretty advanced. Perhaps people skipping around might want something simpler. We should put at least 2 here; one showing the Array return, and the this one showing the String return.
 
@@ -52,12 +52,31 @@ Albus   - 5/9
 
 # reduce
 
-We can purify that by using `reduce`:
+We can purify that by using `reduce`. First, our reduce function:
 
 ```javascript
 const addMemberToSummary = (summary, member) =>
     `${summary}${member.name} \t- ${member.hitPoints}/${member.maxHitPoints}\n`
+```
 
+Let's test it out:
+
+```javascript
+addMemberToSummary(
+    '', 
+    {
+        name: 'Jesse',
+        clazz: 'Swashbuckler',
+        hitPoints: 20,
+        maxHitPoints: 22
+    })
+)
+// Jesse   - 20/22
+```
+
+Nice, now we'll use that function in `reduce` below:
+
+```javascript
 const partyToString = party =>
     reduce(
         party,
@@ -91,10 +110,12 @@ Using `reduce`:
 
 Reduce: Take an Array of things in as well as an accumulator, give the current value of the accumulator and the current item in the Array to the reduce function, whatever that function returns will be set as the new value for the accumulator. Whatever the accumulator value is after the last item in the Array has been iterated over, that's what is returned from the function. The `reduce` function expects a pure reducer function, and is itself a pure function.
 
-Unlike `map` and `filter`, the `reduce` function can take long while to wrap your head around. Additionally, you can still struggle to remember exactly how it works for a long time, and continually look up the documentation on parameter order, and the reducer function parameter order. Also, the accumulator can be anything (a `Number` for adding numbers, another `Array` for doing a more complicated `map`, etc) so it can take time to find creative uses from your own exploration. Give yourself some slack; this is the hardest of The Big 3 list comprehensions to memorize, use, and get proficient with.
+It's called "accumulator" because it's assumed to accumlate, or "collect" values over time, but that isn't always the case. You can return whatever you want from your `reducer` function.
 
-For those familiar with the [Redux](https://redux.js.org/) framework, the function `reduce` takes is called a reducer function, and that's basically the core of how Redux works. 
+Unlike `map` and `filter`, the `reduce` function can take long while to wrap your head around. 
 
+> Map... change stuff.
+> Filter... filter stuff.
+> Reduce... uh... convert, or... uh....
 
-
-
+Additionally, you can still struggle to remember exactly how it works for a long time, and continually look up the documentation on parameter order, and the reducer function parameter order. Also, the accumulator can be anything (a `Number` for adding numbers, another `Array` for doing a more complicated `map`, etc) so it can take time to find creative uses from your own exploration. Give yourself some slack; this is the hardest of The Big 3 list comprehensions to memorize, use, and get proficient with.

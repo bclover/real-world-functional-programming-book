@@ -1,4 +1,4 @@
-# map: 3 things go in, 3 new things come out
+# Map: 3 things go in, 3 new things come out
 
 The `map` function is often used for parsing operations. You have a list of data, and you want all items in it modified the same way, and put back in the same spot they currently are.
 
@@ -92,21 +92,6 @@ const arrayToPerson = array =>
     })
 ```
 
-Note, you could write `arrayToPerson` using `return` if that's more comfortable for you. Arrow functions, if no curly braces are used, will `return` for you:
-
-```javascript
-const arrayToPerson = array => {
-    return {
-        name: array[0],
-        address: {
-            street: array[1],
-            phone: array[2]
-        },
-        type: array[3]
-    }
-}
-```
-
 Take an Array and return a Person object. Let's test it out:
 
 ```javascript
@@ -140,7 +125,11 @@ While we defined the function separately for unit testing purposes, you can writ
 ```javascript
 const names = ['jesse warden', 'brandy fortune', 'albus dumbledog']
 
-map(names, name => name.toUpperCase())
+map(
+    names, 
+    name =>
+        name.toUpperCase()
+)
 
 ["JESSE WARDEN", "BRANDY FORTUNE", "ALBUS DUMBLEDOG"]
 ```
@@ -148,58 +137,9 @@ map(names, name => name.toUpperCase())
 Instead of:
 
 ```javascript
-const uppercaseName = name => name.toUpperCase()
+const uppercaseName = name =>
+    name.toUpperCase()
 map(names, uppercaseName)
-```
-
-# map: pure
-
-Array comprehensions are assumed to take pure functions. That means even if they are super simple, they're still expected to be strict about following the purity rules.
-
-That means the `arrayToPerson` can be slightly improved to be more pure. If you read the Trouble with Array Bracket Access, then you understand that errors can occur in this function.
-
-There is a pure function Lodash offers called [nth](https://lodash.com/docs/4.17.10#nth) and [Ramda has as nth well](https://ramdajs.com/docs/#nth) that we can use to fix this.
-
-While accessing `undefined` using bracket access will throw an `Error`:
-
-```javascript
-undefined[3]
-// TypeError: Cannot read property '3' of undefined
-```
-
-The `nth` function just returns `undefined`:
-
-```javascript
-nth(undefined, 3)
-// undefined
-```
-
-Using that, we can make our `map`'s conversion function:
-
-```javascript
-const arrayToPerson = array =>
-    ({
-        name: array[0],
-        address: {
-            street: array[1],
-            phone: array[2]
-        },
-        type: array[3]
-    })
-```
-
-Into a more pure version using `nth`:
-
-```javascript
-const arrayToPerson = array =>
-    ({
-        name: nth(array, 0),
-        address: {
-            street: nth(array, 1),
-            phone: nth(array, 2),
-        },
-        type: nth(array, 3)
-    })
 ```
 
 ## Conclusions

@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1098,7 +1117,8 @@
 <h3 id="impure-add">Impure Add</h3>
 <p>This function that will add 2 numbers plus whatever <code>data</code> equals.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">let</span> data = <span class="hljs-number">0</span>
-<span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b + data
+<span class="hljs-keyword">const</span> add = (a, b) =&gt;
+    a + b + data
 </code></pre>
 <p>If we call it three times, it may look like it&apos;s same input, same output:</p>
 <pre><code class="lang-javascript">add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
@@ -1167,7 +1187,7 @@ isCow() <span class="hljs-comment">// false</span>
 isCow() <span class="hljs-comment">// false</span>
 isCow() <span class="hljs-comment">// false</span>
 </code></pre>
-<p>Even with no inputs, this function still fails to follow the rules of same input, same output. Even no input, it still returns a different value because it&apos;s affected by &quot;effects&quot;, or a variable changing, outside of itself.</p>
+<p>Even with no inputs, this function still fails to follow the rules of same input, same output. Even no input, it still returns a different value because it&apos;s affected by &quot;effects&quot;, or a variable changing, outside of itself that effects it.</p>
 <h3 id="pure-iscow">Pure isCow</h3>
 <p><strong>Solution</strong>: Pass in the outside world through function arguments.</p>
 <p>The <code>add</code> function was made by pure by ignoring the outside world. However, <code>isCow</code> needs to <em>know</em> about the outside world so it can report if the <code>friend</code> is a cow or not. The only way inside a pure function is through its arguments. We&apos;ll pass the <code>friend</code> in:</p>
@@ -1221,8 +1241,9 @@ isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-
 </code></pre>
 <h2 id="pure-havebirthday">Pure haveBirthday:</h2>
 <p><strong>Solution</strong>: Do not mutate data, use immutable data instead.</p>
+<p>What is immutable data? It&apos;s data you can&apos;t mutate; data you can&apos;t change.</p>
 <p>The <code>haveBirthday</code> function mutates the <code>person</code> Object. Although it was passed in, most Objects are dynamic languages are by reference. You affect one reference, you affect the Object and all the references that point to that Object will update to show the changes. Think of it like a global variable.</p>
-<p>The way you fix it is <strong>not</strong> to mutate data. The easiest way to do that is to clone Objects and only change 1 property on the clone.</p>
+<p>The way you fix it is to <strong>not</strong> mutate data. The easiest way to do that is to clone Objects and only change 1 property on the clone.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> haveBirthdayPure = personObject =&gt; {
     <span class="hljs-keyword">const</span> clone = {...person, age: personObject + <span class="hljs-number">1</span>}
     <span class="hljs-keyword">return</span> clone
@@ -1289,7 +1310,7 @@ isCow(<span class="hljs-string">&apos;&#x1F42E;&apos;</span>) <span class="hljs-
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"next":{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},"previous":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"path":"part1/README.md","ref":"part1/README.md","articles":[{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},{"title":"Practice Purity with Test Stubs","level":"1.2.8","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/input_output_side_effects.md","mtime":"2019-01-05T19:28:29.621Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"next":{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},"previous":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"path":"part1/README.md","ref":"part1/README.md","articles":[{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},{"title":"Practice Purity with Test Stubs","level":"1.2.8","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/input_output_side_effects.md","mtime":"2019-03-03T18:10:45.704Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

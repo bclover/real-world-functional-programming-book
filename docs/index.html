@@ -784,6 +784,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="part7/total_functions.html">
+            
+                <a href="part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="part8/">
@@ -871,9 +890,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="part9/debugging.html">
             
-                <span>
+                <a href="part9/debugging.html">
             
                     
                     Tap
@@ -1093,26 +1112,39 @@
 <p>Learning Functional Programming will change your life, but not necessarily for the better. I&apos;m happy I continue to learn more about it, and feel is has drastically improved my ability to write reliable code. Unit tests are easier to write. It is a different way of thinking about code, and will change the way you look at code once you learn it. There is no going back.</p>
 <p>Like the time I learned Object Oriented Programming, or Design Patterns, or Model View Controller frameworks, you see the world in a new way. You have a new hammer and everything becomes a nail. You know the &quot;one true way&quot; and you struggle to reconcile the new way with the ways of old.</p>
 <p>Except it&apos;s different this time. Once you learn FP, you&apos;ll struggle to explain it to other coders and friends who may be entrenched in Imperative or OOP, but are curious about FP. Your code will start to look alien to non-FP&apos;ers. Unless you&apos;re around other FP&apos;ers, or those wishing to learn FP, you&apos;ll feel alone.</p>
-<p>I feel it&apos;s worth it. Just be aware the above will happen and prepare yourself mentally.</p>
-<h1 id="the-elevator-pitch">The Elevator Pitch</h1>
-<p>What if I told you you could write JavaScript that doesn&apos;t throw errors, requires no mocks for unit testing, and you never have to memorize a <code>this</code> rule again? No <code>undefined is not a function</code>, no <a href="https://sinonjs.org/releases/v4.0.0/spies/" target="_blank">Sinon spies</a>, and never using <code>class</code> or <code>bind</code> again, just building functions that work. You can instead focus on testing if your code is correct vs. if it mostly works and hopefully doesn&apos;t explode.</p>
-<p>What&apos;s the catch? In JavaScript, most of the code you use isn&apos;t yours and comes from the <a href="http://npmjs.com/" target="_blank">Node Package Manager</a> called <code>npm</code>. The library most likely uses <code>throw</code> intentionally, uses classes and inheritance, and isn&apos;t written in FP style. Front-end web development frameworks like <a href="https://reactjs.org/" target="_blank">React</a> &amp; <a href="https://angular.io/" target="_blank">Angular</a> are not 100% functional. You&apos;ll have to not only write your own functional style code, but learn how to deal with non-functional code, in a functional way. While the 100% black box unit test coverage is easier to attain in FP code, you&apos;ll still have bugs or code that isn&apos;t correctly working.</p>
-<p>Beyond that, no catch.</p>
+<p>I feel it&apos;s worth it. Just be aware the above will happen and prepare yourself mentally. You&apos;ll make more friends if you invest in OOP in Java or more pragmmatic approaches to programming. Following pure FP, you will make new friends, just be aware it is the minority in non-academic circles.</p>
+<h1 id="why-even-bother-learning-functional-programming">Why Even Bother Learning Functional Programming?</h1>
+<p>What if I told you you could write JavaScript that doesn&apos;t throw errors, requires no mocks for unit testing, and you never have to memorize a <code>this</code> rule again? No <code>undefined is not a function</code>, no <a href="https://sinonjs.org/releases/v4.0.0/spies/" target="_blank">Sinon spies</a>, and never using <code>class</code> or <code>bind</code> again, just building functions that work. Your Node code can be stateless, and work with concurrency &quot;out of the box&quot; without you having to know what <a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank">CAP Theorm</a> is. You can instead focus on testing if your code is correct vs. if it mostly works and hopefully doesn&apos;t explode.</p>
+<p>What&apos;s the catch?</p>
+<ol>
+<li><code>npm</code> libraries are not all FP.</li>
+<li>Popular Front end Frameworks are not 100% FP</li>
+<li>Node middlewares are not 100% FP</li>
+<li>FP code can still be &quot;wrong&quot;</li>
+<li>Pragmatism Rules</li>
+</ol>
+<p>In JavaScript, most of the code you use isn&apos;t yours and comes from the <a href="http://npmjs.com/" target="_blank">Node Package Manager</a> called <code>npm</code>. The library most likely uses <code>throw</code> intentionally, uses classes and inheritance, and isn&apos;t written in FP style.</p>
+<p>Front-end web development frameworks like <a href="https://reactjs.org/" target="_blank">React</a> &amp; <a href="https://angular.io/" target="_blank">Angular</a> are not 100% functional. You&apos;ll have to not only write your own functional style code, but learn how to deal with non-functional code, in a functional way.</p>
+<p>Node middlwares were created before Promises, and use a callback style with many libraries built atop this side effect heavy concept. While the 100% black box unit test coverage is easier to attain in FP code, you&apos;ll still have bugs or code that isn&apos;t correctly working.</p>
+<p>Those in software consulting are purists. Those in a software job are pragmmatists. They&apos;ll use imperative, OOP, and FP where it helps, but aren&apos;t typically zealots. Going full FP is quite ivory tower and you&apos;ll encounter resistance.</p>
+<p>Beyond those, no catch.</p>
 <h1 id="what-does-real-world-mean">What Does &quot;Real-World&quot; Mean?</h1>
-<p>Languages like JavaScript, Python, and Java are languages you can get a job using at the time of this writing. They&apos;re all used in web development, data science &amp; machine learning, and building REST API&apos;s. You can use them and work with non-functional programmers in the same code base and library ecosystem. While it&apos;s slowly changing, it currently is hard to get a job using functional languages. Tech industry interviews are broken hiring for what someone perceives you know with their bias vs hiring for helping someone learn. Companies hire for someone knowing a particular language or framework vs. ability to learn new ones. Many managers are afraid to use non-standard languages because they don&apos;t think they can hire people to maintain the code base if you or your FP co-workers leave. Not everyone wants to learn FP just like I&apos;m currently suffering at my job learning and using <a href="https://golang.org/" target="_blank">Go</a> #datEntitlement.</p>
-<p>This guide is meant to teach you concepts you can use to benefit your current work in &quot;normal&quot; programming languages as well as ensuring you still can get a job &quot;using Java&quot; if you wish. Part of the skill, and challenge, of using FP in the current climate is co-existing with non-functional programmers in non-functional programming languages. The good news is that JavaScript, Python, and other dynamic languages have all you need built into the language to start programming FP while co-existing with code that isn&apos;t FP. Even strongly typed class ones like Java and C# do as well.</p>
+<p>Languages like JavaScript, Python, and Java are languages you can get a job using at the time of this writing. They&apos;re all used in web development, data science &amp; machine learning, and building REST API&apos;s. You can use them and work with non-functional programmers in the same code base and library ecosystem. While it&apos;s slowly changing, it currently is hard to get a job using functional languages. Tech industry interviews are broken, hiring for what someone perceives you know with their bias vs hiring for helping someone learn. Often they&apos;ll say &quot;culture fit&quot;, but that&apos;s just another word for &quot;I don&apos;t like them after a 30 minute, biased conversation&quot;. Companies hire for someone knowing a particular language or framework vs. ability to learn new ones. Many managers are afraid to use non-standard languages because they don&apos;t think they can hire people to maintain the code base if you or your FP co-workers leave. Not everyone wants to learn FP just like I&apos;m currently suffering at my job learning and using <a href="https://golang.org/" target="_blank">Go</a> #datEntitlement.</p>
+<p>Despite the tagline &quot;more jobs than available candidates&quot;, it&apos;s hard enough to get a job in software, even if you have a job already. It&apos;s even harder when you learn a non-popular programming style and a non-popular language.</p>
+<p>It would disingenuous to teach you something knowing it would hurt your career.</p>
+<p>Therefore, this guide is meant to teach you concepts you can use to benefit your current work in &quot;normal&quot; programming languages as well as ensuring you still can get a job &quot;using Java&quot; if you wish. Part of the skill, and challenge, of using FP in the current climate is co-existing with non-functional programmers in non-functional programming languages. The good news is that JavaScript, Python, and other dynamic languages have all you need built into the language to start programming FP while co-existing with code that isn&apos;t FP. Even strongly typed class ones like Java and C# do as well.</p>
 <h1 id="real-world-functional-programming">Real-World Functional Programming</h1>
-<p>This book will teach you all you need to know to start using Functional Programming in the code you write in your day to day job. We will cover all the basics, what to practice to get better, and how to compose entire programs. Lastly, we&apos;ll give you various strategies for easing it into existing codebases and teams. We&apos;ll cover it from both back-end and front end perspectives.</p>
+<p>This book will teach you all you need to know to start using Functional Programming in the code you write in your day to day job. We will cover all the basics, what to practice to get better, and how to compose entire programs using just functions. Lastly, we&apos;ll give you various strategies for easing it into existing codebases and teams. We&apos;ll cover it from both back-end and front end perspectives. This includes some attitude changes around the various ways of testing.</p>
 <p>While our examples are in dynamic, interpreted languages like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JavaScript</a>, <a href="https://www.python.org/" target="_blank">Python</a>, and <a href="https://www.lua.org/" target="_blank">Lua</a>, you can use in any language that has functions with inputs, outputs, and higher order functions. We&apos;ll show examples from other languages that help corroborate existing concepts such as <a href="https://golang.org/" target="_blank">Go</a> error handling and <a href="https://elixir-lang.org/" target="_blank">Elixir</a> matching syntax.</p>
 <h2 id="assumed-knowledge">Assumed Knowledge</h2>
-<p>This book assumes you know the basics of programming. You know what procedural/imperative line by line code is like such as <code>bash</code>, you&apos;re at least familiar with Object Oriented Programming like C# or Java, and have written some unit tests at least once in your life. We also assume you know how functions, scope, and closures work in JavaScript, Python, or Lua, although we&apos;ll do a refresher on closures since they are extremely important.</p>
+<p>This book assumes you know the basics of programming. You know what procedural/imperative line by line code is like such as <code>bash</code>, you&apos;re at least familiar with <a href="https://en.wikipedia.org/wiki/Object-oriented_programming" target="_blank">Object Oriented Programming</a> like C# or Java, and have written some unit tests at least once in your life. We also assume you know how functions, scope, and closures work in JavaScript, Python, or Lua, although we&apos;ll do a refresher on closures since they are extremely important.</p>
 <h2 id="using-this-book">Using This Book</h2>
 <p>You are welcome to skip around the sections. However, we encourage you to read the pure function section at least once. The most important concept, and implementation details of Functional Programming are based on pure functions.</p>
 <h2 id="what-were-not-going-to-cover">What We&apos;re Not Going To Cover</h2>
 <p>To keep things simple, we&apos;re not going to cover anything with strong types, nor Category Theory. While you&apos;ll reap some of the benefits of Category Theory in what you&apos;ll learn here, we&apos;re not covering Functors or Monads for example.  If you wish to learn more about Category Theory in a pragmatic way, check out <a href="https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/" target="_blank">Dr Boolean&apos;s Mostly Adequate Guide</a>. If you wish to learn more about strong types, check out language documentation that supports functional programming with strong typing such as <a href="http://elm-lang.org/" target="_blank">Elm</a>, <a href="http://www.purescript.org/" target="_blank">PureScript</a>,<a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, or <a href="https://flow.org/" target="_blank">Flow</a>.</p>
-<p>We&apos;re also not going to cover effect handling such as <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf" target="_blank">Algebraic Effects</a> which is what <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank">React Hooks</a> are based on. For JavaScript, we&apos;ll just use Promises. However, frameworks like <a href="https://redux.js.org/" target="_blank">Redux</a>, <a href="https://redux-saga.js.org/" target="_blank">Saga</a>, <a href="https://github.com/calmm-js/documentation/blob/master/introduction-to-calmm.md" target="_blank">Calmm</a>, or even <a href="https://guide.elm-lang.org/architecture/" target="_blank">the architecture of Elm</a> handle it in a more pure way if you&apos;re interested.</p>
+<p>We&apos;re also not going to cover effect handling such as <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf" target="_blank">Algebraic Effects</a> which is what <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank">React Hooks</a> are based on. For JavaScript, we&apos;ll just use Maybes, Results, and Promises and Tasks. However, frameworks like <a href="https://redux.js.org/" target="_blank">Redux</a>, <a href="https://redux-saga.js.org/" target="_blank">Saga</a>, <a href="https://github.com/calmm-js/documentation/blob/master/introduction-to-calmm.md" target="_blank">Calmm</a>, or even <a href="https://guide.elm-lang.org/architecture/" target="_blank">the architecture of Elm</a> handle it in a more pure way if you&apos;re interested.</p>
 <h2 id="nomenclature">Nomenclature</h2>
-<p>Coming from an art background and not a computer science one, I tend to abuse terms or use many interchangeably. Below are definitions of commonly used ones throughout the book that while may make sense in context, can possibly be confusing if not clear exactly what one means.</p>
+<p>Coming from an art background and not a computer science one, I tend to abuse terms or use many interchangeably. Below are definitions of commonly used ones throughout the book that. While they may make sense in context, they can possibly be confusing if not clear exactly what one means.</p>
 <h3 id="arguments--parameters">arguments / parameters</h3>
 <p>Functions take in arguments and sometimes return values. The arguments are the named variables between the paranethesis:</p>
 <pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">gimmeDat</span>(<span class="hljs-params">bass</span>) </span>{
@@ -1227,37 +1259,6 @@ console.log(maxTheTreble()) <span class="hljs-comment">// 100</span>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> ping = request =&gt; url =&gt;
     request.get(url)
 </code></pre>
-<h3 id="what-the-heck-is-wrong-with-your-comma-placement">What the heck is wrong with your comma placement?</h3>
-<p>For lists or manual function arguments, you&apos;ll see the commas placed in in front of the items like this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> peeps =
-    [
-        <span class="hljs-string">&quot;Jesse&quot;</span>
-        , <span class="hljs-string">&quot;Brandy&quot;</span>
-        , <span class="hljs-string">&quot;Sydney&quot;</span>
-        , <span class="hljs-string">&quot;Rowan&quot;</span>
-        , <span class="hljs-string">&quot;Albus&quot;</span>
-    ]
-</code></pre>
-<p>Instead of how it&apos;s normally shown in JavaScript / Python / Lua:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> peeps =
-    [
-        <span class="hljs-string">&quot;Jesse&quot;</span>,
-        <span class="hljs-string">&quot;Brandy&quot;</span>,
-        <span class="hljs-string">&quot;Sydney&quot;</span>,
-        <span class="hljs-string">&quot;Rowan&quot;</span>,
-        <span class="hljs-string">&quot;Albus&quot;</span>
-    ]
-</code></pre>
-<p>Putting that on the same line allows you to comment things out when you want to play with data:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> peeps =
-    [
-        <span class="hljs-string">&quot;Jesse&quot;</span>
-        , <span class="hljs-string">&quot;Brandy&quot;</span>
-        <span class="hljs-comment">// , &quot;Sydney&quot;</span>
-        , <span class="hljs-string">&quot;Rowan&quot;</span>
-        <span class="hljs-comment">// , &quot;Albus&quot;</span>
-    ]
-</code></pre>
 
                                 
                                 </section>
@@ -1297,7 +1298,7 @@ console.log(maxTheTreble()) <span class="hljs-comment">// 100</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"path":"part1/README.md","ref":"part1/README.md","articles":[{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},{"title":"Practice Purity with Test Stubs","level":"1.2.8","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2019-01-06T17:02:12.893Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"path":"part1/README.md","ref":"part1/README.md","articles":[{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"path":"part1/using_vs_enforcing_immutability.md","ref":"part1/using_vs_enforcing_immutability.md","articles":[]},{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},{"title":"Practice Purity with Test Stubs","level":"1.2.8","depth":2,"path":"part1/practice_stubs.md","ref":"part1/practice_stubs.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2019-03-03T17:53:05.651Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1092,15 +1111,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="the-specialist">The Specialist</h1>
-<p>Given how pure functions work, many of languages existing tools are off limits. They differ from language to language, such as how Lua handles Object scope compared to JavaScript for example, but what they all have in common is violating pure function rules. Thus, they are off limits if you wish to remain pure.</p>
+<p>Given how pure functions work, many of languages existing tools are off limits. They differ from language to language, such as how Lua handles Object scope compared to JavaScript for example, but what they all have in common is violating pure function and immutability rules. Thus, they are off limits if you wish to remain pure.</p>
 <p>How pure you wish to be is up to you and your team. Pragmatism and deadlines can overrule the list below.</p>
 <p>We&apos;ll cover each in turn, and offer suggestions on how you can you use some of them safely if possible.</p>
 <h2 id="function-declarations--function-expressions">Function Declarations &amp; Function Expressions</h2>
-<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank">function declaration</a> has a bunch of legacy functionality that can break purity rules.</p>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank">function declaration</a> and <a href="https://developer.mozilla.org/en-US/docs/web/JavaScript/Reference/Operators/function" target="_blank">function expression</a> both have a bunch of legacy functionality that can break purity rules.</p>
 <h3 id="the-this-keyword">The this keyword</h3>
 <p><strong>Synopsis</strong>: This is a built-in mutation. Stay far away.</p>
-<p>The <code>this</code> keyword is the cornerstone of how JavaScript supports encapsulating Objects as well as providing support for Object Oriented programming through classes. It also is one of the most common cause of bugs, and responsible for a large amount of text on the internet explaining how scope and <code>this</code> works.</p>
-<p>Since <code>this</code> can change based on how the function is invoked:</p>
+<p>The <code>this</code> keyword is the cornerstone of how JavaScript supports encapsulating Objects as well as providing support for Object Oriented programming through classes. It also is one of the most common cause of bugs, and responsible for a large amount of text on the internet explaining how scope and <code>this</code> works. The keyword <code>this</code> can change based on how the function is invoked.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// function declaration</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Cow</span>(<span class="hljs-params">name</span>) </span>{
     <span class="hljs-keyword">this</span>.name = name
@@ -1115,9 +1133,9 @@ b = Cow() <span class="hljs-comment">// throws Error</span>
 c = <span class="hljs-keyword">new</span> (Cow.bind())
 <span class="hljs-built_in">console</span>.log(c.getName()) <span class="hljs-comment">// throws Error</span>
 </code></pre>
-<p>There a bunch of different versions of these, depending upon if you use <code>Object.create</code> or the <code>new</code> keyword vs. not, the <code>class</code> keyword, attaching to the prototype vs. emulating static vs. using the <code>static</code> keyword, using various Babel plugins to fix, etc. On and on.</p>
+<p>There a bunch of different versions of these, depending upon if you use <code>Object.create</code> or the <code>new</code> keyword vs. not, the <code>class</code> keyword, attaching to the prototype vs. emulating static vs. using the <code>static</code> keyword, using various Babel plugins to fix, etc. On and on. React 16.8 with the introduction of <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank">Hooks</a> has moved on, so should you. You no longer have to memorize all the rules, nuances, and compiler/transpiler tricks and use <code>bind</code> all over the place. It&apos;s freeing.</p>
 <h3 id="arguments">arguments</h3>
-<p><strong>Synopsis</strong>: Dangerous in closures, but typically only used in edge cases, so as long as you avoid closures, you&apos;ll be ok. We recommend you stick to functions that take a specific number of arguments. Sadly, <code>arguments</code> is only with function declarations so we recommend you avoid.</p>
+<p><strong>Synopsis</strong>: Dangerous in closures, but typically only used in edge cases, so as long as you avoid closures, you&apos;ll be ok. We recommend you stick to functions that take a specific number of arguments. The <code>arguments</code> keyword is only available with function declarations and expressions so we recommend you avoid.</p>
 <p>Pure functions can work with variadic functions; functions that take an arbitrary number of arguments. This can be hard to get right so ensure extra unit tests here. The <code>arguments</code> keyword, unlike <code>this</code>, CAN be depended upon, but can subtly change in the values it has once you start bringing closures.</p>
 <pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>
@@ -1143,14 +1161,14 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
 <p>Like variadic functions, functions which have an arbitrary amount of arguments, default arguments have the same challenges. You can create pure functions using them, but unfortunately they break function currying. Most function currying is based around a specific number of arguments, called <a href="../part4/arity.html">Arity</a>, for a function, and creates confusing behavior when you get a function&apos;s result back when you were expecting a partial application instead. It is better to favor explicit arguments and then make a partial application for those developers who don&apos;t know what to pass or just want to pass less arguments.</p>
 <p>As you&apos;ll learn later, functions with default arguments are harder to compose because you&apos;ll get unintended arguments. When you&apos;re explicit with partial applications, it&apos;s more clear what argument goes where and the functions can be wired together more easily and predictably.</p>
 <h2 id="classes">Classes</h2>
-<p><strong>Synopsis</strong> The <code>class</code> keyword should be avoided for the same reasons as using <code>this</code>. Classes are also a lot more difficult to compose.</p>
+<p><strong>Synopsis</strong> The <code>class</code> keyword should be avoided for the same reasons as using <code>this</code> and <code>super</code>. Classes are also a lot more difficult to compose.</p>
 <p>The whole concept of storing variables as member and static variables inside a class, internal mutable state, causes a lot of side effects. It also ensures you won&apos;t get the same output with the same input. Class methods often have no input as they&apos;ll handle the inputs by referencing internal data on <code>this</code>. They typically don&apos;t have outputs either because they are modifying or updating state internally on <code>this</code>. As classes start using Inheritance or Composition, they&apos;ll be creating even more mutable state internally as they grow in size. Finally, JavaScript&apos;s implementation is not immutable, and both <code>this</code>, and the class itself, can be modified at runtime leading to various unintended null pointers. These errors or different outputs are not pure.</p>
 <p>Like default arguments, classes are a lot harder to compose with.</p>
 <p>See Dealing with OOP for strategies on using as safely as possible as at the time of this writing, encountering OOP in code bases you work on is unavoidable.</p>
 <h2 id="throw">throw</h2>
 <p><strong>Synopsis</strong>: Do not use <code>throw</code>. Instead, return the <code>Error</code> in an Object or an Algebraic Data Type that describes what we wrong, similar to Lua&apos;s <code>pcall</code> or Lua and Go&apos;s ability to return multiple return values.</p>
 <p>Errors are a challenging side effect. Not only do they prevent return values from even working, but occasionally, they can create situations where data, or the application itself, is in an unknown state vs crashing outright. This breaks the same output rule as well as the side effects rule.</p>
-<p>Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. JavaScript is notorious for having source maps that do not map to the source giving red herrings on top of badly written error messages which are red herrings. In imperative style code, you can &quot;find the line where things went wrong&quot;. In debugging functional code, you&apos;re interested in &quot;why did the function return an error instead of a success&quot;. In composed functions and programs, you&apos;re interested in &quot;where in this pipeline of functions did my data become wrong&quot;. You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application.</p>
+<p>Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. JavaScript is notorious for having source maps that do not map to the source giving red herrings on top of badly written error messages which are red herrings. In imperative style code, you can &quot;find the line where things went wrong&quot;. In debugging functional code, you&apos;re interested in &quot;why did the function return an error instead of a success&quot;. In composed functions and programs, you&apos;re interested in &quot;where in this pipeline of functions did my data become wrong&quot;. You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application. Instead, we want to clearly explain why a function returned an Error instead of our data.</p>
 <p>The exception is in Erlang/<a href="https://elixir-lang.org/" target="_blank">Elixir</a> or <a href="https://akka.io/" target="_blank">Akka</a> in Scala/Java where &quot;let it crash&quot; is the norm. You&apos;re more interested in application uptime than purity in those cases. For JavaScript, the equivalent is using <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> or <a href="https://www.docker.com/" target="_blank">Docker</a> on <a href="https://aws.amazon.com/ecs/" target="_blank">ECS</a> and any uncaught <a href="https://nodejs.org/api/process.html#process_event_uncaughtexception" target="_blank">sync</a> or <a href="https://nodejs.org/api/process.html#process_event_unhandledrejection" target="_blank">async</a> error means your application is in an unknonwn state, possibly impure, so you just nuke the entire process/container and get a new one. Since your application is supposedly stateless and uses immutable data, there is no worry about &quot;losing&quot; information as something like <a href="https://redis.io/" target="_blank">Redis</a> or your Database handles being the single source of truth and state.</p>
 <p>Serverless is the same way. While it might be tempting to <code>throw</code> since the function will only run for a few milliseconds/seconds anyway on disposable infrastructure, errors should be what they mean: your code is broken, you or your team needs to fix it. See <a href="../part6">Part 6 on Algebraic Data Types</a> for better return values for errors.</p>
 
@@ -1196,7 +1214,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"next":{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},"previous":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/not_allowed.md","mtime":"2019-01-06T17:31:00.195Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"next":{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},"previous":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/not_allowed.md","mtime":"2019-03-03T21:31:59.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

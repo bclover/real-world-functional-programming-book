@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Part 7: Total Functions · GitBook</title>
+        <title>Total Functions · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -60,7 +60,7 @@
     <link rel="next" href="../part8/" />
     
     
-    <link rel="prev" href="../part6/practice_union_files.md" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -775,7 +775,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.8" data-path="./">
+        <li class="chapter " data-level="1.8" data-path="./">
             
                 <a href="./">
             
@@ -785,6 +785,25 @@
                 </a>
             
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.8.1" data-path="total_functions.html">
+            
+                <a href="total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1076,7 +1095,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Part 7: Total Functions</a>
+        <a href=".." >Total Functions</a>
     </h1>
 </div>
 
@@ -1093,7 +1112,49 @@
                                 
                                 <h1 id="total-functions">Total Functions</h1>
 <p>A total function is a pure function that works with all inputs. They often depend on how the language and operators, like <code>+</code> work. If you create a function that adds numbers, it&apos;ll work with a <code>Number</code>, <code>String</code>, <code>Function</code>, some random <code>class</code>, anything! Typically they are a lot easier to make in strongly typed languages because the compiler will ensure your function that adds 2 <code>Number</code>s never gets a String input, or ensures you use <code>+</code> instead of <code>++</code> by accident.</p>
-<p>In dynamic languages, you have to do a lot more work to validate your inputs and take a whitelist approach to types. Considering that JavaScript, Python, and Lua are communities built largely upon libraries, you can&apos;t guarantee that someone will be </p>
+<p>In dynamic languages, you have to do a lot more work to validate your inputs and take a whitelist approach to types. Considering that JavaScript, Python, and Lua are communities built largely upon libraries, you can&apos;t guarantee that someone will be accepting of different kinds of inputs, and if you accidentally send the wrong one, they&apos;ll tell you that vs. some bonkers stack trace.</p>
+<h2 id="functions-that-never-fail">Functions That Never Fail</h2>
+<p>Pure functions and immutability are great to produce code that is more predictable. However, without a compiler and/or runtime verification, you can still have them throw an exception, or just be &quot;wrong&quot; (what the math people call &quot;incorrect&quot;). Total functions can help you get your code immune to runtime exceptions as possible without the need of a compiler. They can even help a bit on the &quot;correctness&quot; of your code.</p>
+<h2 id="how-can-a-pure-function-still-throw">How Can a Pure Function Still Throw?</h2>
+<p>If we&apos;re building some functions to valid what the user types in a text input, we need to ensure they didn&apos;t leave it blank, so we&apos;ll count the length of a <code>String</code> using a pure function: </p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> notBlank = str =&gt;
+    str.length &gt; <span class="hljs-number">0</span>
+</code></pre>
+<p>If the user types &quot;cow&quot;, it&apos;ll return <code>true</code>:</p>
+<pre><code class="lang-javascript">notBlank(<span class="hljs-string">&apos;cow&apos;</span>) <span class="hljs-comment">// true</span>
+</code></pre>
+<p>If the user types nothing, it&apos;ll return <code>false</code>:</p>
+<pre><code class="lang-javascript">notBlank(<span class="hljs-string">&apos;&apos;</span>) <span class="hljs-comment">// false</span>
+</code></pre>
+<p>... but what happens if we don&apos;t have an initialized value, or we use this function where she could accidentally get something other than a <code>String</code>?</p>
+<pre><code class="lang-javascript">notBlank() <span class="hljs-comment">// TypeError: Cannot read property &apos;length&apos; of undefined</span>
+</code></pre>
+<p>We should instead check for the <code>String</code> data type using Lodash&apos; <a href="https://lodash.com/docs/4.17.11#isString" target="_blank">isString</a> predicate:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> notBlank = str =&gt;
+    isString(str)
+    &amp;&amp; str.length &gt; <span class="hljs-number">0</span>
+</code></pre>
+<p>Now, the function is more total; it can accept just about any input now and still work:</p>
+<pre><code class="lang-javascript">notBlank() <span class="hljs-comment">// false</span>
+notBlank(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()) <span class="hljs-comment">// false</span>
+</code></pre>
+<h2 id="how-can-a-pure-function-be-incorrect">How Can a Pure Function Be Incorrect?</h2>
+<p>Let&apos;s validate a USA phone/mobile number:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> parsePhoneNumber = str =&gt;
+    (isString(str) || (isNumber(str) &amp;&amp; <span class="hljs-built_in">isNaN</span>(str) === <span class="hljs-literal">false</span>))
+    &amp;&amp; <span class="hljs-built_in">String</span>(str).length === <span class="hljs-number">10</span>
+</code></pre>
+<p>Then try it out with a valid phone number:</p>
+<pre><code class="lang-javascript">parsePhoneNumber(<span class="hljs-string">&apos;1235559876&apos;</span>) <span class="hljs-comment">// true</span>
+parsePhoneNumber(<span class="hljs-string">&apos;555&apos;</span>) <span class="hljs-comment">// false</span>
+parsePhoneNumber(<span class="hljs-number">1235559876</span>) <span class="hljs-comment">// true</span>
+parsePhoneNumber(<span class="hljs-number">555</span>)
+</code></pre>
+<p>... but what if the phone number is valid:</p>
+<pre><code class="lang-javascript">parsePhoneNumber(<span class="hljs-string">&apos;(123) 555-9876&apos;</span>) <span class="hljs-comment">// false</span>
+</code></pre>
+<p>While pure and somewhat total... it&apos;s still incorrect, that&apos;s a valid phone number.</p>
+<p>Total functions will help a lot with the types, and a bit with the correctness. These benefits compound (get more powerful) when you start composing/combining them together into larger functions.</p>
 <h2 id="problem-adding-random-things">Problem: Adding Random Things</h2>
 <p>Dynamic languages pass random things everywhere. We attempt to not pass random things when we write code and unit tests, but the dynamism is a double edged sword: power of flexibility, yet bad things happen when you get what you weren&apos;t expecting.</p>
 <p>For example, here&apos;s our original pure function:</p>
@@ -1106,7 +1167,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <spa
 <pre><code class="lang-javascript">add(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;how now brown cow&apos;</span>), { get: <span class="hljs-string">&apos;busy child&apos;</span> })
 <span class="hljs-comment">// &apos;Error: how now brown cow[object Object]&apos;</span>
 </code></pre>
-<p>Um, ok... that isn&apos;t really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in <code>flow</code>/<code>compose</code> or <code>Promise</code>, the chain can get corrupted. You may get parsing results or errors that don&apos;t make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again. </p>
+<p>Um, ok... that isn&apos;t really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in <code>flow</code>/<code>compose</code> or <code>Promise</code>, the chain can get corrupted. You may get parsing results or errors that don&apos;t make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again when debugging functional code.</p>
 <h2 id="solution-solving-with-types">Solution: Solving With Types</h2>
 <p>One way to solve this is to use types. With just a little metadata added by you the developer, compilers can read and understand your code, and find your errors in nanoseconds. They can even offer fixes, or sometimes automatically fix. <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, an open source language &amp; compiler started by Microsoft and open source, is one such language.</p>
 <p>Rewriting our function in TypeScript, we explicitly say &quot;Yo, this function takes 2 numbers, and returns a number.&quot; This is enough for the TypeScript compiler, <code>tsc</code> to verify your inputs.</p>
@@ -1388,7 +1449,7 @@ it(<span class="hljs-string">&apos;request.get should work&apos;</span>, () =&gt
 
             
                 
-                <a href="../part6/practice_union_files.md" class="navigation navigation-prev " aria-label="Previous page: Practice Union with reading files">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Part 7: Total Functions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -1404,7 +1465,7 @@ it(<span class="hljs-string">&apos;request.get should work&apos;</span>, () =&gt
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"next":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"previous":{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/README.md","mtime":"2018-11-25T23:52:17.819Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Total Functions","level":"1.8.1","depth":2,"next":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"previous":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"path":"part7/README.md","ref":"part7/README.md","articles":[{"title":"Total Functions","level":"1.8.1","depth":2,"path":"part7/total_functions.md","ref":"part7/total_functions.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/total_functions.md","mtime":"2019-01-20T17:18:16.069Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

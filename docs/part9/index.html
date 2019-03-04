@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="logging_vs_purity.md" />
+    <link rel="next" href="debugging.html" />
     
     
     <link rel="prev" href="../part8/custom_lens.html" />
@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="debugging.html">
             
-                <span>
+                <a href="debugging.html">
             
                     
                     Tap
@@ -1091,127 +1110,8 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="debugging">Debugging</h1>
-<p>Debugging Functional code is a bit different than imperative or Object Oriented code. Your primary means of debugging in imperative and Object Oriented code is exceptions, stack traces, and step debuggers. For functional programming, you often don&apos;t have access to the implementation details. That said, you can still use both.</p>
-<h2 id="imperative-debugging">Imperative Debugging</h2>
-<p>In imperative and OOP, you&apos;ll have lines of code that you can set breakpoints or logs on to figure out &quot;what&apos;s going on inside&quot;:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { startCase } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
-<span class="hljs-keyword">const</span> log = <span class="hljs-built_in">console</span>.log
-
-<span class="hljs-keyword">const</span> fixName = name =&gt; {
-    log(<span class="hljs-string">&quot;fixName, name:&quot;</span>, name)
-    <span class="hljs-keyword">const</span> list = name.split(<span class="hljs-string">&apos; &apos;</span>)
-    log(<span class="hljs-string">&quot;list:&quot;</span>, list)
-    list[<span class="hljs-number">0</span>] = startCase(list[<span class="hljs-number">0</span>])
-    log(<span class="hljs-string">&quot;list:&quot;</span>, list)
-    list[<span class="hljs-number">1</span>] = startCase(list[<span class="hljs-number">1</span>])
-    log(<span class="hljs-string">&quot;list:&quot;</span>, list)
-    <span class="hljs-keyword">const</span> fixedName = <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>
-    log(<span class="hljs-string">&quot;fixedName:&quot;</span>, fixedName)
-    <span class="hljs-keyword">return</span> fixedName
-}
-</code></pre>
-<p>There&apos;s a bug in the <code>fixName</code> function. We&apos;ve put a log message on every line. We&apos;ll run the code and see where things start to break down.</p>
-<pre><code class="lang-javascript">fixName, name: jesse warden
-list: [ <span class="hljs-string">&apos;jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
-list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
-list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;Warden&apos;</span> ]
-fixedName: <span class="hljs-literal">undefined</span>, Jesse
-<span class="hljs-literal">undefined</span>, Jesse
-</code></pre>
-<p>Things were fine until <code>fixedName</code>. The <code>list[2]</code> should be <code>list[1]</code>, whoops. If we fix:</p>
-<pre><code class="lang-javascript">...
-<span class="hljs-comment">// list[1] was list[2]</span>
-<span class="hljs-keyword">const</span> fixedName = <span class="hljs-string">`<span class="hljs-subst">${list[1]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>
-...
-</code></pre>
-<p>...and re-run:</p>
-<pre><code class="lang-javascript">fixName, name: jesse warden
-list: [ <span class="hljs-string">&apos;jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
-list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
-list: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;Warden&apos;</span> ]
-fixedName: Warden, Jesse
-Warden, Jesse
-</code></pre>
-<p>W00t!</p>
-<h2 id="functional-debugging-the-cop-out">Functional Debugging: The Cop Out</h2>
-<p>Let&apos;s do the same thing using a <code>Promise</code> chain:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
-    <span class="hljs-built_in">Promise</span>.resolve(name)
-    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
-    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
-    .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
-    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
-</code></pre>
-<p>As you start to learn, it&apos;s ok to do the cop out; i.e. going back to imperative. The only bad thing about this method is you&apos;re changing the function itself by effectively re-writing it. Still, I recommend it to get comfortable writing no <code>{}</code> in your code. It can be a bit of a pain matching up the braces <code>{}</code> and parenthesis <code>()</code> without compiler help as there are cases where you can misplace them and not get errors.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
-    <span class="hljs-built_in">Promise</span>.resolve(name)
-    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
-    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
-    .then(list =&gt; {
-        log(<span class="hljs-string">&quot;list:&quot;</span>, list)
-        <span class="hljs-keyword">return</span> [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])]
-    })
-    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
-</code></pre>
-<h2 id="functional-debugging-tap">Functional Debugging: Tap</h2>
-<p>The frustration from imperative/OOP coders is &quot;you can&apos;t see what&apos;s going on in the pipes&quot;. So you make a tap; a pipe that tells you what&apos;s going on inside it.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tap = arg =&gt; {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;tap:&quot;</span>, arg)
-    <span class="hljs-keyword">return</span> arg
-}
-</code></pre>
-<p>Typically, <code>Promise</code>s used in chains take 1 argument, just like <code>Result</code>, <code>Maybe</code>, etc. So our function will take the argument, then just return it; the only difference is it logs it. We then insert our logger pipe:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
-    <span class="hljs-built_in">Promise</span>.resolve(name)
-    .then(tap)
-    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
-    .then(tap)
-    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
-    .then(tap)
-    .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
-    .then(tap)
-    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
-    .then(tap)
-</code></pre>
-<p>When we run, it looks very similar:</p>
-<pre><code class="lang-javascript">fixName(<span class="hljs-string">&apos;jesse warden&apos;</span>).then(<span class="hljs-built_in">console</span>.log)
-tap: jesse warden
-tap: [ <span class="hljs-string">&apos;jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
-tap: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;warden&apos;</span> ]
-tap: [ <span class="hljs-string">&apos;Jesse&apos;</span>, <span class="hljs-string">&apos;Warden&apos;</span> ]
-tap: <span class="hljs-literal">undefined</span>, Jesse
-<span class="hljs-literal">undefined</span>, Jesse
-</code></pre>
-<p>We can use tap to inspect the pipes without violating pure function rules.</p>
-<h2 id="conclusions">Conclusions</h2>
-<p>You can use cop out if you&apos;re in a hurry or just completely confused. Composing functions in a sync and async way is a huge new concept, and imperative code can be very crystal clear about what is happening. You can still use breakpoints if your IDE supports it, just be aware pure functions sometimes don&apos;t expose their local variables easily in some IDE&apos;s... because they don&apos;t have any. There are a variety of taps, as well, especially once you incorporate partial applications to help give you more insight into the different stages of chaining your code is doing.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tap = label =&gt; arg =&gt; {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${label}</span>: <span class="hljs-subst">${arg}</span>`</span>)
-    <span class="hljs-keyword">return</span> arg
-}
-</code></pre>
-<p>Then we can give a custom label to each section:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
-    <span class="hljs-built_in">Promise</span>.resolve(name)
-    .then(tap(<span class="hljs-string">&apos;start&apos;</span>))
-    .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
-    .then(tap(<span class="hljs-string">&apos;after split space&apos;</span>))
-    .then(list =&gt; [startCase(list[<span class="hljs-number">0</span>]), list[<span class="hljs-number">1</span>]])
-    .then(tap(<span class="hljs-string">&apos;starCase first name&apos;</span>))
-    .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
-    .then(tap(<span class="hljs-string">&apos;starCase last name&apos;</span>))
-    .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
-    .then(tap(<span class="hljs-string">&apos;done&apos;</span>))
-</code></pre>
-<p>It&apos;s a bit more clear when it prints out:</p>
-<pre><code class="lang-javascript">start: jesse warden
-after split space: jesse,warden
-starCase first name: Jesse,warden
-starCase last name: Jesse,Warden
-done: <span class="hljs-literal">undefined</span>, Jesse
-<span class="hljs-literal">undefined</span>, Jesse
-</code></pre>
+                                <h1 id="how-do-i-debug-fp">How Do I Debug FP?</h1>
+<p>In this section we&apos;ll cover some ways to debug functional programming code. Giving how pure it is, it can be challenging to &quot;see what&apos;s going on in the black box&quot;.</p>
 
                                 
                                 </section>
@@ -1244,7 +1144,7 @@ done: <span class="hljs-literal">undefined</span>, Jesse
                 </a>
                 
                 
-                <a href="logging_vs_purity.md" class="navigation navigation-next " aria-label="Next page: Tap">
+                <a href="debugging.html" class="navigation navigation-next " aria-label="Next page: Tap">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1255,7 +1155,7 @@ done: <span class="hljs-literal">undefined</span>, Jesse
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 9: Debugging","level":"1.10","depth":1,"next":{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/logging_vs_purity.md","ref":"part9/logging_vs_purity.md","articles":[]},"previous":{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/README.md","mtime":"2018-08-31T17:59:30.649Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 9: Debugging","level":"1.10","depth":1,"next":{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/debugging.md","ref":"part9/debugging.md","articles":[]},"previous":{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/README.md","mtime":"2019-01-20T17:33:45.795Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

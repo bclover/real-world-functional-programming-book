@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1138,11 +1157,11 @@ headURL(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>).the
 <p>We get:</p>
 <pre><code>It worked.
 (node:19713) UnhandledPromiseRejectionWarning: Error: heh, not immutable, dat boom
-</code></pre><p>While using closures for data privacy is the core of how curried functions work in JavaScript, they still obey data by reference rules. Closures are not a panacea for immutability. If you mutate their references elsewhere, the closure doesn&apos;t have an immutable copy. While it can seem obvious that you can violating pure functions by mutating data, you&apos;ll often be working with code that may do this for unit testing purposes, or other reasons. If you&apos;re getting impure results, don&apos;t be afraid to whip out <code>Object.freeze</code> to see who is violating immutability. Ensure you put <code>&apos;use strict&apos;</code> up top in Node to trigger the exceptions.</p>
+</code></pre><p>While using closures for data privacy is the core of how curried functions work in JavaScript, they still obey data by reference rules. Closures <strong>are not</strong> a panacea for immutability. If you mutate their references elsewhere, the closure doesn&apos;t have an immutable copy. While it can seem obvious that you can violating pure functions by mutating data, you&apos;ll often be working with code that may do this for unit testing purposes, or other reasons. If you&apos;re getting impure results, don&apos;t be afraid to whip out <code>Object.freeze</code> to see who is violating immutability. Ensure you put <code>&apos;use strict&apos;</code> up top in Node to trigger the exceptions <code>Object.freeze</code> can throw to help you.</p>
 <pre><code class="lang-javascript"><span class="hljs-meta">&apos;use strict&apos;</span>
 <span class="hljs-keyword">const</span> request = <span class="hljs-built_in">Object</span>.freeze({ head: _ =&gt; <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&quot;It worked.&quot;</span>) })
 </code></pre>
-<p>I don&apos;t recommend leaving <code>Object.freeze</code> in your code because it&apos;s a <a href="https://pragprog.com/the-pragmatic-programmer/extracts/software-entropy" target="_blank">broken window</a>. Instead, focus on finding the mutation and fixing it unless it&apos;s something requiring herculean effort to change like how your unit testing framework works. </p>
+<p>I don&apos;t recommend leaving <code>Object.freeze</code> in your code because it&apos;s a <a href="https://pragprog.com/the-pragmatic-programmer/extracts/software-entropy" target="_blank">broken window</a>. Instead, focus on finding the mutation and fixing it unless it&apos;s something requiring herculean effort to change, like how your unit testing framework works, for example. </p>
 
                                 
                                 </section>
@@ -1186,7 +1205,7 @@ headURL(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>).the
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Closures And Immutability","level":"1.5.4","depth":2,"next":{"title":"Arity","level":"1.5.5","depth":2,"path":"part4/arity.md","ref":"part4/arity.md","articles":[]},"previous":{"title":"Partial Application","level":"1.5.3","depth":2,"path":"part4/partial_application.md","ref":"part4/partial_application.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/closures_and_immutability.md","mtime":"2019-01-06T16:52:44.204Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Closures And Immutability","level":"1.5.4","depth":2,"next":{"title":"Arity","level":"1.5.5","depth":2,"path":"part4/arity.md","ref":"part4/arity.md","articles":[]},"previous":{"title":"Partial Application","level":"1.5.3","depth":2,"path":"part4/partial_application.md","ref":"part4/partial_application.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/closures_and_immutability.md","mtime":"2019-01-20T16:29:50.316Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

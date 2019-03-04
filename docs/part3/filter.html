@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1123,11 +1142,13 @@
 <pre><code class="lang-javascript">[ { name: <span class="hljs-string">&apos;Jesse&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
   { name: <span class="hljs-string">&apos;Brandy&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> } ]
 </code></pre>
-<h2 id="filter-raw">filter: raw</h2>
+<h2 id="filter">Filter</h2>
 <p>We can create a somewhat pure function using <code>filter</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { filter } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
 
-<span class="hljs-keyword">const</span> typeIsHuman = item =&gt; item.type === <span class="hljs-string">&apos;human&apos;</span>
+<span class="hljs-keyword">const</span> typeIsHuman = item =&gt;
+    item.type === <span class="hljs-string">&apos;human&apos;</span>
+
 <span class="hljs-keyword">const</span> filterHumans = group =&gt;
     filter(
         group, 
@@ -1139,14 +1160,6 @@
 [ { name: <span class="hljs-string">&apos;Jesse&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> },
   { name: <span class="hljs-string">&apos;Brandy&apos;</span>, type: <span class="hljs-string">&apos;human&apos;</span> } ]
 </code></pre>
-<h2 id="filter-pure">filter: pure</h2>
-<p>While our <code>filterHumans</code> function is pure, it still has the Trouble With Dots. In <a href="part3/map.md">Part 3: map</a> we fixed the dot problem there using <code>nth</code> function which solves the Trouble With Array Bracket Access problem. Our fix here is to use <code>get</code>.</p>
-<p>Updating our <code>typeIsHuman</code> function above, we&apos;ll fix the predicate function we pass the <code>filter</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., get } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
-
-<span class="hljs-keyword">const</span> typeIsHuman = item =&gt; get(item, <span class="hljs-string">&apos;type&apos;</span>) === <span class="hljs-string">&apos;human&apos;</span>
-</code></pre>
-<p>Now, if <code>item</code> is <code>undefined</code>, <code>get(undefined, &apos;type&apos;)</code> will return <code>undefined</code>, and the predicate will return <code>false</code>, ensuring the weird item isn&apos;t included in the filter.</p>
 <h2 id="conclusions">Conclusions</h2>
 <p>Filter: Take an Array of things in, give each thing to a function, if the function returns <code>true</code> when you give it an item, store it in an new Array to give back, else discard it. The <code>filter</code> function expects a pure predicate function, and is itself a pure function.</p>
 
@@ -1192,7 +1205,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"filter","level":"1.4.2","depth":2,"next":{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},"previous":{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/filter.md","mtime":"2018-08-16T00:22:52.094Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"filter","level":"1.4.2","depth":2,"next":{"title":"reduce","level":"1.4.3","depth":2,"path":"part3/reduce.md","ref":"part3/reduce.md","articles":[]},"previous":{"title":"map","level":"1.4.1","depth":2,"path":"part3/map.md","ref":"part3/map.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part3/filter.md","mtime":"2019-03-03T23:40:54.273Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

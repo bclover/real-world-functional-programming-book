@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1095,14 +1114,14 @@
 <p>This is the <strong>most important section</strong> of the entire book. If you&apos;re in a hurry or have a short attention span, only <a href="input_output_side_effects.html">read this part</a>.</p>
 <p>Pure Functions are functions that given the same input, they&apos;ll give the same output, and have no side effects. A function that takes some arguments will always return the same value and not be affected by variables outside the function, nor will it change variables outside of it. They are the core foundation of all Functional Programming. They are the reason unit tests in FP don&apos;t need to use mocks. You don&apos;t need to look elsewhere to see what the function did. Instead, you just look at the return value of the function.</p>
 <p>They are also surprisingly flexible in their application despite their definition clearly stating that &quot;1 plus 1 equals 2&quot;. Many programmers, even those who use FP languages and espouse the benefits, can be lax in how &quot;pure&quot; their code truly is, myself included. Making things too pure is where you&apos;ll often see criticism of FP. Ensuring your code is as pure as possible can still lead to software that doesn&apos;t work.</p>
-<p>Making your code knowingly less pure is <strong>fine</strong>. At first you won&apos;t have a choice because you won&apos;t know any better. Later once you&apos;re skilled, you&apos;ll recognize the pain and time it&apos;ll take to follow the rules and make the right call that it&apos;s not worth it. Calling this technical debt in code review doesn&apos;t always fly, though, as sometimes the library author or team has their own level of purity they&apos;re willing to go. Sometimes libraries and techniques simply don&apos;t exist or are not ready to use yet, such as Hooks in React version 17, but your team is using version 16. Your team must use <code>classes</code> which have side effects instead of <code>functions</code>.</p>
-<p>The level of purity you should do is like doing Yoga. You should feel the stretch, but it shouldn&apos;t hurt. In the beginning though, evertyhing hurts, heh!</p>
+<p>Making your code knowingly less pure is <strong>fine</strong>. This will build trust currency with the Pragmatists. At first you won&apos;t have a choice because you won&apos;t know any better. Later once you&apos;re skilled, you&apos;ll recognize the pain and time it&apos;ll take to follow the rules and make the right call that it&apos;s not worth it. Calling this technical debt in code review doesn&apos;t always fly, though, as sometimes the library author or team has their own level of purity they&apos;re willing to go. Sometimes libraries and techniques simply don&apos;t exist or are not ready to use yet, such as Hooks in React version 16.8, but your team is using version &lt;16.7. Your team must use <code>classes</code> which have side effects instead of <code>functions</code>.</p>
+<p>The level of purity you should do is like doing Yoga. You should feel the stretch, but it shouldn&apos;t hurt. In the beginning though, evertyhing hurts, heh! That&apos;s ok. Your brain is a muscle, too, it can grow stronger through consistent practice.</p>
 <h1 id="what-well-cover">What We&apos;ll Cover</h1>
 <p>We&apos;ll first cover the 2 rules of same input, same output and the no side effects. In dynamic languages, these rules can be more easily and stealthily broken.</p>
 <p>Once you learn function purity and immutability, you&apos;ll realize that you&apos;re only allowed to use constants instead of variables. We&apos;ll cover how you can use them safely.</p>
 <p>We&apos;ll take an error quest and explore ways in which errors uniquely break function purity. A lot of programming is based around exceptions happening and inspecting the stack trace to debug. That&apos;s not how Functional Programming works. We&apos;ll show you why, how to avoid them, and what to do instead. </p>
-<p>JavaScript, Python, and Lua allow Procedural, Object Oriented, and Functional Programming styles. That&apos;s why they&apos;re so widely used; everyone can play. However, there are a lot of constructs that aren&apos;t allowed. We&apos;ll cover what isn&apos;t allowed, and strategies for using them if you must as well as caveats for unit testing around them. You&apos;re going to work with non-FP programmers writing non-FP code using non-FP libraries, so this is a survival guide.</p>
-<p>Finally we&apos;ll show you how to practice writing pure functions to get better at creating, and recognizing levels of purity. I started my Functional Programming learning journey by writing predicates for a security library. It helps you understand the core parts of your language, see how they can affect purity, yet they are super simple functions so you don&apos;t overload your brain as you learn the secrets of the universe.</p>
+<p>JavaScript, Python, and Lua allow Procedural, Object Oriented, and Functional Programming styles. That&apos;s why they&apos;re so widely used; everyone can play. However, there are a lot of constructs that aren&apos;t allowed. We&apos;ll cover what isn&apos;t allowed, and strategies for using them if you must as well as caveats for unit testing around them. You&apos;re going to work with non-FP programmers writing non-FP code using non-FP libraries, so this is a survival guide. Be ready to explain &quot;Why I don&apos;t use the <code>this</code> keyword in my JavaScript code&quot;.</p>
+<p>Finally we&apos;ll show you how to practice writing pure functions to get better at creating, and recognizing levels of purity. I started my Functional Programming learning journey by writing predicates for a security library. It helps you understand the core parts of your language, see how they can affect purity, yet they are super simple functions so you don&apos;t overload your brain as you learn the secrets of the immutable universe.</p>
 <p>Another way to practice is to write unit tests for those predicates. If you have experience writing unit tests for non-FP code, this might be the most rewarding part for you to see how FP can make your life easier, and your test code smaller and easier to maintain.</p>
 
                                 
@@ -1147,7 +1166,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"next":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/README.md","mtime":"2019-01-05T19:21:36.705Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 1: Pure Functions","level":"1.2","depth":1,"next":{"title":"Same Input, Same Output, No Side Effects","level":"1.2.1","depth":2,"path":"part1/input_output_side_effects.md","ref":"part1/input_output_side_effects.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/README.md","mtime":"2019-03-03T18:02:37.473Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

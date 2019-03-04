@@ -1,6 +1,6 @@
 # The Specialist
 
-Given how pure functions work, many of languages existing tools are off limits. They differ from language to language, such as how Lua handles Object scope compared to JavaScript for example, but what they all have in common is violating pure function rules. Thus, they are off limits if you wish to remain pure.
+Given how pure functions work, many of languages existing tools are off limits. They differ from language to language, such as how Lua handles Object scope compared to JavaScript for example, but what they all have in common is violating pure function and immutability rules. Thus, they are off limits if you wish to remain pure.
 
 How pure you wish to be is up to you and your team. Pragmatism and deadlines can overrule the list below.
 
@@ -8,15 +8,13 @@ We'll cover each in turn, and offer suggestions on how you can you use some of t
 
 ## Function Declarations & Function Expressions
 
-A [function declaration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) has a bunch of legacy functionality that can break purity rules.
+A [function declaration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) and [function expression](https://developer.mozilla.org/en-US/docs/web/JavaScript/Reference/Operators/function) both have a bunch of legacy functionality that can break purity rules.
 
 ### The this keyword
 
 **Synopsis**: This is a built-in mutation. Stay far away.
 
-The `this` keyword is the cornerstone of how JavaScript supports encapsulating Objects as well as providing support for Object Oriented programming through classes. It also is one of the most common cause of bugs, and responsible for a large amount of text on the internet explaining how scope and `this` works.
-
-Since `this` can change based on how the function is invoked:
+The `this` keyword is the cornerstone of how JavaScript supports encapsulating Objects as well as providing support for Object Oriented programming through classes. It also is one of the most common cause of bugs, and responsible for a large amount of text on the internet explaining how scope and `this` works. The keyword `this` can change based on how the function is invoked.
 
 ```javascript
 // function declaration
@@ -34,11 +32,11 @@ c = new (Cow.bind())
 console.log(c.getName()) // throws Error
 ```
 
-There a bunch of different versions of these, depending upon if you use `Object.create` or the `new` keyword vs. not, the `class` keyword, attaching to the prototype vs. emulating static vs. using the `static` keyword, using various Babel plugins to fix, etc. On and on.
+There a bunch of different versions of these, depending upon if you use `Object.create` or the `new` keyword vs. not, the `class` keyword, attaching to the prototype vs. emulating static vs. using the `static` keyword, using various Babel plugins to fix, etc. On and on. React 16.8 with the introduction of [Hooks](https://reactjs.org/docs/hooks-intro.html) has moved on, so should you. You no longer have to memorize all the rules, nuances, and compiler/transpiler tricks and use `bind` all over the place. It's freeing.
 
 ### arguments
 
-**Synopsis**: Dangerous in closures, but typically only used in edge cases, so as long as you avoid closures, you'll be ok. We recommend you stick to functions that take a specific number of arguments. Sadly, `arguments` is only with function declarations so we recommend you avoid.
+**Synopsis**: Dangerous in closures, but typically only used in edge cases, so as long as you avoid closures, you'll be ok. We recommend you stick to functions that take a specific number of arguments. The `arguments` keyword is only available with function declarations and expressions so we recommend you avoid.
 
 Pure functions can work with variadic functions; functions that take an arbitrary number of arguments. This can be hard to get right so ensure extra unit tests here. The `arguments` keyword, unlike `this`, CAN be depended upon, but can subtly change in the values it has once you start bringing closures.
 
@@ -81,7 +79,7 @@ As you'll learn later, functions with default arguments are harder to compose be
 
 ## Classes
 
-**Synopsis** The `class` keyword should be avoided for the same reasons as using `this`. Classes are also a lot more difficult to compose.
+**Synopsis** The `class` keyword should be avoided for the same reasons as using `this` and `super`. Classes are also a lot more difficult to compose.
 
 The whole concept of storing variables as member and static variables inside a class, internal mutable state, causes a lot of side effects. It also ensures you won't get the same output with the same input. Class methods often have no input as they'll handle the inputs by referencing internal data on `this`. They typically don't have outputs either because they are modifying or updating state internally on `this`. As classes start using Inheritance or Composition, they'll be creating even more mutable state internally as they grow in size. Finally, JavaScript's implementation is not immutable, and both `this`, and the class itself, can be modified at runtime leading to various unintended null pointers. These errors or different outputs are not pure.
 
@@ -95,7 +93,7 @@ See Dealing with OOP for strategies on using as safely as possible as at the tim
 
 Errors are a challenging side effect. Not only do they prevent return values from even working, but occasionally, they can create situations where data, or the application itself, is in an unknown state vs crashing outright. This breaks the same output rule as well as the side effects rule.
 
-Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. JavaScript is notorious for having source maps that do not map to the source giving red herrings on top of badly written error messages which are red herrings. In imperative style code, you can "find the line where things went wrong". In debugging functional code, you're interested in "why did the function return an error instead of a success". In composed functions and programs, you're interested in "where in this pipeline of functions did my data become wrong". You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application.
+Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. JavaScript is notorious for having source maps that do not map to the source giving red herrings on top of badly written error messages which are red herrings. In imperative style code, you can "find the line where things went wrong". In debugging functional code, you're interested in "why did the function return an error instead of a success". In composed functions and programs, you're interested in "where in this pipeline of functions did my data become wrong". You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application. Instead, we want to clearly explain why a function returned an Error instead of our data.
 
 The exception is in Erlang/[Elixir](https://elixir-lang.org/) or [Akka](https://akka.io/) in Scala/Java where "let it crash" is the norm. You're more interested in application uptime than purity in those cases. For JavaScript, the equivalent is using [pm2](http://pm2.keymetrics.io/) or [Docker](https://www.docker.com/) on [ECS](https://aws.amazon.com/ecs/) and any uncaught [sync](https://nodejs.org/api/process.html#process_event_uncaughtexception) or [async](https://nodejs.org/api/process.html#process_event_unhandledrejection) error means your application is in an unknonwn state, possibly impure, so you just nuke the entire process/container and get a new one. Since your application is supposedly stateless and uses immutable data, there is no worry about "losing" information as something like [Redis](https://redis.io/) or your Database handles being the single source of truth and state.
 

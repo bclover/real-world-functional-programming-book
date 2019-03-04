@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="./">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1093,11 +1112,11 @@
                                 
                                 <h1 id="isomorphisms">Isomorphisms</h1>
 <p>If a thing can change into something different, but then change back, then those two things are isomorphic.</p>
-<p>Examples are JSON. You can have a JSON string that turns into a JSON Object via <code>JSON.parse</code>, but then can turn back into the exact same string again via <code>JSON.stringify</code>. In working with legacy systems such as <a href="https://en.wikipedia.org/wiki/SOAP" target="_blank">XML SOAP</a> we&apos;ll often convert those large XML structures to JSON, and then back again to XML SOAP. If you&apos;re familiar with the <a href="https://en.wikipedia.org/wiki/Memento_pattern" target="_blank">Memento Design Pattern</a>, it&apos;s kind of like that.</p>
+<p>One example is JSON. You can have a JSON string that turns into a JSON Object via <code>JSON.parse</code>, but then can turn back into the exact same string again via <code>JSON.stringify</code>. In working with legacy systems such as <a href="https://en.wikipedia.org/wiki/SOAP" target="_blank">XML SOAP</a> we&apos;ll often convert those large XML structures to JSON, and then back again to XML SOAP. If you&apos;re familiar with the <a href="https://en.wikipedia.org/wiki/Memento_pattern" target="_blank">Memento Design Pattern</a>, it&apos;s kind of like that.</p>
 <p>If you&apos;re building a game and want to save it, you&apos;ll typically implement the Memento design pattern to create a small <code>Object</code> that represents the game as it is right now, and then write that to disk as a file, and possibly sync to a cloud server as well. When loading the game, that <code>Object</code> has all the information you need to load the correct level, character stats, and place in the story the player should resume at.</p>
 <p>The only thing that isn&apos;t deterministic about save games is the date they were created. Most games will sort the save games by latest so when you click &quot;Continue&quot;, it&apos;ll load your latest saved game. This includes games that have an Autosave feature. When you save a new game, it&apos;ll make that the latest save by updating the date to &quot;right now&quot;.</p>
 <p>We can implement this feature as purely as possible using lenses to give you an example of using isomorphisms in practice. Below we&apos;ll walk through saving a game and then loading a save game below using the <a href="https://github.com/yelouafi/focused" target="_blank">Focused</a> library as it has support for isomorphisms and an easier way to compose lenses together.</p>
-<p>Be aware Focused has 2 ways to use it; using the facade api which is magic af, or the explicit API which looks a lot more like [Ramda]. We&apos;ll show both, although the proxy option is one of <code>focused</code>&apos;s selling points over Ramda for advanced Optics. Also note most functions in <code>focused</code> are curried by deafult and support the regular function way of calling them (<code>set(lens, value, object)</code>) as well as a single argument per function cal (<code>set(lens)(value)(object)</code>).</p>
+<p>Be aware Focused has 2 ways to use it; using the facade api which is magic af, or the explicit API which looks a lot more like [Ramda]. We&apos;ll show both, although the proxy option is one of <code>focused</code>&apos;s selling points over Ramda for advanced Optics. Also note most functions in <code>focused</code> are curried by default and support the regular function way of calling them (<code>set(lens, value, object)</code>) as well as a single argument per function cal (<code>set(lens)(value)(object)</code>).</p>
 <h2 id="basic-set">Basic Set</h2>
 <p>Our game object looks like so, containing where the player is in the game&apos;s story, the map location, x and y tile coordinates, and the current protaganists in the party with their inventory.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> gameState = {
@@ -1146,7 +1165,7 @@
 
 <span class="hljs-keyword">const</span> _ = lensProxy()
 </code></pre>
-<p>Next, let&apos;s import <code>set</code> to update our <code>Object</code> much like we&apos;d do in Ramda. Notice, however, the use of <code>_</code> and dotting properties; that is how you create a basic <code>prop</code> or <code>get</code> lens using Focused&apos;s proxy api.</p>
+<p>Next, let&apos;s import <code>set</code> to update our <code>Object</code> much like we&apos;d do in Lodash or Ramda. Notice, however, the use of <code>_</code> and dotting properties; that is how you create a basic <code>prop</code> or <code>get</code> lens using Focused&apos;s proxy api. Specifically the <code>_.saveDate</code> below would be <code>get(&apos;saveDate&apos;)</code> in Lodash:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., set } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;focused&apos;</span>
 
 <span class="hljs-keyword">const</span> updated = set(_.saveDate, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), gameState)
@@ -1177,12 +1196,14 @@
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> savedGameString = readFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>)
 <span class="hljs-keyword">const</span> updatedString = set(_.$(jsonISO).saveDate, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), savedGameString)
 </code></pre>
-<p>Logging out the string, it looks like:</p>
+<p>Logging out the <code>updatedString</code> string, it looks like:</p>
 <pre><code class="lang-json">{ <span class="hljs-string">&quot;saveDate&quot;</span>: <span class="hljs-string">&quot;2018-11-25T18:51:09.227Z&quot;</span>,
     <span class="hljs-string">&quot;map&quot;</span>: <span class="hljs-string">&quot;overworld&quot;</span>,
     <span class="hljs-string">&quot;chapter&quot;</span>: <span class="hljs-number">3</span>,
     ...
 </code></pre>
+<h2 id="conclusions">Conclusions</h2>
+<p>Isomorphisms are used when you convert data back and forth. It happens often in places like Orchestration API&apos;s where you have a <a href="https://samnewman.io/patterns/architectural/bff/" target="_blank">back-end for your front-end</a>. The Node API will call a SOAP service and translate the XML to JSON. If the user does something that we need to update in the back-end, we&apos;ll convert the JSON from the front-end application to XML and call the SOAP service again. Reading and writing JSON files to disk like in the above save game example is another. If you&apos;re dealing with any relational databases, this pattern <a href="https://enterprisecraftsmanship.com/2016/11/03/oop-fp-and-object-relational-impedance-mismatch/" target="_blank">can also help you a lot there</a>.</p>
 
                                 
                                 </section>
@@ -1226,7 +1247,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Isomorphisms","level":"1.9.1","depth":2,"next":{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},"previous":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/isomorphisms.md","mtime":"2018-11-25T23:58:44.382Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Isomorphisms","level":"1.9.1","depth":2,"next":{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},"previous":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/isomorphisms.md","mtime":"2019-01-20T17:12:02.941Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

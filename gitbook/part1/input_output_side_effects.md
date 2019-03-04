@@ -12,7 +12,8 @@ This function that will add 2 numbers plus whatever `data` equals.
 
 ```javascript
 let data = 0
-const add = (a, b) => a + b + data
+const add = (a, b) =>
+    a + b + data
 ```
 
 If we call it three times, it may look like it's same input, same output:
@@ -116,7 +117,7 @@ isCow() // false
 isCow() // false
 ```
 
-Even with no inputs, this function still fails to follow the rules of same input, same output. Even no input, it still returns a different value because it's affected by "effects", or a variable changing, outside of itself.
+Even with no inputs, this function still fails to follow the rules of same input, same output. Even no input, it still returns a different value because it's affected by "effects", or a variable changing, outside of itself that effects it.
 
 ### Pure isCow
 
@@ -199,9 +200,11 @@ console.log(haveBirthday( { age: 18 } )) // { age: 19 }
 
 **Solution**: Do not mutate data, use immutable data instead.
 
+What is immutable data? It's data you can't mutate; data you can't change.
+
 The `haveBirthday` function mutates the `person` Object. Although it was passed in, most Objects are dynamic languages are by reference. You affect one reference, you affect the Object and all the references that point to that Object will update to show the changes. Think of it like a global variable.
 
-The way you fix it is **not** to mutate data. The easiest way to do that is to clone Objects and only change 1 property on the clone.
+The way you fix it is to **not** mutate data. The easiest way to do that is to clone Objects and only change 1 property on the clone.
 
 ```javascript
 const haveBirthdayPure = personObject => {

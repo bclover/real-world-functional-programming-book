@@ -6,31 +6,49 @@ Like the time I learned Object Oriented Programming, or Design Patterns, or Mode
 
 Except it's different this time. Once you learn FP, you'll struggle to explain it to other coders and friends who may be entrenched in Imperative or OOP, but are curious about FP. Your code will start to look alien to non-FP'ers. Unless you're around other FP'ers, or those wishing to learn FP, you'll feel alone.
 
-I feel it's worth it. Just be aware the above will happen and prepare yourself mentally.
+I feel it's worth it. Just be aware the above will happen and prepare yourself mentally. You'll make more friends if you invest in OOP in Java or more pragmmatic approaches to programming. Following pure FP, you will make new friends, just be aware it is the minority in non-academic circles.
 
-# The Elevator Pitch
+# Why Even Bother Learning Functional Programming?
 
-What if I told you you could write JavaScript that doesn't throw errors, requires no mocks for unit testing, and you never have to memorize a `this` rule again? No `undefined is not a function`, no [Sinon spies](https://sinonjs.org/releases/v4.0.0/spies/), and never using `class` or `bind` again, just building functions that work. You can instead focus on testing if your code is correct vs. if it mostly works and hopefully doesn't explode.
+What if I told you you could write JavaScript that doesn't throw errors, requires no mocks for unit testing, and you never have to memorize a `this` rule again? No `undefined is not a function`, no [Sinon spies](https://sinonjs.org/releases/v4.0.0/spies/), and never using `class` or `bind` again, just building functions that work. Your Node code can be stateless, and work with concurrency "out of the box" without you having to know what [CAP Theorm](https://en.wikipedia.org/wiki/CAP_theorem) is. You can instead focus on testing if your code is correct vs. if it mostly works and hopefully doesn't explode.
 
-What's the catch? In JavaScript, most of the code you use isn't yours and comes from the [Node Package Manager](http://npmjs.com/) called `npm`. The library most likely uses `throw` intentionally, uses classes and inheritance, and isn't written in FP style. Front-end web development frameworks like [React](https://reactjs.org/) & [Angular](https://angular.io/) are not 100% functional. You'll have to not only write your own functional style code, but learn how to deal with non-functional code, in a functional way. While the 100% black box unit test coverage is easier to attain in FP code, you'll still have bugs or code that isn't correctly working.
+What's the catch?
 
-Beyond that, no catch.
+1. `npm` libraries are not all FP.
+2. Popular Front end Frameworks are not 100% FP
+3. Node middlewares are not 100% FP
+4. FP code can still be "wrong"
+5. Pragmatism Rules
+
+In JavaScript, most of the code you use isn't yours and comes from the [Node Package Manager](http://npmjs.com/) called `npm`. The library most likely uses `throw` intentionally, uses classes and inheritance, and isn't written in FP style.
+
+Front-end web development frameworks like [React](https://reactjs.org/) & [Angular](https://angular.io/) are not 100% functional. You'll have to not only write your own functional style code, but learn how to deal with non-functional code, in a functional way.
+
+Node middlwares were created before Promises, and use a callback style with many libraries built atop this side effect heavy concept. While the 100% black box unit test coverage is easier to attain in FP code, you'll still have bugs or code that isn't correctly working.
+
+Those in software consulting are purists. Those in a software job are pragmmatists. They'll use imperative, OOP, and FP where it helps, but aren't typically zealots. Going full FP is quite ivory tower and you'll encounter resistance.
+
+Beyond those, no catch.
 
 # What Does "Real-World" Mean?
 
-Languages like JavaScript, Python, and Java are languages you can get a job using at the time of this writing. They're all used in web development, data science & machine learning, and building REST API's. You can use them and work with non-functional programmers in the same code base and library ecosystem. While it's slowly changing, it currently is hard to get a job using functional languages. Tech industry interviews are broken hiring for what someone perceives you know with their bias vs hiring for helping someone learn. Companies hire for someone knowing a particular language or framework vs. ability to learn new ones. Many managers are afraid to use non-standard languages because they don't think they can hire people to maintain the code base if you or your FP co-workers leave. Not everyone wants to learn FP just like I'm currently suffering at my job learning and using [Go](https://golang.org/) #datEntitlement.
+Languages like JavaScript, Python, and Java are languages you can get a job using at the time of this writing. They're all used in web development, data science & machine learning, and building REST API's. You can use them and work with non-functional programmers in the same code base and library ecosystem. While it's slowly changing, it currently is hard to get a job using functional languages. Tech industry interviews are broken, hiring for what someone perceives you know with their bias vs hiring for helping someone learn. Often they'll say "culture fit", but that's just another word for "I don't like them after a 30 minute, biased conversation". Companies hire for someone knowing a particular language or framework vs. ability to learn new ones. Many managers are afraid to use non-standard languages because they don't think they can hire people to maintain the code base if you or your FP co-workers leave. Not everyone wants to learn FP just like I'm currently suffering at my job learning and using [Go](https://golang.org/) #datEntitlement.
 
-This guide is meant to teach you concepts you can use to benefit your current work in "normal" programming languages as well as ensuring you still can get a job "using Java" if you wish. Part of the skill, and challenge, of using FP in the current climate is co-existing with non-functional programmers in non-functional programming languages. The good news is that JavaScript, Python, and other dynamic languages have all you need built into the language to start programming FP while co-existing with code that isn't FP. Even strongly typed class ones like Java and C# do as well.
+Despite the tagline "more jobs than available candidates", it's hard enough to get a job in software, even if you have a job already. It's even harder when you learn a non-popular programming style and a non-popular language.
+
+It would disingenuous to teach you something knowing it would hurt your career.
+
+Therefore, this guide is meant to teach you concepts you can use to benefit your current work in "normal" programming languages as well as ensuring you still can get a job "using Java" if you wish. Part of the skill, and challenge, of using FP in the current climate is co-existing with non-functional programmers in non-functional programming languages. The good news is that JavaScript, Python, and other dynamic languages have all you need built into the language to start programming FP while co-existing with code that isn't FP. Even strongly typed class ones like Java and C# do as well.
 
 # Real-World Functional Programming
 
-This book will teach you all you need to know to start using Functional Programming in the code you write in your day to day job. We will cover all the basics, what to practice to get better, and how to compose entire programs. Lastly, we'll give you various strategies for easing it into existing codebases and teams. We'll cover it from both back-end and front end perspectives.
+This book will teach you all you need to know to start using Functional Programming in the code you write in your day to day job. We will cover all the basics, what to practice to get better, and how to compose entire programs using just functions. Lastly, we'll give you various strategies for easing it into existing codebases and teams. We'll cover it from both back-end and front end perspectives. This includes some attitude changes around the various ways of testing.
 
 While our examples are in dynamic, interpreted languages like [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [Python](https://www.python.org/), and [Lua](https://www.lua.org/), you can use in any language that has functions with inputs, outputs, and higher order functions. We'll show examples from other languages that help corroborate existing concepts such as [Go](https://golang.org/) error handling and [Elixir](https://elixir-lang.org/) matching syntax.
 
 ## Assumed Knowledge
 
-This book assumes you know the basics of programming. You know what procedural/imperative line by line code is like such as `bash`, you're at least familiar with Object Oriented Programming like C# or Java, and have written some unit tests at least once in your life. We also assume you know how functions, scope, and closures work in JavaScript, Python, or Lua, although we'll do a refresher on closures since they are extremely important.
+This book assumes you know the basics of programming. You know what procedural/imperative line by line code is like such as `bash`, you're at least familiar with [Object Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) like C# or Java, and have written some unit tests at least once in your life. We also assume you know how functions, scope, and closures work in JavaScript, Python, or Lua, although we'll do a refresher on closures since they are extremely important.
 
 ## Using This Book
 
@@ -40,11 +58,11 @@ You are welcome to skip around the sections. However, we encourage you to read t
 
 To keep things simple, we're not going to cover anything with strong types, nor Category Theory. While you'll reap some of the benefits of Category Theory in what you'll learn here, we're not covering Functors or Monads for example.  If you wish to learn more about Category Theory in a pragmatic way, check out [Dr Boolean's Mostly Adequate Guide](https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/). If you wish to learn more about strong types, check out language documentation that supports functional programming with strong typing such as [Elm](http://elm-lang.org/), [PureScript](http://www.purescript.org/),[TypeScript](https://www.typescriptlang.org/), or [Flow](https://flow.org/).
 
-We're also not going to cover effect handling such as [Algebraic Effects](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) which is what [React Hooks](https://reactjs.org/docs/hooks-intro.html) are based on. For JavaScript, we'll just use Promises. However, frameworks like [Redux](https://redux.js.org/), [Saga](https://redux-saga.js.org/), [Calmm](https://github.com/calmm-js/documentation/blob/master/introduction-to-calmm.md), or even [the architecture of Elm](https://guide.elm-lang.org/architecture/) handle it in a more pure way if you're interested.
+We're also not going to cover effect handling such as [Algebraic Effects](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) which is what [React Hooks](https://reactjs.org/docs/hooks-intro.html) are based on. For JavaScript, we'll just use Maybes, Results, and Promises and Tasks. However, frameworks like [Redux](https://redux.js.org/), [Saga](https://redux-saga.js.org/), [Calmm](https://github.com/calmm-js/documentation/blob/master/introduction-to-calmm.md), or even [the architecture of Elm](https://guide.elm-lang.org/architecture/) handle it in a more pure way if you're interested.
 
 ## Nomenclature
 
-Coming from an art background and not a computer science one, I tend to abuse terms or use many interchangeably. Below are definitions of commonly used ones throughout the book that while may make sense in context, can possibly be confusing if not clear exactly what one means.
+Coming from an art background and not a computer science one, I tend to abuse terms or use many interchangeably. Below are definitions of commonly used ones throughout the book that. While they may make sense in context, they can possibly be confusing if not clear exactly what one means.
 
 ### arguments / parameters
 
@@ -231,44 +249,3 @@ We try to follow the [Elm styling](https://elm-lang.org/docs/style-guide) around
 const ping = request => url =>
     request.get(url)
 ```
-
-### What the heck is wrong with your comma placement?
-
-For lists or manual function arguments, you'll see the commas placed in in front of the items like this:
-
-```javascript
-const peeps =
-    [
-        "Jesse"
-        , "Brandy"
-        , "Sydney"
-        , "Rowan"
-        , "Albus"
-    ]
-```
-
-Instead of how it's normally shown in JavaScript / Python / Lua:
-```javascript
-const peeps =
-    [
-        "Jesse",
-        "Brandy",
-        "Sydney",
-        "Rowan",
-        "Albus"
-    ]
-```
-
-Putting that on the same line allows you to comment things out when you want to play with data:
-
-```javascript
-const peeps =
-    [
-        "Jesse"
-        , "Brandy"
-        // , "Sydney"
-        , "Rowan"
-        // , "Albus"
-    ]
-```
-

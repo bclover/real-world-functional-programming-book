@@ -786,6 +786,25 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../part7/total_functions.html">
+            
+                <a href="../part7/total_functions.html">
+            
+                    
+                    Total Functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
         </li>
     
         <li class="chapter " data-level="1.9" data-path="../part8/">
@@ -873,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/logging_vs_purity.md">
+        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
             
-                <span>
+                <a href="../part9/debugging.html">
             
                     
                     Tap
@@ -1092,7 +1111,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="get-or-prop">get or prop</h1>
-<p>The safe way is to create a get function. For objects you know the shape of, meaning you know what properties and value types they typically have, you can create these yourself.</p>
+<p>The safe way to access <code>Objects</code> is to create a get function. For objects you know the shape of, meaning you know what properties and value types they typically have, you can create these yourself.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getFirstName = person =&gt; {
     <span class="hljs-keyword">if</span>(person) {
         <span class="hljs-keyword">return</span> person.firstName
@@ -1120,8 +1139,13 @@ expect(getFirstName(<span class="hljs-literal">undefined</span>)).to.equal(<span
     <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
 }
 </code></pre>
+<p>Using the operator could be re-written as:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getStreetAddress = person =&gt;
+    person.address?.home?.street
+</code></pre>
 <p>It&apos;s less code and safer just to use <code>get</code> with the path:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getStreetAddress = person =&gt; get(person, <span class="hljs-string">&apos;person.address.home.street&apos;</span>)
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getStreetAddress = person =&gt;
+    get(person, <span class="hljs-string">&apos;person.address.home.street&apos;</span>)
 </code></pre>
 <p>Now those are just Objects. Arrays require you to do runtime type checking:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getFirstHomePhone = person =&gt; {
@@ -1137,7 +1161,8 @@ expect(getFirstName(<span class="hljs-literal">undefined</span>)).to.equal(<span
 }
 </code></pre>
 <p>... or you could just use <code>get</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getFirstHomePhone = person =&gt; get(person, <span class="hljs-string">&apos;person.address.home.phone[0]&apos;</span>)
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getFirstHomePhone = person =&gt;
+    get(person, <span class="hljs-string">&apos;person.address.home.phone[0]&apos;</span>)
 </code></pre>
 <p>This also works great for deeply nested JSON data structures you often get back from REST API&apos;s as well as SOAP and XML you&apos;ve parsed to JSON.</p>
 <h2 id="default-values">Default Values</h2>
@@ -1146,6 +1171,8 @@ expect(getFirstName(<span class="hljs-literal">undefined</span>)).to.equal(<span
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> url = get(configuration, <span class="hljs-string">&apos;services.emailURL&apos;</span>, <span class="hljs-string">&apos;http://dev.server.com/email&apos;</span>)
 </code></pre>
 <p>If it can&apos;t find the <code>services.emailURL</code> path on <code>configuration</code>, or if <code>configuration</code> is <code>undefined</code>, it&apos;ll just default to that dev url, &apos;<a href="http://dev.server.com/email" target="_blank">http://dev.server.com/email</a>&apos;.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>Using <code>get</code> ensures you never have errors. The <code>Object</code> can change it&apos;s property names on you, or even be <code>undefined</code>, but your program still won&apos;t have errors. It also helps you avoid error prone, verbose null checks and results in smaller code. As we&apos;ll see in future chapters, using this <code>get</code> function will allow us to compose her very flexibly into a variety of ways.</p>
 
                                 
                                 </section>
@@ -1189,7 +1216,7 @@ expect(getFirstName(<span class="hljs-literal">undefined</span>)).to.equal(<span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Get","level":"1.3.3","depth":2,"next":{"title":"Set","level":"1.3.4","depth":2,"path":"part2/set.md","ref":"part2/set.md","articles":[]},"previous":{"title":"Trouble With Array Access","level":"1.3.2","depth":2,"path":"part2/trouble_with_array_access.md","ref":"part2/trouble_with_array_access.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part2/get.md","mtime":"2018-08-12T00:23:42.463Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-13T19:04:37.266Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Get","level":"1.3.3","depth":2,"next":{"title":"Set","level":"1.3.4","depth":2,"path":"part2/set.md","ref":"part2/set.md","articles":[]},"previous":{"title":"Trouble With Array Access","level":"1.3.2","depth":2,"path":"part2/trouble_with_array_access.md","ref":"part2/trouble_with_array_access.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part2/get.md","mtime":"2019-03-03T21:49:13.490Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
