@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,13 +1111,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="algebraic-data-types">Algebraic Data Types</h1>
-<p>Algebraic Data Types are Objects in Functional Programming that give you a common interfaces to work with data. While I promised I wouldn&apos;t cover Category Theory in this book, it does hold one compelling reason to learn Functional Programming:</p>
-<blockquote>
-<p>What if everything had the same interface?</p>
-</blockquote>
-<p>While dynamic programming languages don&apos;t have strong typing, they still have native types like Array and Promise that hold data and have conventions on how you use them. An Array is a list, I can add data to it, get data out using numbers or methods, and construction methods like Array destructuring <code>[...original, &quot;new data to add&quot;]</code>. Promise also wraps data in itself, you can get data out using <code>then</code>, and like Array, you can chain Promises together by returning a Promise in the <code>then</code> callback.</p>
+<p>Algebraic Data Types are Objects in Functional Programming that give you a common interface to work with data in a pure way. Most pure functions you&apos;ve seen up to this point take inputs of data and return modified data. ADT&apos;s are different; they contain data and hold on it just like <code>Object</code>&apos;s or <code>Array</code>&apos;s do. Functions typically know how to &quot;take in an Array and give you a new, modified version of the Array back&quot;. Like OOP, however, ADT&apos;s have functions, or &quot;methods&quot;, of their own to work with the data inside them and compose with other ADT&apos;s. </p>
+<p>While dynamic programming languages don&apos;t have strong typing, they still have native types like <code>Array</code> and <code>Promise</code> that hold data and have conventions on how you use them. An Array is a list, I can add data to it like <code>Array.push</code>, get data out using numbers <code>myList[0]</code> or methods <code>Array.pop</code>, and construction methods like Array destructuring <code>[...original, &quot;new data to add&quot;]</code>. A <code>Promise</code> also wraps data in itself, you can get data out using <code>then</code>, and like Array&apos;s <code>concat</code> method, you can chain Promises together by returning a Promise in the <code>then</code> callback.</p>
 <p>Algebraic Data Types, or ADT&apos;s for short, are useful just like Array and Promise are useful: Hold data, you can get data out, and depending on which library you use, all can be chained together in known ways.</p>
-<p>This is also where dynamic languages start to become painful. Creating an Array or Promise is fine, but once you start chaining things together, it&apos;s hard to know &quot;what comes out&quot; without a compiler or intellisense in your IDE to help you. Algebraic Data Types have this problem as well once you start composing them together. You only really know if it works by running the code. Still, they can add clarity of intent, help in data validation, and make it easier to work with data and errors.</p>
+<p>This is also where dynamic languages start to become painful. Creating an Array or Promise is fine, but once you start chaining things together, it&apos;s hard to know &quot;what comes out&quot; without a compiler or intellisense in your IDE to help you. Algebraic Data Types have this problem as well once you start composing them together. You only really know if it works by running the code or having copious unit tests. Still, they can add clarity of intent, help in data validation, and make it easier to work with data and errors in a pure way.</p>
 
                                 
                                 </section>
@@ -1161,7 +1158,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"next":{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},"previous":{"title":"Tacit Programming","level":"1.6.3","depth":2,"path":"part5/tacit_programming.md","ref":"part5/tacit_programming.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/README.md","mtime":"2018-08-27T14:11:40.821Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"next":{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},"previous":{"title":"Tacit Programming","level":"1.6.3","depth":2,"path":"part5/tacit_programming.md","ref":"part5/tacit_programming.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/README.md","mtime":"2019-03-10T16:49:07.555Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

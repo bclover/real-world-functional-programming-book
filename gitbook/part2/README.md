@@ -6,11 +6,11 @@ Herein we'll cover the normal ways of getting & setting data, and why that isn't
 
 # I Use Types, Thus Lenses Are An Anti-Pattern
 
-If you use types, you may think lenses are pointless. Why would you get null pointers if everything is typed correctly? I encourage you to learn about lenses for 3 resaons anyway.
+If you use types, you may think lenses are pointless. Why would you get null pointers if everything is typed correctly? I encourage you to learn about lenses for 3 reasons anyway (beyond their advanced usages like in [Haskell](http://hackage.haskell.org/package/lens) which are beyond the scope of this book).
 
 ## Limitations on Types
 
-I've you've used a type language for awhile, you know you can still get runtime exceptions around null pointers. Sadly, there are limits of various type systems such as getting items in an `Array` or ensuring a `Number` is within a particular range. When parsing data from unknown sources, types can break down so some typed languages will create super strict parser like [Elm's parser](https://github.com/elm/parser) or [Elm's JSON decoders](https://package.elm-lang.org/packages/elm/json/latest/Json-Decode). This ensures no untyped data can get in and is why lensese aren't used in Elm. Typed languages have some ways of ensuring these problems can't happen, but some languages still have limits of "prove I won't get runtime exceptions, ever!". Languages like [Elm](https://elm-lang.org/) and [Purr](https://github.com/origamitower/purr) can make this claim.
+I've you've used a type language for awhile, you know you can still get runtime exceptions around null pointers. Sadly, there are limits of various type systems such as getting items in an `Array` or ensuring a `Number` is within a particular range. When parsing data from unknown sources, types can break down so some typed languages will create super strict parser like [Elm's parser](https://github.com/elm/parser) or [Elm's JSON decoders](https://package.elm-lang.org/packages/elm/json/latest/Json-Decode). This ensures no untyped data can get in and is why lenses aren't used in Elm. Typed languages have some ways of ensuring these problems can't happen, but some languages still have limits of "prove I won't get runtime exceptions, ever!". Languages like [Elm](https://elm-lang.org/) and [Purr](https://github.com/origamitower/purr) can make this claim.
 
 Many of us love types, the value they provide, and are willing to put in the work. Some of us, however, feel more comfortable playing with ideas without types first and using types once our ideas are solidified. Lenses can help fill that gap until you're ready for stricter types.
 

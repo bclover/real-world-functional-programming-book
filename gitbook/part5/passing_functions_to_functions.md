@@ -104,7 +104,7 @@ The 2nd `then` could be re-written to this and still do the same exact thing wit
 However, you could argue it's justified because:
 
 - JavaScript is a dynamic language
-- Integreted Development Environments (IDE's) and various text editors used for coding are still bad at helping learn about your code and providing intellisense and code completion
+- Integrated Development Environments (IDE's) and various text editors used for coding are still bad at helping learn about your code and providing intellisense and code completion
 - the documentation is helping you understand what the implied response type is: an `Object` parsed from `response.json()`
 - JavaScript isn't a typed like language and there are no type definitions
 
@@ -117,9 +117,15 @@ const members = [
     { name: 'Albus', type: 'dawg', hitPoints: 5, maxHitPoints: 9 }
 ]
 
-const filterHumans = members => filter(member => member.type === 'human', members)
-const filterLowHealth = members => filter(member => member.hitPoints !== member.maxHitPoints, members)
+const filterHumans = members =>
+  filter(member => member.type === 'human', members)
+const filterLowHealth = members =>
+  filter(member => member.hitPoints !== member.maxHitPoints, members)
+```
 
+We've defined some data and 2 functions to parse them in a chain. Watch how their used below, however, inside the `then`'s:
+
+```javascript
 Promise.resolve(members)
 .then(members => filterHumans(members))
 .then(humans => filterLowHealth(humans))
@@ -132,16 +138,24 @@ Whatever function you put into `then` will be **invoked automatically** with 1 a
 .then(members => filterHumans(members))
 ```
 
-That's basically the same thing as:
+Instead, just do:
 
 ```javascript
-const filterHumans = members => filter(member => member.type === 'human', members)
-const filterHumansAgain = members => filterHumans(members)
+.then(filterHumans)
+```
+
+Otherwise, that's basically the same thing as:
+
+```javascript
+const filterHumans = members =>
+  filter(member => member.type === 'human', members)
+const filterHumansAgain = members =>
+  filterHumans(members)
 
 .then(filterHumansAgain)
 ```
 
-Instead, you can just write:
+Instead, you can just write the whole thing as:
 
 ```javascript
 Promise.resolve(members)
@@ -152,4 +166,4 @@ Promise.resolve(members)
 
 ## Conclusions
 
-While some could argue this is for performance reasons, we bring this up because using curried functions, partial applications, and tacit programming / point free style, you'll commonly provide functions with some or no arguments. Re-defining functions like this can remove your function purity, or accidentally hide what you're trying to do. Being comfortable writing, and more importantly, reading code like the shrunken Promise example above is important to successfully compose functions together. On the other hand, without types, or familiarity with a library, clearly written parameters can help in readability. Sometimes the extra function is worth it for cognitive load reasons.
+While some could argue this is for performance reasons, we bring this up because using curried functions, partial applications, and tacit programming / point free style, you'll commonly provide functions with some or no arguments. Re-defining functions like this can remove your function purity, or accidentally hide what you're trying to do. Being comfortable writing, and more importantly, reading code like the shrunken Promise example above is important to successfully compose functions together. On the other hand, without types, composition operators available in other languages, or familiarity with a library, clearly written parameters can help in readability. Sometimes the extra function is worth it for cognitive load reasons. This is not a hard rule, just awareness of how it works.

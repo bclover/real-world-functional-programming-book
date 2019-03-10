@@ -12,7 +12,7 @@ In true functional programming, there are no loops, only recursion. We don't car
 
 In weight lifting, there is the concept of [The Big 3](https://rippedbody.com/the-big-3-routine/). The Squat, Bench Press, and Deadlift. They are the core exercises, with ample sleep and protein, to become strong.
 
-List comprehensions are no different. The Big 3 for them is `map`, `filter`, and `reduce`. Here's a famous picture that helps visualize how they work using emoji 😂:
+List comprehensions are no different. The Big 3 for them is `map`, `filter`, and `reduce`. Here's a famous picture that helps visualize in pseudo code how they work using emoji 😂:
 
 ```javascript
 map([🐮, 🥔, 🐔, 🌽], cook)

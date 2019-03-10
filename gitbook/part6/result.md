@@ -1,6 +1,8 @@
 # Result
 
-A `Result` is a data type for modeling errors. Unlike `try`/`catch` and `throw`, it can give you more control on progating those errors in a pure way. When in doubt, if it's async and it can fail, use `Promise`. If it's sync and it can fail, use `Result`.
+A `Result` is a data type for modeling errors. Unlike `try`/`catch` and `throw`, it can give you more control on propagating those errors in a pure way. When in doubt, if it's async and it can fail, use `Promise`. If it's sync and it can fail, use `Result`.
+
+// [jwarden 3.10.2019] TODO: break down this massive code example and provide an easier one at first.
 
 ```javascript
 const Result = require('folktale/result')

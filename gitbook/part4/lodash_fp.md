@@ -5,20 +5,20 @@ There are 5 stages of learning function currying:
 1. creating closures
 2. creating partial applications
 3. using curried functions to create partial applications
-4. creating curried functions
+4. writing curried functions
 5. EVERYTHING IS A CURRIED FUNCTION
 6. ???
 
 This book assumes you've already comfortable with #1. [Part 4: Partial Applications](partial_applications.md) handles #2.
 
-Below, we'll get you more practice at #2 with less work, and the beginnings of seeing how #3 works.
+Below, we'll get you more practice at creating partial applications with less work, and the beginnings of seeing how curried functions create partial applications.
 
 ## Lodash vs Lodash FP
 
 Lodash provides another version of itself called "Lodash FP", which stands for Lodash Functional Programming. The 2 features that make it appealing are:
 
 1. All methods are curried
-2. all data is immutable
+2. all data is immutable (within reason)
 
 This is a wonderful tool to slowly start using partial applications, get comfortable using curried functions in different styles, and start creating your own. Most of the functions Lodash have in Lodash/fp are there, just their arguments are reversed to be static left, dynamic right.
 
@@ -83,7 +83,7 @@ const firstName = getFirstName(person)
 console.log(firstName) // Jesse
 ```
 
-Cool, but gross. The `partialRight` creates a function, a partial application, that looks like:
+Cool, but gross since lodash/fp is available to you. The `partialRight` creates a function, a partial application, that looks like:
 
 ```javascript
 const getFirstName = person => get(person, 'firstName')

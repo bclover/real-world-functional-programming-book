@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1178,7 +1178,7 @@ $.get(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>, html 
 <p>However, you could argue it&apos;s justified because:</p>
 <ul>
 <li>JavaScript is a dynamic language</li>
-<li>Integreted Development Environments (IDE&apos;s) and various text editors used for coding are still bad at helping learn about your code and providing intellisense and code completion</li>
+<li>Integrated Development Environments (IDE&apos;s) and various text editors used for coding are still bad at helping learn about your code and providing intellisense and code completion</li>
 <li>the documentation is helping you understand what the implied response type is: an <code>Object</code> parsed from <code>response.json()</code></li>
 <li>JavaScript isn&apos;t a typed like language and there are no type definitions</li>
 </ul>
@@ -1189,10 +1189,13 @@ $.get(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>, html 
     { name: <span class="hljs-string">&apos;Albus&apos;</span>, type: <span class="hljs-string">&apos;dawg&apos;</span>, hitPoints: <span class="hljs-number">5</span>, maxHitPoints: <span class="hljs-number">9</span> }
 ]
 
-<span class="hljs-keyword">const</span> filterHumans = members =&gt; filter(member =&gt; member.type === <span class="hljs-string">&apos;human&apos;</span>, members)
-<span class="hljs-keyword">const</span> filterLowHealth = members =&gt; filter(member =&gt; member.hitPoints !== member.maxHitPoints, members)
-
-<span class="hljs-built_in">Promise</span>.resolve(members)
+<span class="hljs-keyword">const</span> filterHumans = members =&gt;
+  filter(member =&gt; member.type === <span class="hljs-string">&apos;human&apos;</span>, members)
+<span class="hljs-keyword">const</span> filterLowHealth = members =&gt;
+  filter(member =&gt; member.hitPoints !== member.maxHitPoints, members)
+</code></pre>
+<p>We&apos;ve defined some data and 2 functions to parse them in a chain. Watch how their used below, however, inside the <code>then</code>&apos;s:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">Promise</span>.resolve(members)
 .then(members =&gt; filterHumans(members))
 .then(humans =&gt; filterLowHealth(humans))
 .then(unhealthyHumans =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Unhealthy humans:&quot;</span>, unhealthyHumans))
@@ -1200,20 +1203,25 @@ $.get(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>, html 
 <p>Whatever function you put into <code>then</code> will be <strong>invoked automatically</strong> with 1 argument it receives. There is no reason for you define another function on top of it to that invokes your function:</p>
 <pre><code class="lang-javascript">.then(members =&gt; filterHumans(members))
 </code></pre>
-<p>That&apos;s basically the same thing as:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> filterHumans = members =&gt; filter(member =&gt; member.type === <span class="hljs-string">&apos;human&apos;</span>, members)
-<span class="hljs-keyword">const</span> filterHumansAgain = members =&gt; filterHumans(members)
+<p>Instead, just do:</p>
+<pre><code class="lang-javascript">.then(filterHumans)
+</code></pre>
+<p>Otherwise, that&apos;s basically the same thing as:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> filterHumans = members =&gt;
+  filter(member =&gt; member.type === <span class="hljs-string">&apos;human&apos;</span>, members)
+<span class="hljs-keyword">const</span> filterHumansAgain = members =&gt;
+  filterHumans(members)
 
 .then(filterHumansAgain)
 </code></pre>
-<p>Instead, you can just write:</p>
+<p>Instead, you can just write the whole thing as:</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">Promise</span>.resolve(members)
 .then(filterHumans)
 .then(filterLowHealth)
 .then(unhealthyHumans =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Unhealthy humans:&quot;</span>, unhealthyHumans))
 </code></pre>
 <h2 id="conclusions">Conclusions</h2>
-<p>While some could argue this is for performance reasons, we bring this up because using curried functions, partial applications, and tacit programming / point free style, you&apos;ll commonly provide functions with some or no arguments. Re-defining functions like this can remove your function purity, or accidentally hide what you&apos;re trying to do. Being comfortable writing, and more importantly, reading code like the shrunken Promise example above is important to successfully compose functions together. On the other hand, without types, or familiarity with a library, clearly written parameters can help in readability. Sometimes the extra function is worth it for cognitive load reasons.</p>
+<p>While some could argue this is for performance reasons, we bring this up because using curried functions, partial applications, and tacit programming / point free style, you&apos;ll commonly provide functions with some or no arguments. Re-defining functions like this can remove your function purity, or accidentally hide what you&apos;re trying to do. Being comfortable writing, and more importantly, reading code like the shrunken Promise example above is important to successfully compose functions together. On the other hand, without types, composition operators available in other languages, or familiarity with a library, clearly written parameters can help in readability. Sometimes the extra function is worth it for cognitive load reasons. This is not a hard rule, just awareness of how it works.</p>
 
                                 
                                 </section>
@@ -1257,7 +1265,7 @@ $.get(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>, html 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Passing Functions to Functions","level":"1.6.1","depth":2,"next":{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},"previous":{"title":"Part 5: Composition","level":"1.6","depth":1,"path":"part5/README.md","ref":"part5/README.md","articles":[{"title":"Passing Functions to Functions","level":"1.6.1","depth":2,"path":"part5/passing_functions_to_functions.md","ref":"part5/passing_functions_to_functions.md","articles":[]},{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},{"title":"Tacit Programming","level":"1.6.3","depth":2,"path":"part5/tacit_programming.md","ref":"part5/tacit_programming.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/passing_functions_to_functions.md","mtime":"2018-08-26T21:55:24.534Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Passing Functions to Functions","level":"1.6.1","depth":2,"next":{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},"previous":{"title":"Part 5: Composition","level":"1.6","depth":1,"path":"part5/README.md","ref":"part5/README.md","articles":[{"title":"Passing Functions to Functions","level":"1.6.1","depth":2,"path":"part5/passing_functions_to_functions.md","ref":"part5/passing_functions_to_functions.md","articles":[]},{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},{"title":"Tacit Programming","level":"1.6.3","depth":2,"path":"part5/tacit_programming.md","ref":"part5/tacit_programming.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/passing_functions_to_functions.md","mtime":"2019-03-10T16:18:27.951Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

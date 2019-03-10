@@ -16,7 +16,7 @@ Math.round(1.034) // 1
 Math.round(1.034) // 1
 ```
 
-Same input, same output. There is no side effects, either; you're just operating on the `Number` you passed in. Since the `Number` you passed is pass "by val", it'll create a clone, so the output is a completely different `Number` than the one you passed in.
+Same input, same output. There is no side effects, either; you're just operating on the `Number` you passed in. Since the `Number` you passed is pass "by val", it'll create a clone, so the output is a completely different `Number` then the one you passed in.
 
 However, even `Math` can be impure:
 
@@ -128,7 +128,7 @@ The `getUsers` returns a Promise. She takes in the `pg` variable, probably a Pos
 
 ... but what is `connect` doing? It has no return value. It does not appear like logging, and instead looks like it's attempting to connect to the Postegres database? What if it fails? What else is it doing? While we're inside a `Promise`, and thus have built-in try/catch functionality, this is actually worse in that it can hide it's side effect, and we wouldn't know until we inspect the `promise.catch` to read the error and figure out somewhere internally it's failing to connect.
 
-While not the best way to handle errors, the more pure way would be to have `connect` at a bare minimum return a `Promise`; it'll either connect, or it won't with an `Error` saying why. We can then connect that to our existing `Promise`, and only run the database query once it is successfully connected:
+While not the best way to handle errors, the more pure way would be too have `connect` at a bare minimum return a `Promise`; it'll either connect, or it won't with an `Error` saying why. We can then connect that to our existing `Promise`, and only run the database query once it is successfully connected:
 
 ```javascript
 const getUsers = pg =>
@@ -150,7 +150,7 @@ Be on the lookout for functions that have no return value and aren't logging rel
 
 ## Node Middlewares
 
-Node was created and used long before `Promises` became du-jour in JavaScript. There are still many callback holdouts who swear by their [async library](https://github.com/caolan/async). This means most of the popular API and site frameworks such as [Express](https://expressjs.com/) and [Restify](http://restify.com/) all follow the Node middleware ways of arhcitecting and building plugins. Middlewares hide massive side effects and are not pure.
+Node was created and used long before `Promises` became du-jour in JavaScript. There are still many callback holdouts who swear by their [async library](https://github.com/caolan/async). This means most of the popular API and site frameworks such as [Express](https://expressjs.com/) and [Restify](http://restify.com/) all follow the Node middleware ways of architecting and building plugins. Middlewares hide massive side effects and are not pure.
 
 A basic API to get a list of suers in Express looks like:
 
@@ -189,7 +189,7 @@ Notice the 3rd parameter called `next`. It's a function, specifically a callback
 
 1. call `res.send`, preventing all further functions from being run.
 2. call `next()` with no parameters signalling your function or "middleware" is done and has run successfully, and the next middleware can run.
-3. call `next(error)` with an `Error` as the first and only paramaeter, signalling that your middleware failed and no further middlewares should be run.
+3. call `next(error)` with an `Error` as the first and only parameter, signalling that your middleware failed and no further middlewares should be run.
 
 What happens after depends on the framework and middleware, but typically you'd also send a message to the user.
 
@@ -209,7 +209,7 @@ app.get(
 
 This mis-mash of patterns is what you'd to do compose asynchronous functions together in web/API frameworks before `Promise` chains became popular. The downside is there are a lot of side effects in this approach without any way for you to prevent them causing errors, nor easily unit test them without intentionally mocking side effects.
 
-The best way is just not use the middlware pattern at all, instead using Promises:
+The best way is just not use the middleware pattern at all, instead using Promises:
 
 ```javascript
 app.get(

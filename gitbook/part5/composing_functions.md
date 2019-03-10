@@ -1,10 +1,12 @@
 # Composing Functions
 
+// [jwarden 3.10.2019] TODO/FIXME: We need to drive the partial application usage home. We're also missing using the pipeline operator which makes way more sense. We should probably just expand this section to show before/after of partial, and then create a new section for pipeline since I have a pretty good example of that here: https://gist.github.com/JesterXL/174a83a21fdff671bc5a7a8c954c6949 We should probably also separate flow, promises, and the pipeline operator into their own sections. The overview here is good, but each has different users. Finally, as much as I loathe RxJS, we should probably give it some love to show it's power in mixing async and sync.
+
 Composing functions is when you combine a bunch of functions together to form a new function. When you build applications using Functional Programming, you'll be building new functions from existing functions. Flow in Lodash, Compose in Ramda, Folktale, and Sanctuary, allow you to pipe functions together in JavaScript. We briefly showed an example of this in the [Tacit Programming](tacit_programming.md) section using `flow`. Python and Lua make this a lot easier since both synchronous things like adding numbers and asynchronous things like loading data from websites work the exact the same way if you use the basics of the language.
 
-JavaScript, however, handles asynchronous completely differently through `Promises`, Python optionally through their various concurrency options, and Lua through coroutines. We'll cover both below so you'll be deadly no matter which language you choose to wield.
+JavaScript, however, handles asynchronous completely differently through `Promises`, Python optionally through their various concurrency options, and Lua through coroutines. We'll cover both below so you'll be deadly no matter which language you choose to wield. Also, RxJS and other libraries have been created to allow composition in JavaScript without caring if it is asynchronous or not.
 
-## Prior Art
+## Prior Art: Chaining
 
 A lot of languages and libraries already do some form of composition where you'll "dot chain" functions together to string together the output of one into the arguments of another.
 
@@ -32,7 +34,7 @@ $(document).ready(() => {
 })
 ```
 
-And straddling both the sync and async worlds of JavaScript using RxJS:
+And straddling both the sync and async worlds of JavaScript using RxJS (the `listAWSFunctions` makes a REST call that may take awhile):
 
 ```javascript
 const { fromPromise, from } = require('rx')
@@ -54,15 +56,15 @@ Our party in JSON:
 
 ```javascript
 const peopleString = `[
-["jesse warden", "swasbuckler", 18, 21, "human"],
-["brandy fortune", "cleric", 11, 11, "human"],
-["albus dumbledog", "war dog", 7, 9, "dawg"]
+  ["jesse warden", "swasbuckler", 18, 21, "human"],
+  ["brandy fortune", "cleric", 11, 11, "human"],
+  ["albus dumbledog", "war dog", 7, 9, "dawg"]
 ]`
 ```
 
 ## Parsing
 
-Let's create our function and continue to add to it so we can see the process of how composition start small and simple, yet can be augmented over time.
+Let's create our function and continue to add to it so we can see the process of how composition starts small and simple, yet can be augmented over time.
 
 ```javascript
 import { flow } from 'lodash/fp'
@@ -75,7 +77,7 @@ console.log(showHumans(peopleString))
 //   [ 'albus dumbledog', 'war dog', 7, 9, 'dawg' ] ]
 ```
 
-The `JSON.parse` function takes 1 parameter, a String, and will output the parsed JSON Object. It's not pure because it'll throw if the String fails to parse, but we'll handle that scenario in [Part 6: Algebriac Data Types](part6/README.md).
+The `JSON.parse` function takes 1 parameter, a String, and will output the parsed JSON Object. It's not pure because it'll throw if the String fails to parse, but we'll handle that scenario in [Part 6: Algebraic Data Types](part6/README.md).
 
 ## List to People
 
@@ -115,7 +117,7 @@ console.log(showHumans(peopleString))
 
 ## Filter Humans
 
-Like we've shown in the previous section, if any of the person's type is a human, we keep those in the newly returned Array. This means no Albus in the filtered `party` Array.
+Like we've shown in the previous section, if any of the person's type is a human, we keep those in the newly returned Array. This means no Albus the dog in the filtered `party` Array.
 
 ```javascript
 const filterHumans =

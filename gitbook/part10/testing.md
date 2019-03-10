@@ -1,5 +1,7 @@
 # Test Driven Development
 
+[jwarden 3.10.2019] TODO: These code examples are massive... shrink 'em or break them out into sections. Also, why is this called testing, yet title is Test Driven Development?
+
 **Caveat**: This section is not promoting Test Driven Development. It is not saying TDD is the one, true way to do things. It is not encouraging you to use TDD. Rather, it's a lens to show the truth of what Functional Programming will NOT solve for you, yet still containing helpful programming advice. That, and you should learn about TDD because multiple smart, experienced people agree it has goodness within despite the various, justified detractors.
 
 The Test Driven Development methodology gives uses unit testing as a way to design your code while ensuring you can be confident in constant feature additions and changes.
@@ -26,9 +28,9 @@ Functional Programming can give you a few false senses of security:
 
 While the suite size goes down, a lot of those tests may be testing implementation details and you don't need to test those. Like in OOP, publics test your privates. With 100% test coverage, you'll still get bugs. Stubs are not your concrete implementations; they are different. Consistently passing tests just mean they're consistently missing bugs or consistently having false positives. Functions with a lot of arguments, however, are still hard, have a lot of stubs, and can be just as confusing as large mocks.
 
-Bottom line, even if you no longer get new features, libraries update a lot for security reasons and innovation that changes the public API. You need to change your code even if your code isn't changing. Additionally, no one likes to maintain large test suites, even if they are more understandable in Functional code. This slows you and/or your team down.
+Bottom line, even if you no longer get new features, libraries update a lot for security reasons and innovation that changes the public API. You need to change your code even if your code isn't changing. Additionally, no one likes to maintain large test suites, even if they are more understandable in Functional code. This slows you and/or your team down. It's easier to delete the tests and start from scratch.
 
-To end on a happy note, it's a false sense of security, NOT accomplishment. The unit tests, high coverage, and few stubs are something you should be proud of.
+To end on a happy note, it's a false sense of security, NOT accomplishment. The unit tests, high coverage, and few stubs are something you should be proud of. Just don't let it go to your head.
 
 ## What is a Public API?
 
@@ -39,7 +41,7 @@ When we talk about a public API from a Functional Programming perspective, we me
 3. expose nothing and use closures only
 4. combination of the above using globals and a custom module system
 
-What we mean by public API in JavaScript is whatever functions `module.exports` has on it, or whatever uses the `export` keyword in ES6. For Python, whatever your folder exposes via `__init__.py`. For Lua, whatever you return from your module file.
+What we mean by public API in JavaScript Node is whatever functions `module.exports` has on it, or whatever uses the `export` keyword in ES6. For Python, whatever your folder exposes via `__init__.py`. For Lua, whatever you return from your module file.
 
 Now, all 3 of those are modules, but they could import other modules and not expose those internals:
 
@@ -58,7 +60,7 @@ module.exports = parseName
 
 Our API in this case is the `parseName` function from the `api.js` file.
 
-If we import `parseName` from `api.mjs`, we can use it, but can't access anything else from it, nor from `string.js`. This controlled level of privacy allows api to only expose things it wants, and change the internals however it wants. This controlled flexibility is good: easier for the developers to get their ideas down in code and folders how they want, yet providing developers using it a consistent API. If the `api.js` were to change, they'd do a major version change in their `package.json` so code bases wouldn't break unless those developers are ready to change their code to accommodate the API change.
+If we import `parseName` from `api.js`, we can use it, but can't access anything else from it, nor from `string.js`. This controlled level of privacy allows api to only expose things it wants, and change the internals however it wants. This controlled flexibility is good: easier for the developers to get their ideas down in code and folders how they want, yet providing developers using it a consistent API. If the `api.js` were to change, they'd do a major version change in their `package.json` so code bases wouldn't break unless those developers are ready to change their code to accommodate the API change.
 
 The `parseName` is a function, but in OOP code bases, it'd be a `class`, and that class would have only `public` methods for you to utilize to access the internals however it sees fit. Both OOP and Functional Programming can practice encapsulation. 
 

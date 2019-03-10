@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,10 +1111,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="hold-up-wait-a-minute-let-us-trap-the-boom-in-it">Hold Up, Wait a Minute, Let Us Trap The BOOM In It</h1>
-<p>Returning Errors from functions is supported and encouraged in Functional Programming, but throwing them is not. Throwing errors via <code>throw new Error(&apos;boom&apos;)</code> breaks the first rule of pure functions, same input, same output because there is no output. Sometimes, an Error can cause unintended side effects in a piece of code, and breaks the &quot;same output&quot; part of the rule. Finally, once you throw an Error, the world is affected after the function ran, thus breaking the second rule of no side effects.</p>
+<p>Returning <code>Error</code>s from functions is supported and encouraged in Functional Programming, but throwing them is not. Throwing errors via <code>throw new Error(&apos;boom&apos;)</code> breaks the first rule of pure functions, same input, same output because there is no output. Sometimes, an Error can cause unintended side effects in a piece of code, and breaks the &quot;same output&quot; part of the rule. Finally, once you throw an Error, the world is affected after the function ran, thus breaking the second rule of no side effects.</p>
 <p>When running Node in in a concurrent environment like <a href="https://aws.amazon.com/ecs/" target="_blank">ECS</a>, <a href="https://kubernetes.io/" target="_blank">Kubernetes</a>, or <a href="https://aws.amazon.com/lambda/" target="_blank">Lambdas</a> through a <a href="https://aws.amazon.com/step-functions/" target="_blank">Step Function</a> this can be a good or bad thing depending upon how you handle it. This can cause a <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> to restart one of your Node processes, a <a href="https://www.docker.com/" target="_blank">Docker container</a> to be destroyed in your <a href="https://aws.amazon.com/ecs/" target="_blank">ECS cluster</a> or all kinds of infrastructure to be recycled based on error logs. Those are quite a lot of side effects from a simple <code>throw</code>.</p>
 <p>The bad news is, you&apos;re always going to have errors. Functional Programming won&apos;t fix your internet being down when you&apos;re making a REST call or your browser out of memory when you attempt to <code>console.log</code> some big JSON.</p>
-<p>The good news is when Errors occur in FP code, they won&apos;t break your program. For UI code, you can design for these errors predictably. If you&apos;re willing to create total functions, it&apos;ll tell you exactly what went wrong without you having to make sense of a long strack trace.</p>
+<p>The good news is when Errors occur in FP code, they won&apos;t break your program. For UI code, you can design for these errors predictably. If you&apos;re willing to create total functions, it&apos;ll tell you exactly what went wrong without you having to make sense of a long stack trace.</p>
 <h2 id="standard-error-handling">Standard Error Handling</h2>
 <p>Let&apos;s take our existing bullet-proof, never fail function:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> alwaysTrue = () =&gt;
@@ -1375,7 +1375,7 @@ print(<span class="hljs-string">&quot;Parsed JSON:&quot;</span>, obj)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Error Quest!","level":"1.2.5","depth":2,"next":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},"previous":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/error_quest.md","mtime":"2019-03-03T20:38:27.624Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Error Quest!","level":"1.2.5","depth":2,"next":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"path":"part1/not_allowed.md","ref":"part1/not_allowed.md","articles":[]},"previous":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/error_quest.md","mtime":"2019-03-09T22:03:53.442Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -1,11 +1,13 @@
 
 # Composing Lenses
 
+// [jwarden 3.10.2019] TODO: need a larger example at the bottom.
+
 Both Lodash and Ramda have ways of digging deeper into Objects. For Lodash in a `get`, you just keep adding dots or Array accessors. Ramda uses `path` with each item in the `Array` being 1 level deeper into the Object.
 
 ## Lodash Deep Get
 
-For example, if we want to see the 2nd characters 2nd iventory item name in Lodash:
+For example, if we want to see the 2nd characters 2nd inventory item name in Lodash:
 
 ```javascript
 import get from 'lodash/fp/get'

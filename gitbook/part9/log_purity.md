@@ -1,14 +1,14 @@
-# Here Be Ivory Tower Territory
+# Log Purity
 
 **Warning**: The following is considered ivory tower territory.
 
-Many Functional programmers who work on feature teams (shipping software non-developer users use) believe that purity of logging is not worth it. They have a prammatic view that side effects I outline here are not a big deal, and their ease of use and debugging & monitoring gains far outweigh the risk of unknown side effects.
+Many Functional programmers who work on feature teams (shipping software non-developer users use) believe that purity of logging is not worth it. They have a pragmatic view that side effects I outline here are not a big deal, and their ease of use and debugging & monitoring gains far outweigh the risk of unknown side effects.
 
-That said, this book is about real world programming, and while the real world requires you as a programmer to make tough calls for the sake of pragmatism, like Patton said:
+That said, this book is about real world programming, and while the real world requires you as a programmer to make tough calls for the sake of pragmatism, like [Patton](https://en.wikipedia.org/wiki/George_S._Patton) said:
 
 > Take calculated risks. That is quite different from being rash.
 
-You need to be aware of the potential side effects that loggers can have before you write of their side effects as nothing to worry about.
+You need to be aware of the potential side effects that loggers can have before you write off their side effects as nothing to worry about.
 
 ## Logging Purity & Side Effects
 
@@ -23,11 +23,11 @@ Now, while it doesn't technically have a side effect in JavaScript, it DOES have
 
 If you are running Docker containers on Amazon's [Elastic Container Service](https://aws.amazon.com/ecs/) (ECS), for example, you my have 3 of the same containers running at the same time, whether for scaling purposes or for each availability zone or both. When a `console.log` is run, all 3 are outputting to Docker logs, and in turn those are pushed to Amazon's [CloudWatch](https://aws.amazon.com/cloudwatch/) or something like [Logstash](https://www.elastic.co/products/logstash). Same thing for running multiple [Lambda](https://aws.amazon.com/lambda/) functions at the same time; same code, but different instances logging to the same place.
 
-You or your Ops team may have alarms setup to use these logs to help monitor the health of your infrastructure. Some of these alarms may be automated to destroy unhealthy infrastructure, and create new servers, send monitoring emails, etc.
+You or your Ops team may have alarms setup to use these logs to help monitor the health of your infrastructure. Some of these alarms may be automated to destroy unhealthy infrastructure, and create new servers, send monitoring emails, send text messages to your team when infrastructure appears unhealthy, etc.
 
-`console.log`: Destroying and recreating infrastructure as well as sending emails to Ops.
+`console.log`: Destroying and recreating infrastructure as well as sending emails to Ops and text messages to your boss.
 
-As you can see, those are some huge side effects.
+As you can see, those are some huge side effects from a log.
 
 ## Logging Configurations
 
@@ -40,7 +40,7 @@ const log = pino({
 })
 ```
 
-Traditionally, you'd use something like `config` to determine if you're in a production environment.
+Traditionally, you'd use something like [config](https://github.com/lorenwest/node-config) to determine if you're in a production environment.
 
 ```javascript
 ...
@@ -59,7 +59,7 @@ const getProdLogger = () => pino()
 
 ## Streams and Exponential Side Effects
 
-Many loggers do more than just shuttle text. Some will take your `thing.logThis('message')` and send that same messages to multiple places in multiple formats. For example, the Bunyan logger allows you to create streams in the construction of the logger:
+Many loggers do more than just shuttle text. Some will take your `thing.logThis('message')` and send that same messages to multiple places in multiple formats. For example, the [Bunyan logger](https://github.com/trentm/node-bunyan) allows you to create streams in the construction of the logger:
 
 ```javascript
 const log = bunyan.createLogger({
@@ -85,7 +85,7 @@ Now whenever we do a `log.warn('oh n0es')`, it'll go to standard out, to a local
 
 ## Minimum Logging Side Effects
 
-How do you use those logger instances, though? In most dynamic languages, you can use those as closures or globals and even the Clojure developers consider that acceptable. However, you've seen the side effects loggers can have: infrastructure changes, broken log/monitoring systems, file writing and sockets, oh my.
+How do you use those logger instances, though? In most dynamic languages, you can use those as closures or globals and even the Clojure developers consider that acceptable. However, you've seen the side effects loggers can have: infrastructure changes, broken log/monitoring systems, file writing and sockets, oh my. I deployed our API code in prod with Pino's `prettyPrint` set to true, and it basically made the logs in ELK impossible to read. This meant if we had a production issue, I'd have no idea why by using the logs and would have to look elsewhere. Huge deal.
 
 If you follow the Kent Beck model of TDD, you're probably also fine with these side effects being triggered in your unit tests instead of stubbing/mocking them. If, on the other hand you're still exploring an API's implementation details, learning, or tracking down a strange bug in your audit system, bringing as much purity to your logging layer can really put a capstone on the purity of your code base.
 

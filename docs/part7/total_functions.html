@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1116,7 +1116,7 @@
 <h2 id="functions-that-never-fail">Functions That Never Fail</h2>
 <p>Pure functions and immutability are great to produce code that is more predictable. However, without a compiler and/or runtime verification, you can still have them throw an exception, or just be &quot;wrong&quot; (what the math people call &quot;incorrect&quot;). Total functions can help you get your code immune to runtime exceptions as possible without the need of a compiler. They can even help a bit on the &quot;correctness&quot; of your code.</p>
 <h2 id="how-can-a-pure-function-still-throw">How Can a Pure Function Still Throw?</h2>
-<p>If we&apos;re building some functions to valid what the user types in a text input, we need to ensure they didn&apos;t leave it blank, so we&apos;ll count the length of a <code>String</code> using a pure function: </p>
+<p>If we&apos;re building some functions to validate what the user types in a text input, we need to ensure they didn&apos;t leave it blank, so we&apos;ll count the length of a <code>String</code> using a pure function: </p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> notBlank = str =&gt;
     str.length &gt; <span class="hljs-number">0</span>
 </code></pre>
@@ -1153,11 +1153,11 @@ parsePhoneNumber(<span class="hljs-number">555</span>)
 <p>... but what if the phone number is valid:</p>
 <pre><code class="lang-javascript">parsePhoneNumber(<span class="hljs-string">&apos;(123) 555-9876&apos;</span>) <span class="hljs-comment">// false</span>
 </code></pre>
-<p>While pure and somewhat total... it&apos;s still incorrect, that&apos;s a valid phone number.</p>
-<p>Total functions will help a lot with the types, and a bit with the correctness. These benefits compound (get more powerful) when you start composing/combining them together into larger functions.</p>
+<p>While the function is pure and somewhat total... the return value is still incorrect; that&apos;s a valid phone number.</p>
+<p>Total functions will help a lot with the types, and a bit with the correctness. These benefits compound (get more powerful) when you start composing/combining them together into larger functions. They come with the cost of additional maintenance, and unit/property tests, and additional hard work.</p>
 <h2 id="problem-adding-random-things">Problem: Adding Random Things</h2>
 <p>Dynamic languages pass random things everywhere. We attempt to not pass random things when we write code and unit tests, but the dynamism is a double edged sword: power of flexibility, yet bad things happen when you get what you weren&apos;t expecting.</p>
-<p>For example, here&apos;s our original pure function:</p>
+<p>For example, here&apos;s our original pure function from <a href="../part1/input_output_side_effects.html">Chapter 1: Pure Functions</a></p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b
 
 add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 3</span>
@@ -1167,7 +1167,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <spa
 <pre><code class="lang-javascript">add(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;how now brown cow&apos;</span>), { get: <span class="hljs-string">&apos;busy child&apos;</span> })
 <span class="hljs-comment">// &apos;Error: how now brown cow[object Object]&apos;</span>
 </code></pre>
-<p>Um, ok... that isn&apos;t really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in <code>flow</code>/<code>compose</code> or <code>Promise</code>, the chain can get corrupted. You may get parsing results or errors that don&apos;t make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again when debugging functional code.</p>
+<p>Um, ok... that isn&apos;t really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in <code>flow</code>/<code>compose</code> or <code>Promise</code>, the chain can get corrupted. You may get parsing results or errors that don&apos;t make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again when debugging functional code, or even... &#x1F630; strong types!</p>
 <h2 id="solution-solving-with-types">Solution: Solving With Types</h2>
 <p>One way to solve this is to use types. With just a little metadata added by you the developer, compilers can read and understand your code, and find your errors in nanoseconds. They can even offer fixes, or sometimes automatically fix. <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, an open source language &amp; compiler started by Microsoft and open source, is one such language.</p>
 <p>Rewriting our function in TypeScript, we explicitly say &quot;Yo, this function takes 2 numbers, and returns a number.&quot; This is enough for the TypeScript compiler, <code>tsc</code> to verify your inputs.</p>
@@ -1175,16 +1175,16 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <spa
 </code></pre>
 <p>Before we can even run the code in TypeScript, we have to compile it to JavaScript. However, instantly, TypeScript shows us an error with our 2nd add:</p>
 <blockquote>
-<p>Argument of type &apos;Error&apos; is not assignable to prameter of type &apos;number&apos;.`</p>
+<p>Argument of type &apos;Error&apos; is not assignable to parameter of type &apos;number&apos;.`</p>
 </blockquote>
 <p>In English, that&apos;s:</p>
 <blockquote>
 <p>&quot;The <code>add</code> function only takes a <code>Number</code> for the first argument, but you are passing an <code>Error</code>. You&apos;re not allowed to do that. Change the first parameter to a <code>Number</code>.&quot;</p>
 </blockquote>
 <p>As your functions grow in number, size, and you start composing them, it can be really hard to keep track of all the types going around, and ensuring that you&apos;re always getting the correct type. If another developer is using your code, will they get a meaningful error if your function chokes on a weird type it wasn&apos;t expecting? These kinds of problems types can help like TypeScript, <a href="https://flow.org/" target="_blank">Flow</a>, <a href="http://elm-lang.org/" target="_blank">Elm</a>, and <a href="http://www.purescript.org/" target="_blank">PureScript</a>.</p>
-<p>The downside here is libraries. Just because you&apos;re using a transpilation/compilation solution doesn&apos;t mean your consumers are. While you can use TypeScript and publish a library to <code>npm</code> doesn&apos;t mean those who install it will be using TypeScript. They could just be using raw JavaScript, or Webpack with just ES6. That said, even a little can help, it just won&apos;t make your functions total for everyone.</p>
+<p>The downside here is libraries. Just because you&apos;re using a transpilation/compilation solution doesn&apos;t mean your consumers are. While you can use TypeScript and publish a library to <code>npm</code> doesn&apos;t mean those who install it will be using TypeScript. They could just be using raw JavaScript, or Webpack with just ES6. Also, not all data parsing libraries are strict like <a href="https://avro.apache.org/docs/current/" target="_blank">AVRO</a>/<a href="https://developers.google.com/protocol-buffers/" target="_blank">Protobuf</a> to ensure the types they parse are &quot;guaranteed a <code>Number</code> once you get it to use for your add function&quot; at runtime. That said, even a little can help, it just won&apos;t make your functions total for everyone.</p>
 <h2 id="solution-solving-with-manual-native-runtime-validation">Solution: Solving With Manual, Native Runtime Validation</h2>
-<p>Another solution is to do your own runtime type evaluation. If you implement a whitelist, then you only ensure the types you&apos;re expecting get through, otherwise you tell the caller of the function it failed, and you give them as much detail about what they passed in so they can have an easier time debugging.</p>
+<p>Another solution is to do your own runtime type evaluation. If you implement a whitelist, then you only ensure the types you&apos;re expecting get through, otherwise you tell the caller of the function it failed, and you give them as much detail about what they passed in so they can have an easier time debugging. We started this with our <code>isString</code> usage in the first example for <code>notBlank</code>.</p>
 <p>Without using any libraries and just raw JavaScript, we&apos;ll return our own result following the multiple return value model that Go, Lua, and Python follow (see <a href="part1/error_quest.md">Part 1: Error Quest</a>):</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isNumber = o =&gt; <span class="hljs-keyword">typeof</span> o === <span class="hljs-string">&apos;number&apos;</span>
 <span class="hljs-keyword">const</span> addNumbers = (a, b) =&gt;
@@ -1202,7 +1202,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <spa
 <span class="hljs-comment">//   error: Error: Either a or b aren&apos;t Numbers. a: Error: how now brown cow, b: [object Object]</span>
 <span class="hljs-comment">// ...</span>
 </code></pre>
-<p>Now the function is mostly total. It&apos;ll literrly accept ANYTHING and let you know if add worked or not. Where pure functions are dependable to build applications on, total functions are a level above that and nigh unbreakable.</p>
+<p>Now the function is mostly total. It&apos;ll literally accept ANYTHING and let you know if <code>add</code> worked or not. Where pure functions are dependable to build applications on, total functions are a level above that and nigh unbreakable.</p>
 <h2 id="solution-solving-with-manual-folktale-runtime-validation">Solution: Solving With Manual, Folktale Runtime Validation</h2>
 <p>The challenge with the above is that <code>isNumber</code>, while a predicate, isn&apos;t very composable when you have a bunch of arguments that are different kinds. Also, some types have multiple rules above them such as product or Union types and so you&apos;ll run multiple predicates against them.</p>
 <p>Folktale <code>Validation</code>s work great here. Let&apos;s take our load website pure function:</p>
@@ -1421,7 +1421,7 @@ it(<span class="hljs-string">&apos;request.get should work&apos;</span>, () =&gt
 <h2 id="conclusions">Conclusions</h2>
 <p>Total functions are pure functions that accept all inputs. The pro&apos;s are enhanced error handling if done manually, less unknown errors from other code, and overall more dependable functions. The error messages, especially from API response errors, are really helpful for consumers of your code.</p>
 <p>The con&apos;s are they can require more unit tests to ensure you&apos;ve handled the edge cases. This is before you even start writing property tests via <a href="https://github.com/jsverify/jsverify" target="_blank">jsverify</a>. Like unit test stubs, they will expect a certain implementation shape, and so your stubs have to be more thorough to match the implementation. i.e. &quot;A <code>get</code> is good enough, right? Wait... we&apos;re not even testing <code>post</code>, why do I need to implement a blank function for it on the stub?&quot;</p>
-<p>Also, developers who are not using types don&apos;t like how verbose they are to debug and modify. We&apos;ve take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the <code>add</code> function itself, you&apos;ll end up writing unit tests for the others anyway to ensure you&apos;ve written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it&apos;s hard for future developers to understand why the private functions of your module are being so thoroughly tested. </p>
+<p>Also, developers who are not using types don&apos;t like how verbose they are to debug and modify. We&apos;ve take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the <code>add</code> function itself, you&apos;ll end up writing unit tests for the others anyway to ensure you&apos;ve written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it&apos;s hard for future developers to understand why the private functions of your module are being so thoroughly tested vs. just the public implementation.</p>
 
                                 
                                 </section>
@@ -1465,7 +1465,7 @@ it(<span class="hljs-string">&apos;request.get should work&apos;</span>, () =&gt
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Total Functions","level":"1.8.1","depth":2,"next":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"previous":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"path":"part7/README.md","ref":"part7/README.md","articles":[{"title":"Total Functions","level":"1.8.1","depth":2,"path":"part7/total_functions.md","ref":"part7/total_functions.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/total_functions.md","mtime":"2019-01-20T17:18:16.069Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Total Functions","level":"1.8.1","depth":2,"next":{"title":"Part 8: Optics","level":"1.9","depth":1,"path":"part8/README.md","ref":"part8/README.md","articles":[{"title":"Isomorphisms","level":"1.9.1","depth":2,"path":"part8/isomorphisms.md","ref":"part8/isomorphisms.md","articles":[]},{"title":"Prisms","level":"1.9.2","depth":2,"path":"part8/prisms.md","ref":"part8/prisms.md","articles":[]},{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},{"title":"Custom Lens","level":"1.9.4","depth":2,"path":"part8/custom_lens.md","ref":"part8/custom_lens.md","articles":[]}]},"previous":{"title":"Part 7: Total Functions","level":"1.8","depth":1,"path":"part7/README.md","ref":"part7/README.md","articles":[{"title":"Total Functions","level":"1.8.1","depth":2,"path":"part7/total_functions.md","ref":"part7/total_functions.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part7/total_functions.md","mtime":"2019-03-10T17:56:22.613Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

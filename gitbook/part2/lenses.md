@@ -6,7 +6,7 @@ If you hear the word "Optics", that's what a lot of the Functional people use to
 
 ## Focus on a Property or Path, and View It in Ramda
 
-Just like there are 2 functions in Ramda to get a property via `prop` and get a deeply nested property via `path`, so too are there 2 lenses to do the same. Unlike Ramda's `prop` and `path` (Lodash `get` does what they both do), functions that return values, a lense is a Type. You call it like any other function to return a configured lens. We'll create some lenses, then use them to "focus" on certain properties and paths of our person Object.
+Just like there are 2 functions in Ramda to get a property via `prop` and get a deeply nested property via `path`, so too are there 2 lenses to do the same. Unlike Ramda's `prop` and `path` (Lodash `get` does what they both do), functions that return values, a lens is a Type. You call it like any other function to return a configured lens. We'll create some lenses, then use them to "focus" on certain properties and paths of our person Object.
 
 Here's our Object:
 
@@ -69,7 +69,7 @@ console.log(person.address.street) // 123 Cow Ville
 
 ## Modification With Lenses
 
-Now that we know how to view our data with our lenses, and use them to set things they're focused on, let's use them to modify data we're focused on in an immutable way using pure functions. Instead of "set it to this new value", we'll instead "take the value that's there, put it into this function, and whatever comes out, set the new value to that result". Below will use our lense to run a function on the property and replace it with the value that function returns. It'll then give us a cloned Object back with the modification:
+Now that we know how to view our data with our lenses, and use them to set things they're focused on, let's use them to modify data we're focused on in an immutable way using pure functions. Instead of "set it to this new value", we'll instead "take the value that's there, put it into this function, and whatever comes out, set the new value to that result". Below will use our lens to run a function on the property and replace it with the value that function returns. It'll then give us a cloned Object back with the modification:
 
 ```javascript
 import { ..., over, toLower } from 'ramda'

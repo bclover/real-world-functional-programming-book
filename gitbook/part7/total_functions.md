@@ -10,7 +10,7 @@ Pure functions and immutability are great to produce code that is more predictab
 
 ## How Can a Pure Function Still Throw?
 
-If we're building some functions to valid what the user types in a text input, we need to ensure they didn't leave it blank, so we'll count the length of a `String` using a pure function: 
+If we're building some functions to validate what the user types in a text input, we need to ensure they didn't leave it blank, so we'll count the length of a `String` using a pure function: 
 
 ```javascript
 const notBlank = str =>
@@ -75,15 +75,15 @@ parsePhoneNumber(555)
 parsePhoneNumber('(123) 555-9876') // false
 ```
 
-While pure and somewhat total... it's still incorrect, that's a valid phone number.
+While the function is pure and somewhat total... the return value is still incorrect; that's a valid phone number.
 
-Total functions will help a lot with the types, and a bit with the correctness. These benefits compound (get more powerful) when you start composing/combining them together into larger functions.
+Total functions will help a lot with the types, and a bit with the correctness. These benefits compound (get more powerful) when you start composing/combining them together into larger functions. They come with the cost of additional maintenance, and unit/property tests, and additional hard work.
 
 ## Problem: Adding Random Things
 
 Dynamic languages pass random things everywhere. We attempt to not pass random things when we write code and unit tests, but the dynamism is a double edged sword: power of flexibility, yet bad things happen when you get what you weren't expecting.
 
-For example, here's our original pure function:
+For example, here's our original pure function from [Chapter 1: Pure Functions](../part1/input_output_side_effects.md)
 
 ```javascript
 const add = (a, b) => a + b
@@ -100,7 +100,7 @@ add(new Error('how now brown cow'), { get: 'busy child' })
 // 'Error: how now brown cow[object Object]'
 ```
 
-Um, ok... that isn't really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in `flow`/`compose` or `Promise`, the chain can get corrupted. You may get parsing results or errors that don't make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again when debugging functional code.
+Um, ok... that isn't really helpful. Probably not what the developer wanted, nor expected. Worse, once you start composing this with other functions in `flow`/`compose` or `Promise`, the chain can get corrupted. You may get parsing results or errors that don't make immediate sense with little hint as to where the problem originated. This is when you start longing for stack traces again when debugging functional code, or even... 😰 strong types!
 
 ## Solution: Solving With Types
 
@@ -114,7 +114,7 @@ const add = ( a: number, b: number) : number => a + b
 
 Before we can even run the code in TypeScript, we have to compile it to JavaScript. However, instantly, TypeScript shows us an error with our 2nd add:
 
-> Argument of type 'Error' is not assignable to prameter of type 'number'.`
+> Argument of type 'Error' is not assignable to parameter of type 'number'.`
 
 In English, that's:
 
@@ -122,11 +122,11 @@ In English, that's:
 
 As your functions grow in number, size, and you start composing them, it can be really hard to keep track of all the types going around, and ensuring that you're always getting the correct type. If another developer is using your code, will they get a meaningful error if your function chokes on a weird type it wasn't expecting? These kinds of problems types can help like TypeScript, [Flow](https://flow.org/), [Elm](http://elm-lang.org/), and [PureScript](http://www.purescript.org/).
 
-The downside here is libraries. Just because you're using a transpilation/compilation solution doesn't mean your consumers are. While you can use TypeScript and publish a library to `npm` doesn't mean those who install it will be using TypeScript. They could just be using raw JavaScript, or Webpack with just ES6. That said, even a little can help, it just won't make your functions total for everyone.
+The downside here is libraries. Just because you're using a transpilation/compilation solution doesn't mean your consumers are. While you can use TypeScript and publish a library to `npm` doesn't mean those who install it will be using TypeScript. They could just be using raw JavaScript, or Webpack with just ES6. Also, not all data parsing libraries are strict like [AVRO](https://avro.apache.org/docs/current/)/[Protobuf](https://developers.google.com/protocol-buffers/) to ensure the types they parse are "guaranteed a `Number` once you get it to use for your add function" at runtime. That said, even a little can help, it just won't make your functions total for everyone.
 
 ## Solution: Solving With Manual, Native Runtime Validation
 
-Another solution is to do your own runtime type evaluation. If you implement a whitelist, then you only ensure the types you're expecting get through, otherwise you tell the caller of the function it failed, and you give them as much detail about what they passed in so they can have an easier time debugging.
+Another solution is to do your own runtime type evaluation. If you implement a whitelist, then you only ensure the types you're expecting get through, otherwise you tell the caller of the function it failed, and you give them as much detail about what they passed in so they can have an easier time debugging. We started this with our `isString` usage in the first example for `notBlank`.
 
 Without using any libraries and just raw JavaScript, we'll return our own result following the multiple return value model that Go, Lua, and Python follow (see [Part 1: Error Quest](part1/error_quest.md)):
 
@@ -152,7 +152,7 @@ console.log(add(new Error('how now brown cow'), { get: 'busy child' }))
 // ...
 ```
 
-Now the function is mostly total. It'll literrly accept ANYTHING and let you know if add worked or not. Where pure functions are dependable to build applications on, total functions are a level above that and nigh unbreakable.
+Now the function is mostly total. It'll literally accept ANYTHING and let you know if `add` worked or not. Where pure functions are dependable to build applications on, total functions are a level above that and nigh unbreakable.
 
 ## Solution: Solving With Manual, Folktale Runtime Validation
 
@@ -421,4 +421,4 @@ Total functions are pure functions that accept all inputs. The pro's are enhance
 
 The con's are they can require more unit tests to ensure you've handled the edge cases. This is before you even start writing property tests via [jsverify](https://github.com/jsverify/jsverify). Like unit test stubs, they will expect a certain implementation shape, and so your stubs have to be more thorough to match the implementation. i.e. "A `get` is good enough, right? Wait... we're not even testing `post`, why do I need to implement a blank function for it on the stub?"
 
-Also, developers who are not using types don't like how verbose they are to debug and modify. We've take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the `add` function itself, you'll end up writing unit tests for the others anyway to ensure you've written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it's hard for future developers to understand why the private functions of your module are being so thoroughly tested. 
+Also, developers who are not using types don't like how verbose they are to debug and modify. We've take a 1 line pure function and turned it into 70 lines and 14 additional functions just to make it reasonably total. While you could just unit test the `add` function itself, you'll end up writing unit tests for the others anyway to ensure you've written your predicates correctly, which in turn leads to a lot of more unit tests. Over time, these tests may not be maintained since it's hard for future developers to understand why the private functions of your module are being so thoroughly tested vs. just the public implementation.

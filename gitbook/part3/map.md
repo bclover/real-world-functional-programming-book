@@ -4,7 +4,7 @@ The `map` function is often used for parsing operations. You have a list of data
 
 ## Old Sk00l for
 
-Let's do that using the native `for` loop. We'll take an Array of strings and convert it to people objects.
+Let's do that using the native `for` loop first, then show the map equivalent. We'll take an Array of strings and convert it to people objects.
 
 ```javascript
 const peopleFields = [

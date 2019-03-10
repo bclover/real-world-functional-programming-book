@@ -1,6 +1,12 @@
 # Only Stubs, No More Mocks or Spies
 
+[jwarden 3.10.2019] TODO/FIXME: I think this chapter started out good, but needs a redo. There's some good content in here, but it's easier to show WHY FP doesn't need mocks vs. stubs without resorting to a lesson what all these things are in excruciatingly detail.
+
 You don't need mocks in Functional Programming because mocks test side effects. If you're writing Functional code, it is made up of pure functions. Pure functions don't have side effects. So no need for mocks. If you're trying to isolate code, you may still need stubs.
+
+However, in the real world, you may be working with non-FP code, so you'll still need Mocks to test for side effects.
+
+Let's get some nomenclature down first.
 
 ## Unit Test
 
@@ -8,17 +14,17 @@ A unit test is supposed to be a unit. No one knows (but think they know) what a 
 
 ## Object Under Test
 
-An "object under test" is the thing you're testing. If you have an `it` in Jasmine/Mocha in JavaScript or Busted in Lua, or a `test_*` function Python's PyTest, whatever that test function is supposed to be testing, that's the "object under test". Given how Mocks/Spies work, however, it may not be immediately obvious "what is the actual object under test here?"
+An "object under test" is the thing you're testing. If you have an `it` in [Jest](https://jestjs.io/)/[Jasmine](https://jasmine.github.io/)/[Mocha](https://mochajs.org/) in JavaScript or [Busted](https://olivinelabs.com/busted/) in Lua, or a `test_*` function Python's [PyTest](https://docs.pytest.org/en/latest/), whatever that test function is supposed to be testing, that's the "object under test". Given how Mocks/Spies work, however, it may not be immediately obvious "what is the actual object under test here?"
 
 ## What is a Stub?
 
-A stub is typically an `Object` or `Function` that always does the same thing, typically returning the value you need. If you want your unit tests to be deterministic, and thus dependable, you ensure they always do the same thing every time they run. Given our `loadWebsite` function:
+A stub is typically an `Object` or `Function` that always does the same thing, typically returning the hardcoded value you need. If you want your unit tests to be deterministic, and thus dependable, you ensure they always do the same thing every time they run. Given our `loadWebsite` function:
 
 ```javascript
 const loadWebsite = request => url => ...
 ```
 
-If we want to stub `request` to guarantee the test works whether the internet works or not with minimal side effects, you stub it:
+If we want to stub `request` to guarantee the test works whether the internet works or not with minimal/no side effects, you stub it:
 
 ```javascript
 const requestStub = {
@@ -131,9 +137,11 @@ it('add will add 2 numbers', () => {
 })
 ```
 
-Has a return value, no need to check before and after for side effects.
+Has a return value, no need to check before and after for side effects. You'll do this a lot in UI frameworks where you're trying to see "if the UI updated after I set data".
 
 ### Pre-programmed Assertions
+
+[jwarden 3.10.2019] TODO/FIXME: TypeScript is unnecessary here and the examples are verbose. I know mocks are verbose, but try harder.
 
 Traditionally, mocks are known for pre-programmed assertions. You use them in this way to ensure things are being used as expected... if not, fail the test. Instead of testing how something was used, like a spy, you make your assertions before you even call your object under test. Let's OOP-i-fy our names parser using [TypeScript](https://www.typescriptlang.org/docs/handbook/classes.html) so we can enforce public/private properties and methods:
 
@@ -141,9 +149,7 @@ Traditionally, mocks are known for pre-programmed assertions. You use them in th
 import { startCase } from 'lodash'
 
 export default class NamesParser {
-    
     private names: Array<String>
-
     private _parsedNames: Array<String>
 
     public get parsedNames(): Array<String> {
@@ -168,9 +174,7 @@ export default class NamesParser {
 }
 ```
 
-For the unit test, we know it should return a good value, so let's build that assertion into the mock.
-
-The one will one will pass because `parseName` is only being called once for the 1 item in the Array:
+For the unit test, we know it should return a good value, so let's build that assertion into the mock. This one will pass because `parseName` is only being called once for the 1 item in the Array:
 
 ```javascript
 it('NamesParser should call parseName one time for 1 value', () => {
@@ -197,11 +201,11 @@ it('NamesParser should call parseName one time for 1 value', () => {
 Again, test one thing here, but look for the results over there. With Mocks via pre-programmed assertions, you've doing 4 nasty things:
 
 1. mutating the object under test
-2. testing specifically for side effects
+2. creating and testing specifically for side effects
 3. intentionally throwing an `Error`
 4. re-mutate the object after the test
 
-While 1 and 4 do not follow pure function rules, you get a pass since you're in a dynamic language, and that's one of the reasons we like dynamic languages; everything is fair game. That said, your unit tests are not your actual code anymore; they're modified objects. Number 3, while intentional in unit tests, is not following pure function rules. You give a function inputs and test its outputs. An `Error` is not an output, it's a side effect. Again, you get a pass because technically it's the mock throwing the error, not your function/class.
+While 1 and 4 do not follow pure function rules, you get a pass since you're in a dynamic language, and that's one of the reasons we like dynamic languages; everything is fair game and it's how most mocking libraries are built. That said, your unit tests are not your actual code anymore; they're modified objects. Number 3, while intentional in unit tests, is not following pure function rules. You give a function inputs and test its outputs. An `Error` is not an output, it's a side effect. Again, you get a pass because technically it's the mock throwing the error, not your function/class.
 
 ... however, #2 is not ok at all.
 

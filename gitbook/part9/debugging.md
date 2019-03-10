@@ -1,6 +1,8 @@
 # Debugging
 
-Debugging Functional code is a bit different than imperative or Object Oriented code. Your primary means of debugging in imperative and Object Oriented code is exceptions, stack traces, and step debuggers. For functional programming, you often don't have access to the implementation details. That said, you can still use both.
+// [jwarden 3.10.2019] TODO: add async tap example and Validation tap example.
+
+Debugging Functional code is a bit different than imperative or Object Oriented code. Your primary means of debugging in procedural and Object Oriented code is exceptions, stack traces, and step debuggers. For functional programming, you often don't have access to the implementation details. That said, you can still use both.
 
 ## Imperative Debugging
 
@@ -57,7 +59,7 @@ Warden, Jesse
 
 W00t!
 
-## Functional Debugging: The Cop Out
+## Functional Debugging: The Cop-Out
 
 Let's do the same thing using a `Promise` chain:
 
@@ -70,7 +72,7 @@ const fixName = name =>
     .then(list => `${list[2]}, ${list[0]}`)
 ```
 
-As you start to learn, it's ok to do the cop out; i.e. going back to imperative. The only bad thing about this method is you're changing the function itself by effectively re-writing it. Still, I recommend it to get comfortable writing no `{}` in your code. It can be a bit of a pain matching up the braces `{}` and parenthesis `()` without compiler help as there are cases where you can misplace them and not get errors.
+As you start to learn, it's ok to do the cop-out; i.e. going back to imperative. The only bad thing about this method is you're changing the function itself by effectively re-writing it. Still, I recommend it to get comfortable writing no `{}` in your code. It can be a bit of a pain matching up the braces `{}` and parenthesis `()` without compiler help as there are cases where you can misplace them and get errors at runtime that aren't helpful.
 
 ```javascript
 const fixName = name =>

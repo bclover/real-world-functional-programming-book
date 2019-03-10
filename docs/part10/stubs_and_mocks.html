@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="./">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="./">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,16 +1111,19 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="only-stubs-no-more-mocks-or-spies">Only Stubs, No More Mocks or Spies</h1>
+<p>[jwarden 3.10.2019] TODO/FIXME: I think this chapter started out good, but needs a redo. There&apos;s some good content in here, but it&apos;s easier to show WHY FP doesn&apos;t need mocks vs. stubs without resorting to a lesson what all these things are in excruciatingly detail.</p>
 <p>You don&apos;t need mocks in Functional Programming because mocks test side effects. If you&apos;re writing Functional code, it is made up of pure functions. Pure functions don&apos;t have side effects. So no need for mocks. If you&apos;re trying to isolate code, you may still need stubs.</p>
+<p>However, in the real world, you may be working with non-FP code, so you&apos;ll still need Mocks to test for side effects.</p>
+<p>Let&apos;s get some nomenclature down first.</p>
 <h2 id="unit-test">Unit Test</h2>
 <p>A unit test is supposed to be a unit. No one knows (but think they know) what a unit is in programming. For now, a unit is any Object you want to test: Object, class, function, module, whatever.</p>
 <h2 id="object-under-test">Object Under Test</h2>
-<p>An &quot;object under test&quot; is the thing you&apos;re testing. If you have an <code>it</code> in Jasmine/Mocha in JavaScript or Busted in Lua, or a <code>test_*</code> function Python&apos;s PyTest, whatever that test function is supposed to be testing, that&apos;s the &quot;object under test&quot;. Given how Mocks/Spies work, however, it may not be immediately obvious &quot;what is the actual object under test here?&quot;</p>
+<p>An &quot;object under test&quot; is the thing you&apos;re testing. If you have an <code>it</code> in <a href="https://jestjs.io/" target="_blank">Jest</a>/<a href="https://jasmine.github.io/" target="_blank">Jasmine</a>/<a href="https://mochajs.org/" target="_blank">Mocha</a> in JavaScript or <a href="https://olivinelabs.com/busted/" target="_blank">Busted</a> in Lua, or a <code>test_*</code> function Python&apos;s <a href="https://docs.pytest.org/en/latest/" target="_blank">PyTest</a>, whatever that test function is supposed to be testing, that&apos;s the &quot;object under test&quot;. Given how Mocks/Spies work, however, it may not be immediately obvious &quot;what is the actual object under test here?&quot;</p>
 <h2 id="what-is-a-stub">What is a Stub?</h2>
-<p>A stub is typically an <code>Object</code> or <code>Function</code> that always does the same thing, typically returning the value you need. If you want your unit tests to be deterministic, and thus dependable, you ensure they always do the same thing every time they run. Given our <code>loadWebsite</code> function:</p>
+<p>A stub is typically an <code>Object</code> or <code>Function</code> that always does the same thing, typically returning the hardcoded value you need. If you want your unit tests to be deterministic, and thus dependable, you ensure they always do the same thing every time they run. Given our <code>loadWebsite</code> function:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> loadWebsite = request =&gt; url =&gt; ...
 </code></pre>
-<p>If we want to stub <code>request</code> to guarantee the test works whether the internet works or not with minimal side effects, you stub it:</p>
+<p>If we want to stub <code>request</code> to guarantee the test works whether the internet works or not with minimal/no side effects, you stub it:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> requestStub = {
     get: (url, callback) =&gt; callback(<span class="hljs-literal">undefined</span>, {}, <span class="hljs-string">&apos;hey&apos;</span>)
 }
@@ -1204,15 +1207,14 @@ it(<span class="hljs-string">&apos;add will add 2 numbers&apos;</span>, () =&gt;
     expect(result).toBe(<span class="hljs-number">3</span>)
 })
 </code></pre>
-<p>Has a return value, no need to check before and after for side effects.</p>
+<p>Has a return value, no need to check before and after for side effects. You&apos;ll do this a lot in UI frameworks where you&apos;re trying to see &quot;if the UI updated after I set data&quot;.</p>
 <h3 id="pre-programmed-assertions">Pre-programmed Assertions</h3>
+<p>[jwarden 3.10.2019] TODO/FIXME: TypeScript is unnecessary here and the examples are verbose. I know mocks are verbose, but try harder.</p>
 <p>Traditionally, mocks are known for pre-programmed assertions. You use them in this way to ensure things are being used as expected... if not, fail the test. Instead of testing how something was used, like a spy, you make your assertions before you even call your object under test. Let&apos;s OOP-i-fy our names parser using <a href="https://www.typescriptlang.org/docs/handbook/classes.html" target="_blank">TypeScript</a> so we can enforce public/private properties and methods:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { startCase } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NamesParser</span> </span>{
-
     private names: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">String</span>&gt;
-
     private _parsedNames: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">String</span>&gt;
 
     public get parsedNames(): <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">String</span>&gt; {
@@ -1236,8 +1238,7 @@ it(<span class="hljs-string">&apos;add will add 2 numbers&apos;</span>, () =&gt;
     }
 }
 </code></pre>
-<p>For the unit test, we know it should return a good value, so let&apos;s build that assertion into the mock.</p>
-<p>The one will one will pass because <code>parseName</code> is only being called once for the 1 item in the Array:</p>
+<p>For the unit test, we know it should return a good value, so let&apos;s build that assertion into the mock. This one will pass because <code>parseName</code> is only being called once for the 1 item in the Array:</p>
 <pre><code class="lang-javascript">it(<span class="hljs-string">&apos;NamesParser should call parseName one time for 1 value&apos;</span>, () =&gt; {
     <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> NamesParser([<span class="hljs-string">&apos;jesse warden&apos;</span>])
     <span class="hljs-keyword">const</span> mock = sinon.mock(parser)
@@ -1258,11 +1259,11 @@ it(<span class="hljs-string">&apos;add will add 2 numbers&apos;</span>, () =&gt;
 <p>Again, test one thing here, but look for the results over there. With Mocks via pre-programmed assertions, you&apos;ve doing 4 nasty things:</p>
 <ol>
 <li>mutating the object under test</li>
-<li>testing specifically for side effects</li>
+<li>creating and testing specifically for side effects</li>
 <li>intentionally throwing an <code>Error</code></li>
 <li>re-mutate the object after the test</li>
 </ol>
-<p>While 1 and 4 do not follow pure function rules, you get a pass since you&apos;re in a dynamic language, and that&apos;s one of the reasons we like dynamic languages; everything is fair game. That said, your unit tests are not your actual code anymore; they&apos;re modified objects. Number 3, while intentional in unit tests, is not following pure function rules. You give a function inputs and test its outputs. An <code>Error</code> is not an output, it&apos;s a side effect. Again, you get a pass because technically it&apos;s the mock throwing the error, not your function/class.</p>
+<p>While 1 and 4 do not follow pure function rules, you get a pass since you&apos;re in a dynamic language, and that&apos;s one of the reasons we like dynamic languages; everything is fair game and it&apos;s how most mocking libraries are built. That said, your unit tests are not your actual code anymore; they&apos;re modified objects. Number 3, while intentional in unit tests, is not following pure function rules. You give a function inputs and test its outputs. An <code>Error</code> is not an output, it&apos;s a side effect. Again, you get a pass because technically it&apos;s the mock throwing the error, not your function/class.</p>
 <p>... however, #2 is not ok at all.</p>
 <h2 id="conclusions">Conclusions</h2>
 <p>As you can see, there is zero need for spies/mocks with pure functions because:</p>
@@ -1316,7 +1317,7 @@ it(<span class="hljs-string">&apos;add will add 2 numbers&apos;</span>, () =&gt;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"next":{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},"previous":{"title":"Part 10: Testing","level":"1.11","depth":1,"path":"part10/README.md","ref":"part10/README.md","articles":[{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"path":"part10/stubs_and_mocks.md","ref":"part10/stubs_and_mocks.md","articles":[]},{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},{"title":"Predicate Property Testing","level":"1.11.3","depth":2,"path":"part10/property_testing.md","ref":"part10/property_testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part10/stubs_and_mocks.md","mtime":"2018-09-02T14:56:38.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"next":{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},"previous":{"title":"Part 10: Testing","level":"1.11","depth":1,"path":"part10/README.md","ref":"part10/README.md","articles":[{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"path":"part10/stubs_and_mocks.md","ref":"part10/stubs_and_mocks.md","articles":[]},{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},{"title":"Predicate Property Testing","level":"1.11.3","depth":2,"path":"part10/property_testing.md","ref":"part10/property_testing.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part10/stubs_and_mocks.md","mtime":"2019-03-10T18:41:33.387Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

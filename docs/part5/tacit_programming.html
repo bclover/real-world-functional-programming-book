@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1128,7 +1128,7 @@
 <span class="hljs-comment">// lodash/fp</span>
 <span class="hljs-keyword">const</span> getNames = map(get(<span class="hljs-string">&apos;name&apos;</span>))
 </code></pre>
-<p>Those partial applications used in the lodash/fp exmple don&apos;t define their function parameters. Below, we compare the point style where they define the arguments, and point-free where they don&apos;t:</p>
+<p>Those partial applications used in the lodash/fp example don&apos;t define their function parameters. Below, we compare the point style where they define the arguments, and point-free where they don&apos;t, even when using lodash/fp:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// point style</span>
 <span class="hljs-keyword">const</span> getName = object =&gt; get(<span class="hljs-string">&apos;name&apos;</span>, object)
 <span class="hljs-keyword">const</span> mapNames = party =&gt; map(getName, party)
@@ -1154,17 +1154,18 @@
 <li>it&apos;s an extra step of &quot;thinking&quot;</li>
 </ol>
 <p>Do you know what <code>get</code>&apos;s function signature is? And <code>map</code>&apos;s? We&apos;ve just covered it. How about <code>reduce</code> in lodash/fp instead of lodash? When you see <code>map(get(&apos;name&apos;))</code>, you have to have memorized what the function signatures are for <code>get</code> and <code>map</code>. If you haven&apos;t, then you have to go look them up, else you don&apos;t understand the code. One could argue you have the same problem for any abstraction, but do you have to do the same for this?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getName = object =&gt; get(<span class="hljs-string">&apos;name&apos;</span>, object)
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getName = object =&gt;
+  get(<span class="hljs-string">&apos;name&apos;</span>, object)
 <span class="hljs-keyword">const</span> getNamesFromListOfObjects = party =&gt;
     map(
         member =&gt; getName(member),
         party
     )
 </code></pre>
-<p>None of those functions are needed using lodash/fp, but we used them to be more clear. So you don&apos;t have to memorize the function signatures, nor force those reading your code to memorize them too. You don&apos;t have to think because the functions clearly list their function arguments, and use adjectives to give you hints as to what they are and what they might return.</p>
+<p>None of those functions are needed using lodash/fp, but we used them to be more clear in what the code does. So you don&apos;t have to memorize the function signatures, nor force those reading your code to memorize them too. You don&apos;t have to think because the functions clearly list their function arguments, and use adjectives to give you hints as to what they are and what they might return. In dynamic languages where there are no types to help you and intellisense in your IDE is of varying quality, being verbose like this can lead to much more readable code.</p>
 <p>Let&apos;s give a few more examples to see if you like it or not. Sometimes you&apos;ll just have to pick and choose where you use it.</p>
 <h2 id="validating-data">Validating Data</h2>
-<p>Let&apos;s validate data using lodash/fp in a point and point-free styles so we can contrast them. Validating data in dynamic languages typically is saying &quot;does it look like the Object I want?&quot; Unlike typed languages where &quot;it must be this type&quot; whether at compile time or runtime, in dynamic languages, you&apos;re like &quot;if it has a <code>then</code>, it&apos;s probably something that that acts like a Promise, so we can treat it like one in our system; good enough for government work!&quot;</p>
+<p>Let&apos;s validate data using lodash/fp in a point and point-free styles so we can contrast them. Validating data in dynamic languages typically is saying &quot;does it look like the Object I want?&quot; Unlike typed languages where &quot;it must be this type&quot; whether at compile time or runtime, in dynamic languages, you&apos;re like &quot;if it has a <code>then</code>, it&apos;s probably something that that acts like a Promise, so we can treat it like one in our system; good enough for government work!&quot;. You&apos;ll do this a lot when parsing data in API&apos;s.</p>
 <p>Our data:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> person = {
     name: <span class="hljs-string">&apos;Jesse Warden&apos;</span>,
@@ -1220,7 +1221,8 @@
 <p>We can instead use <code>getOr</code> to say &quot;Maybe there is a value there... if it is, great, use it, otherwise just use the default.&quot;</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { getOr } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash/fp&apos;</span>
 
-<span class="hljs-keyword">const</span> getPersonType = person =&gt; getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person)
+<span class="hljs-keyword">const</span> getPersonType = person =&gt;
+  getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>, person)
 </code></pre>
 <p>Or point-free:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getPersonType = getOr(<span class="hljs-string">&apos;unknown&apos;</span>, <span class="hljs-string">&apos;type&apos;</span>)
@@ -1268,7 +1270,7 @@
     )
 </code></pre>
 <h3 id="isequal">isEqual</h3>
-<p>Almost all operators in JavaScript have equivalent pure function versions of them in lodash/fp. Operators work well and should not be avoided, but they do not compose as well as functions do. The <code>isEqual</code> is like <code>===</code>, just a function. We can replace the <code>thing === &apos;human&apos;</code> with <code>isEqual</code>:</p>
+<p>Almost all operators in JavaScript have equivalent pure function versions of them in lodash/fp. Operators work well and should used, but they do not compose as well as functions do. The <code>isEqual</code> is like <code>===</code>, just a function. We can replace the <code>thing === &apos;human&apos;</code> with <code>isEqual</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// point style</span>
 <span class="hljs-keyword">const</span> equalsHuman = thing =&gt; isEqual(<span class="hljs-string">&apos;human&apos;</span>, thing)
 
@@ -1285,7 +1287,7 @@
 </code></pre>
 <p>Great, one function left.</p>
 <h3 id="flow">Flow</h3>
-<p>However, you see the nesting up there? The <code>equalsHuman(getTypeOrUnknown(person))</code> part. Once you have 2 or more functions nested like this, you can break them into a line using <code>flow</code>. It allows you to compose functions into a chain or set of pipes, just like Promises do, but synchronously. Don&apos;t worry if this is hard to grok, we&apos;ve devoted an entire section to flow in <a href="composing_functions.html">composing functions</a> in this chapter.</p>
+<p>However, you see the nesting up there? The <code>equalsHuman(getTypeOrUnknown(person))</code> part. Once you have 2 or more functions nested like this, you can break them into a line using <code>flow</code>. It allows you to compose functions into a chain or set of pipes, just like Promises do, but synchronously. See the previous chapter <a href="composing_functions.html">composing functions</a> for a refresh on how <code>flow</code> works.</p>
 <p>To make the filter predicate point-free, we have to remove that <code>person</code> parameter. The only way to do that is to write a function that wraps <code>equalsHuman</code> and <code>getTypeOrUnknown</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> isHuman = person =&gt; equalsHuman(getTypeOrUnknown(person))
 </code></pre>
@@ -1302,7 +1304,7 @@
 <span class="hljs-keyword">const</span> filterHumans = filter(isHuman)
 </code></pre>
 <h2 id="conclusions">Conclusions</h2>
-<p>Point-free style can significantly reduce the amount of code you have to write, and often happens when you use a lot of partial applications. The cost is increased cognitive load: it makes you think more when reading it. Most of what we you do as a programmer is read code, not write it. That&apos;s why some people call point-free programming &quot;pointless programming&quot;.</p>
+<p>Point-free style can significantly reduce the amount of code you have to write, and often happens when you use a lot of partial applications. The cost is increased cognitive load: it makes you think more when reading it unless you abstract it. Most of what we you do as a programmer is read code, not write it. That&apos;s why some people call point-free programming &quot;pointless programming&quot;.</p>
 
                                 
                                 </section>
@@ -1346,7 +1348,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tacit Programming","level":"1.6.3","depth":2,"next":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"path":"part6/README.md","ref":"part6/README.md","articles":[{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},{"title":"Practice Validator with Predicates","level":"1.7.6","depth":2,"path":"part6/practice_validator_predicates.md","ref":"part6/practice_validator_predicates.md","articles":[]},{"title":"Practice Result with JSON","level":"1.7.7","depth":2,"path":"part6/practice_result_json.md","ref":"part6/practice_result_json.md","articles":[]},{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]}]},"previous":{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/tacit_programming.md","mtime":"2018-08-26T22:06:12.591Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Tacit Programming","level":"1.6.3","depth":2,"next":{"title":"Part 6: Algebraic Data Types","level":"1.7","depth":1,"path":"part6/README.md","ref":"part6/README.md","articles":[{"title":"Maybe","level":"1.7.1","depth":2,"path":"part6/maybe.md","ref":"part6/maybe.md","articles":[]},{"title":"Validation","level":"1.7.2","depth":2,"path":"part6/validation.md","ref":"part6/validation.md","articles":[]},{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},{"title":"Union","level":"1.7.4","depth":2,"path":"part6/union.md","ref":"part6/union.md","articles":[]},{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},{"title":"Practice Validator with Predicates","level":"1.7.6","depth":2,"path":"part6/practice_validator_predicates.md","ref":"part6/practice_validator_predicates.md","articles":[]},{"title":"Practice Result with JSON","level":"1.7.7","depth":2,"path":"part6/practice_result_json.md","ref":"part6/practice_result_json.md","articles":[]},{"title":"Practice Union with reading files","level":"1.7.8","depth":2,"path":"part6/practice_union_files.md","ref":"part6/practice_union_files.md","articles":[]}]},"previous":{"title":"Composing Functions","level":"1.6.2","depth":2,"path":"part5/composing_functions.md","ref":"part5/composing_functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part5/tacit_programming.md","mtime":"2019-03-10T16:42:11.164Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

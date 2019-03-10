@@ -1,11 +1,13 @@
 
 # Creating a Custom Lens
 
+// [jwarden 3.10.2019] TODO/FIXME: I found this a bit hard to follow coming back after a couple months. We should probably run the code as you write it.
+
 Using this basic isomorphism concept and the `compose` function, you can combine the reading and writing of the file together to its own lens. While a `Buffer` that comes from reading a file, turned into `String`, then an `Object`, then back again is also an isomorphism, we need some information about the original Object so we'll just create a custom lens.
 
 ## Lens Function: Getter
 
-Like `iso`, a `lens` function's first parameter is a getter, and the function's signature is basically a reducer; take in some data as a single parameter, return some transformed data. The `readFileSync` is straightforward; if you give it a filename, it'll return the contents of that file, hence we just give it the function as the first parameter:
+Like `iso`, a `lens` function's first parameter is a getter, and the function's signature is basically a `map` function; take in some data as a single parameter, return some transformed data. The `readFileSync` is straightforward; if you give it a filename, it'll return the contents of that file, hence we just give it the function as the first parameter:
 
 ```javascript
 import { ..., lens } from 'focused'
@@ -29,7 +31,7 @@ const fileLens = lens(
 )
 ```
 
-Better, but one problem; the setter part of the lens is supposed to be a reducer and return what it set. Since `writeFileSync` is mainly about side effects, specifically writing the file, it doesn't return anything and throws if it fails. Very imperative and not what we need. Let's modify it and just return the data you wrote for now. Since `writeFileSync` always returns `undefined`, the short circuit `||` will always return `data`.
+Better, but one problem; the setter part of the lens is supposed to be a `map` function and return what it set. Since `writeFileSync` is mainly about side effects, specifically writing the file, it doesn't return anything and throws if it fails. Very imperative and not what we need. Let's modify it and just return the data you wrote for now. Since `writeFileSync` always returns `undefined`, the short circuit `||` will always return `data`.
 
 ```javascript
 const fileLens = iso(

@@ -1,13 +1,13 @@
 # Closures And Immutability
 
-A closure is an function that encloses something. Everytime a function is created, it creates a closure, and each has rules about what scope it can and cannot access. Many seasoned dynamic language developers know about scope and closures. We're covering it here because it can help in immutability, violate it, and is the way in which we create curried functions.
+A closure is an function that encloses something. Every time a function is created, it creates a closure, and each has rules about what scope it can and cannot access. We're covering it here because it can help in immutability, violate it, and is the way in which we create curried functions.
 
 ## Basic Closure
 
 The function below returns a function. That function uses the closure it was defined in to access `message` so it can log it out. It's private, no one else can modify that message variable, or affect the behavior of the returned function.
 
 ```javascript
-const sup = () => {
+const getHelloFunction = () => {
     const message = "hey"
     return () => console.log(message)
 }
@@ -16,7 +16,7 @@ const sup = () => {
 To use it:
 
 ```javascript
-const sayHey = sup()
+const sayHey = getHelloFunction()
 sayHey() // hey
 sayHey() // hey
 sayHey() // hey
@@ -34,7 +34,7 @@ const ping = (request, url) =>
     request.head(url)
 ```
 
-However, it's a bit of a pain to supply `request` everytime:
+However, it's a bit of a pain to supply `request` every time:
 
 ```javascript
 ping(request, 'http://google.com').then(log) // It worked.

@@ -4,13 +4,17 @@ If you're more interested in how currying can help you in your current work vs t
 
 # Curry and Partial Application
 
-Currying, or function currying, is when you make all functions take 1 argument, even those that normally need more. This means if you have a function that takes 2 arguments to do something useful, if you call it with 1 argument, it'll return a function. If you call that returned function with 1 argument, it'll then return the result. It's named after the guy who invented the technique, Haskell Brooks Curry.
+Currying, or function currying, is when you make all functions take 1 argument, even those that normally need more. This means if you have a function that takes 2 arguments to do something useful, if you call it with 1 argument, it'll return a function. If you call that returned function with 1 argument, it'll then return the result. It's named after the guy who invented the technique, [Haskell Brooks Curry](https://en.wikipedia.org/wiki/Haskell_Curry).
 
 Why in the world would you ever do this bizarre practice?
 
 When you start using pure functions, you'll notice that your functions start to have a lot of arguments. Features like default arguments, variable number of arguments, or referencing class variables that significantly reduce how many arguments your functions need are discouraged. If a pure function must declare it's dependencies to the outside world in its function parameters, then if it starts to compose other functions who have needs, then those are all added together into a lot of function arguments needed to run the function.
 
 Dynamic languages also have pure abstractions to ensure no runtime errors. Things like `get`, `set`, and `lenses` to safely access and set data, try/catch for ensuring no errors as side effects, and using the Factory design pattern for creating complex Objects many JavaScript libraries need to initialize themselves. All of this adds verbosity you don't have in type compiled languages.
+
+In short, curry lets create partial applications, functions with some of their arguments already stored, waiting for you to give them the rest. This makes composing them together in larger, more useful functions a lot easier and flexible. This is harder, currently, to leverage in JavaScript than in pure functional languages where this stuff is built into the language and they have operators to take advantage of it. Still, it's worth it for the purity and flexibility you get.
+
+Be aware making all your functions curried by default is a big step in your FP journey. Pure functions are the first. List comprehensions are the second. Currying is a big third and can take awhile to get comfortable writing and using code that way. In this chapter we've provided options to make that transition easier for you and your team.
 
 ## Entropy of Simplicity
 

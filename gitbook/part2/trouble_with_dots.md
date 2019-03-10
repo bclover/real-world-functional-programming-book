@@ -37,7 +37,7 @@ If you misspell the object, though:
 console.log(persn.fistName) // ReferenceError: persn is not defined
 ```
 
-The second comes from accessing a sub property you THINK exists, but doesn't such as mispelling home to hom:
+The second comes from accessing a sub property you THINK exists, but doesn't such as misspelling home to hom:
 
 ```javascript
 console.log(person.address.hom.street) // TypeError: Cannot read property 'street' of undefined

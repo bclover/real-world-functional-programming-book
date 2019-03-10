@@ -24,11 +24,14 @@ const Maybe = union('Maybe', {
 })
 ```
 
+// [jwarden 3.10.2019] TODO/FIXME: Dude, what happened above? Why are you writing a book in code comments?
 
 
 ## Basic Custom Example
 
 Below, we're searching a list of users by ID. If we find one, we want the user it found. If it didn't find one, we want a clear message saying so, and what ID we used to search for:
+
+// [jwarden 3.10.2019] TODO/FIXME: break this down into smaller chunks
 
 ```javascript
 const { find } = require('lodash/fp')
@@ -85,7 +88,9 @@ const Message = union('Message', {
 
 ## What Could Possibly Go Wrong?
 
-Union types are great for modeling errors. They help you know more clearly what went wrong, embed debug information for future you, while keeping things pure and composable.
+Union types are great for modeling errors. They help you know more clearly what went wrong, embed debug information for future you, while keeping things pure and composeable.
+
+// [jwarden 3.10.2019] TODO/FIXME: Using the throttling example, may result in less code.
 
 For example, if you want to upload an Excel file in this application we built at work, there are a lot of things to go wrong. You wouldn't know that, though, from reading this code:
 
@@ -192,7 +197,7 @@ console.log(didUploadWork(NotLoggedIn(new Error('boom', 400)))) // false
 
 ## matchWith vs. Type Checking
 
-This style of wrapping complex return values into custom types is used in Object Oriented Programming as well. For exmaple, simplifying a `fetch` call into 3 possible return values/
+This style of wrapping complex return values into custom types is used in Object Oriented Programming as well. For example, simplifying a `fetch` call into 3 possible return values/
 
 We got an HTTP status other than 200:
 
@@ -242,7 +247,7 @@ someFetchCall()
 })
 ```
 
-Ranting about the problems with `if` statements ecspecially without a type system is beyond the scope of this book, so suffice to say:
+Ranting about the problems with `if` statements especially without a type system is beyond the scope of this book, so suffice to say:
 1. we're not checking specifically for `Successful`, we just assume if the first too aren't found, it's `Successful`.
 2. If we were missing a type, we'd get a null pointer on `result.data` trying to access data on a class type that doesn't have it... not really helpful to say why the fetch call did or did not succeed.
 3. If we add/remove a type, we have to be careful about ensuring the order of if statements and ensure each case is handled.
@@ -518,4 +523,4 @@ render => () =>
 
 ## Conclusions
 
-Union types are great for modeling errors, or when you have multiple return types. They can represent data or `null` more specifically than a simple `Maybe`, and give you more insight into what we wrong than a simple `Result.Error`. They make functions that use Booleans as parameters more readable to other developers without having to read the function body to understand what the Boolean parameter means as the Union litterly has its meaning in its name. That, and no need for if statements which are easy to mess up. For mutiple Booleans where you're making smaller state machines, they can help simplify it and ensure only the states you want are capable of being reached.
+Union types are great for modeling errors, or when you have multiple return types. They can represent data or `null` more specifically than a simple `Maybe`, and give you more insight into what we wrong than a simple `Result.Error`. They make functions that use Booleans as parameters more readable to other developers without having to read the function body to understand what the Boolean parameter means as the Union literally has its meaning in its name. That, and no need for if statements which are easy to mess up. For multiple Booleans where you're making smaller state machines, they can help simplify it and ensure only the states you want are capable of being reached.

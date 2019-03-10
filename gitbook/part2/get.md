@@ -82,7 +82,7 @@ This also works great for deeply nested JSON data structures you often get back 
 
 ## Default Values
 
-You'll often configure your Node API using the [config](https://github.com/lorenwest/node-config) library. One thing you'll run into when configuring for different development environments like dev, qa, and prod is default values in case the configuration intentionally doesn't exist. In the browser, if you run into configuration erorrs, you just fall back to the defaults so the application still works. 
+You'll often configure your Node API using the [config](https://github.com/lorenwest/node-config) library. One thing you'll run into when configuring for different development environments like dev, qa, and prod is default values in case the configuration intentionally doesn't exist. In the browser, if you run into configuration errors, you just fall back to the defaults so the application still works. 
 
 You can do that using `get` or [Ramda's propOr](https://ramdajs.com/docs/#propOr):
 

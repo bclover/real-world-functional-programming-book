@@ -2,7 +2,7 @@
 
 Function arity refers to how many arguments it takes. Functions in JavaScript are super dynamic, and these rules can differ between other dynamic languages like Python, Lua, and Ruby. It's important to know what arity means when you start talking about curried functions and partial applications.
 
-An arity of 0 means none:
+An arity of 0 means none; "the function doesn't take in any arguments", "the function has no parameters":
 
 ```javascript
 const alwaysTrue = () => true

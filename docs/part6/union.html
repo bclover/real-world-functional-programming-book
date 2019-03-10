@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1126,8 +1126,10 @@
     Nothing() {}
 })
 </code></pre>
+<p>// [jwarden 3.10.2019] TODO/FIXME: Dude, what happened above? Why are you writing a book in code comments?</p>
 <h2 id="basic-custom-example">Basic Custom Example</h2>
 <p>Below, we&apos;re searching a list of users by ID. If we find one, we want the user it found. If it didn&apos;t find one, we want a clear message saying so, and what ID we used to search for:</p>
+<p>// [jwarden 3.10.2019] TODO/FIXME: break this down into smaller chunks</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { find } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash/fp&apos;</span>)
 <span class="hljs-keyword">const</span> { union, derivations} = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;folktale/adt/union&apos;</span>)
 
@@ -1174,7 +1176,8 @@
 })
 </code></pre>
 <h2 id="what-could-possibly-go-wrong">What Could Possibly Go Wrong?</h2>
-<p>Union types are great for modeling errors. They help you know more clearly what went wrong, embed debug information for future you, while keeping things pure and composable.</p>
+<p>Union types are great for modeling errors. They help you know more clearly what went wrong, embed debug information for future you, while keeping things pure and composeable.</p>
+<p>// [jwarden 3.10.2019] TODO/FIXME: Using the throttling example, may result in less code.</p>
 <p>For example, if you want to upload an Excel file in this application we built at work, there are a lot of things to go wrong. You wouldn&apos;t know that, though, from reading this code:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> uploadFile = request =&gt; form =&gt;
     <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt;
@@ -1260,7 +1263,7 @@ virus file: <span class="hljs-subst">${file}</span>`</span>,
 <span class="hljs-built_in">console</span>.log(didUploadWork(NotLoggedIn(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;boom&apos;</span>, <span class="hljs-number">400</span>)))) <span class="hljs-comment">// false</span>
 </code></pre>
 <h2 id="matchwith-vs-type-checking">matchWith vs. Type Checking</h2>
-<p>This style of wrapping complex return values into custom types is used in Object Oriented Programming as well. For exmaple, simplifying a <code>fetch</code> call into 3 possible return values/</p>
+<p>This style of wrapping complex return values into custom types is used in Object Oriented Programming as well. For example, simplifying a <code>fetch</code> call into 3 possible return values/</p>
 <p>We got an HTTP status other than 200:</p>
 <pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Failed</span> </span>{
     <span class="hljs-keyword">constructor</span>(error) {
@@ -1297,7 +1300,7 @@ virus file: <span class="hljs-subst">${file}</span>`</span>,
     }
 })
 </code></pre>
-<p>Ranting about the problems with <code>if</code> statements ecspecially without a type system is beyond the scope of this book, so suffice to say:</p>
+<p>Ranting about the problems with <code>if</code> statements especially without a type system is beyond the scope of this book, so suffice to say:</p>
 <ol>
 <li>we&apos;re not checking specifically for <code>Successful</code>, we just assume if the first too aren&apos;t found, it&apos;s <code>Successful</code>.</li>
 <li>If we were missing a type, we&apos;d get a null pointer on <code>result.data</code> trying to access data on a class type that doesn&apos;t have it... not really helpful to say why the fetch call did or did not succeed.</li>
@@ -1510,7 +1513,7 @@ someFetchCall()
     })
 </code></pre>
 <h2 id="conclusions">Conclusions</h2>
-<p>Union types are great for modeling errors, or when you have multiple return types. They can represent data or <code>null</code> more specifically than a simple <code>Maybe</code>, and give you more insight into what we wrong than a simple <code>Result.Error</code>. They make functions that use Booleans as parameters more readable to other developers without having to read the function body to understand what the Boolean parameter means as the Union litterly has its meaning in its name. That, and no need for if statements which are easy to mess up. For mutiple Booleans where you&apos;re making smaller state machines, they can help simplify it and ensure only the states you want are capable of being reached.</p>
+<p>Union types are great for modeling errors, or when you have multiple return types. They can represent data or <code>null</code> more specifically than a simple <code>Maybe</code>, and give you more insight into what we wrong than a simple <code>Result.Error</code>. They make functions that use Booleans as parameters more readable to other developers without having to read the function body to understand what the Boolean parameter means as the Union literally has its meaning in its name. That, and no need for if statements which are easy to mess up. For multiple Booleans where you&apos;re making smaller state machines, they can help simplify it and ensure only the states you want are capable of being reached.</p>
 
                                 
                                 </section>
@@ -1554,7 +1557,7 @@ someFetchCall()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Union","level":"1.7.4","depth":2,"next":{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},"previous":{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/union.md","mtime":"2019-01-06T21:07:26.484Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Union","level":"1.7.4","depth":2,"next":{"title":"Practice Maybe with config","level":"1.7.5","depth":2,"path":"part6/practice_maybe_config.md","ref":"part6/practice_maybe_config.md","articles":[]},"previous":{"title":"Result","level":"1.7.3","depth":2,"path":"part6/result.md","ref":"part6/result.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part6/union.md","mtime":"2019-03-10T17:43:39.803Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

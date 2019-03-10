@@ -4,6 +4,7 @@ Partial applications are functions with some of their arguments already given. Y
 
 They're useful for:
 - you don't have a choice, this is what curried functions return, lol
+- used in function composition and chaining
 - being more explicit when you want to use default parameters, yet still support pure, curried functions
 - helping in debugging
 - reducing the number of arguments you need for a function

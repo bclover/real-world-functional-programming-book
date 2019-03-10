@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1141,7 +1141,7 @@ log(name1) <span class="hljs-comment">// Jesse</span>
 <p>For Arrays and Objects, however, favor <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">Destructuring Assignment in JavaScript</a>. Python and Lua are more complicated.</p>
 <h1 id="objectfreeze">Object.freeze</h1>
 <p>Frameworks like <a href="https://redux.js.org/" target="_blank">Redux</a> ensure there is only 1 variable in your application. You&apos;ll hear developers say it helps avoid prop drilling, or it allows sibling components in the tree to communicate, and those are both true. As an FP&apos;er, you know it&apos;s most important feature is to support immutability. You never mutate the data yourself, instead asking the <code>store</code> to hide the access, and provide functions that allow the data to be changed internally using pure functions.</p>
-<p>If you&apos;re dealing with a legacy system, or with code not written in using pure functions, using <code>Object.freeze</code> can help probe where the mutation is ocurring in a heavy handed way by triggering an exception wherever the mutation exists. Functional Programming is about returning values, not causing side effects, and throwing errors is just that: intentional side effects.</p>
+<p>If you&apos;re dealing with a legacy system, or with code not written in using pure functions, using <code>Object.freeze</code> can help probe where the mutation is occurring in a heavy handed way by triggering an exception wherever the mutation exists. Functional Programming is about returning values, not causing side effects, and throwing errors is just that: intentional side effects.</p>
 <p>However, it can be a powerful tool to help find the impurity, fix it, and move forward.</p>
 <p>First, ensure your code is in strict mode, typically writing <code>&quot;use strict&quot;</code> at the top of the file(s). Second, wrap your data in <code>Object.freeze</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">Object</span>.freeze(myObjectOrArray)
@@ -1150,7 +1150,7 @@ log(name1) <span class="hljs-comment">// Jesse</span>
 <p>The bad news is, if you leave this code in your program, you&apos;re intentionally leaving a side effect (code that can throw an error) in your code. Once you&apos;ve found the offending mutation, you should remove it if you wish to be pure. Better yet, use this a way to practice Test Driven Development/Red Green Refactor and making code more pure at the same time.</p>
 <p>The good news is, if you don&apos;t, as long as you don&apos;t have any mutation, it&apos;ll work just fine with Object destructuring.</p>
 <h1 id="immutablejs">Immutable.js</h1>
-<p>The <a href="https://facebook.github.io/immutable-js/" target="_blank">Immutable.js</a> library allows you to use common data types, but in an immutable way. For exampe, <code>Array</code> and <code>Object</code> in JavaScript can easily be used in immutable ways by using Object/Array <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">Destructuring Assignment</a>, but things like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" target="_blank">Map</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> cannot. Also, only some methods of <code>Array</code> are immutable. Immutable gives you all these data types with methods that are pure, and the data is immutable. They&apos;ve also added many performance enhancements beyond just memoize (caching) that you may benefit from.</p>
+<p>The <a href="https://facebook.github.io/immutable-js/" target="_blank">Immutable.js</a> library allows you to use common data types, but in an immutable way. For example, <code>Array</code> and <code>Object</code> in JavaScript can easily be used in immutable ways by using Object/Array <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">Destructuring Assignment</a>, but things like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" target="_blank">Map</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> cannot. Also, only some methods of <code>Array</code> are immutable. Immutable gives you all these data types with methods that are pure, and the data is immutable. They&apos;ve also added many performance enhancements beyond just memoize (caching) that you may benefit from.</p>
 <p>To be clear, you do not need Immutable to write pure functions with immutable data in JavaScript. However, their API is nice, having extra data types is helpful, and gleaning some of the performance benefits is massive icing. For some, having the enforced immutability gives them confidence in their code.</p>
 
                                 
@@ -1195,7 +1195,7 @@ log(name1) <span class="hljs-comment">// Jesse</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"next":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},"previous":{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/using_vs_enforcing_immutability.md","mtime":"2019-03-03T19:09:25.366Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Using vs. Enforcing Immutability","level":"1.2.3","depth":2,"next":{"title":"Spot The Impurities","level":"1.2.4","depth":2,"path":"part1/spot_the_impurities.md","ref":"part1/spot_the_impurities.md","articles":[]},"previous":{"title":"The Case for var and let","level":"1.2.2","depth":2,"path":"part1/var_and_let.md","ref":"part1/var_and_let.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/using_vs_enforcing_immutability.md","mtime":"2019-03-09T21:56:15.969Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

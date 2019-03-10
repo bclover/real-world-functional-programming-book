@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1116,17 +1116,17 @@
 <li>creating closures</li>
 <li>creating partial applications</li>
 <li>using curried functions to create partial applications</li>
-<li>creating curried functions</li>
+<li>writing curried functions</li>
 <li>EVERYTHING IS A CURRIED FUNCTION</li>
 <li>???</li>
 </ol>
 <p>This book assumes you&apos;ve already comfortable with #1. <a href="partial_applications.md">Part 4: Partial Applications</a> handles #2.</p>
-<p>Below, we&apos;ll get you more practice at #2 with less work, and the beginnings of seeing how #3 works.</p>
+<p>Below, we&apos;ll get you more practice at creating partial applications with less work, and the beginnings of seeing how curried functions create partial applications.</p>
 <h2 id="lodash-vs-lodash-fp">Lodash vs Lodash FP</h2>
 <p>Lodash provides another version of itself called &quot;Lodash FP&quot;, which stands for Lodash Functional Programming. The 2 features that make it appealing are:</p>
 <ol>
 <li>All methods are curried</li>
-<li>all data is immutable</li>
+<li>all data is immutable (within reason)</li>
 </ol>
 <p>This is a wonderful tool to slowly start using partial applications, get comfortable using curried functions in different styles, and start creating your own. Most of the functions Lodash have in Lodash/fp are there, just their arguments are reversed to be static left, dynamic right.</p>
 <h3 id="get">get</h3>
@@ -1172,7 +1172,7 @@
 <span class="hljs-keyword">const</span> firstName = getFirstName(person)
 <span class="hljs-built_in">console</span>.log(firstName) <span class="hljs-comment">// Jesse</span>
 </code></pre>
-<p>Cool, but gross. The <code>partialRight</code> creates a function, a partial application, that looks like:</p>
+<p>Cool, but gross since lodash/fp is available to you. The <code>partialRight</code> creates a function, a partial application, that looks like:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getFirstName = person =&gt; get(person, <span class="hljs-string">&apos;firstName&apos;</span>)
 </code></pre>
 <p>These are two of the ways lodash/fp is useful, specifically around creating re-usable partial applications with a convenient argument order built for currying.</p>
@@ -1288,7 +1288,7 @@ getNames(work)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Lodash FP","level":"1.5.7","depth":2,"next":{"title":"Practice with Predicates","level":"1.5.8","depth":2,"path":"part4/practice_curry_predicates.md","ref":"part4/practice_curry_predicates.md","articles":[]},"previous":{"title":"Styles Of Curry","level":"1.5.6","depth":2,"path":"part4/styles_of_curry.md","ref":"part4/styles_of_curry.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/lodash_fp.md","mtime":"2018-08-25T17:24:33.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Lodash FP","level":"1.5.7","depth":2,"next":{"title":"Practice with Predicates","level":"1.5.8","depth":2,"path":"part4/practice_curry_predicates.md","ref":"part4/practice_curry_predicates.md","articles":[]},"previous":{"title":"Styles Of Curry","level":"1.5.6","depth":2,"path":"part4/styles_of_curry.md","ref":"part4/styles_of_curry.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/lodash_fp.md","mtime":"2019-03-10T16:10:33.943Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

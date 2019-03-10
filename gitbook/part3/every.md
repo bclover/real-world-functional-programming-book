@@ -1,6 +1,6 @@
 # every: 3 things go in, true or false comes out
 
-The `every` function takes an `Array` and a predicate function (a function that only returns `true` or `false`). It returns `true` if every item that's given to the predicate returns true, else `false`. It's a great example of an Array comprehension that is built upon `reduce`. It's used a lot in data validation.
+The `every` function takes an `Array` and a predicate function (a function that only returns `true` or `false`). It returns `true` if every item that's given to the predicate returns `true`, else `false`. It's a great example of an Array comprehension that is built upon `reduce`. It's used a lot in data validation.
 
 Think of `every` as asking "Is everything true that ___". The blank is whatever your predicate function is figuring out to be true or not based on the input.
 

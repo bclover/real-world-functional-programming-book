@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="./">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="./">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,6 +1111,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="test-driven-development">Test Driven Development</h1>
+<p>[jwarden 3.10.2019] TODO: These code examples are massive... shrink &apos;em or break them out into sections. Also, why is this called testing, yet title is Test Driven Development?</p>
 <p><strong>Caveat</strong>: This section is not promoting Test Driven Development. It is not saying TDD is the one, true way to do things. It is not encouraging you to use TDD. Rather, it&apos;s a lens to show the truth of what Functional Programming will NOT solve for you, yet still containing helpful programming advice. That, and you should learn about TDD because multiple smart, experienced people agree it has goodness within despite the various, justified detractors.</p>
 <p>The Test Driven Development methodology gives uses unit testing as a way to design your code while ensuring you can be confident in constant feature additions and changes.</p>
 <p>However, the meaning of TDD over the years has warped into test everything first, and maintain this massive unit test suite full of complicated mocks and stubs, you can&apos;t play with ideas at all, or that your code is driven by tests. Once you start bringing in <a href="https://www.seleniumhq.org/" target="_blank">Selenium</a> / functional tests, things got worse.  The much respected David Heinemeier Hansson, known as <a href="https://twitter.com/dhh" target="_blank">DHH on Twitter</a> and famous for a variety of things namely creating <a href="https://rubyonrails.org/" target="_blank">Ruby on Rails</a>, wrote a pretty <a href="http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html" target="_blank">scathing blog post on TDD</a> which further clouded the value.</p>
@@ -1128,8 +1129,8 @@
 <li>your larger test suites can be run concurrently, speeding them up and not breaking because there is no shared state in pure functions</li>
 </ul>
 <p>While the suite size goes down, a lot of those tests may be testing implementation details and you don&apos;t need to test those. Like in OOP, publics test your privates. With 100% test coverage, you&apos;ll still get bugs. Stubs are not your concrete implementations; they are different. Consistently passing tests just mean they&apos;re consistently missing bugs or consistently having false positives. Functions with a lot of arguments, however, are still hard, have a lot of stubs, and can be just as confusing as large mocks.</p>
-<p>Bottom line, even if you no longer get new features, libraries update a lot for security reasons and innovation that changes the public API. You need to change your code even if your code isn&apos;t changing. Additionally, no one likes to maintain large test suites, even if they are more understandable in Functional code. This slows you and/or your team down.</p>
-<p>To end on a happy note, it&apos;s a false sense of security, NOT accomplishment. The unit tests, high coverage, and few stubs are something you should be proud of.</p>
+<p>Bottom line, even if you no longer get new features, libraries update a lot for security reasons and innovation that changes the public API. You need to change your code even if your code isn&apos;t changing. Additionally, no one likes to maintain large test suites, even if they are more understandable in Functional code. This slows you and/or your team down. It&apos;s easier to delete the tests and start from scratch.</p>
+<p>To end on a happy note, it&apos;s a false sense of security, NOT accomplishment. The unit tests, high coverage, and few stubs are something you should be proud of. Just don&apos;t let it go to your head.</p>
 <h2 id="what-is-a-public-api">What is a Public API?</h2>
 <p>When we talk about a public API from a Functional Programming perspective, we mean whatever functions are exposed from your module. Now, in Dynamic languages, there often isn&apos;t a lot of control here, nor a feature of public, private, nor protected, so you&apos;ll do one of the following:</p>
 <ol>
@@ -1138,7 +1139,7 @@
 <li>expose nothing and use closures only</li>
 <li>combination of the above using globals and a custom module system</li>
 </ol>
-<p>What we mean by public API in JavaScript is whatever functions <code>module.exports</code> has on it, or whatever uses the <code>export</code> keyword in ES6. For Python, whatever your folder exposes via <code>__init__.py</code>. For Lua, whatever you return from your module file.</p>
+<p>What we mean by public API in JavaScript Node is whatever functions <code>module.exports</code> has on it, or whatever uses the <code>export</code> keyword in ES6. For Python, whatever your folder exposes via <code>__init__.py</code>. For Lua, whatever you return from your module file.</p>
 <p>Now, all 3 of those are modules, but they could import other modules and not expose those internals:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// string.js</span>
 <span class="hljs-keyword">const</span> { startCase } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;lodash&apos;</span>)
@@ -1152,7 +1153,7 @@
 <span class="hljs-built_in">module</span>.exports = parseName
 </code></pre>
 <p>Our API in this case is the <code>parseName</code> function from the <code>api.js</code> file.</p>
-<p>If we import <code>parseName</code> from <code>api.mjs</code>, we can use it, but can&apos;t access anything else from it, nor from <code>string.js</code>. This controlled level of privacy allows api to only expose things it wants, and change the internals however it wants. This controlled flexibility is good: easier for the developers to get their ideas down in code and folders how they want, yet providing developers using it a consistent API. If the <code>api.js</code> were to change, they&apos;d do a major version change in their <code>package.json</code> so code bases wouldn&apos;t break unless those developers are ready to change their code to accommodate the API change.</p>
+<p>If we import <code>parseName</code> from <code>api.js</code>, we can use it, but can&apos;t access anything else from it, nor from <code>string.js</code>. This controlled level of privacy allows api to only expose things it wants, and change the internals however it wants. This controlled flexibility is good: easier for the developers to get their ideas down in code and folders how they want, yet providing developers using it a consistent API. If the <code>api.js</code> were to change, they&apos;d do a major version change in their <code>package.json</code> so code bases wouldn&apos;t break unless those developers are ready to change their code to accommodate the API change.</p>
 <p>The <code>parseName</code> is a function, but in OOP code bases, it&apos;d be a <code>class</code>, and that class would have only <code>public</code> methods for you to utilize to access the internals however it sees fit. Both OOP and Functional Programming can practice encapsulation. </p>
 <h2 id="tdd-internal-vs-feature">TDD: Internal vs. Feature</h2>
 <p>TDD is pitched as &quot;write the test first, make it fail, then fix the code under test to make it pass&quot;. However, that leads to &quot;every function/class in my code base most likely has a test&quot;. For libraries especially, this may seem ok, but eventually you end up with massive amounts of unit tests usually outnumbering your code because of the stub and/or mock sizes. The problem here is soon as you want to change anything, even if you&apos;re not changing the public API, a lot of your tests break. So even if you don&apos;t change the public api, you&apos;re still having to maintain and modify all of those tests even if your feature doesn&apos;t break.</p>
@@ -1398,7 +1399,7 @@ stringNotBlank() <span class="hljs-comment">// TypeError: Cannot read property &
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Testing","level":"1.11.2","depth":2,"next":{"title":"Predicate Property Testing","level":"1.11.3","depth":2,"path":"part10/property_testing.md","ref":"part10/property_testing.md","articles":[]},"previous":{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"path":"part10/stubs_and_mocks.md","ref":"part10/stubs_and_mocks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part10/testing.md","mtime":"2018-09-03T21:55:13.258Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Testing","level":"1.11.2","depth":2,"next":{"title":"Predicate Property Testing","level":"1.11.3","depth":2,"path":"part10/property_testing.md","ref":"part10/property_testing.md","articles":[]},"previous":{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"path":"part10/stubs_and_mocks.md","ref":"part10/stubs_and_mocks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part10/testing.md","mtime":"2019-03-10T18:45:54.981Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@ If a thing can change into something different, but then change back, then those
 
 One example is JSON. You can have a JSON string that turns into a JSON Object via `JSON.parse`, but then can turn back into the exact same string again via `JSON.stringify`. In working with legacy systems such as [XML SOAP](https://en.wikipedia.org/wiki/SOAP) we'll often convert those large XML structures to JSON, and then back again to XML SOAP. If you're familiar with the [Memento Design Pattern](https://en.wikipedia.org/wiki/Memento_pattern), it's kind of like that.
 
-If you're building a game and want to save it, you'll typically implement the Memento design pattern to create a small `Object` that represents the game as it is right now, and then write that to disk as a file, and possibly sync to a cloud server as well. When loading the game, that `Object` has all the information you need to load the correct level, character stats, and place in the story the player should resume at.
+If you're building a game and want to save it, you'll typically implement the Memento design pattern to create a small `Object` that represents the game state as it is right now, and then write that to disk as a file, and possibly sync to a cloud server as well. When loading the game, that `Object` has all the information you need to load the correct level, character stats, and place in the story the player should resume at.
 
 The only thing that isn't deterministic about save games is the date they were created. Most games will sort the save games by latest so when you click "Continue", it'll load your latest saved game. This includes games that have an Autosave feature. When you save a new game, it'll make that the latest save by updating the date to "right now".
 
@@ -14,7 +14,7 @@ Be aware Focused has 2 ways to use it; using the facade api which is magic af, o
 
 ## Basic Set
 
-Our game object looks like so, containing where the player is in the game's story, the map location, x and y tile coordinates, and the current protaganists in the party with their inventory.
+Our game object looks like so, containing where the player is in the game's story, the map location, x and y tile coordinates, and the current protagonists in the party with their inventory.
 
 ```javascript
 const gameState = {
@@ -128,4 +128,4 @@ Logging out the `updatedString` string, it looks like:
 
 ## Conclusions
 
-Isomorphisms are used when you convert data back and forth. It happens often in places like Orchestration API's where you have a [back-end for your front-end](https://samnewman.io/patterns/architectural/bff/). The Node API will call a SOAP service and translate the XML to JSON. If the user does something that we need to update in the back-end, we'll convert the JSON from the front-end application to XML and call the SOAP service again. Reading and writing JSON files to disk like in the above save game example is another. If you're dealing with any relational databases, this pattern [can also help you a lot there](https://enterprisecraftsmanship.com/2016/11/03/oop-fp-and-object-relational-impedance-mismatch/).
+Isomorphisms are used when you convert data back and forth. It happens often in places like Orchestration API's where you have a [back-end for your front-end](https://samnewman.io/patterns/architectural/bff/). The Node API will call a SOAP service and translate the XML to JSON. If the user does something that we need to update in the back-end, we'll convert the JSON from the front-end application to XML and call the SOAP service again. Reading and writing JSON files to disk like in the above save game example is another. I've used it at work to update the `proxy` url in `package.json` for [Create React App's proxy feature](https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development) since we have multiple environments. If you're dealing with any relational databases, this pattern [can also help you a lot there](https://enterprisecraftsmanship.com/2016/11/03/oop-fp-and-object-relational-impedance-mismatch/).

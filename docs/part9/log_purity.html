@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Lenses · GitBook</title>
+        <title>Logging vs Purity · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="practice_big_json.md" />
+    <link rel="next" href="../part10/" />
     
     
-    <link rel="prev" href="set.html" />
+    <link rel="prev" href="debugging.html" />
     
 
     </head>
@@ -225,9 +225,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="./">
+        <li class="chapter " data-level="1.3" data-path="../part2/">
             
-                <a href="./">
+                <a href="../part2/">
             
                     
                     Part 2: Getting and Setting Data
@@ -239,9 +239,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="trouble_with_dots.html">
+        <li class="chapter " data-level="1.3.1" data-path="../part2/trouble_with_dots.html">
             
-                <a href="trouble_with_dots.html">
+                <a href="../part2/trouble_with_dots.html">
             
                     
                     Trouble With Dots
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="trouble_with_array_access.html">
+        <li class="chapter " data-level="1.3.2" data-path="../part2/trouble_with_array_access.html">
             
-                <a href="trouble_with_array_access.html">
+                <a href="../part2/trouble_with_array_access.html">
             
                     
                     Trouble With Array Access
@@ -265,9 +265,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="get.html">
+        <li class="chapter " data-level="1.3.3" data-path="../part2/get.html">
             
-                <a href="get.html">
+                <a href="../part2/get.html">
             
                     
                     Get
@@ -278,9 +278,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.4" data-path="set.html">
+        <li class="chapter " data-level="1.3.4" data-path="../part2/set.html">
             
-                <a href="set.html">
+                <a href="../part2/set.html">
             
                     
                     Set
@@ -291,9 +291,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.5" data-path="lenses.html">
+        <li class="chapter " data-level="1.3.5" data-path="../part2/lenses.html">
             
-                <a href="lenses.html">
+                <a href="../part2/lenses.html">
             
                     
                     Lenses
@@ -304,7 +304,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.6" data-path="practice_big_json.md">
+        <li class="chapter " data-level="1.3.6" data-path="../part2/practice_big_json.md">
             
                 <span>
             
@@ -317,7 +317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.7" data-path="practice_big_json.md">
+        <li class="chapter " data-level="1.3.7" data-path="../part2/practice_big_json.md">
             
                 <span>
             
@@ -878,9 +878,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="../part9/">
+        <li class="chapter " data-level="1.10" data-path="./">
             
-                <a href="../part9/">
+                <a href="./">
             
                     
                     Part 9: Debugging
@@ -892,9 +892,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../part9/debugging.html">
+        <li class="chapter " data-level="1.10.1" data-path="debugging.html">
             
-                <a href="../part9/debugging.html">
+                <a href="debugging.html">
             
                     
                     Tap
@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
+        <li class="chapter active" data-level="1.10.2" data-path="log_purity.html">
             
-                <a href="../part9/log_purity.html">
+                <a href="log_purity.html">
             
                     
                     Logging vs Purity
@@ -1095,7 +1095,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Lenses</a>
+        <a href=".." >Logging vs Purity</a>
     </h1>
 </div>
 
@@ -1110,61 +1110,111 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="optic-basics-lenses">Optic Basics: Lenses</h1>
-<p>To use <code>get</code> and <code>set</code> together, Ramda use lenses. They are a bit lower-level and more specific API&apos;s. Lodash handles both <code>Arrays</code> and <code>Objects</code>, whereas you need to do that with separate functions in Ramda. Lenses combine <code>get</code> and <code>set</code> style functionality to navigate and modify large structures by composing smaller functions together.</p>
-<p>If you hear the word &quot;Optics&quot;, that&apos;s what a lot of the Functional people use to refer to lens functionality. We&apos;ll cover optics in the <a href="../part8/">Optics chapter</a>.</p>
-<h2 id="focus-on-a-property-or-path-and-view-it-in-ramda">Focus on a Property or Path, and View It in Ramda</h2>
-<p>Just like there are 2 functions in Ramda to get a property via <code>prop</code> and get a deeply nested property via <code>path</code>, so too are there 2 lenses to do the same. Unlike Ramda&apos;s <code>prop</code> and <code>path</code> (Lodash <code>get</code> does what they both do), functions that return values, a lens is a Type. You call it like any other function to return a configured lens. We&apos;ll create some lenses, then use them to &quot;focus&quot; on certain properties and paths of our person Object.</p>
-<p>Here&apos;s our Object:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> person = {
-  name: <span class="hljs-string">&apos;Jesse Warden&apos;</span>, 
-  address: { 
-      street: <span class="hljs-string">&apos;123 Cow Ville&apos;</span>, 
-      phone: [<span class="hljs-string">&apos;123-456-7890&apos;</span>]
-  }
+                                <h1 id="log-purity">Log Purity</h1>
+<p><strong>Warning</strong>: The following is considered ivory tower territory.</p>
+<p>Many Functional programmers who work on feature teams (shipping software non-developer users use) believe that purity of logging is not worth it. They have a pragmatic view that side effects I outline here are not a big deal, and their ease of use and debugging &amp; monitoring gains far outweigh the risk of unknown side effects.</p>
+<p>That said, this book is about real world programming, and while the real world requires you as a programmer to make tough calls for the sake of pragmatism, like <a href="https://en.wikipedia.org/wiki/George_S._Patton" target="_blank">Patton</a> said:</p>
+<blockquote>
+<p>Take calculated risks. That is quite different from being rash.</p>
+</blockquote>
+<p>You need to be aware of the potential side effects that loggers can have before you write off their side effects as nothing to worry about.</p>
+<h2 id="logging-purity--side-effects">Logging Purity &amp; Side Effects</h2>
+<p>In production applications, especially the back-end, you&apos;ll use more sophisticated loggers. Logging has side effects. For example, <code>console.log</code> is noop in that it doesn&apos;t return a value:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result = <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;yo&quot;</span>)
+<span class="hljs-built_in">console</span>.log(result) <span class="hljs-comment">// undefined</span>
+</code></pre>
+<p>Now, while it doesn&apos;t technically have a side effect in JavaScript, it DOES have a side effect in the system it&apos;s running on. The console will output to standard out (stdout). This is a stream of text that the operating system, typically <code>syslog</code> on Unix/Linux based systems will manage and aggregate. Effectively your <code>console.log</code> is pushing text into this global text area. This is compounded when using Docker Containers or Serverless when you have distributed systems.</p>
+<p>If you are running Docker containers on Amazon&apos;s <a href="https://aws.amazon.com/ecs/" target="_blank">Elastic Container Service</a> (ECS), for example, you my have 3 of the same containers running at the same time, whether for scaling purposes or for each availability zone or both. When a <code>console.log</code> is run, all 3 are outputting to Docker logs, and in turn those are pushed to Amazon&apos;s <a href="https://aws.amazon.com/cloudwatch/" target="_blank">CloudWatch</a> or something like <a href="https://www.elastic.co/products/logstash" target="_blank">Logstash</a>. Same thing for running multiple <a href="https://aws.amazon.com/lambda/" target="_blank">Lambda</a> functions at the same time; same code, but different instances logging to the same place.</p>
+<p>You or your Ops team may have alarms setup to use these logs to help monitor the health of your infrastructure. Some of these alarms may be automated to destroy unhealthy infrastructure, and create new servers, send monitoring emails, send text messages to your team when infrastructure appears unhealthy, etc.</p>
+<p><code>console.log</code>: Destroying and recreating infrastructure as well as sending emails to Ops and text messages to your boss.</p>
+<p>As you can see, those are some huge side effects from a log.</p>
+<h2 id="logging-configurations">Logging Configurations</h2>
+<p>Loggers often have a variety of various configurations and outputs as well. For example, many log parsers expect JSON, and each log message in a single line. Those kind of logs are not really useable for local development so you&apos;ll turn developer friendly formatting on, like <code>prettyPrint</code> for <a href="https://github.com/pinojs/pino" target="_blank">pino</a>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> pino = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;pino&apos;</span>)
+<span class="hljs-keyword">const</span> log = pino({
+  prettyPrint: <span class="hljs-literal">true</span>
+})
+</code></pre>
+<p>Traditionally, you&apos;d use something like <a href="https://github.com/lorenwest/node-config" target="_blank">config</a> to determine if you&apos;re in a production environment.</p>
+<pre><code class="lang-javascript">...
+const config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;config&apos;</span>)
+<span class="hljs-keyword">const</span> log = pino({
+  prettyPrint: config.get(<span class="hljs-string">&apos;env&apos;</span>) === <span class="hljs-string">&apos;prod&apos;</span>
+})
+</code></pre>
+<p>Flipping a <code>Boolean</code> switch is a mutation with side effects. A more pure way is to create 2 different loggers; one for development/qa, and one for production.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getDevLogger = () =&gt; pino({ prettyPrint: <span class="hljs-literal">true</span> })
+<span class="hljs-keyword">const</span> getProdLogger = () =&gt; pino()
+</code></pre>
+<h2 id="streams-and-exponential-side-effects">Streams and Exponential Side Effects</h2>
+<p>Many loggers do more than just shuttle text. Some will take your <code>thing.logThis(&apos;message&apos;)</code> and send that same messages to multiple places in multiple formats. For example, the <a href="https://github.com/trentm/node-bunyan" target="_blank">Bunyan logger</a> allows you to create streams in the construction of the logger:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> log = bunyan.createLogger({
+    name: <span class="hljs-string">&apos;myapp&apos;</span>,
+    streams: [
+    {
+        level: <span class="hljs-string">&apos;info&apos;</span>,
+        stream: process.stdout
+    },
+    {
+        level: <span class="hljs-string">&apos;error&apos;</span>,
+        path: <span class="hljs-string">&apos;/var/tmp/myapp-error.log&apos;</span>
+    },
+    {
+        level: <span class="hljs-string">&apos;warn&apos;</span>,
+        stream: kafkaStream
+    }
+  ]
+})
+</code></pre>
+<p>Now whenever we do a <code>log.warn(&apos;oh n0es&apos;)</code>, it&apos;ll go to standard out, to a local text file, and to a <a href="https://kafka.apache.org/" target="_blank">Kafka</a> stream for auditing purposes. As above, these may change based on environment. These are also most likely going to have side effects, specifically writing to a file and sending a socket message with acknowledgement on a Kafka stream.</p>
+<h2 id="minimum-logging-side-effects">Minimum Logging Side Effects</h2>
+<p>How do you use those logger instances, though? In most dynamic languages, you can use those as closures or globals and even the Clojure developers consider that acceptable. However, you&apos;ve seen the side effects loggers can have: infrastructure changes, broken log/monitoring systems, file writing and sockets, oh my. I deployed our API code in prod with Pino&apos;s <code>prettyPrint</code> set to true, and it basically made the logs in ELK impossible to read. This meant if we had a production issue, I&apos;d have no idea why by using the logs and would have to look elsewhere. Huge deal.</p>
+<p>If you follow the Kent Beck model of TDD, you&apos;re probably also fine with these side effects being triggered in your unit tests instead of stubbing/mocking them. If, on the other hand you&apos;re still exploring an API&apos;s implementation details, learning, or tracking down a strange bug in your audit system, bringing as much purity to your logging layer can really put a capstone on the purity of your code base.</p>
+<p>It&apos;s also a royal pain in the neck, more so than <a href="part7/README.md">total functions</a>. As soon as the implementation of a child function changes, you&apos;ll need to ensure you include a logger for it in the function parameters.</p>
+<p>For example, here is a function that gets a user&apos;s email address and includes the logger as the first parameter:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getUserInformation = logger =&gt; request =&gt; userID =&gt;
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((success, failure) =&gt; {
+        logger.log(<span class="hljs-string">`Getting user information, userID: <span class="hljs-subst">${userID}</span>`</span>)
+        request.get(<span class="hljs-string">`/user/<span class="hljs-subst">${userID}</span>`</span>, (err, res, data) =&gt; {
+            <span class="hljs-keyword">if</span>(err) {
+                logger.error(err)
+                <span class="hljs-keyword">return</span> failure(err)
+            }
+            logger.log(<span class="hljs-string">`Get user information result: <span class="hljs-subst">${data}</span>`</span>)
+            success(data)
+        })
+    })
+</code></pre>
+<p>Here is a <code>sendEmail</code> function that utilizes it:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> logger = getProdLogger()
+
+<span class="hljs-keyword">const</span> sendEmail = request =&gt; userID =&gt; {
+    logger.log(<span class="hljs-string">`sendEmail for userID: <span class="hljs-subst">${userID}</span>`</span>)
+    getUserInformation(logger, request, userID)
+    .then(user =&gt; sendActualEmail(user.email)
 }
 </code></pre>
-<p>To focus a lens on the <code>name</code> property, we need to create a prop lens via <code>lensProp</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { lensProp } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;ramda&apos;</span>
-
-<span class="hljs-keyword">const</span> nameLens = lensProp(<span class="hljs-string">&apos;name&apos;</span>)
+<p>Notice the <code>getUserInformation</code> function to be pure takes in 3 parameters: the logger, request, and the userID. However, the <code>sendEmail</code> takes a pragmatic approach and uses the <code>logger</code> as a closure referenced variable... effectively having side effects. If you&apos;re being a purist, you have to change the <code>sendEmail</code> function signature to include the logger:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sendEmail = logger =&gt; request =&gt; userID =&gt; ...
 </code></pre>
-<p>Just like Ramda&apos;s <code>prop</code> or Lodash&apos; <code>get</code>, we can see what that lens reveals by passing it to <code>view</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., lensProp, view } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;ramda&apos;</span>
-...
-console.log(view(nameLens, person)) <span class="hljs-comment">// Jesse Warden</span>
+<p>Hopefully if it&apos;s a public method, you&apos;ve only exposed the partial application to prevent the changing of a public API:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+    sendEmail: sendEmail(<span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>))
+}
 </code></pre>
-<p>For the street, we&apos;ll need a path lens via <code>lensPath</code>, and pass that to <code>view</code> as well:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., lensPath } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;ramda&apos;</span>
-...
-const streetLens = lensPath([<span class="hljs-string">&apos;address&apos;</span>, <span class="hljs-string">&apos;street&apos;</span>])
-<span class="hljs-built_in">console</span>.log(view(streetLens, person)) <span class="hljs-comment">// 123 Cow Ville</span>
+<p>Changing it too:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+    sendEmail: sendEmail(logger, <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;request&apos;</span>))
+}
 </code></pre>
-<h2 id="set-with-lenses">Set With Lenses</h2>
-<p>Using our name lens, let&apos;s set the name via Ramda&apos;s <code>set</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., set } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;ramda&apos;</span>
-
-<span class="hljs-keyword">const</span> result = set(nameLens, <span class="hljs-string">&apos;Cow&apos;</span>, person)
-<span class="hljs-built_in">console</span>.log(result.name) <span class="hljs-comment">// Cow</span>
-<span class="hljs-built_in">console</span>.log(person.name) <span class="hljs-comment">// Jesse Warden</span>
-</code></pre>
-<p>Cool, just like Lodash&apos; <code>set</code>!</p>
-<p>Using the street lens should yield a similar result:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result = set(streetLens, <span class="hljs-string">&apos;21 Jump Street&apos;</span>, person)
-<span class="hljs-built_in">console</span>.log(result.address.street) <span class="hljs-comment">// 21 Jump Street</span>
-<span class="hljs-built_in">console</span>.log(person.address.street) <span class="hljs-comment">// 123 Cow Ville</span>
-</code></pre>
-<h2 id="modification-with-lenses">Modification With Lenses</h2>
-<p>Now that we know how to view our data with our lenses, and use them to set things they&apos;re focused on, let&apos;s use them to modify data we&apos;re focused on in an immutable way using pure functions. Instead of &quot;set it to this new value&quot;, we&apos;ll instead &quot;take the value that&apos;s there, put it into this function, and whatever comes out, set the new value to that result&quot;. Below will use our lens to run a function on the property and replace it with the value that function returns. It&apos;ll then give us a cloned Object back with the modification:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., over, toLower } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;ramda&apos;</span>
-
-<span class="hljs-keyword">const</span> result = over(nameLens, toLower, person)
-<span class="hljs-built_in">console</span>.log(result.name) <span class="hljs-comment">// jesse warden</span>
-<span class="hljs-built_in">console</span>.log(person.name) <span class="hljs-comment">// Jesse Warden</span>
-</code></pre>
-<p>In Lodash, the <code>set</code> will modify it with the value you give it. The <code>over</code> in this case will replace it with with whatever function you give it taking the current value as an input, and the output as the new value. Note that it&apos;s assumed the function you give it, in this case <code>toLower</code>, is a pure function.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>This is the basics of lenses. Whether you use Lodash&apos; <code>get</code> and <code>set</code>, or Ramda&apos;s <code>view</code> and <code>over</code>, you can start composing these later into bigger functions that loop over large amounts of data, safely, to view and modify it in a pure, immutable way.</p>
+<p>From my experience in the industry and talking to a variety of Haskell, Elm, PureScript, and Clojure programmers, with the exclusion of Haskell, most take a pragmatic approach to logging:</p>
+<ul>
+<li>they don&apos;t unit test their production logger, they just use it</li>
+<li>they don&apos;t mind it being a global/closure referenced variable</li>
+<li>they don&apos;t mind it having side effects even in their unit tests</li>
+</ul>
+<p>Just be aware OF those side effects to minimize the bad parts where you can, if they&apos;re applicable to you.</p>
 
                                 
                                 </section>
@@ -1192,12 +1242,12 @@ const streetLens = lensPath([<span class="hljs-string">&apos;address&apos;</span
 
             
                 
-                <a href="set.html" class="navigation navigation-prev " aria-label="Previous page: Set">
+                <a href="debugging.html" class="navigation navigation-prev " aria-label="Previous page: Tap">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="practice_big_json.md" class="navigation navigation-next " aria-label="Next page: Practice get with Big JSON">
+                <a href="../part10/" class="navigation navigation-next " aria-label="Next page: Part 10: Testing">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1208,7 +1258,7 @@ const streetLens = lensPath([<span class="hljs-string">&apos;address&apos;</span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Lenses","level":"1.3.5","depth":2,"next":{"title":"Practice get with Big JSON","level":"1.3.6","depth":2,"path":"part2/practice_big_json.md","ref":"part2/practice_big_json.md","articles":[]},"previous":{"title":"Set","level":"1.3.4","depth":2,"path":"part2/set.md","ref":"part2/set.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part2/lenses.md","mtime":"2019-03-10T15:35:56.115Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Logging vs Purity","level":"1.10.2","depth":2,"next":{"title":"Part 10: Testing","level":"1.11","depth":1,"path":"part10/README.md","ref":"part10/README.md","articles":[{"title":"Why We Use Stubs and Not Mocks","level":"1.11.1","depth":2,"path":"part10/stubs_and_mocks.md","ref":"part10/stubs_and_mocks.md","articles":[]},{"title":"Testing","level":"1.11.2","depth":2,"path":"part10/testing.md","ref":"part10/testing.md","articles":[]},{"title":"Predicate Property Testing","level":"1.11.3","depth":2,"path":"part10/property_testing.md","ref":"part10/property_testing.md","articles":[]}]},"previous":{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/debugging.md","ref":"part9/debugging.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/log_purity.md","mtime":"2019-03-10T18:30:14.897Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1152,7 +1152,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
 <p><strong>Synopsis</strong>: Implies you&apos;re ok with <code>this</code> and throwing exceptions. Don&apos;t use.</p>
 <h3 id="super">super</h3>
 <p><strong>Synopsis</strong>: Like <code>this</code>, avoid.</p>
-<p>The <code>super</code> keyword is for inheritance in Object Oriented Programming. Like <code>this</code> it is rife with breaking at various times. In dynamic languages, part of the power is affecting, at runtime, class/Object polymorphism. This power, however, can ensure pure functions have completely different outputs or errors without the function&apos;s inputs changing, thus changing the outputs, or having unforseen side effects from super-class implementations. Like <code>this</code>, avoid.</p>
+<p>The <code>super</code> keyword is for inheritance in Object Oriented Programming. Like <code>this</code> it is rife with breaking at various times. In dynamic languages, part of the power is affecting, at runtime, class/Object polymorphism. This power, however, can ensure pure functions have completely different outputs or errors without the function&apos;s inputs changing, thus changing the outputs, or having unforeseen side effects from super-class implementations. Like <code>this</code>, avoid.</p>
 <p>For front-end frameworks which utilize classes to encapsulate Graphical User Interface (GUI) state (i.e. pixels), it is unavoidable. There is a long history of using Object Oriented Programming for UI&apos;s. <a href="https://reactjs.org/" target="_blank">React</a> extends a Component class but encourages you to use Composition over Inheritance. <a href="https://angular.io" target="_blank">Angular</a> does the same using class decorators but thankfully often employs interfaces and compiler smarts. <a href="http://www.pixijs.com/" target="_blank">Pixi.js</a> uses a Sprite class to abstract away Canvas pixels.</p>
 <p>UI development in general commonly has a lot of side-effects, so do your best to keep most of your work in pure functions.</p>
 <h2 id="default-arguments">Default Arguments</h2>
@@ -1169,7 +1169,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
 <p><strong>Synopsis</strong>: Do not use <code>throw</code>. Instead, return the <code>Error</code> in an Object or an Algebraic Data Type that describes what we wrong, similar to Lua&apos;s <code>pcall</code> or Lua and Go&apos;s ability to return multiple return values.</p>
 <p>Errors are a challenging side effect. Not only do they prevent return values from even working, but occasionally, they can create situations where data, or the application itself, is in an unknown state vs crashing outright. This breaks the same output rule as well as the side effects rule.</p>
 <p>Throwing Errors is supposed to enable developers to read the stack trace to glean where the application broke. Not all stack traces are created equal, nor are they easy to quickly deduce what went wrong. JavaScript is notorious for having source maps that do not map to the source giving red herrings on top of badly written error messages which are red herrings. In imperative style code, you can &quot;find the line where things went wrong&quot;. In debugging functional code, you&apos;re interested in &quot;why did the function return an error instead of a success&quot;. In composed functions and programs, you&apos;re interested in &quot;where in this pipeline of functions did my data become wrong&quot;. You use imperative style logs, composed helper functions, or even breakpoints in a step debugger for those situations, not stack traces. We never want to intentionally break or crash an application. Instead, we want to clearly explain why a function returned an Error instead of our data.</p>
-<p>The exception is in Erlang/<a href="https://elixir-lang.org/" target="_blank">Elixir</a> or <a href="https://akka.io/" target="_blank">Akka</a> in Scala/Java where &quot;let it crash&quot; is the norm. You&apos;re more interested in application uptime than purity in those cases. For JavaScript, the equivalent is using <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> or <a href="https://www.docker.com/" target="_blank">Docker</a> on <a href="https://aws.amazon.com/ecs/" target="_blank">ECS</a> and any uncaught <a href="https://nodejs.org/api/process.html#process_event_uncaughtexception" target="_blank">sync</a> or <a href="https://nodejs.org/api/process.html#process_event_unhandledrejection" target="_blank">async</a> error means your application is in an unknonwn state, possibly impure, so you just nuke the entire process/container and get a new one. Since your application is supposedly stateless and uses immutable data, there is no worry about &quot;losing&quot; information as something like <a href="https://redis.io/" target="_blank">Redis</a> or your Database handles being the single source of truth and state.</p>
+<p>The exception is in Erlang/<a href="https://elixir-lang.org/" target="_blank">Elixir</a> or <a href="https://akka.io/" target="_blank">Akka</a> in Scala/Java where &quot;let it crash&quot; is the norm. You&apos;re more interested in application uptime than purity in those cases. For JavaScript, the equivalent is using <a href="http://pm2.keymetrics.io/" target="_blank">pm2</a> or <a href="https://www.docker.com/" target="_blank">Docker</a> on <a href="https://aws.amazon.com/ecs/" target="_blank">ECS</a> and any uncaught <a href="https://nodejs.org/api/process.html#process_event_uncaughtexception" target="_blank">sync</a> or <a href="https://nodejs.org/api/process.html#process_event_unhandledrejection" target="_blank">async</a> error means your application is in an unknown state, possibly impure, so you just nuke the entire process/container and get a new one. Since your application is supposedly stateless and uses immutable data, there is no worry about &quot;losing&quot; information as something like <a href="https://redis.io/" target="_blank">Redis</a> or your Database handles being the single source of truth and state.</p>
 <p>Serverless is the same way. While it might be tempting to <code>throw</code> since the function will only run for a few milliseconds/seconds anyway on disposable infrastructure, errors should be what they mean: your code is broken, you or your team needs to fix it. See <a href="../part6">Part 6 on Algebraic Data Types</a> for better return values for errors.</p>
 
                                 
@@ -1214,7 +1214,7 @@ add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <spa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"next":{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},"previous":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/not_allowed.md","mtime":"2019-03-03T21:31:59.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"What's Not Allowed","level":"1.2.6","depth":2,"next":{"title":"Practice Purity with Predicates","level":"1.2.7","depth":2,"path":"part1/practice_purity.md","ref":"part1/practice_purity.md","articles":[]},"previous":{"title":"Error Quest!","level":"1.2.5","depth":2,"path":"part1/error_quest.md","ref":"part1/error_quest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part1/not_allowed.md","mtime":"2019-03-10T00:28:10.049Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

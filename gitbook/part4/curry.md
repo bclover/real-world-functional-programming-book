@@ -7,7 +7,9 @@ Function currying was originally created to make functions easier to work in mat
 - create reusable functions from other functions
 - write in point free style
 - expose useful functions for developers using our code
-- make it easier to creat partial applications so you can more easily compose functions
+- make it easier to create partial applications so you can more easily compose functions
+
+// [jwarden 3.10.2019] Redo this section. It has some good parts, but needs a do-over.
 
 ## Manual Currying
 
@@ -72,7 +74,7 @@ console.log("wat the:", newFunctionCallWhoDis)
 //         )
 ```
 
-Cool, it's a function that takes a url and will make a request. Notice the `request` is nowhere to be found in the function arguments.
+Cool, it's a function that takes a url and will make a request. Notice the `request` is nowhere to be found in the function arguments. In dynamic languages, there's a trick to store variables that a function can access without defining them called "closures". You can read more about this in [Part 4 - Closures and Immutability](closures_and_immutability.md).
 
 Let's call that returned function:
 

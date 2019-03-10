@@ -4,27 +4,27 @@ Also, need to show how we can compose using Maybe to make better pipelines... pr
 
 # Maybe
 
-A Maybe is a data type that represents data either being there or not. It's used a lot when you are getting data from effects; loading data from a server, reading from a text file, or environment variables. It can also be used when you're asking for data that might not be there such as searching Array's or keys in Objects. We've covered `get` in [Part 3: get](part3/get.md) and `getOr` in [Part 5: Tacit Programming]. They are similar to a Maybe in practice; maybe this Object exists and has this property, and it isn't undefined... maybe not. Where `get` and `getOr` are functions that return data, Maybe is a type that holds data.
+A Maybe is a data type that represents data either being there or not. It's used a lot when you are getting data from effects; loading data from a server, reading from a text file, or environment variables. It can also be used when you're asking for data that might not be there such as searching Array's or keys in Objects. We've covered `get` in [Part 3: get](../part3/get.md) and `getOr` in [Part 5: Tacit Programming](../part5/tacit_programming.md). They are similar to a `Maybe` in practice; maybe this Object exists and has this property, and it isn't `undefined`... maybe not. Where `get` and `getOr` are functions that return data, Maybe is a type that holds data.
 
-Let's import `get` from lodash/fp and `Maybe` from Folktale to compare them. Here we have a `config.json` that has a `serverURL` property. 
+Let's import `get` from lodash/fp and `Maybe` from Folktale to compare them. Here we have a `config.json` that has a `serverURL` property (`require` in Node will automatically attempt to `JSON.parse` a JSON file).
 
 ```javascript
 const { get } = require('lodash/fp')
 const Maybe = require('folktale/maybe')
 
-// { "serverURL": "http://cow.com" }
 const configFile = require('./config.json')
 console.log("configFile:", configFile)
+// { "serverURL": "http://cow.com" }
 ```
 
-The get will attempt to read the "serverURL" property from the parsed JSON:
+The `get` will attempt to read the "serverURL" property from the parsed JSON:
 
 ``` javascript
 // get
 const getServerURL = () =>
     get('serverURL', configFile)
 
-console.log(getServerURL())/
+console.log(getServerURL())
 // http://cow.com
 ```
 
@@ -79,6 +79,96 @@ console.log(getPingURLMaybe())
 // folktale:Maybe.Nothing({  })
 ```
 
+## Array and Object Access
+
+Depending on language, even with strong typing, you can't always ensure at runtime an `Array` or `Object` will have the value/key you need. Here's an Array with 3 items:
+
+```javascript
+const friends = ['Steven', 'Albus', 'Cow']
+```
+
+To get item 3, you go:
+```javascript
+friends[2]
+// Cow
+```
+
+What if you go item 4?
+
+```javascript
+friends[3]
+// undefined
+```
+
+What if you get item 3, but the `Array` is empty?
+
+```javascript
+const friends = []
+friends[2]
+// undefined
+```
+
+In [Part 2 - Getting and Setting Data](../part2/README.md), we showed you how using lenses allowed safer data access. However, you could still get `undefined`, and what we really wanted was "is data there or not"? That's where `Maybe` comes in. We'll create a wrapper function to get our data:
+
+```javascript
+const getFriend = index =>
+  friends[index]
+  ? Just(friends[index])
+  : Nothing()
+```
+
+Here's getting item 3 again:
+
+```javascript
+getFriend(2)
+// Just('Cow')
+```
+
+And the non-existent item 4:
+
+```javascript
+getFriend(3)
+// Nothing()
+```
+
+And the empty array:
+
+```javascript
+getFriend(2)
+// Nothing()
+```
+
+You can use the same technique for `Object`s as well. Here's a Player:
+
+```javascript
+const player = {
+  rightHand: 'scimitar',
+  leftHand: null
+}
+```
+
+Let's combine `get` and `Maybe` to determine if the player has a weapon equipped in her right hand:
+
+```javascript
+const rightHandEquipped = () =>
+  get('rightHand', player)
+  ? Just(player.rightHand)
+  : Nothing()
+  
+rightHandEquipped() // Just('scimitar')
+```
+
+And the left:
+
+```javascript
+const leftHandEquipped = () =>
+  get('leftHand', player)
+  ? Just(player.leftHand)
+  : Nothing()
+  
+leftHandEquipped() // Nothing()
+```
+
 ## Getting Data Out
 
 There are two ways in Folktale, `getOrElse` and `value`, but value isn't really a public function so use at your own risk (or for debbugging only). The `getOrElse` works like `getOr`; either give me the value, else if it's `undefined` or `null`, give me the default I provide.
@@ -95,7 +185,7 @@ console.log(pingURL) // http://localhost:3000/ping
 
 ## Chaining Maybes
 
-A Promise chain with a bunch of thens will continue modifying the data until the last then. A flow/compose chain will do the same thing. What a Promise chain, and a Maybe chain, have in common, however, is the abort concept. If any one of the Promises error, all the subsequent `then`'s aren't run, and the `catch` is fired with what rejected the chain. Maybe is similiar in that all returned `Just`'s will continue, but a returned `Nothing` will abort the chain.
+A Promise chain with a bunch of thens will continue modifying the data until the last then. A flow/compose chain will do the same thing. What a Promise chain, and a Maybe chain, have in common, however, is the abort concept. If any one of the Promises error, all the subsequent `then`'s aren't run, and the `catch` is fired with what rejected the chain. Maybe is similar in that all returned `Just`'s will continue, but a returned `Nothing` will abort the chain.
 
 Here's a chain of Promises that modify data on down the line:
 
@@ -148,7 +238,7 @@ console.log(
 // parsing failed, brah
 ```
 
-Just remember to return a `Maybe` to keep the chain going. A Promise is flexible in that you can return any value or a Promise; it supports both whereas `chain` only supports returning a `Maybe`.
+Just remember to return a `Maybe` to keep the chain going. A Promise is flexible in that you can return any value or a `Promise`; it supports both whereas `chain` only supports returning a `Maybe`.
 
 ## Changing The Value
 

@@ -21,7 +21,7 @@ const getNames = party => map(
 const getNames = map(get('name'))
 ```
 
-Those partial applications used in the lodash/fp exmple don't define their function parameters. Below, we compare the point style where they define the arguments, and point-free where they don't:
+Those partial applications used in the lodash/fp example don't define their function parameters. Below, we compare the point style where they define the arguments, and point-free where they don't, even when using lodash/fp:
 
 ```javascript
 // point style
@@ -54,7 +54,8 @@ There are 3 downsides to point-free, specific to dynamic languages:
 Do you know what `get`'s function signature is? And `map`'s? We've just covered it. How about `reduce` in lodash/fp instead of lodash? When you see `map(get('name'))`, you have to have memorized what the function signatures are for `get` and `map`. If you haven't, then you have to go look them up, else you don't understand the code. One could argue you have the same problem for any abstraction, but do you have to do the same for this?
 
 ```javascript
-const getName = object => get('name', object)
+const getName = object =>
+  get('name', object)
 const getNamesFromListOfObjects = party =>
     map(
         member => getName(member),
@@ -62,13 +63,13 @@ const getNamesFromListOfObjects = party =>
     )
 ```
 
-None of those functions are needed using lodash/fp, but we used them to be more clear. So you don't have to memorize the function signatures, nor force those reading your code to memorize them too. You don't have to think because the functions clearly list their function arguments, and use adjectives to give you hints as to what they are and what they might return.
+None of those functions are needed using lodash/fp, but we used them to be more clear in what the code does. So you don't have to memorize the function signatures, nor force those reading your code to memorize them too. You don't have to think because the functions clearly list their function arguments, and use adjectives to give you hints as to what they are and what they might return. In dynamic languages where there are no types to help you and intellisense in your IDE is of varying quality, being verbose like this can lead to much more readable code.
 
 Let's give a few more examples to see if you like it or not. Sometimes you'll just have to pick and choose where you use it.
 
 ## Validating Data
 
-Let's validate data using lodash/fp in a point and point-free styles so we can contrast them. Validating data in dynamic languages typically is saying "does it look like the Object I want?" Unlike typed languages where "it must be this type" whether at compile time or runtime, in dynamic languages, you're like "if it has a `then`, it's probably something that that acts like a Promise, so we can treat it like one in our system; good enough for government work!"
+Let's validate data using lodash/fp in a point and point-free styles so we can contrast them. Validating data in dynamic languages typically is saying "does it look like the Object I want?" Unlike typed languages where "it must be this type" whether at compile time or runtime, in dynamic languages, you're like "if it has a `then`, it's probably something that that acts like a Promise, so we can treat it like one in our system; good enough for government work!". You'll do this a lot when parsing data in API's.
 
 Our data:
 
@@ -141,7 +142,8 @@ We can instead use `getOr` to say "Maybe there is a value there... if it is, gre
 ```javascript
 import { getOr } from 'lodash/fp'
 
-const getPersonType = person => getOr('unknown', 'type', person)
+const getPersonType = person =>
+  getOr('unknown', 'type', person)
 ```
 
 Or point-free:
@@ -214,7 +216,7 @@ const filterHumans =
 
 ### isEqual
 
-Almost all operators in JavaScript have equivalent pure function versions of them in lodash/fp. Operators work well and should not be avoided, but they do not compose as well as functions do. The `isEqual` is like `===`, just a function. We can replace the `thing === 'human'` with `isEqual`:
+Almost all operators in JavaScript have equivalent pure function versions of them in lodash/fp. Operators work well and should used, but they do not compose as well as functions do. The `isEqual` is like `===`, just a function. We can replace the `thing === 'human'` with `isEqual`:
 
 ```javascript
 // point style
@@ -239,7 +241,7 @@ Great, one function left.
 
 ### Flow
 
-However, you see the nesting up there? The `equalsHuman(getTypeOrUnknown(person))` part. Once you have 2 or more functions nested like this, you can break them into a line using `flow`. It allows you to compose functions into a chain or set of pipes, just like Promises do, but synchronously. Don't worry if this is hard to grok, we've devoted an entire section to flow in [composing functions](composing_functions.md) in this chapter.
+However, you see the nesting up there? The `equalsHuman(getTypeOrUnknown(person))` part. Once you have 2 or more functions nested like this, you can break them into a line using `flow`. It allows you to compose functions into a chain or set of pipes, just like Promises do, but synchronously. See the previous chapter [composing functions](composing_functions.md) for a refresh on how `flow` works.
 
 To make the filter predicate point-free, we have to remove that `person` parameter. The only way to do that is to write a function that wraps `equalsHuman` and `getTypeOrUnknown`:
 
@@ -270,4 +272,4 @@ const filterHumans = filter(isHuman)
 
 ## Conclusions
 
-Point-free style can significantly reduce the amount of code you have to write, and often happens when you use a lot of partial applications. The cost is increased cognitive load: it makes you think more when reading it. Most of what we you do as a programmer is read code, not write it. That's why some people call point-free programming "pointless programming".
+Point-free style can significantly reduce the amount of code you have to write, and often happens when you use a lot of partial applications. The cost is increased cognitive load: it makes you think more when reading it unless you abstract it. Most of what we you do as a programmer is read code, not write it. That's why some people call point-free programming "pointless programming".

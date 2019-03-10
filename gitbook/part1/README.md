@@ -8,7 +8,7 @@ They are also surprisingly flexible in their application despite their definitio
 
 Making your code knowingly less pure is **fine**. This will build trust currency with the Pragmatists. At first you won't have a choice because you won't know any better. Later once you're skilled, you'll recognize the pain and time it'll take to follow the rules and make the right call that it's not worth it. Calling this technical debt in code review doesn't always fly, though, as sometimes the library author or team has their own level of purity they're willing to go. Sometimes libraries and techniques simply don't exist or are not ready to use yet, such as Hooks in React version 16.8, but your team is using version <16.7. Your team must use `classes` which have side effects instead of `functions`.
 
-The level of purity you should do is like doing Yoga. You should feel the stretch, but it shouldn't hurt. In the beginning though, evertyhing hurts, heh! That's ok. Your brain is a muscle, too, it can grow stronger through consistent practice.
+The level of purity you should do is like doing Yoga. You should feel the stretch, but it shouldn't hurt. In the beginning though, everything hurts, heh! That's ok. Your brain is a muscle, too, it can grow stronger through consistent practice.
 
 # What We'll Cover
 

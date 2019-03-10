@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,9 +1111,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="creating-a-custom-lens">Creating a Custom Lens</h1>
+<p>// [jwarden 3.10.2019] TODO/FIXME: I found this a bit hard to follow coming back after a couple months. We should probably run the code as you write it.</p>
 <p>Using this basic isomorphism concept and the <code>compose</code> function, you can combine the reading and writing of the file together to its own lens. While a <code>Buffer</code> that comes from reading a file, turned into <code>String</code>, then an <code>Object</code>, then back again is also an isomorphism, we need some information about the original Object so we&apos;ll just create a custom lens.</p>
 <h2 id="lens-function-getter">Lens Function: Getter</h2>
-<p>Like <code>iso</code>, a <code>lens</code> function&apos;s first parameter is a getter, and the function&apos;s signature is basically a reducer; take in some data as a single parameter, return some transformed data. The <code>readFileSync</code> is straightforward; if you give it a filename, it&apos;ll return the contents of that file, hence we just give it the function as the first parameter:</p>
+<p>Like <code>iso</code>, a <code>lens</code> function&apos;s first parameter is a getter, and the function&apos;s signature is basically a <code>map</code> function; take in some data as a single parameter, return some transformed data. The <code>readFileSync</code> is straightforward; if you give it a filename, it&apos;ll return the contents of that file, hence we just give it the function as the first parameter:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { ..., lens } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;focused&apos;</span>
 
 <span class="hljs-keyword">const</span> fileLens = lens(
@@ -1130,7 +1131,7 @@
     (data, originalData) =&gt; writeFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>, data)
 )
 </code></pre>
-<p>Better, but one problem; the setter part of the lens is supposed to be a reducer and return what it set. Since <code>writeFileSync</code> is mainly about side effects, specifically writing the file, it doesn&apos;t return anything and throws if it fails. Very imperative and not what we need. Let&apos;s modify it and just return the data you wrote for now. Since <code>writeFileSync</code> always returns <code>undefined</code>, the short circuit <code>||</code> will always return <code>data</code>.</p>
+<p>Better, but one problem; the setter part of the lens is supposed to be a <code>map</code> function and return what it set. Since <code>writeFileSync</code> is mainly about side effects, specifically writing the file, it doesn&apos;t return anything and throws if it fails. Very imperative and not what we need. Let&apos;s modify it and just return the data you wrote for now. Since <code>writeFileSync</code> always returns <code>undefined</code>, the short circuit <code>||</code> will always return <code>data</code>.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fileLens = iso(
     readFileSync,
     (data, originalData) =&gt; writeFileSync(<span class="hljs-string">&apos;savedgame.json&apos;</span>, data) || data
@@ -1248,7 +1249,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Custom Lens","level":"1.9.4","depth":2,"next":{"title":"Part 9: Debugging","level":"1.10","depth":1,"path":"part9/README.md","ref":"part9/README.md","articles":[{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/debugging.md","ref":"part9/debugging.md","articles":[]},{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/logging_purity.md","ref":"part9/logging_purity.md","articles":[]}]},"previous":{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/custom_lens.md","mtime":"2018-11-26T00:25:40.801Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Custom Lens","level":"1.9.4","depth":2,"next":{"title":"Part 9: Debugging","level":"1.10","depth":1,"path":"part9/README.md","ref":"part9/README.md","articles":[{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/debugging.md","ref":"part9/debugging.md","articles":[]},{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/log_purity.md","ref":"part9/log_purity.md","articles":[]}]},"previous":{"title":"Composing Lenses","level":"1.9.3","depth":2,"path":"part8/composing_lenses.md","ref":"part8/composing_lenses.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part8/custom_lens.md","mtime":"2019-03-10T18:09:12.927Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

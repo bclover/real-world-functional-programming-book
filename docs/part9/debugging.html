@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="logging_purity.md" />
+    <link rel="next" href="log_purity.html" />
     
     
     <link rel="prev" href="./" />
@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="log_purity.html">
             
-                <span>
+                <a href="log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,7 +1111,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="debugging">Debugging</h1>
-<p>Debugging Functional code is a bit different than imperative or Object Oriented code. Your primary means of debugging in imperative and Object Oriented code is exceptions, stack traces, and step debuggers. For functional programming, you often don&apos;t have access to the implementation details. That said, you can still use both.</p>
+<p>// [jwarden 3.10.2019] TODO: add async tap example and Validation tap example.</p>
+<p>Debugging Functional code is a bit different than imperative or Object Oriented code. Your primary means of debugging in procedural and Object Oriented code is exceptions, stack traces, and step debuggers. For functional programming, you often don&apos;t have access to the implementation details. That said, you can still use both.</p>
 <h2 id="imperative-debugging">Imperative Debugging</h2>
 <p>In imperative and OOP, you&apos;ll have lines of code that you can set breakpoints or logs on to figure out &quot;what&apos;s going on inside&quot;:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { startCase } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;lodash&apos;</span>
@@ -1153,7 +1154,7 @@ fixedName: Warden, Jesse
 Warden, Jesse
 </code></pre>
 <p>W00t!</p>
-<h2 id="functional-debugging-the-cop-out">Functional Debugging: The Cop Out</h2>
+<h2 id="functional-debugging-the-cop-out">Functional Debugging: The Cop-Out</h2>
 <p>Let&apos;s do the same thing using a <code>Promise</code> chain:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
     <span class="hljs-built_in">Promise</span>.resolve(name)
@@ -1162,7 +1163,7 @@ Warden, Jesse
     .then(list =&gt; [list[<span class="hljs-number">0</span>], startCase(list[<span class="hljs-number">1</span>])])
     .then(list =&gt; <span class="hljs-string">`<span class="hljs-subst">${list[2]}</span>, <span class="hljs-subst">${list[0]}</span>`</span>)
 </code></pre>
-<p>As you start to learn, it&apos;s ok to do the cop out; i.e. going back to imperative. The only bad thing about this method is you&apos;re changing the function itself by effectively re-writing it. Still, I recommend it to get comfortable writing no <code>{}</code> in your code. It can be a bit of a pain matching up the braces <code>{}</code> and parenthesis <code>()</code> without compiler help as there are cases where you can misplace them and not get errors.</p>
+<p>As you start to learn, it&apos;s ok to do the cop-out; i.e. going back to imperative. The only bad thing about this method is you&apos;re changing the function itself by effectively re-writing it. Still, I recommend it to get comfortable writing no <code>{}</code> in your code. It can be a bit of a pain matching up the braces <code>{}</code> and parenthesis <code>()</code> without compiler help as there are cases where you can misplace them and get errors at runtime that aren&apos;t helpful.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fixName = name =&gt;
     <span class="hljs-built_in">Promise</span>.resolve(name)
     .then(name =&gt; name.split(<span class="hljs-string">&apos; &apos;</span>))
@@ -1263,7 +1264,7 @@ done: <span class="hljs-literal">undefined</span>, Jesse
                 </a>
                 
                 
-                <a href="logging_purity.md" class="navigation navigation-next " aria-label="Next page: Logging vs Purity">
+                <a href="log_purity.html" class="navigation navigation-next " aria-label="Next page: Logging vs Purity">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1274,7 +1275,7 @@ done: <span class="hljs-literal">undefined</span>, Jesse
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Tap","level":"1.10.1","depth":2,"next":{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/logging_purity.md","ref":"part9/logging_purity.md","articles":[]},"previous":{"title":"Part 9: Debugging","level":"1.10","depth":1,"path":"part9/README.md","ref":"part9/README.md","articles":[{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/debugging.md","ref":"part9/debugging.md","articles":[]},{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/logging_purity.md","ref":"part9/logging_purity.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/debugging.md","mtime":"2019-01-20T17:33:47.388Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Tap","level":"1.10.1","depth":2,"next":{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/log_purity.md","ref":"part9/log_purity.md","articles":[]},"previous":{"title":"Part 9: Debugging","level":"1.10","depth":1,"path":"part9/README.md","ref":"part9/README.md","articles":[{"title":"Tap","level":"1.10.1","depth":2,"path":"part9/debugging.md","ref":"part9/debugging.md","articles":[]},{"title":"Logging vs Purity","level":"1.10.2","depth":2,"path":"part9/log_purity.md","ref":"part9/log_purity.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part9/debugging.md","mtime":"2019-03-10T18:23:58.843Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

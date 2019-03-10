@@ -905,9 +905,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../part9/logging_purity.md">
+        <li class="chapter " data-level="1.10.2" data-path="../part9/log_purity.html">
             
-                <span>
+                <a href="../part9/log_purity.html">
             
                     
                     Logging vs Purity
@@ -981,12 +981,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="../part10/">
+        <li class="chapter " data-level="1.12" data-path="../part11/README.md">
             
-                <a href="../part10/">
+                <span>
             
                     
-                    Part 10: Working With Others
+                    Part 11: Working With Others
             
                 </a>
             
@@ -995,7 +995,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.12.1" data-path="../part10/heed_the_warnings.md">
+        <li class="chapter " data-level="1.12.1" data-path="../part11/heed_the_warnings.md">
             
                 <span>
             
@@ -1008,7 +1008,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.2" data-path="../part10/imperatives.md">
+        <li class="chapter " data-level="1.12.2" data-path="../part11/imperatives.md">
             
                 <span>
             
@@ -1021,7 +1021,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.3" data-path="../part10/oop.md">
+        <li class="chapter " data-level="1.12.3" data-path="../part11/oop.md">
             
                 <span>
             
@@ -1034,7 +1034,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12.4" data-path="../part10/safe_advice.md">
+        <li class="chapter " data-level="1.12.4" data-path="../part11/safe_advice.md">
             
                 <span>
             
@@ -1111,16 +1111,16 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="closures-and-immutability">Closures And Immutability</h1>
-<p>A closure is an function that encloses something. Everytime a function is created, it creates a closure, and each has rules about what scope it can and cannot access. Many seasoned dynamic language developers know about scope and closures. We&apos;re covering it here because it can help in immutability, violate it, and is the way in which we create curried functions.</p>
+<p>A closure is an function that encloses something. Every time a function is created, it creates a closure, and each has rules about what scope it can and cannot access. We&apos;re covering it here because it can help in immutability, violate it, and is the way in which we create curried functions.</p>
 <h2 id="basic-closure">Basic Closure</h2>
 <p>The function below returns a function. That function uses the closure it was defined in to access <code>message</code> so it can log it out. It&apos;s private, no one else can modify that message variable, or affect the behavior of the returned function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sup = () =&gt; {
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getHelloFunction = () =&gt; {
     <span class="hljs-keyword">const</span> message = <span class="hljs-string">&quot;hey&quot;</span>
     <span class="hljs-keyword">return</span> () =&gt; <span class="hljs-built_in">console</span>.log(message)
 }
 </code></pre>
 <p>To use it:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sayHey = sup()
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sayHey = getHelloFunction()
 sayHey() <span class="hljs-comment">// hey</span>
 sayHey() <span class="hljs-comment">// hey</span>
 sayHey() <span class="hljs-comment">// hey</span>
@@ -1132,7 +1132,7 @@ sayHey() <span class="hljs-comment">// hey</span>
 <span class="hljs-keyword">const</span> ping = (request, url) =&gt;
     request.head(url)
 </code></pre>
-<p>However, it&apos;s a bit of a pain to supply <code>request</code> everytime:</p>
+<p>However, it&apos;s a bit of a pain to supply <code>request</code> every time:</p>
 <pre><code class="lang-javascript">ping(request, <span class="hljs-string">&apos;http://google.com&apos;</span>).then(log) <span class="hljs-comment">// It worked.</span>
 ping(request, <span class="hljs-string">&apos;http://jessewarden.com&apos;</span>).then(log) <span class="hljs-comment">// It worked.</span>
 </code></pre>
@@ -1205,7 +1205,7 @@ headURL(<span class="hljs-string">&apos;http://jessewarden.com&apos;</span>).the
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Closures And Immutability","level":"1.5.4","depth":2,"next":{"title":"Arity","level":"1.5.5","depth":2,"path":"part4/arity.md","ref":"part4/arity.md","articles":[]},"previous":{"title":"Partial Application","level":"1.5.3","depth":2,"path":"part4/partial_application.md","ref":"part4/partial_application.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/closures_and_immutability.md","mtime":"2019-01-20T16:29:50.316Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-04T00:18:25.421Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Closures And Immutability","level":"1.5.4","depth":2,"next":{"title":"Arity","level":"1.5.5","depth":2,"path":"part4/arity.md","ref":"part4/arity.md","articles":[]},"previous":{"title":"Partial Application","level":"1.5.3","depth":2,"path":"part4/partial_application.md","ref":"part4/partial_application.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"part4/closures_and_immutability.md","mtime":"2019-03-10T16:03:49.437Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-10T18:47:31.394Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

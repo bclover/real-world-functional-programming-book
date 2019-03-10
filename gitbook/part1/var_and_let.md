@@ -35,7 +35,7 @@ It's really easy and quick to create temporary `let` and `const` variables in a 
 
 ## Pure lets
 
-**Solution**: Follow the pure function rules and you're fine.
+**Solution**: Follow the pure function rule and you're fine.
 
 This behavior and style of writing is still encouraged. Many of us coming from Imperative backgrounds thinking in terms of "how" something should work vs. "what" should happen. If this mode of thinking is easier for you, then go for it! You can still write this way and keep things pure if you just follow the 2 rules. Let's take the above and make it mostly pure.
 

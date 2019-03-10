@@ -110,7 +110,7 @@ Using `reduce`:
 
 Reduce: Take an Array of things in as well as an accumulator, give the current value of the accumulator and the current item in the Array to the reduce function, whatever that function returns will be set as the new value for the accumulator. Whatever the accumulator value is after the last item in the Array has been iterated over, that's what is returned from the function. The `reduce` function expects a pure reducer function, and is itself a pure function.
 
-It's called "accumulator" because it's assumed to accumlate, or "collect" values over time, but that isn't always the case. You can return whatever you want from your `reducer` function.
+It's called "accumulator" because it's assumed to accumulate, or "collect" values over time, but that isn't always the case. You can return whatever you want from your `reducer` function.
 
 Unlike `map` and `filter`, the `reduce` function can take long while to wrap your head around. 
 
