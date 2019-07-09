@@ -104,7 +104,7 @@ isCow() // true
 isCow() // true
 ```
 
-However, if we change the freind variable to a chicken, and then call it, we get a `false` back:
+However, if we change the friend variable to a chicken, and then call it, we get a `false` back:
 
 ```javascript
 friend = '🐮'
