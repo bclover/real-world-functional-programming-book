@@ -74,7 +74,7 @@ We'll still follow the first rule of same input, same output.
 
 ## Outside Effects
 
-Side effects can be both outside and inside. Below is a function with NO inputs can still be affected by things happening outside of the function.
+Side effects can be both outside and inside. Below is a function with NO inputs, but notice how it can still be affected by things happening outside of the function!
 
 ### Impure isCow
 
