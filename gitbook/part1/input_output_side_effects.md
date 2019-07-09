@@ -117,7 +117,7 @@ isCow() // false
 isCow() // false
 ```
 
-Even with no inputs, this function still fails to follow the rules of same input, same output. Even no input, it still returns a different value because it's affected by "effects", or a variable changing, outside of itself that effects it.
+Even with no inputs, this function still fails to follow the rules of same input, same output. Even with no input, it still returns a different value because it's affected by "effects", or a variable changing, outside of itself.
 
 ### Pure isCow
 
