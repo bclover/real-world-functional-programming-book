@@ -199,7 +199,7 @@ const validateAlotOfData = data =>
 
 Note in the above, we don't care about the details of a successful validation. If it validated, that's good enough for us, no need to care about the value so we just use `_` to imply it's there.
 
-For [Underscore](https://underscorejs.org/) or [Lodash](https://lodash.com/) fans, this can be confusing and imply you're passing the Lodash object as a parameter. We're not, we simply are saying there is an argument here, but we don't care about it and have no intention to use it.
+For [Underscore](https://underscorejs.org/) or [Lodash](https://lodash.com/) fans, this can be confusing and imply you're passing the Lodash object as a parameter. We're not, we are simply saying there is an argument here, but we don't care about it and have no intention to use it.
 
 In `Elixir` and `Elm`, it can have double meanings such as "I don't care" or "everything else, catch all, the default". For example, here is an Elixir case statement interpreting some command-line input:  
 
