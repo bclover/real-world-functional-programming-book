@@ -38,7 +38,7 @@ Languages like JavaScript, Python, Go, and Java are languages you can get a job 
 
 Just like I'm currently suffering at my job learning and using [Go](https://golang.org/) #datEntitlement. Despite the tagline "more jobs than available candidates", it's hard enough to get a job in software, even if you have a job already. It's even harder when you learn a non-popular programming style and a non-popular language.
 
-It would disingenuous to teach you something knowing it would hurt your career.
+It would be disingenuous to teach you something knowing it would hurt your career.
 
 Therefore, this guide is meant to teach you concepts you can use to benefit your current work in "normal" programming languages as well as ensuring you still can get a job "using Java" if you wish. Part of the skill, and challenge, of using FP in the current climate is co-existing with non-functional programmers in non-functional programming languages. The good news is that JavaScript, Python, and other dynamic languages have all you need built into the language to start programming FP while co-existing with code that isn't FP. Even strongly typed class ones like Java, C#, and Go do as well.
 
@@ -46,7 +46,7 @@ Therefore, this guide is meant to teach you concepts you can use to benefit your
 
 This book will teach you all you need to know to start using Functional Programming in the code you write in your day to day job. We will cover all the basics, what to practice to get better, and how to compose entire programs using just functions. Lastly, we'll give you various strategies for easing it into existing codebases and teams. We'll cover it from both perspectives; back-end where you build API's and front end where you build UI's. This includes some attitude changes around the various ways of testing.
 
-While our examples are in dynamic, interpreted languages like [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [Python](https://www.python.org/), and [Lua](https://www.lua.org/), you can use in any language that has functions with inputs, outputs, and higher order functions. We'll show examples from other languages that help corroborate existing concepts such as [Go](https://golang.org/) error handling and [Elixir](https://elixir-lang.org/) matching syntax.
+While our examples are in dynamic, interpreted languages like [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [Python](https://www.python.org/), and [Lua](https://www.lua.org/), you can use any language that has functions with inputs, outputs, and higher order functions. We'll show examples from other languages that help corroborate existing concepts such as [Go](https://golang.org/) error handling and [Elixir](https://elixir-lang.org/) matching syntax.
 
 ## Assumed Knowledge
 
